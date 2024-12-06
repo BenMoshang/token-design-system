@@ -1,0 +1,80 @@
+// Typography Scale System
+// Using the Golden Ratio (~1.618)
+$type-scale-ratio: 1.618;
+$base-font-size: 1rem;
+
+// Generate font sizes using the golden ratio
+$font-sizes: (
+  'xs': $base-font-size / ($type-scale-ratio * 1.1),
+  'sm': $base-font-size / $type-scale-ratio,
+  'base': $base-font-size,
+  'lg': $base-font-size * $type-scale-ratio,
+  'xl': $base-font-size * ($type-scale-ratio * $type-scale-ratio),
+  '2xl': $base-font-size * ($type-scale-ratio * $type-scale-ratio * $type-scale-ratio),
+  '3xl': $base-font-size * ($type-scale-ratio * $type-scale-ratio * $type-scale-ratio * $type-scale-ratio)
+);
+
+// Font Families
+$font-primary: 'Inter Tight', sans-serif;
+$font-secondary: 'Instrument Sans', sans-serif;
+$font-serif: 'Times New Roman', serif;
+
+// Font Weights
+$font-weights: (
+  'light': 300,
+  'regular': 400,
+  'medium': 500,
+  'semibold': 600,
+);
+
+// Line Heights
+$line-heights: (
+  'tight': 1.2,
+  'snug': 1.375,
+  'normal': 1.5,
+  'relaxed': 1.625,
+  'loose': 2
+);
+
+// Letter Spacing
+$letter-spacing: (
+  'tight': -0.05em,
+  'snug': -0.025em,
+  'normal': 0,
+  'relaxed': 0.05em
+);
+
+// Spacing Scale System
+// Using the golden ratio for consistency
+$spacing-scale-ratio: 1.618;
+$base-spacing: 1rem;
+
+// Generate spacing values using the golden ratio
+$spacing: (
+  '3xs': $base-spacing / ($spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio),
+  '2xs': $base-spacing / ($spacing-scale-ratio * $spacing-scale-ratio),
+  'xs': $base-spacing / $spacing-scale-ratio,
+  'sm': $base-spacing,
+  'md': $base-spacing * $spacing-scale-ratio,
+  'lg': $base-spacing * ($spacing-scale-ratio * $spacing-scale-ratio),
+  'xl': $base-spacing * ($spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio),
+  '2xl': $base-spacing * ($spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio),
+  '3xl': $base-spacing * ($spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio)
+);
+
+// Utility functions
+@function get-font-size($size) {
+  @return map-get($font-sizes, $size);
+}
+
+@function get-spacing($size) {
+  @return map-get($spacing, $size);
+}
+
+@function get-line-height($height) {
+  @return map-get($line-heights, $height);
+}
+
+@function get-font-weight($weight) {
+  @return map-get($font-weights, $weight);
+}
