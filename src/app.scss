@@ -1,0 +1,250 @@
+
+
+@use './lib/ScssPartials/_scaling-variables.scss' as *;
+@use './lib/ScssPartials/_my-modern-theme.scss' as m;
+@use './lib/ScssPartials/_web-2.0-theme.scss' as w;
+/* Define all layers in order. 
+   By listing them at the top, we ensure a predictable cascade.
+   The first layer defined is the lowest priority, while the last has the highest. */
+   @layer reset, base, theme, layout, components, utilities, overrides;
+
+   
+
+:global(:root) {
+  --color-primary: #{m.$color-primary};
+  
+	/*==========================================
+		FONTS
+	==========================================*/
+	/*-------font sizes-------*/
+	@each $name, $size in $font-sizes {
+		--fsz-#{$name}: #{$size};
+	  }
+	
+	/*-------font families-------*/
+	--ff-bold: #{$font-primary};
+	--ff-regular: #{$font-secondary};
+	--ff-old: #{$font-serif};
+	
+	/*-------font weights-------*/
+	@each $name, $weight in $font-weights {
+		--fw-#{$name}: #{$weight};
+	  }
+	
+	/*-------line heights-------*/
+	@each $name, $height in $line-heights {
+		--lh-#{$name}: #{$height};
+	  }
+
+	/*-------letter spacing-------*/
+	@each $name, $spacing in $letter-spacing {
+		--ls-#{$name}: #{$spacing};
+	  }
+
+		/*==========================================
+		Spacing
+	==========================================*/
+	/*-------spacing-------*/
+	@each $name, $space in $spacing {
+		--spacing-#{$name}: #{$space};
+	  }
+}
+
+
+@font-face {
+	font-family: 'Inter Tight';
+	src: url('./lib/fonts/InterTight-VariableFont.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Instrument Sans';
+	src: url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Times New Roman';
+	src: local('Times New Roman');
+	font-display: swap;
+}
+
+  /*--------------------------------------
+	 BASE LAYER
+	 - Global element-level styles.
+  ---------------------------------------*/
+  @layer base {
+	*,
+	*::before,
+	*::after {
+	  box-sizing: border-box;
+	  hyphens: auto;
+	  -webkit-hyphens: auto;
+	}
+  
+
+  }
+  
+  
+  /*--------------------------------------
+	 THEME LAYER
+	 - Variables, colors, spacing, fonts.
+  ---------------------------------------*/
+  @layer theme {
+
+  }
+  
+  
+  /*--------------------------------------
+	 LAYOUT LAYER
+	 - Global layout patterns and responsive 
+	   containers (e.g., wrappers, grids).
+  ---------------------------------------*/
+  @layer layout {
+
+  }
+  
+  
+  /*--------------------------------------
+	 COMPONENTS LAYER
+	 - Specific UI components styled here.
+  ---------------------------------------*/
+  @layer components {
+
+  }
+  
+  
+  /*--------------------------------------
+	 UTILITIES LAYER
+	 - Single-purpose classes to quickly 
+	   adjust spacing, alignment, text, etc.
+  ---------------------------------------*/
+  @layer utilities {
+
+  }
+  
+  
+  /*--------------------------------------
+	 OVERRIDES LAYER
+	 - High-level overrides and quick fixes.
+	   Use sparingly to fix unforeseen issues 
+	   without refactoring other layers.
+  ---------------------------------------*/
+  @layer overrides {
+
+  }
+  
+/*--------------------------------------
+   RESET LAYER 
+   - Neutralizes browser inconsistencies.
+---------------------------------------*/
+@layer reset {
+	/* Example: A simple CSS reset 
+	   (You can replace or expand this with a more extensive reset or normalize) */
+	html, body, p, h1, h2, h3, h4, h5, h6, ul, li {
+	  margin: 0; 
+	  padding: 0;
+	}
+
+
+
+/* Interactive Elements */
+button,
+[role="button"],
+select {
+  cursor: pointer;
+}
+
+/* Form Elements */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Typography */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+	img,
+	picture,
+	video,
+	canvas,
+	svg {
+	  max-inline-size: 100%;
+	  block-size: auto;
+	  vertical-align: middle;
+	  font-style: italic;
+	  background-repeat: no-repeat;
+	  background-size: cover;
+	  shape-margin: 1rem;
+	}
+	html,
+	body {
+	  width: 100vw;
+	  height: 100vh;
+	  overflow-x: hidden;
+	  scroll-behavior: smooth;
+	  -webkit-font-smoothing: antialiased;
+	  -moz-osx-font-smoothing: grayscale;
+	  text-rendering: optimizeSpeed;
+	  margin: 0;
+	  padding: 0;
+	  border: 0;
+	  box-sizing: border-box;
+	}
+	
+
+/* Tables */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+  }
+  
+  /* Blockquotes */
+  blockquote,
+  q {
+	quotes: none;
+  }
+  
+  blockquote::before,
+  blockquote::after,
+  q::before,
+  q::after {
+	content: "";
+  }
+  
+  /* Scrollbar Styles */
+  ::-webkit-scrollbar {
+	width: 0.5rem;
+  }
+  
+  ::-webkit-scrollbar-track {
+	background: white;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+	background-color: hsl(0, 0%, 53%);
+	border-radius: 0.625rem;
+	border: 0.125rem solid white;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+	background-color: hsl(0, 0%, 33%);
+  }
+  
+  ::-webkit-scrollbar-button {
+	display: none;
+  }
+
+
+  }
+  
+  
