@@ -1,1 +1,13 @@
 $color-primary: #2c3e50;
+
+
+/* Modern Theme */
+:global(body[data-theme='modern']) {
+    --background-color: #ffffff;
+    --text-color: #1a1a1a;
+    --button-bg: #0070f3;
+    --button-text: #ffffff;
+    --accent-color: #7928ca;
+    --border-radius: 0.5rem;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}

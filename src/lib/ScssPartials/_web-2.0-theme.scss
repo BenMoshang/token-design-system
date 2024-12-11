@@ -1,0 +1,10 @@
+/* Web 2.0 Theme */
+:global(body[data-theme='web2.0']) {
+    --background-color: #efefef;
+    --text-color: #333333;
+    --button-bg: #ff6b6b;
+    --button-text: #ffffff;
+    --accent-color: #4ecdc4;
+    --border-radius: 0.25rem;
+    --shadow: 0 2px 4px rgb(0 0 0 / 0.2);
+}

@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import HeroSection from "$lib/components/sections/Hero/HeroSection.svelte";
 </script>
 
 <svelte:head>
@@ -8,9 +9,7 @@
 		content="Refresh your web presence with our expert web development services tailored for B2B enterprises. Our agency specializes in creating modern, scalable, and innovative digital solutions to drive your business forward. Partner with us for expert web design, development, and digital marketing strategies that deliver measurable results."
 	/>
 </svelte:head>
-<h1 class="text-primary">Welcome to my site</h1>
-
-<p>This content will appear in the main section of the layout.</p>
+<HeroSection />
 
 <style lang="scss">
 	// .layout__main {

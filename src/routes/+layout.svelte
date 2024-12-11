@@ -1,6 +1,9 @@
-<script>
+<script lang="ts">
+
 	import Footer from '../lib/Layout/Footer.svelte';
 	import Header from '../lib/Layout/Header.svelte';
+
+
 </script>
 
 <Header />
