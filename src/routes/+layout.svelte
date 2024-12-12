@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import Footer from '../lib/Layout/Footer.svelte';
 	import Header from '../lib/Layout/Header.svelte';
 
@@ -12,9 +11,8 @@
 </main>
 <Footer />
 
-<style lang="scss">
-@use '../app.scss' as *;
 
+<style lang="scss">
 
 	.layout__main {
 		display: flex;
@@ -22,7 +20,9 @@
 		inline-size: 100%;
 		box-sizing: border-box;
 		margin: 0 auto;
-		gap: 1.875rem;
 		overflow: visible;
+
 	}
 </style>
+	
+

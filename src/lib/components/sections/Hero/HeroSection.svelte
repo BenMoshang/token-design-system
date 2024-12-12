@@ -7,9 +7,11 @@ import ThemeToggle from "$lib/components/ThemeToggle.svelte";
 
 <ThemeToggle />
 </section>
+<h1 class="primary">Hello World</h1>
 
 
 <style lang="scss">
+    
     @layer components {
         
     }

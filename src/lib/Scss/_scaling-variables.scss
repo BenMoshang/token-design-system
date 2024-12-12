@@ -13,11 +13,33 @@ $font-sizes: (
   '2xl': $base-font-size * ($type-scale-ratio * $type-scale-ratio * $type-scale-ratio),
   '3xl': $base-font-size * ($type-scale-ratio * $type-scale-ratio * $type-scale-ratio * $type-scale-ratio)
 );
+// Color System
+$colors: (
+  'primary': #2563eb,    // Vibrant blue
+  'secondary': #4f46e5,  // Deep purple
+  'accent': #10b981,     // Emerald green
+  'success': #22c55e,    // Green
+  'warning': #f59e0b,    // Amber
+  'error': #ef4444,      // Red
+  'info': #3b82f6,       // Blue
+  'gray': (
+    '50': #f9fafb,
+    '100': #f3f4f6,
+    '200': #e5e7eb, 
+    '300': #d1d5db,
+    '400': #9ca3af,
+    '500': #6b7280,
+    '600': #4b5563,
+    '700': #374151,
+    '800': #1f2937,
+    '900': #111827
+  ),
+  'surface': (
+    'light': #ffffff,
+    'dark': #18181b
+  )
+);
 
-// Font Families
-$font-primary: 'Inter Tight', sans-serif;
-$font-secondary: 'Instrument Sans', sans-serif;
-$font-serif: 'Times New Roman', serif;
 
 // Font Weights
 $font-weights: (

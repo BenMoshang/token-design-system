@@ -1,8 +1,48 @@
+@forward 'scaling-variables' ;
 
 
-@use './lib/ScssPartials/_scaling-variables.scss' as *;
-@use './lib/ScssPartials/_my-modern-theme.scss' as m;
-@use './lib/ScssPartials/_web-2.0-theme.scss' as w;
+  /*==========================================
+    FONT IMPORTS
+  ==========================================*/
+  /* Montserrat */
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat-Light.woff2') format('woff2'),
+         url('/fonts/Montserrat-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat-Regular.woff2') format('woff2'),
+         url('/fonts/Montserrat-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat-Medium.woff2') format('woff2'),
+         url('/fonts/Montserrat-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat-SemiBold.woff2') format('woff2'),
+         url('/fonts/Montserrat-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+// Font families
+$ff-primary: 'Montserrat', sans-serif, system-ui;
+// $ff-secondary: 'Roboto', sans-serif;
 /* Define all layers in order. 
    By listing them at the top, we ensure a predictable cascade.
    The first layer defined is the lowest priority, while the last has the highest. */
@@ -10,63 +50,10 @@
 
    
 
-:global(:root) {
-  --color-primary: #{m.$color-primary};
-  
-	/*==========================================
-		FONTS
-	==========================================*/
-	/*-------font sizes-------*/
-	@each $name, $size in $font-sizes {
-		--fsz-#{$name}: #{$size};
-	  }
-	
-	/*-------font families-------*/
-	--ff-bold: #{$font-primary};
-	--ff-regular: #{$font-secondary};
-	--ff-old: #{$font-serif};
-	
-	/*-------font weights-------*/
-	@each $name, $weight in $font-weights {
-		--fw-#{$name}: #{$weight};
-	  }
-	
-	/*-------line heights-------*/
-	@each $name, $height in $line-heights {
-		--lh-#{$name}: #{$height};
-	  }
-
-	/*-------letter spacing-------*/
-	@each $name, $spacing in $letter-spacing {
-		--ls-#{$name}: #{$spacing};
-	  }
-
-		/*==========================================
-		Spacing
-	==========================================*/
-	/*-------spacing-------*/
-	@each $name, $space in $spacing {
-		--spacing-#{$name}: #{$space};
-	  }
+   .primary{
+	font-family: $ff-primary;
 }
 
-
-@font-face {
-	font-family: 'Inter Tight';
-	src: url('./lib/fonts/InterTight-VariableFont.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: 'Instrument Sans';
-	src: url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'Times New Roman';
-	src: local('Times New Roman');
-	font-display: swap;
-}
 
   /*--------------------------------------
 	 BASE LAYER

@@ -10,8 +10,7 @@
 	/>
 </svelte:head>
 <HeroSection />
-
-<style lang="scss">
+<style global lang="scss">
 	// .layout__main {
 	// 	display: flex;
 	// 	flex-direction: column;
@@ -24,9 +23,6 @@
 	// 	overflow: visible;
 	// }
 
+	
 
-
-.text-primary {
-	color: var(--color-primary);
-}
 </style>
