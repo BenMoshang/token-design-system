@@ -1,0 +1,15 @@
+@use 'scaling.variables' as *;
+
+
+%global-display-text {
+    font-family: get-ff('primary');
+    font-weight: get-fw('semibold');
+    font-size: get-fsz('3xl');
+    line-height: get-lh('tight');
+    letter-spacing: get-ls('tight');
+    color: get-color('darkest');
+    text-align: left;
+    text-wrap: balance;
+  }
+  
+ 

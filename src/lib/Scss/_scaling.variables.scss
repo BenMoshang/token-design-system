@@ -1,3 +1,5 @@
+
+
 // Typography Scale System
 // Using the Golden Ratio (~1.618)
 $type-scale-ratio: 1.618;
@@ -13,34 +15,17 @@ $font-sizes: (
   '2xl': $base-font-size * ($type-scale-ratio * $type-scale-ratio * $type-scale-ratio),
   '3xl': $base-font-size * ($type-scale-ratio * $type-scale-ratio * $type-scale-ratio * $type-scale-ratio)
 );
-// Color System
-$colors: (
-  'primary': #2563eb,    // Vibrant blue
-  'secondary': #4f46e5,  // Deep purple
-  'accent': #10b981,     // Emerald green
-  'success': #22c55e,    // Green
-  'warning': #f59e0b,    // Amber
-  'error': #ef4444,      // Red
-  'info': #3b82f6,       // Blue
-  'gray': (
-    '50': #f9fafb,
-    '100': #f3f4f6,
-    '200': #e5e7eb, 
-    '300': #d1d5db,
-    '400': #9ca3af,
-    '500': #6b7280,
-    '600': #4b5563,
-    '700': #374151,
-    '800': #1f2937,
-    '900': #111827
-  ),
-  'surface': (
-    'light': #ffffff,
-    'dark': #18181b
-  )
+
+
+$color-scale: (
+  'darkest': hsl(200, 64%, 6%), // Darkest
+  'darker': hsl(206, 45%, 12%), // Darker
+  'dark': hsl(206, 30%, 21%), // Dark
+  'medium': hsl(206, 18%, 35%), // Medium
+  'light': hsl(191, 12%, 55%),  // Light
+  'lighter': hsl(191, 9%, 64%), // Lightest
+  'lightest': hsl(191, 15%, 85%), // Lightest
 );
-
-
 // Font Weights
 $font-weights: (
   'light': 300,
@@ -84,19 +69,48 @@ $spacing: (
   '3xl': $base-spacing * ($spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio)
 );
 
+
+
+$font-family: (
+  'primary': 'Montserrat',
+  'secondary': 'Roboto'
+);
+
+  /* Montserrat */
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('/static/Fonts/Montserrat-VariableFont_wght.woff2') format('woff2-variations'),
+         url('/static/Fonts/Montserrat-VariableFont_wght.woff2') format('woff2'),
+         url('/static/Fonts/Montserrat-VariableFont_wght.woff') format('woff'),
+         url('/static/Fonts/Montserrat-VariableFont_wght.ttf') format('truetype-variations'),
+         url('/static/Fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+}
+
+
 // Utility functions
-@function get-font-size($size) {
+@function get-fsz($size) {
   @return map-get($font-sizes, $size);
 }
 
-@function get-spacing($size) {
+@function get-sp($size) {
   @return map-get($spacing, $size);
 }
 
-@function get-line-height($height) {
+@function get-lh($height) {
   @return map-get($line-heights, $height);
 }
 
-@function get-font-weight($weight) {
+@function get-fw($weight) {
   @return map-get($font-weights, $weight);
+}
+
+@function get-ff($font) {
+  @return map-get($font-family, $font);
+}
+
+@function get-color($color) {
+  @return map-get($color-scale, $color);
 }

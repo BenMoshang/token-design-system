@@ -18,11 +18,17 @@
 		display: flex;
 		flex-direction: column;
 		inline-size: 100%;
+		min-block-size: 100vh;
+
 		box-sizing: border-box;
 		margin: 0 auto;
-		overflow: visible;
+		overflow-x: clip;
+		gap: 1.875rem;
+
 
 	}
+
+
 </style>
 	
 
