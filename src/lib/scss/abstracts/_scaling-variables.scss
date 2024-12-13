@@ -1,5 +1,3 @@
-
-
 @use "sass:math";
 
 // Typography Scale System
@@ -20,13 +18,11 @@ $font-sizes: (
     'lg': $base-font-size * math.pow($type-scale-ratio, 2),
   ),
   'display': (
-    'lg': $base-font-size * math.pow($type-scale-ratio, 5),
-    'md': $base-font-size * math.pow($type-scale-ratio, 4),
     'sm': $base-font-size * math.pow($type-scale-ratio, 3),
+    'md': $base-font-size * math.pow($type-scale-ratio, 4),
+    'lg': $base-font-size * math.pow($type-scale-ratio, 5),
   )
 );
-
-
 $color-scale: (
   'darkest': hsl(200, 64%, 6%), // Darkest
   'darker': hsl(206, 45%, 12%), // Darker
@@ -55,7 +51,7 @@ $line-heights: (
 
 // Letter Spacing
 $letter-spacing: (
-  'tight': -0.05em,
+  'tight': -0.04em,
   'snug': -0.025em,
   'normal': 0,
   'loose': 0.05em
@@ -81,45 +77,8 @@ $spacing: (
 
 
 
-
-
-
-// @param $type: 'body' | 'heading' | 'display'
-// @param $size: 'sm' | 'md' | 'lg'
-@function get-fsz($type, $size) {
-  $type-map: map-get($font-sizes, $type);
-  @if $type-map == null {
-    @error "Invalid font type: #{$type}";
-  }
-  
-  $font-size: map-get($type-map, $size);
-  @if $font-size == null {
-    @error "Invalid font size: #{$size} for type: #{$type}";
-  }
-  
-  @return $font-size;
-}
-
-@function get-sp($size) {
-  @return map-get($spacing, $size);
-}
-
-@function get-lh($height) {
-  @return map-get($line-heights, $height);
-}
-
-@function get-fw($weight) {
-  @return map-get($font-weights, $weight);
-}
 $font-family: (
-  'primary': 'Montserrat',
-  'secondary': 'Roboto'
+  'primary': 'Roboto',
+  'secondary': 'Inter'
 );
 
-@function get-ff($font) {
-  @return map-get($font-family, $font);
-}
-
-@function get-color($color) {
-  @return map-get($color-scale, $color);
-}

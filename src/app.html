@@ -1,12 +1,119 @@
+<!-- TODO: ADD IMESSAGE IMAGES AND ICONS ETC 
+TODO:update keywords and description  
+-->
+
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		%sveltekit.head%
-	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
-	</body>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- CHARACTER SET -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- VIEW SCALING -->
+    <meta
+      name="author"
+      content="Ben Moshang, Benjamin Moshang, Jacky Le, http://www.mymodernsite.com/, MoshangLLC,  My Modern Site"
+    />
+    <!-- my modern icon -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="%sveltekit.assets%/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="%sveltekit.assets%/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="icon"
+      href="%sveltekit.assets%/favicon-192x192.png"
+      sizes="192x192"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="%sveltekit.assets%/apple-touch-icon.png"
+    />
+    <meta name="msapplication-TileImage" content="#" />
+    <!-- TODO: update keywords -->
+    <meta name="keywords" content=" #" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Compatibility with Internet Explorer -->
+
+    <base href="/" />
+    <link rel="canonical" href="https://www.mymodernsite.com" />
+    <!-- Canonical URL -->
+    <link rel="pingback" href="https://www.mymodernsite.com" />
+    <!-- Pingback to the homepage -->
+    <!--detailed robots meta https://developers.google.com/search/reference/robots_meta_tag -->
+    <meta
+      name="robots"
+      content="index, follow, max-snippet: -1, max-image-preview:large, max-video-preview: -1"
+    />
+
+    <!--meta properties -->
+    <!-- style and script resources -->
+
+    <!--open graph meta tags for social sites and search engines-->
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="My Modern Site" />
+    <meta
+      property="og:description"
+      content="Refresh your web presence with our expert web development services tailored for B2B enterprises. Our agency specializes in creating modern, scalable, and innovative digital solutions to drive your business forward. Partner with us for expert web design, development, and digital marketing strategies that deliver measurable results."
+    />
+    <meta property="og:url" content="https://www.mymodernsite.com" />
+    <meta property="og:site_name" content="My Modern Site" />
+    <meta property="og:image" content="#" />
+    <meta property="og:image:secure_url" content="#" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="660" />
+
+    <!--twitter description-->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:description"
+      content="Refresh your web presence with our expert web development services tailored for B2B enterprises. Our agency specializes in creating modern, scalable, and innovative digital solutions to drive your business forward. Partner with us for expert web design, development, and digital marketing strategies that deliver measurable results."
+    />
+    <meta name="twitter:title" content="My Modern Site" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:image" content="#" />
+    <meta name="twitter:creator" content="@" />
+
+    <!--opengraph tags for location or address for information panel in google-->
+    <!-- <meta name="og:latitude" content="" />
+    <meta name="og:longitude" content="" />
+    <meta name="og:street-address" content="" /> -->
+    <meta name="og:locality" content="Baltimore" />
+    <meta name="og:region" content="MD" />
+    <meta name="og:postal-code" content="21212" />
+    <meta name="og:country-name" content="United States" />
+    <!--search engine verification-->
+    <meta name="google-site-verification" content="" />
+    <meta name="yandex-verification" content="" />
+
+    <!--powered by meta-->
+    <meta name="generator" content="SvelteKit" />
+    <!-- Head content from SvelteKit -->
+    %sveltekit.head%
+    <!-- Inter Font Preload -->
+
+
+    <link rel="preload" href="/static/Fonts/Inter-VariableFont_opsz\,wght.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/Fonts/Inter-Italic-VariableFont_opsz\,wght.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    
+    <!-- Roboto Font Preload -->
+    <link rel="preload" href="/static/Fonts/Roboto-Light.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/Fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/Fonts/Roboto-Medium.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/Fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    %sveltekit.body%
+  </body>
 </html>
