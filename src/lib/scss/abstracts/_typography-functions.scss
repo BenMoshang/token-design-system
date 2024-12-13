@@ -1,4 +1,4 @@
-@use 'scaling-variables' as sv;
+@use 'typography-variables' as sv;
 // @param $type: 'body' | 'heading' | 'display'
 // @param $size: 'sm' | 'md' | 'lg'
 @function get-ff($font) {
