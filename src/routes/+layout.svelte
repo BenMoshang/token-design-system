@@ -5,11 +5,11 @@
 
 </script>
 
-<Header />
+<!-- <Header /> -->
 <main class="layout__main">
 	<slot />
 </main>
-<Footer />
+<!-- <Footer /> -->
 
 
 <style lang="scss">
@@ -23,7 +23,6 @@
 		box-sizing: border-box;
 		margin: 0 auto;
 		overflow-x: clip;
-		gap: 1.875rem;
 
 
 	}

@@ -1,15 +1,95 @@
 @use 'scaling.variables' as *;
 
-
-%global-display-text {
+/* Display h1*/
+%global__display--lg {
     font-family: get-ff('primary');
-    font-weight: get-fw('semibold');
-    font-size: get-fsz('3xl');
+    font-weight: get-fw('bold');
+    font-size: get-fsz('display', 'lg');
     line-height: get-lh('tight');
     letter-spacing: get-ls('tight');
     color: get-color('darkest');
-    text-align: left;
     text-wrap: balance;
   }
-  
- 
+/* Display h2*/
+%global__display--md {
+  font-family: get-ff('primary');
+  font-weight: get-fw('semibold');
+  font-size: get-fsz('display', 'md');
+  line-height: get-lh('tight');
+  letter-spacing: get-ls('tight');
+  color: get-color('darkest');
+  text-wrap: balance;
+}
+/* Display h3*/
+%global__display--sm {
+  font-family: get-ff('primary');
+  font-weight: get-fw('semibold');
+  font-size: get-fsz('display', 'sm');
+  line-height: get-lh('tight');
+  letter-spacing: get-ls('tight');
+  color: get-color('darkest');
+  text-wrap: balance;
+}
+
+/* Heading h4*/
+  %global__heading--lg{
+    font-family: get-ff('primary');
+    font-weight: get-fw('medium');
+    font-size: get-fsz('heading', 'lg');
+  line-height: get-lh('snug');
+  letter-spacing: get-ls('snug');
+  text-wrap: balance;
+
+  }
+
+/* Heading h5*/
+  %global__heading--md{
+    font-family: get-ff('primary');
+    font-weight: get-fw('medium');
+    font-size: get-fsz('heading', 'md');
+  line-height: get-lh('snug');
+  letter-spacing: get-ls('snug');
+  text-wrap: balance;
+
+  }
+
+/* Heading h6*/
+  %global__heading--sm{
+    font-family: get-ff('primary');
+    font-weight: get-fw('medium');
+    font-size: get-fsz('heading', 'sm');
+  line-height: get-lh('snug');
+  text-wrap: balance;
+
+  }
+
+/* Body Base*/
+  %global__body--base{
+    font-family: get-ff('secondary');
+    font-weight: get-fw('regular');
+    font-size: get-fsz('body', 'lg');
+    line-height: get-lh('normal');
+    letter-spacing: get-ls('normal');
+    text-wrap: pretty;
+  }
+
+/* Body Small*/
+  %global__body--sm{
+    font-family: get-ff('secondary');
+    font-weight: get-fw('regular');
+    font-size: get-fsz('body', 'md');
+    line-height: get-lh('normal');
+    text-wrap: pretty;
+
+  }
+
+/* Body Xtra Small*/
+  %global__body--xs{
+    font-family: get-ff('secondary');
+    font-weight: get-fw('light');
+    font-size: get-fsz('body', 'sm');
+    line-height: get-lh('normal');
+    letter-spacing: get-ls('loose');
+    text-wrap: pretty;
+
+  }

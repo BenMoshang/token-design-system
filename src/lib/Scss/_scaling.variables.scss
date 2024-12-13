@@ -1,19 +1,29 @@
 
 
+@use "sass:math";
+
 // Typography Scale System
 // Using the Golden Ratio (~1.618)
 $type-scale-ratio: 1.618;
-$base-font-size: 1rem;
+$base-font-size: 1.25rem;
 
 // Generate font sizes using the golden ratio
 $font-sizes: (
-  'xs': $base-font-size / ($type-scale-ratio * 1.1),
-  'sm': $base-font-size / $type-scale-ratio,
-  'base': $base-font-size,
-  'lg': $base-font-size * $type-scale-ratio,
-  'xl': $base-font-size * ($type-scale-ratio * $type-scale-ratio),
-  '2xl': $base-font-size * ($type-scale-ratio * $type-scale-ratio * $type-scale-ratio),
-  '3xl': $base-font-size * ($type-scale-ratio * $type-scale-ratio * $type-scale-ratio * $type-scale-ratio)
+  'body': (
+    'sm': $base-font-size / math.pow($type-scale-ratio, 1),
+    'md': $base-font-size / math.pow($type-scale-ratio, .5),
+    'lg': $base-font-size,
+  ),
+  'heading': (
+    'sm': $base-font-size * math.pow($type-scale-ratio, 1),
+    'md': $base-font-size * math.pow($type-scale-ratio, 1.5),
+    'lg': $base-font-size * math.pow($type-scale-ratio, 2),
+  ),
+  'display': (
+    'lg': $base-font-size * math.pow($type-scale-ratio, 5),
+    'md': $base-font-size * math.pow($type-scale-ratio, 4),
+    'sm': $base-font-size * math.pow($type-scale-ratio, 3),
+  )
 );
 
 
@@ -32,15 +42,15 @@ $font-weights: (
   'regular': 400,
   'medium': 500,
   'semibold': 600,
+  'bold': 700,
 );
 
 // Line Heights
 $line-heights: (
-  'tight': 1.2,
-  'snug': 1.375,
-  'normal': 1.5,
-  'relaxed': 1.625,
-  'loose': 2
+  'tight': 1.1,    
+  'snug': 1.25,  
+  'normal': 1.5,  
+  'loose': 1.75    
 );
 
 // Letter Spacing
@@ -48,7 +58,7 @@ $letter-spacing: (
   'tight': -0.05em,
   'snug': -0.025em,
   'normal': 0,
-  'relaxed': 0.05em
+  'loose': 0.05em
 );
 
 // Spacing Scale System
@@ -58,41 +68,36 @@ $base-spacing: 1rem;
 
 // Generate spacing values using the golden ratio
 $spacing: (
-  '3xs': $base-spacing / ($spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio),
-  '2xs': $base-spacing / ($spacing-scale-ratio * $spacing-scale-ratio),
-  'xs': $base-spacing / $spacing-scale-ratio,
+  '3xs': $base-spacing / math.pow($spacing-scale-ratio, 3),
+  '2xs': $base-spacing / math.pow($spacing-scale-ratio, 2),
+  'xs': $base-spacing / math.pow($spacing-scale-ratio, 1),
   'sm': $base-spacing,
-  'md': $base-spacing * $spacing-scale-ratio,
-  'lg': $base-spacing * ($spacing-scale-ratio * $spacing-scale-ratio),
-  'xl': $base-spacing * ($spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio),
-  '2xl': $base-spacing * ($spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio),
-  '3xl': $base-spacing * ($spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio * $spacing-scale-ratio)
+  'md': $base-spacing * math.pow($spacing-scale-ratio, 1),
+  'lg': $base-spacing * math.pow($spacing-scale-ratio, 2),
+  'xl': $base-spacing * math.pow($spacing-scale-ratio, 3),
+  '2xl': $base-spacing * math.pow($spacing-scale-ratio, 4),
+  '3xl': $base-spacing * math.pow($spacing-scale-ratio, 5)
 );
 
 
 
-$font-family: (
-  'primary': 'Montserrat',
-  'secondary': 'Roboto'
-);
-
-  /* Montserrat */
-  @font-face {
-    font-family: 'Montserrat';
-    src: url('/static/Fonts/Montserrat-VariableFont_wght.woff2') format('woff2-variations'),
-         url('/static/Fonts/Montserrat-VariableFont_wght.woff2') format('woff2'),
-         url('/static/Fonts/Montserrat-VariableFont_wght.woff') format('woff'),
-         url('/static/Fonts/Montserrat-VariableFont_wght.ttf') format('truetype-variations'),
-         url('/static/Fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
-    font-weight: 100 900;
-    font-display: swap;
-    font-style: normal;
-}
 
 
-// Utility functions
-@function get-fsz($size) {
-  @return map-get($font-sizes, $size);
+
+// @param $type: 'body' | 'heading' | 'display'
+// @param $size: 'sm' | 'md' | 'lg'
+@function get-fsz($type, $size) {
+  $type-map: map-get($font-sizes, $type);
+  @if $type-map == null {
+    @error "Invalid font type: #{$type}";
+  }
+  
+  $font-size: map-get($type-map, $size);
+  @if $font-size == null {
+    @error "Invalid font size: #{$size} for type: #{$type}";
+  }
+  
+  @return $font-size;
 }
 
 @function get-sp($size) {
@@ -106,6 +111,10 @@ $font-family: (
 @function get-fw($weight) {
   @return map-get($font-weights, $weight);
 }
+$font-family: (
+  'primary': 'Montserrat',
+  'secondary': 'Roboto'
+);
 
 @function get-ff($font) {
   @return map-get($font-family, $font);

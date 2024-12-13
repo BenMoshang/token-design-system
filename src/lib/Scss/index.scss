@@ -1,7 +1,51 @@
 @use './typography.placeholders' as *;
 
+@use './scaling.variables' as *;
 
 
+  /* Montserrat */
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('/static/Fonts/Montserrat-VariableFont_wght.woff2') format('woff2-variations'),
+         url('/static/Fonts/Montserrat-VariableFont_wght.woff2') format('woff2'),
+         url('/static/Fonts/Montserrat-VariableFont_wght.woff') format('woff'),
+         url('/static/Fonts/Montserrat-VariableFont_wght.ttf') format('truetype-variations'),
+         url('/static/Fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+}
+
+/* Roboto */
+@font-face {
+  font-family: 'Roboto';
+  src: url('/static/Fonts/Roboto-Regular.woff2') format('woff2'),
+       url('/static/Fonts/Roboto-Regular.woff') format('woff'),
+       url('/static/Fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/static/Fonts/Roboto-Medium.woff2') format('woff2'),
+       url('/static/Fonts/Roboto-Medium.woff') format('woff'), 
+       url('/static/Fonts/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/static/Fonts/Roboto-Bold.woff2') format('woff2'),
+       url('/static/Fonts/Roboto-Bold.woff') format('woff'),
+       url('/static/Fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
 
   /*--------------------------------------
 	 BASE LAYER
