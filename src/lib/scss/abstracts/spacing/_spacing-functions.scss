@@ -1,0 +1,11 @@
+@use 'spacing-variables' as sv;
+
+/**
+ * @function get-sp
+ * @desc Retrieves a spacing value from the $spacing map defined in spacing-variables.
+ * @param {String} $size - The spacing key (e.g., 'x1','x2','x3', ... 'x10').
+ * @return {Length} spacing value (e.g., 0.25rem for 'x1', 0.5rem for 'x2', etc.)
+ */
+@function get-sp($size) {
+	@return map-get(sv.$spacing, $size);
+}

@@ -1,0 +1,125 @@
+@use 'typography-functions' as tf;
+
+/* Display (e.g., large hero text) */
+
+/**
+ * %global__display--lg
+ * Large display heading style
+ */
+%global__display--lg {
+	font-family: tf.get-ff('primary');
+	font-weight: tf.get-fw('bold');
+	font-size: tf.get-clamp-fsz('display', 'lg');
+	line-height: tf.get-lh('tight');
+	letter-spacing: tf.get-ls('tight');
+	color: tf.get-color('darkest');
+	text-wrap: balance;
+}
+
+/**
+ * %global__display--md
+ * Medium display heading style
+ */
+%global__display--md {
+	font-family: tf.get-ff('primary');
+	font-weight: tf.get-fw('semibold');
+	font-size: tf.get-fsz('display', 'md');
+	line-height: tf.get-lh('tight');
+	letter-spacing: tf.get-ls('tight');
+	color: tf.get-color('darkest');
+	text-wrap: balance;
+}
+
+/**
+ * %global__display--sm
+ * Small display heading style
+ */
+%global__display--sm {
+	font-family: tf.get-ff('primary');
+	font-weight: tf.get-fw('semibold');
+	font-size: tf.get-fsz('display', 'sm');
+	line-height: tf.get-lh('tight');
+	letter-spacing: tf.get-ls('tight');
+	color: tf.get-color('darkest');
+	text-wrap: balance;
+}
+
+/* Headings (e.g., h4, h5, h6) */
+
+/**
+ * %global__heading--lg
+ * Large heading style
+ */
+%global__heading--lg {
+	font-family: tf.get-ff('primary');
+	font-weight: tf.get-fw('medium');
+	font-size: tf.get-fsz('heading', 'lg');
+	line-height: tf.get-lh('snug');
+	letter-spacing: tf.get-ls('snug');
+	text-wrap: balance;
+}
+
+/**
+ * %global__heading--md
+ * Medium heading style
+ */
+%global__heading--md {
+	font-family: tf.get-ff('primary');
+	font-weight: tf.get-fw('medium');
+	font-size: tf.get-fsz('heading', 'md');
+	line-height: tf.get-lh('snug');
+	letter-spacing: tf.get-ls('snug');
+	text-wrap: balance;
+}
+
+/**
+ * %global__heading--sm
+ * Small heading style
+ */
+%global__heading--sm {
+	font-family: tf.get-ff('primary');
+	font-weight: tf.get-fw('medium');
+	font-size: tf.get-fsz('heading', 'sm');
+	line-height: tf.get-lh('snug');
+	text-wrap: balance;
+}
+
+/* Body text (e.g., paragraphs) */
+
+/**
+ * %global__body--base
+ * Base body text style
+ */
+%global__body--base {
+	font-family: tf.get-ff('secondary');
+	font-weight: tf.get-fw('regular');
+	font-size: tf.get-fsz('body', 'lg');
+	line-height: tf.get-lh('normal');
+	letter-spacing: tf.get-ls('normal');
+	text-wrap: pretty;
+}
+
+/**
+ * %global__body--sm
+ * Small body text style
+ */
+%global__body--sm {
+	font-family: tf.get-ff('secondary');
+	font-weight: tf.get-fw('regular');
+	font-size: tf.get-fsz('body', 'md');
+	line-height: tf.get-lh('normal');
+	text-wrap: pretty;
+}
+
+/**
+ * %global__body--xs
+ * Extra small body text style
+ */
+%global__body--xs {
+	font-family: tf.get-ff('secondary');
+	font-weight: tf.get-fw('light');
+	font-size: tf.get-fsz('body', 'sm');
+	line-height: tf.get-lh('normal');
+	letter-spacing: tf.get-ls('loose');
+	text-wrap: pretty;
+}

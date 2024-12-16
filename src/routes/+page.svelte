@@ -1,6 +1,6 @@
 <script lang="ts">
-	import HeroSection from "$lib/LandingPage/Sections/Hero/HeroSection.svelte";
-	import FontTesting from "$lib/Testing/FontTesting.svelte";
+	import HeroSection from '$lib/LandingPage/Sections/Hero/HeroSection.svelte';
+	import FontTesting from '$lib/Testing/FontTesting.svelte';
 </script>
 
 <svelte:head>

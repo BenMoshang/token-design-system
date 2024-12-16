@@ -5,19 +5,21 @@ export default defineConfig({
 	plugins: [sveltekit()],
 	server: {
 		fs: {
-		  // Restrict file access outside the project root for better security
-		  allow: [".."],
+			// Restrict file access outside the project root for better security
+			allow: ['..']
 		},
 		// host: "10.0.0.123",
-		port: 3000,
-	  },  build: {
+		port: 3000
+	},
+	build: {
 		// To improve performance by reducing the size of the built files
-		minify: "esbuild",
-		target: "esnext",
-	  },  optimizeDeps: {
+		minify: 'esbuild',
+		target: 'esnext'
+	},
+	optimizeDeps: {
 		// Optimize SvelteKit and Vite dependencies for better build times
-		exclude: ["svelte"],
-	  },
+		exclude: ['svelte']
+	},
 	css: {
 		preprocessorOptions: {
 			scss: {
@@ -29,5 +31,3 @@ export default defineConfig({
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}
 });
-
-

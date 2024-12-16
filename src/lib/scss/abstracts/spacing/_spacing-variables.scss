@@ -1,0 +1,50 @@
+@use 'sass:math';
+
+/**
+ * @var $base-spacing: Length (rem)
+ *    Base spacing increment equal to 4px.
+ *    1rem = 16px, so 4px = 0.25rem.
+ *    Adjusting this value scales the entire spacing system.
+ */
+$base-spacing: 0.25rem;
+
+/**
+ * @function spacing-scale
+ * @desc Multiplies the $base-spacing by a given factor to produce scalable spacing values.
+ * @param {Number} $factor - A numeric multiplier for the base spacing.
+ * @return {Length} The computed spacing value in rem.
+ */
+@function spacing-scale($factor) {
+	@return $base-spacing * $factor;
+}
+
+/**
+ * @var $spacing: (map)
+ *    Keys: 'x1', 'x2', 'x3', ... 'x10'
+ *    Each key corresponds to a multiple of the base spacing (4px).
+ *    This system provides a linear scaling:
+ *    - x1 = 4px
+ *    - x2 = 8px
+ *    - x3 = 12px
+ *    - x4 = 16px
+ *    - x5 = 20px
+ *    - x6 = 24px
+ *    - x7 = 28px
+ *    - x8 = 32px
+ *    - x9 = 36px
+ *    - x10 = 40px
+ *
+ * Adjust $base-spacing to scale the entire system up or down.
+ */
+$spacing: (
+	'x1': spacing-scale(1),
+	'x2': spacing-scale(2),
+	'x3': spacing-scale(3),
+	'x4': spacing-scale(4),
+	'x5': spacing-scale(5),
+	'x6': spacing-scale(6),
+	'x7': spacing-scale(7),
+	'x8': spacing-scale(8),
+	'x9': spacing-scale(9),
+	'x10': spacing-scale(10)
+);
