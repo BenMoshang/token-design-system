@@ -11,8 +11,8 @@
  *    A list of REM values used to "round" font sizes.
  *    Helps maintain a consistent vertical rhythm, ideally multiples of 4px.
  */
-$typography-scale-ratio: 1.618;
-$typography-base-size: 1.125rem; /* ~18px base */
+$typography-scale-ratio: 1.333;
+$typography-base-size: 1rem; /* ~18px base */
 $typography-standard-rems: (0.125, 0.25, 0.5, 1, 1.25, 1.5, 1.75, 2, 3, 4);
 
 /**
@@ -67,7 +67,7 @@ $typography-scales: (
  *    'secondary': String - secondary font family
  */
 $font-family: (
-	'primary': 'Helvetica Now',
+	'primary': 'Bebas Neue',
 	'secondary': 'Inter'
 );
 

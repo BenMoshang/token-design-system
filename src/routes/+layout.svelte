@@ -25,19 +25,13 @@
 	<!-- Preload Helvetica Now fonts -->
 	<link
 		rel="preload"
-		href="/Fonts/Helvetica/HelveticaNowVar.ttf"
+		href="/Fonts/Bebas-Neue/BebasNeue-Regular.ttf"
 		as="font"
 		type="font/ttf"
 		crossorigin="anonymous"
 	/>
 
-	<link
-		rel="preload"
-		href="/Fonts/Helvetica/HelveticaNowVar-Italic.ttf"
-		as="font"
-		type="font/ttf"
-		crossorigin="anonymous"
-	/>
+
 </svelte:head>
 
 <!-- <Footer /> -->
@@ -85,16 +79,10 @@
 		font-style: normal;
 	}
 
+
 	@font-face {
-		font-family: 'Helvetica Now';
-		src: url('/Fonts/Helvetica/HelveticaNowVar-Italic.ttf') format('truetype');
-		font-weight: 400;
-		font-display: swap;
-		font-style: italic;
-	}
-	@font-face {
-		font-family: 'Helvetica Now';
-		src: url('/Fonts/Helvetica/HelveticaNowVar.ttf') format('truetype');
+		font-family: 'Bebas Neue';
+		src: url('/Fonts/Bebas-Neue/BebasNeue-Regular.ttf') format('truetype');
 		font-weight: 400;
 		font-display: swap;
 		font-style: normal;
