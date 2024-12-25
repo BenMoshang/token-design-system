@@ -11,8 +11,8 @@
  *    A list of REM values used to "round" font sizes.
  *    Helps maintain a consistent vertical rhythm, ideally multiples of 4px.
  */
-$typography-scale-ratio: 1.333;
-$typography-base-size: 1rem; /* ~18px base */
+$typography-scale-ratio: 1.414;
+$typography-base-size: 1.125rem; 
 $typography-standard-rems: (0.125, 0.25, 0.5, 1, 1.25, 1.5, 1.75, 2, 3, 4);
 
 /**
@@ -96,8 +96,7 @@ $line-heights: (
 	'loose': 1.75
 );
 
-/**
- * @var $letter-spacing: (map)
+/**       vvvvvvvvcxcvxcvxcv
  *    Keys: 'tight', 'snug', 'normal', 'loose'
  *    Values: em-based letter spacing values
  */

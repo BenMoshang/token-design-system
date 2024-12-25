@@ -34,7 +34,7 @@ Typography Scaling functions
  * @param {Number} $max-viewport - maximum viewport width in pixels (default: 1200px [75rem])
  * @return {String} clamp(...) function string
  */
-@function calculate-clamp($min-size, $max-size, $min-viewport: 320, $max-viewport: 1200) {
+@function calculate-clamp($min-size, $max-size, $min-viewport: 320, $max-viewport: 1440) {
 	// Strip units for calculations
 	$min-size-no-unit: $min-size;
 	$max-size-no-unit: $max-size;

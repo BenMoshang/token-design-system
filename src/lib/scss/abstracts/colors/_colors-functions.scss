@@ -1,0 +1,8 @@
+@use 'colors-variables' as cv;
+
+@function get-light-dark($color1, $color2) {
+    $light: map-get(cv.$color-scale, $color1);
+    $dark: map-get(cv.$color-scale, $color2);
+    @return light-dark($light, $dark);
+  }
+  
