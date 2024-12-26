@@ -2,95 +2,6 @@
 @use 'typography-variables' as tv;
 @use '../colors/colors-variables' as cv;
 
-/*==================================
-Typography Scaling functions
-======================================*/
-/**
- * @function get-fsz
- * @desc Retrieves a font-size from the $typography-scales map.
- * @param {String} $category - 'body', 'heading', 'display'
- * @param {String} $size - 'sm', 'md', 'lg', 'xl'
- * @return {Number} rem-based font size
- * @throws if invalid category or size
- */
-@function get-fsz($category, $size) {
-	$category-map: map-get(tv.$typography-scales, $category);
-	@if not $category-map {
-		@error "Invalid category '#{$category}'. Valid: body, heading, display.";
-	}
-	$font-size: map-get($category-map, $size);
-	@if not $font-size {
-		@error "Invalid size '#{$size}' for '#{$category}'. Valid: sm, md, lg, xl.";
-	}
-	@return $font-size;
-}
-
-/**
- * @function calculate-clamp
- * @desc Creates a responsive value using `clamp()` based on specific pixel values and viewport widths
- * @param {Number} $min-size - minimum size in pixels
- * @param {Number} $max-size - maximum size in pixels
- * @param {Number} $min-viewport - minimum viewport width in pixels (default: 320px [20rem])
- * @param {Number} $max-viewport - maximum viewport width in pixels (default: 1200px [75rem])
- * @return {String} clamp(...) function string
- */
-@function calculate-clamp($min-size, $max-size, $min-viewport: 320, $max-viewport: 1440) {
-	// Strip units for calculations
-	$min-size-no-unit: $min-size;
-	$max-size-no-unit: $max-size;
-	$min-vw-no-unit: $min-viewport;
-	$max-vw-no-unit: $max-viewport;
-
-	// Convert pixels to rems for output
-	$min-size-rem: math.div($min-size, 16) * 1rem;
-	$max-size-rem: math.div($max-size, 16) * 1rem;
-
-	// Calculate the slope without units
-	$slope: math.div($max-size-no-unit - $min-size-no-unit, $max-vw-no-unit - $min-vw-no-unit);
-
-	// Calculate the viewport-based size (preferred value)
-	$slope-vw: $slope * 100;
-
-	// Calculate the y-intercept
-	$intercept: $min-size-no-unit - ($slope * $min-vw-no-unit);
-	$intercept-rem: math.div($intercept, 16);
-
-	// Return the clamp function
-	@return clamp(#{$min-size-rem}, #{$slope-vw}vw + #{$intercept-rem}rem, #{$max-size-rem});
-}
-/**
- * @function get-responsive-fsz
- * @desc Creates a responsive font-size using clamp() based on typography scale
- * @param {String} $category - 'body', 'heading', 'display'
- * @param {String} $min-size - 'sm', 'md', 'lg', 'xl'
- * @param {Number} $min-viewport - minimum viewport width in pixels (default: 320px)
- * @param {Number} $max-viewport - maximum viewport width in pixels (default: 1200px)
- * @return {String} clamp(...) function string
- */
-@function get-responsive-fsz($category, $min-size, $min-viewport: 320, $max-viewport: 1200) {
-	$min-fsz: strip-unit(get-fsz($category, $min-size)) * 16;
-	$max-fsz: strip-unit(get-fsz($category, 'xl')) * 16;
-
-	@return calculate-clamp($min-fsz, $max-fsz, $min-viewport, $max-viewport);
-}
-
-// Usage examples:
-// .text {
-// 	// Will scale from body-sm to body-xl
-// 	&-body {
-// 		font-size: get-responsive-fsz('body', 'sm');
-// 	}
-
-// 	// Will scale from heading-md to heading-xl
-// 	&-heading {
-// 		font-size: get-responsive-fsz('heading', 'md');
-// 	}
-
-// 	// Will scale from display-lg to display-xl with custom viewport range
-// 	&-display {
-// 		font-size: get-responsive-fsz('display', 'lg', 768, 1440);
-// 	}
-// }
 
 /*==================================
 Other functions
@@ -144,3 +55,4 @@ Other functions
 @function get-color($color) {
 	@return map-get(cv.$color-scale, $color);
 }
+

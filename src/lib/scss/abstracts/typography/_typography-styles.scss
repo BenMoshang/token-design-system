@@ -9,7 +9,7 @@
 %global__display--lg {
 	font-family: tf.get-ff('primary');
 	font-weight: tf.get-fw('bold');
-	font-size: tf.get-clamp-fsz('display', 'lg');
+	font-size: tf.get-responsive-fsz('display', 'lg');
 	line-height: tf.get-lh('tight');
 	letter-spacing: tf.get-ls('tight');
 	color: tf.get-color('darkest');
