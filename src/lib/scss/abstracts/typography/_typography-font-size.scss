@@ -88,30 +88,13 @@ $typography-scales: (
  * @param  {Number} $max-viewport  - maximum viewport width in px (default: 1440px).
  * @return {String} clamp(...) function string.
  */
- @function calculate-clamp($min-size, $max-size, $min-viewport: 20rem, $max-viewport: 80rem) {
-  // Strip units for calculations
-  $min-size-no-unit: $min-size;
-  $max-size-no-unit: $max-size;
-  $min-vw-no-unit: $min-viewport;
-  $max-vw-no-unit: $max-viewport;
-
-  // Calculate slope (no units)
-  $slope: math.div($max-size-no-unit - $min-size-no-unit, $max-vw-no-unit - $min-vw-no-unit);
-
-  // Slope * 100 = how much size changes per 1vw
-  $slope-vw: $slope * 100;
-
-  // Calculate the y-intercept
-  $intercept: $min-size-no-unit - ($slope * $min-vw-no-unit);
-  $intercept-rem: math.div($intercept, 16);
-
-  // Return clamp
-  @return clamp(
-    #{$min-size-rem},
-    #{$slope-vw}vw + #{$intercept-rem}rem,
-    #{$max-size-rem}
-  );
-}
+ @function calculate-clamp($min-rem, $max-rem, $min-viewport: 20rem, $max-viewport: 80rem) {
+  // Calculate slope & y-intercept
+  $slope: math.div(($min-rem - $max-rem),($max-viewport - $min-viewport));
+  $intercept: $min-viewport * $slope + $min-rem;
+  
+  @return clamp(#{$min-rem}, (#{truncate($intercept)} + #{truncate($slope * -100)}vw), #{$max-rem});
+  }
 
 /**
  * @function get-fsz
