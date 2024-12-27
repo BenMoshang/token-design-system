@@ -9,19 +9,8 @@ $typography-scale-ratio: 1.414;
 /**
  * Base font size from which all scales are derived (in rem).
  */
-$typography-base-size: 1.125;//18px
+$typography-base-size: 1.125rem;//18px
 
-/**
- * A list of REM values used to "round" font sizes for vertical rhythm,
- * ideally in multiples of 4px.
- */
-$typography-standard-rems: (
-  0.125, 0.25, 0.5, 1,      // Base increments
-  1.125, 1.25, 1.5,         // Small text sizes
-  1.75, 1.875, 2,           // Medium text sizes
-  2.25, 2.5, 2.75, 2.875,   // Large text sizes
-  3, 3.25, 3.5, 3.75, 3.875, 4 // Display text sizes
-);
 
 
 /**
@@ -53,30 +42,41 @@ $typography-scales: (
   Typography Scaling Functions
 ====================================*/
 
+
+
 /**
- * @function get-fsz
- * @desc   Retrieves a font-size from the $typography-scales map.
- * @param  {String} $category - 'body', 'heading', 'display'.
- * @param  {String} $size - 'sm', 'md', 'lg', 'xl'.
- * @return {Number} rem-based font size.
- * @throws if invalid category or size.
+ * @function round-to-standard-rems
+ * @desc    Finds the closest predefined REM step to a given value.
+ * @param   {Number} $value - Font-size in rem units to be rounded.
+ * @return  {Number} The closest rem value from $typography-standard-rems.
  */
-@function get-fsz($category, $size) {
-  $category-map: map-get($typography-scales, $category);
+/**
+ * A list of REM values used to "round" font sizes for vertical rhythm,
+ * ideally in multiples of 4px.
+ */
+ $typography-standard-rems: (
+  0.125, 0.25, 0.5, 1,      // Base increments
+  1.125, 1.25, 1.5,         // Small text sizes
+  1.75, 1.875, 2,           // Medium text sizes
+  2.25, 2.5, 2.75, 2.875,   // Large text sizes
+  3, 3.25, 3.5, 3.75, 3.875, 4 // Display text sizes
+);
 
-  @if not $category-map {
-    @error "Invalid category '#{$category}'. Valid categories are: body, heading, display.";
+@function round-to-standard-rems($value) {
+  $closest-rem: null;
+  $smallest-difference: null;
+
+  @each $rem in $typography-standard-rems {
+    $difference: abs($value - $rem);
+
+    @if $smallest-difference == null or $difference < $smallest-difference {
+      $smallest-difference: $difference;
+      $closest-rem: $rem;
+    }
   }
 
-  $font-size: map-get($category-map, $size);
-
-  @if not $font-size {
-    @error "Invalid size '#{$size}' for '#{$category}'. Valid sizes are: sm, md, lg, xl.";
-  }
-
-  @return $font-size;
+  @return $closest-rem;
 }
-
 
 
 /**
@@ -88,16 +88,12 @@ $typography-scales: (
  * @param  {Number} $max-viewport  - maximum viewport width in px (default: 1440px).
  * @return {String} clamp(...) function string.
  */
- @function calculate-clamp($min-size, $max-size, $min-viewport: 320, $max-viewport: 1280) {
+ @function calculate-clamp($min-size, $max-size, $min-viewport: 20rem, $max-viewport: 80rem) {
   // Strip units for calculations
   $min-size-no-unit: $min-size;
   $max-size-no-unit: $max-size;
   $min-vw-no-unit: $min-viewport;
   $max-vw-no-unit: $max-viewport;
-
-  // Convert px to rem for the final output
-  $min-size-rem: math.div($min-size, 16) * 1rem;
-  $max-size-rem: math.div($max-size, 16) * 1rem;
 
   // Calculate slope (no units)
   $slope: math.div($max-size-no-unit - $min-size-no-unit, $max-vw-no-unit - $min-vw-no-unit);
@@ -117,30 +113,26 @@ $typography-scales: (
   );
 }
 
-@function round-to-standard-rems($value) {
-  $closest-rem: null;
-  $smallest-difference: null;
+/**
+ * @function get-fsz
+ * @desc   Retrieves a font-size from the $typography-scales map.
+ * @param  {String} $category - 'body', 'heading', 'display'.
+ * @param  {String} $size - 'sm', 'md', 'lg', 'xl'.
+ * @return {Number} rem-based font size.
+ * @throws if invalid category or size.
+ */
+ @function get-fsz($category, $size) {
+  $category-map: map-get($typography-scales, $category);
 
-  @each $rem in $typography-standard-rems {
-    $difference: abs($value - $rem);
-
-    @if $smallest-difference == null or $difference < $smallest-difference {
-      $smallest-difference: $difference;
-      $closest-rem: $rem;
-    }
+  @if not $category-map {
+    @error "Invalid category '#{$category}'. Valid categories are: body, heading, display.";
   }
 
-  @return $closest-rem;
+  $font-size: map-get($category-map, $size);
+
+  @if not $font-size {
+    @error "Invalid size '#{$size}' for '#{$category}'. Valid sizes are: sm, md, lg, xl.";
+  }
+
+  @return $font-size;
 }
-
-/**
- * @function round-to-standard-rems
- * @desc    Finds the closest predefined REM step to a given value.
- * @param   {Number} $value - Font-size in rem units to be rounded.
- * @return  {Number} The closest rem value from $typography-standard-rems.
- */
-
-
-
-
-
