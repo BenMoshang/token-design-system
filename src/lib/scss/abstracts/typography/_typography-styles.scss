@@ -1,4 +1,5 @@
 @use 'typography-functions' as tf;
+@use 'typography-font-size' as fsz;
 
 /* Display (e.g., large hero text) */
 
@@ -9,10 +10,10 @@
 %global__display--lg {
 	font-family: tf.get-ff('primary');
 	font-weight: tf.get-fw('bold');
-	font-size: tf.get-responsive-fsz('display', 'lg');
+	font-size: fsz.get-fsz('display', 'lg');
 	line-height: tf.get-lh('tight');
 	letter-spacing: tf.get-ls('tight');
-	color: tf.get-color('darkest');
+	// color: tf.get-color('darkest');
 	text-wrap: balance;
 }
 
@@ -23,10 +24,9 @@
 %global__display--md {
 	font-family: tf.get-ff('primary');
 	font-weight: tf.get-fw('semibold');
-	font-size: tf.get-fsz('display', 'md');
 	line-height: tf.get-lh('tight');
 	letter-spacing: tf.get-ls('tight');
-	color: tf.get-color('darkest');
+	// color: tf.get-color('darkest');
 	text-wrap: balance;
 }
 
@@ -37,10 +37,9 @@
 %global__display--sm {
 	font-family: tf.get-ff('primary');
 	font-weight: tf.get-fw('semibold');
-	font-size: tf.get-fsz('display', 'sm');
 	line-height: tf.get-lh('tight');
 	letter-spacing: tf.get-ls('tight');
-	color: tf.get-color('darkest');
+	// color: tf.get-color('darkest');
 	text-wrap: balance;
 }
 
@@ -53,7 +52,6 @@
 %global__heading--lg {
 	font-family: tf.get-ff('primary');
 	font-weight: tf.get-fw('medium');
-	font-size: tf.get-fsz('heading', 'lg');
 	line-height: tf.get-lh('snug');
 	letter-spacing: tf.get-ls('snug');
 	text-wrap: balance;
@@ -66,7 +64,6 @@
 %global__heading--md {
 	font-family: tf.get-ff('primary');
 	font-weight: tf.get-fw('medium');
-	font-size: tf.get-fsz('heading', 'md');
 	line-height: tf.get-lh('snug');
 	letter-spacing: tf.get-ls('snug');
 	text-wrap: balance;
@@ -79,7 +76,6 @@
 %global__heading--sm {
 	font-family: tf.get-ff('primary');
 	font-weight: tf.get-fw('medium');
-	font-size: tf.get-fsz('heading', 'sm');
 	line-height: tf.get-lh('snug');
 	text-wrap: balance;
 }
@@ -93,7 +89,6 @@
 %global__body--base {
 	font-family: tf.get-ff('secondary');
 	font-weight: tf.get-fw('regular');
-	font-size: tf.get-fsz('body', 'lg');
 	line-height: tf.get-lh('normal');
 	letter-spacing: tf.get-ls('normal');
 	text-wrap: pretty;
@@ -106,7 +101,6 @@
 %global__body--sm {
 	font-family: tf.get-ff('secondary');
 	font-weight: tf.get-fw('regular');
-	font-size: tf.get-fsz('body', 'md');
 	line-height: tf.get-lh('normal');
 	text-wrap: pretty;
 }
@@ -118,7 +112,6 @@
 %global__body--xs {
 	font-family: tf.get-ff('secondary');
 	font-weight: tf.get-fw('light');
-	font-size: tf.get-fsz('body', 'sm');
 	line-height: tf.get-lh('normal');
 	letter-spacing: tf.get-ls('loose');
 	text-wrap: pretty;
