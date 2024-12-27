@@ -9,7 +9,7 @@ $typography-scale-ratio: 1.414;
 /**
  * Base font size from which all scales are derived (in rem).
  */
-$typography-base-size: 1.125;
+$typography-base-size: 1.125;//18px
 
 /**
  * A list of REM values used to "round" font sizes for vertical rhythm,
@@ -23,27 +23,6 @@ $typography-standard-rems: (
   3, 3.25, 3.5, 3.75, 3.875, 4 // Display text sizes
 );
 
-/**
- * @function round-to-standard-rems
- * @desc    Finds the closest predefined REM step to a given value.
- * @param   {Number} $value - Font-size in rem units to be rounded.
- * @return  {Number} The closest rem value from $typography-standard-rems.
- */
-@function round-to-standard-rems($value) {
-  $closest-rem: null;
-  $smallest-difference: null;
-
-  @each $rem in $typography-standard-rems {
-    $difference: abs($value - $rem);
-
-    @if $smallest-difference == null or $difference < $smallest-difference {
-      $smallest-difference: $difference;
-      $closest-rem: $rem;
-    }
-  }
-
-  @return $closest-rem;
-}
 
 /**
  * @var $typography-scales
@@ -98,6 +77,8 @@ $typography-scales: (
   @return $font-size;
 }
 
+
+
 /**
  * @function calculate-clamp
  * @desc   Creates a responsive value using `clamp()` based on specific pixel values and viewport widths.
@@ -107,7 +88,7 @@ $typography-scales: (
  * @param  {Number} $max-viewport  - maximum viewport width in px (default: 1440px).
  * @return {String} clamp(...) function string.
  */
-@function calculate-clamp($min-size, $max-size, $min-viewport: 320, $max-viewport: 1440) {
+ @function calculate-clamp($min-size, $max-size, $min-viewport: 320, $max-viewport: 1280) {
   // Strip units for calculations
   $min-size-no-unit: $min-size;
   $max-size-no-unit: $max-size;
@@ -136,19 +117,30 @@ $typography-scales: (
   );
 }
 
-/**
- * @function get-responsive-fsz
- * @desc   Generates a responsive font-size using clamp() 
- *         based on typography scale and viewport widths.
- * @param  {String} $category    - 'body', 'heading', 'display'.
- * @param  {String} $min-size    - 'sm', 'md', 'lg', 'xl'.
- * @param  {Number} $min-viewport - min viewport width in px (default: 320).
- * @param  {Number} $max-viewport - max viewport width in px (default: 1440).
- * @return {String} clamp(...) function string.
- */
-@function get-responsive-fsz($category, $min-size, $min-viewport: 320, $max-viewport: 1440) {
-  $min-fsz: strip-unit(get-fsz($category, $min-size)) * 16;
-  $max-fsz: strip-unit(get-fsz($category, 'xl')) * 16;
+@function round-to-standard-rems($value) {
+  $closest-rem: null;
+  $smallest-difference: null;
 
-  @return calculate-clamp($min-fsz, $max-fsz, $min-viewport, $max-viewport);
+  @each $rem in $typography-standard-rems {
+    $difference: abs($value - $rem);
+
+    @if $smallest-difference == null or $difference < $smallest-difference {
+      $smallest-difference: $difference;
+      $closest-rem: $rem;
+    }
+  }
+
+  @return $closest-rem;
 }
+
+/**
+ * @function round-to-standard-rems
+ * @desc    Finds the closest predefined REM step to a given value.
+ * @param   {Number} $value - Font-size in rem units to be rounded.
+ * @return  {Number} The closest rem value from $typography-standard-rems.
+ */
+
+
+
+
+
