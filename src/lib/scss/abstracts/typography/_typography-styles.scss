@@ -1,19 +1,18 @@
 @use 'typography-functions' as tf;
-@use 'typography-font-size' as fsz;
 
 /* Display (e.g., large hero text) */
+// !use light-dark() to set color
 
 /**
- * %global__display--lg
+ * %global__display--lgx
  * Large display heading style
  */
 %global__display--lg {
 	font-family: tf.get-ff('primary');
 	font-weight: tf.get-fw('bold');
-	font-size: fsz.get-fsz('display', 'lg');
 	line-height: tf.get-lh('tight');
 	letter-spacing: tf.get-ls('tight');
-	// color: tf.get-color('darkest');
+	color: tf.get-color('darkest');
 	text-wrap: balance;
 }
 
@@ -22,12 +21,8 @@
  * Medium display heading style
  */
 %global__display--md {
-	font-family: tf.get-ff('primary');
+	@extend %global__display--lg;
 	font-weight: tf.get-fw('semibold');
-	line-height: tf.get-lh('tight');
-	letter-spacing: tf.get-ls('tight');
-	// color: tf.get-color('darkest');
-	text-wrap: balance;
 }
 
 /**
@@ -35,12 +30,7 @@
  * Small display heading style
  */
 %global__display--sm {
-	font-family: tf.get-ff('primary');
-	font-weight: tf.get-fw('semibold');
-	line-height: tf.get-lh('tight');
-	letter-spacing: tf.get-ls('tight');
-	// color: tf.get-color('darkest');
-	text-wrap: balance;
+	@extend %global__display--md;
 }
 
 /* Headings (e.g., h4, h5, h6) */
@@ -62,11 +52,7 @@
  * Medium heading style
  */
 %global__heading--md {
-	font-family: tf.get-ff('primary');
-	font-weight: tf.get-fw('medium');
-	line-height: tf.get-lh('snug');
-	letter-spacing: tf.get-ls('snug');
-	text-wrap: balance;
+	@extend %global__heading--lg;
 }
 
 /**
@@ -74,10 +60,7 @@
  * Small heading style
  */
 %global__heading--sm {
-	font-family: tf.get-ff('primary');
-	font-weight: tf.get-fw('medium');
-	line-height: tf.get-lh('snug');
-	text-wrap: balance;
+	@extend %global__heading--lg;
 }
 
 /* Body text (e.g., paragraphs) */
@@ -99,10 +82,8 @@
  * Small body text style
  */
 %global__body--sm {
-	font-family: tf.get-ff('secondary');
-	font-weight: tf.get-fw('regular');
-	line-height: tf.get-lh('normal');
-	text-wrap: pretty;
+	@extend %global__body--base;
+	letter-spacing: initial;
 }
 
 /**
@@ -110,9 +91,7 @@
  * Extra small body text style
  */
 %global__body--xs {
-	font-family: tf.get-ff('secondary');
+	@extend %global__body--base;
 	font-weight: tf.get-fw('light');
-	line-height: tf.get-lh('normal');
 	letter-spacing: tf.get-ls('loose');
-	text-wrap: pretty;
 }

@@ -1,121 +1,128 @@
 @use 'sass:math';
 @use '../colors/colors-variables' as cv;
+@use '../../base/global-variables' as gv;
 
 /**
- * Recommended ratio for aesthetic scaling.
+ * Base font size and scale ratio for typography system
  */
+$typography-base-size: 1.125rem; // 18px
 $typography-scale-ratio: 1.414;
 
 /**
- * Base font size from which all scales are derived (in rem).
+ * Standard REM values for vertical rhythm, in multiples of 4px where possible
  */
-$typography-base-size: 1.125rem;//18px
-
-
-
-/**
- * @var $typography-scales
- * @desc map of maps containing 'body', 'heading', and 'display' sizes.
- */
-$typography-scales: (
-  'body': (
-    'sm': round-to-standard-rems($typography-base-size / math.pow($typography-scale-ratio, 0.5)),
-    'md': round-to-standard-rems($typography-base-size / math.pow($typography-scale-ratio, 0.75)),
-    'lg': round-to-standard-rems($typography-base-size),
-    'xl': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 0.5))
-  ),
-  'heading': (
-    'sm': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 1)),
-    'md': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 1.5)),
-    'lg': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 2)),
-    'xl': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 2.5))
-  ),
-  'display': (
-    'sm': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 3)),
-    'md': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 4)),
-    'lg': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 5)),
-    'xl': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 6))
-  )
+$typography-standard-rems: (
+	0.125,
+	0.25,
+	0.5,
+	1,
+	// Base increments
+	1.125,
+	1.25,
+	1.5,
+	// Small text sizes
+	1.75,
+	1.875,
+	2,
+	// Medium text sizes
+	2.25,
+	2.5,
+	2.75,
+	2.875,
+	// Large text sizes
+	3,
+	3.25,
+	3.5,
+	3.75,
+	3.875,
+	4 // Display text sizes
 );
 
-/*==================================
-  Typography Scaling Functions
-====================================*/
-
-
-
 /**
- * @function round-to-standard-rems
- * @desc    Finds the closest predefined REM step to a given value.
- * @param   {Number} $value - Font-size in rem units to be rounded.
- * @return  {Number} The closest rem value from $typography-standard-rems.
+ * !HELPER FUNCTION: round-to-standard-rems before responsive font size
+ * Rounds a font size to the nearest standard REM value
  */
-/**
- * A list of REM values used to "round" font sizes for vertical rhythm,
- * ideally in multiples of 4px.
- */
- $typography-standard-rems: (
-  0.125, 0.25, 0.5, 1,      // Base increments
-  1.125, 1.25, 1.5,         // Small text sizes
-  1.75, 1.875, 2,           // Medium text sizes
-  2.25, 2.5, 2.75, 2.875,   // Large text sizes
-  3, 3.25, 3.5, 3.75, 3.875, 4 // Display text sizes
-);
-
 @function round-to-standard-rems($value) {
-  $closest-rem: null;
-  $smallest-difference: null;
+	$closest-rem: null;
+	$smallest-difference: null;
 
-  @each $rem in $typography-standard-rems {
-    $difference: abs($value - $rem);
+	@each $rem in $typography-standard-rems {
+		$difference: abs($value - $rem);
+		@if $smallest-difference == null or $difference < $smallest-difference {
+			$smallest-difference: $difference;
+			$closest-rem: $rem;
+		}
+	}
 
-    @if $smallest-difference == null or $difference < $smallest-difference {
-      $smallest-difference: $difference;
-      $closest-rem: $rem;
-    }
-  }
-
-  @return $closest-rem;
+	@return $closest-rem;
 }
 
+/**
+ * Font size scales for different text categories
+ */
+$typography-scales: (
+	'body': (
+		'sm': round-to-standard-rems($typography-base-size / math.pow($typography-scale-ratio, 0.5)),
+		'md': round-to-standard-rems($typography-base-size / math.pow($typography-scale-ratio, 0.75)),
+		'lg': round-to-standard-rems($typography-base-size),
+		'xl': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 0.5))
+	),
+	'heading': (
+		'sm': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 1)),
+		'md': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 1.5)),
+		'lg': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 2)),
+		'xl': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 2.5))
+	),
+	'display': (
+		'sm': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 3)),
+		'md': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 4)),
+		'lg': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 5)),
+		'xl': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 6))
+	)
+);
 
 /**
- * @function calculate-clamp
- * @desc   Creates a responsive value using `clamp()` based on specific pixel values and viewport widths.
- * @param  {Number} $min-size      - minimum size in px.
- * @param  {Number} $max-size      - maximum size in px.
- * @param  {Number} $min-viewport  - minimum viewport width in px (default: 320px).
- * @param  {Number} $max-viewport  - maximum viewport width in px (default: 1440px).
- * @return {String} clamp(...) function string.
+ * !HELPER FUNCTION: For rounding to the nearest hundredth
+ * Truncates a number to the nearest hundredth
  */
- @function calculate-clamp($min-rem, $max-rem, $min-viewport: 20rem, $max-viewport: 80rem) {
-  // Calculate slope & y-intercept
-  $slope: math.div(($min-rem - $max-rem),($max-viewport - $min-viewport));
-  $intercept: $min-viewport * $slope + $min-rem;
-  
-  @return clamp(#{$min-rem}, (#{truncate($intercept)} + #{truncate($slope * -100)}vw), #{$max-rem});
-  }
+@function truncate($number) {
+	@return math.div(math.round($number * 100), 100);
+}
+/**
+ * Creates a responsive font size using clamp()
+ */
+@function get-responsive-fsz(
+	$font-title,
+	$min-rem,
+	$max-rem,
+	$min-viewport: gv.$min-viewport,
+	$max-viewport: gv.$max-viewport
+) {
+	$min-value: map-get($typography-scales, $font-title, #{$min-rem});
+	$max-value: map-get($typography-scales, $font-title, #{$max-rem});
+	$slope: math.div(($min-value - $max-value), ($max-viewport - $min-viewport));
+	$intercept: $min-viewport * $slope + $min-value;
+
+	@return clamp(
+		#{$min-value},
+		(#{truncate($intercept)} + #{truncate($slope * -100)}vw),
+		#{$max-value}
+	);
+}
 
 /**
- * @function get-fsz
- * @desc   Retrieves a font-size from the $typography-scales map.
- * @param  {String} $category - 'body', 'heading', 'display'.
- * @param  {String} $size - 'sm', 'md', 'lg', 'xl'.
- * @return {Number} rem-based font size.
- * @throws if invalid category or size.
+ * Gets a static font size from the typography scales
  */
- @function get-fsz($category, $size) {
-  $category-map: map-get($typography-scales, $category);
+@function get-static-fsz($category, $size) {
+	$category-map: map-get($typography-scales, $category);
+	@if not $category-map {
+		@error "Invalid category '#{$category}'. Valid categories are: body, heading, display.";
+	}
 
-  @if not $category-map {
-    @error "Invalid category '#{$category}'. Valid categories are: body, heading, display.";
-  }
+	$font-size: map-get($category-map, $size);
+	@if not $font-size {
+		@error "Invalid size '#{$size}' for '#{$category}'. Valid sizes are: sm, md, lg, xl.";
+	}
 
-  $font-size: map-get($category-map, $size);
-
-  @if not $font-size {
-    @error "Invalid size '#{$size}' for '#{$category}'. Valid sizes are: sm, md, lg, xl.";
-  }
-
-  @return $font-size;
+	@return $font-size;
 }

@@ -2,7 +2,6 @@
 @use 'typography-variables' as tv;
 @use '../colors/colors-variables' as cv;
 
-
 /*==================================
 Other functions
 ======================================*/
@@ -55,4 +54,3 @@ Other functions
 @function get-color($color) {
 	@return map-get(cv.$color-scale, $color);
 }
-
