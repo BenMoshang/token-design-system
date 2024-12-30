@@ -1,6 +1,5 @@
 @use 'sass:math';
 
-
 /**
  * @var $font-family: (map)
  *    'primary': String - primary font family
@@ -41,8 +40,8 @@ $line-heights: (
  *    Values: em-based letter spacing values
  */
 $letter-spacing: (
-	'tight': -0.04em,
-	'snug': -0.025em,
+	'tight': -0.025em,
+	'snug': -0.01em,
 	'normal': 0,
 	'loose': 0.04em
 );

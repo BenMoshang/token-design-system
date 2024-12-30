@@ -1,74 +1,68 @@
 @use 'typography-functions' as tf;
-
+@use 'typography-font-size' as fsz;
+@use '../colors/colors-functions' as cf;
 /* Display (e.g., large hero text) */
 // !use light-dark() to set color
-
 /**
  * %global__display--lgx
  * Large display heading style
  */
-%global__display--lg {
+%global__display--base {
 	font-family: tf.get-ff('primary');
 	font-weight: tf.get-fw('bold');
+
 	line-height: tf.get-lh('tight');
 	letter-spacing: tf.get-ls('tight');
-	color: tf.get-color('darkest');
+	color: cf.get-light-dark('darkest', 'lightest');
 	text-wrap: balance;
 }
 
-/**
- * %global__display--md
- * Medium display heading style
- */
+%global__display--xl {
+	@extend %global__display--base;
+}
+
+%global__display--lg {
+	@extend %global__display--base;
+}
 %global__display--md {
-	@extend %global__display--lg;
-	font-weight: tf.get-fw('semibold');
+	@extend %global__display--base;
 }
-
-/**
- * %global__display--sm
- * Small display heading style
- */
 %global__display--sm {
-	@extend %global__display--md;
+	@extend %global__display--base;
 }
 
+%global__display--xs {
+	@extend %global__display--base;
+}
 /* Headings (e.g., h4, h5, h6) */
 
-/**
- * %global__heading--lg
- * Large heading style
- */
-%global__heading--lg {
+%global__heading--base {
 	font-family: tf.get-ff('primary');
 	font-weight: tf.get-fw('medium');
 	line-height: tf.get-lh('snug');
 	letter-spacing: tf.get-ls('snug');
 	text-wrap: balance;
 }
+%global__heading--xl {
+	@extend %global__heading--base;
+}
 
-/**
- * %global__heading--md
- * Medium heading style
- */
+%global__heading--lg {
+	@extend %global__heading--base;
+}
+
 %global__heading--md {
-	@extend %global__heading--lg;
+	@extend %global__heading--base;
 }
 
-/**
- * %global__heading--sm
- * Small heading style
- */
 %global__heading--sm {
-	@extend %global__heading--lg;
+	@extend %global__heading--base;
 }
 
-/* Body text (e.g., paragraphs) */
+%global__heading--xs {
+	@extend %global__heading--base;
+}
 
-/**
- * %global__body--base
- * Base body text style
- */
 %global__body--base {
 	font-family: tf.get-ff('secondary');
 	font-weight: tf.get-fw('regular');
@@ -76,20 +70,23 @@
 	letter-spacing: tf.get-ls('normal');
 	text-wrap: pretty;
 }
+%global__body--xl {
+	@extend %global__body--base;
+}
 
-/**
- * %global__body--sm
- * Small body text style
- */
+%global__body--lg {
+	@extend %global__body--xl;
+}
+
+%global__body--md {
+	@extend %global__body--xl;
+}
+
 %global__body--sm {
 	@extend %global__body--base;
 	letter-spacing: initial;
 }
 
-/**
- * %global__body--xs
- * Extra small body text style
- */
 %global__body--xs {
 	@extend %global__body--base;
 	font-weight: tf.get-fw('light');
