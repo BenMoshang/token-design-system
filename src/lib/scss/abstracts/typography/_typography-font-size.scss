@@ -1,241 +1,138 @@
-/**
- * -------------------------------------------------------------------------
- * TYPOGRAPHY SCSS: Scalable & Responsive Font Sizing (Updated)
- *
- * This file sets up a flexible typographic scale with:
- * 1) A base font size and scale ratio.
- * 2) A curated set of standard REM increments.
- * 3) Functions to round font sizes to these standard increments.
- * 4) Helper functions to retrieve static or responsive font sizes, with
- *    added checks & optional fallback hints.
- *
- * Dependencies:
- *   - sass:math (Sass math utilities)
- *   - '../colors/colors-variables' (aliased as `cv` — ensure this file exists)
- *   - '../../base/global-variables' (aliased as `gv` — ensure it contains
- *     $min-viewport & $max-viewport)
- *
- * Usage:
- *   - Use `get-static-fsz($category, $size)` for static sizes.
- *   - Use `get-res-fsz($category, $min-rem, $max-rem, [$min-viewport], [$max-viewport])`
- *     for responsive sizes.
- *   - Categories: 'body', 'heading', 'display'
- *   - Sizes: 'sm', 'md', 'lg', 'xl'
- *
- * Example:
- *   p {
- *     font-size: get-static-fsz('body', 'md');
- *   }
- *
- *   h1 {
- *     font-size: get-res-fsz('heading', 'sm', 'lg');
- *   }
- * -------------------------------------------------------------------------
- */
+@use 'sass:math';
 
-// ---------------------------------------------------------------------------
-// 1) Required Imports
-// ---------------------------------------------------------------------------
-@use 'sass:math'; // Provides math functions such as abs(), pow(), round()
-@use '../colors/colors-variables' as cv; // Manages your color system (not used here, but presumably needed)
-@use '../../base/global-variables' as gv; // Contains $min-viewport and $max-viewport
+/* ---------------------------------------------------------------------------
+   1) Global / Default Variables (REM Only)
+   ---------------------------------------------------------------------------
+   Adjust these to match your project's design system. We assume that 1rem
+   typically corresponds to 16px, but we're NOT using px at all, so everything
+   remains consistent in rem.
+--------------------------------------------------------------------------- */
+$typography-base-size: 1.125rem; // e.g., ~18px if 1rem=16px
+$typography-scale-ratio: 1.414; // Classic typographic ratio (sqrt(2))
 
-// ---------------------------------------------------------------------------
-// 2) Base Typography Configuration
-// ---------------------------------------------------------------------------
+// Viewport breakpoints also in rem (e.g., 20rem ~ 320px, 75rem ~ 1200px)
+$min-viewport: 20rem; // ~320px if 1rem=16px
+$max-viewport: 75rem; // ~1200px if 1rem=16px
 
-/**
- * $typography-base-size:
- *   The root font size in REM. Defaulted to 1.125rem (≈ 18px).
- * $typography-scale-ratio:
- *   A multiplier used for typographic scaling.
- *   1.414 is close to sqrt(2), a classic typographic scale.
- */
-$typography-base-size: 1.125; // 18px
-$typography-scale-ratio: 1.414; // Classic typographic scale (approx sqrt(2))
-
-/**
- * $typography-standard-rems:
- *   A curated list of acceptable REM increments to maintain visual rhythm.
- *   For example: 0.125rem (2px), 0.25rem (4px), 0.5rem (8px), etc.
- *   Ensures consistency across the interface.
- */
-$typography-standard-rems: (
-	0.125,
-	0.25,
-	0.5,
-	1,
-	// Base increments
-	1.125,
-	1.25,
-	1.5,
-	// Small text sizes
-	1.75,
-	1.875,
-	2,
-	// Medium text sizes
-	2.25,
-	2.5,
-	2.75,
-	2.875,
-	// Large text sizes
-	3,
-	3.25,
-	3.5,
-	3.75,
-	3.875,
-	4 // Display text sizes
-);
-
-// ---------------------------------------------------------------------------
-// 3) Helper Function: round-to-standard-rems($value)
-//    - Finds nearest value in $typography-standard-rems
-// ---------------------------------------------------------------------------
-@function round-to-standard-rems($value) {
-	$closest-rem: null; // Holds the closest match from the list
-	$smallest-difference: null; // Tracks the smallest difference so far
-
-	@each $rem in $typography-standard-rems {
-		$difference: math.abs($value - $rem);
-
-		@if $smallest-difference == null or $difference < $smallest-difference {
-			$smallest-difference: $difference;
-			$closest-rem: $rem;
-		}
-	}
-
-	@return $closest-rem;
-}
-
-// ---------------------------------------------------------------------------
-// 4) Defining Typography Scales
-//    - We store scaled values for body, heading, display text.
-// ---------------------------------------------------------------------------
-
-/**
- * $typography-scales:
- *   Nested map of categories ('body', 'heading', 'display'), each containing
- *   size steps ('sm', 'md', 'lg', 'xl') computed from $typography-base-size
- *   and $typography-scale-ratio.
- *   round-to-standard-rems() ensures alignment with $typography-standard-rems.
- */
+/* ---------------------------------------------------------------------------
+   2) Typographic Scales (REM Values)
+   ---------------------------------------------------------------------------
+   We define a few categories ("body", "heading", "display"), each with size
+   keys ("sm", "md", "lg", "xl"). All values are in rem, derived from the
+   base size and ratio.
+--------------------------------------------------------------------------- */
 $typography-scales: (
 	'body': (
-		'sm': round-to-standard-rems($typography-base-size / math.pow($typography-scale-ratio, 0.5)),
-		'md': round-to-standard-rems($typography-base-size / math.pow($typography-scale-ratio, 0.75)),
-		'lg': round-to-standard-rems($typography-base-size),
-		'xl': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 0.5))
+		'sm': $typography-base-size / math.pow($typography-scale-ratio, 0.5),
+		'md': $typography-base-size / math.pow($typography-scale-ratio, 0.75),
+		'lg': $typography-base-size,
+		'xl': $typography-base-size * math.pow($typography-scale-ratio, 0.5)
 	),
 	'heading': (
-		'sm': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 1)),
-		'md': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 1.5)),
-		'lg': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 2)),
-		'xl': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 2.5))
+		'sm': $typography-base-size * math.pow($typography-scale-ratio, 1),
+		'md': $typography-base-size * math.pow($typography-scale-ratio, 1.5),
+		'lg': $typography-base-size * math.pow($typography-scale-ratio, 2),
+		'xl': $typography-base-size * math.pow($typography-scale-ratio, 2.5)
 	),
 	'display': (
-		'sm': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 3)),
-		'md': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 4)),
-		'lg': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 5)),
-		'xl': round-to-standard-rems($typography-base-size * math.pow($typography-scale-ratio, 6))
+		'sm': $typography-base-size * math.pow($typography-scale-ratio, 3),
+		'md': $typography-base-size * math.pow($typography-scale-ratio, 4),
+		'lg': $typography-base-size * math.pow($typography-scale-ratio, 5),
+		'xl': $typography-base-size * math.pow($typography-scale-ratio, 6)
 	)
 );
 
-// ---------------------------------------------------------------------------
-// 5) Helper Function: (Optional) Truncate
-//    - Un-comment if you need to limit to 2 decimal places
-// ---------------------------------------------------------------------------
-// @function truncate($number) {
-//   @return math.div(math.round($number * 100), 100);
-// }
-
-// ---------------------------------------------------------------------------
-// 6) FUNCTION: get-static-fsz($category, $size)
-//    - Retrieves a static font size from $typography-scales for a given
-//      category ('body', 'heading', 'display') and size ('sm', 'md', 'lg', 'xl').
-// ---------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------
+   3) Static Font-Size Getter
+   ---------------------------------------------------------------------------
+   Retrieves a static size from $typography-scales, returning a REM value.
+--------------------------------------------------------------------------- */
 @function get-static-fsz($font-category, $size) {
 	$category-map: map-get($typography-scales, $font-category);
 
 	@if not $category-map {
-		@error "Invalid category '#{$font-category}'. Valid categories are: body, heading, display.";
+		@error "Invalid category '#{$font-category}'. " +
+           "Valid categories are: body, heading, display.";
 	}
 
 	$font-size: map-get($category-map, $size);
 
 	@if not $font-size {
-		@error "Invalid size '#{$size}' for '#{$font-category}'. Valid sizes are: sm, md, lg, xl.";
+		@error "Invalid size '#{$size}' for '#{$font-category}'. " +
+           "Valid sizes are: sm, md, lg, xl.";
 	}
 
-	@return #{$font-size}rem;
-}
-
-// ---------------------------------------------------------------------------
-// 7) FUNCTION: get-res-fsz($font-category, $min-rem, $max-rem, $min-viewport, $max-viewport)
-//    - Calculates a responsive font size using clamp(), transitioning smoothly
-//      from $min-value at $min-viewport to $max-value at $max-viewport.
-//
-//    @ Param $font-category: the category within $typography-scales (body, heading, display)
-//    @ Param $min-rem: the smaller size key (e.g. 'sm', 'md', 'lg', 'xl')
-//    @ Param $max-rem: the larger size key (e.g. 'sm', 'md', 'lg', 'xl')
-//    @ Param $min-viewport: the viewport width where the font starts scaling
-//      (defaults to gv.$min-viewport). Must be numeric in the same unit as $max-viewport!
-//    @ Param $max-viewport: the viewport width where the font scaling stops
-//      (defaults to gv.$max-viewport). Must be numeric in the same unit as $min-viewport!
-//
-//    - Returns a clamp() expression that ensures accessibility and legibility:
-//      `clamp(min-size, fluid-size, max-size)`
-//
-//    NOTE ON FALLBACK:
-//      SASS functions can only return a single value. If you want a fallback
-//      before clamp(), you must do so within a rule or a mixin:
-//
-//      @mixin rfs($font-category, $min-rem, $max-rem) {
-//        font-size: get-static-fsz($font-category, $min-rem);  // fallback
-//        font-size: get-res-fsz($font-category, $min-rem, $max-rem);
-//      }
-// ---------------------------------------------------------------------------
-// ---------------------------------------------------------------------------
-// Helper function to strip units from a number
-// ---------------------------------------------------------------------------
-@function strip-unit($number) {
-	@if type-of($number) == 'number' and not unitless($number) {
-		@return math.div($number, ($number * 0 + 1));
-	}
-	@return $number;
-}
-
-@function get-res-fsz(
-	$font-category,
-	$min-rem,
-	$max-rem,
-	$min-viewport: gv.$min-viewport,
-	$max-viewport: gv.$max-viewport
-) {
-	// Prevent division by zero if min == max
-	@if $max-viewport == $min-viewport {
-		@error "min-viewport (#{$min-viewport}) and max-viewport (#{$max-viewport}) must not be equal.";
-	}
-
-	// 1. Retrieve static sizes from the typographic scale
-	$min-value: strip-unit(get-static-fsz($font-category, $min-rem));
-	$max-value: strip-unit(get-static-fsz($font-category, $max-rem));
-
-	// 2. Calculate slope (rate of change based on viewport width)
-	$slope: math.div($max-value - $min-value, $max-viewport - $min-viewport);
-
-	// 3. Calculate intercept (where line crosses the y-axis)
-	$intercept: $min-value - ($slope * $min-viewport);
-
-	// 4. Construct clamp() using calc() in the middle for safe arithmetic
-	@return clamp(#{$min-value}rem, calc(#{$intercept}rem + #{$slope * 100}vw), #{$max-value}rem);
+	@return $font-size;
 }
 
 /* ---------------------------------------------------------------------------
-Example usage in a rule:
-.some-class {
-  // OPTIONAL fallback for older browsers:
-  font-size: get-static-fsz('body', 'sm');
-  // Then override with clamp():
-  font-size: get-res-fsz('body', 'sm', 'lg');
+   4) Pure Clamp Function (REM-Only)
+   ---------------------------------------------------------------------------
+   This is a direct Marc Bacon-style function, but restricted to REM units.
+   Pass in:
+     - $min-size      (rem) e.g. 1rem
+     - $max-size      (rem) e.g. 2rem
+     - $min-viewport  (rem) e.g. 20rem  ( ~320px if 1rem=16px )
+     - $max-viewport  (rem) e.g. 75rem  ( ~1200px if 1rem=16px )
+
+   Returns:
+     clamp($min-size, calc($intercept + $slope * 100vw), $max-size)
+
+   Where:
+     $slope     = (maxSize - minSize) / (maxVW - minVW)
+     $intercept = minSize - slope * minVW
+--------------------------------------------------------------------------- */
+@function clamp-size($min-size, $max-size, $min-viewport, $max-viewport) {
+	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
+	$intercept: $min-size - ($slope * $min-viewport);
+
+	@return clamp($min-size, calc(#{$intercept} + #{$slope} * 100vw), $max-size);
 }
--------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------
+   5) Responsive Font-Size (From Scale + Clamp)
+   ---------------------------------------------------------------------------
+   Blends the typographic scale with the clamp approach:
+   1) Fetch the smaller (min) and larger (max) font-sizes from the scale.
+   2) Use clamp-size() to create the fluid clamp expression.
+   3) Uses default $min-viewport / $max-viewport if not overridden.
+--------------------------------------------------------------------------- */
+@function get-res-fsz(
+	$font-category,
+	$min-key,
+	$max-key,
+	$min-vw: $min-viewport,
+	// default 20rem
+	$max-vw: $max-viewport // default 75rem
+) {
+	$min-size: get-static-fsz($font-category, $min-key);
+	$max-size: get-static-fsz($font-category, $max-key);
+
+	@return clamp-size($min-size, $max-size, $min-vw, $max-vw);
+}
+
+/* ---------------------------------------------------------------------------
+   6) Example Usage
+   ---------------------------------------------------------------------------
+   - h1: fluidly scales between 'heading' 'sm' and 'heading' 'xl'
+         across 20rem to 75rem viewport range.
+   - p : fluidly scales between 'body' 'sm' and 'body' 'lg' with the same range.
+--------------------------------------------------------------------------- */
+
+// Example 1: Heading that scales between 'sm' (small) and 'xl' (extra-large)
+// h1 {
+//   font-size: get-res-fsz('heading', 'sm', 'xl');
+//   // => clamp(1.59rem, calc(...), 3.18rem)  // Example numbers
+// }
+
+// // Example 2: Paragraph that scales between 'sm' and 'lg' for "body"
+// p {
+//   font-size: get-res-fsz('body', 'sm', 'lg');
+//   // => clamp(0.94rem, calc(...), 1.13rem)  // Example numbers
+// }
+
+// Example 3: Using clamp-size() directly (no scale map), e.g., from 1rem to 2rem
+// across a 30rem to 70rem viewport range:
+// .my-class {
+//   font-size: clamp-size(1rem, 2rem, 30rem, 70rem);
+// }
