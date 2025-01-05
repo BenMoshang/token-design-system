@@ -10,15 +10,10 @@
 %global__display--base {
 	font-family: tf.get-ff('primary');
 	font-weight: tf.get-fw('bold');
-
 	line-height: tf.get-lh('tight');
-	letter-spacing: tf.get-ls('tight');
+	letter-spacing: tf.get-ls('normal');
 	color: cf.get-light-dark('darkest', 'lightest');
 	text-wrap: balance;
-}
-
-%global__display--xl {
-	@extend %global__display--base;
 }
 
 %global__display--lg {
@@ -43,9 +38,6 @@
 	letter-spacing: tf.get-ls('snug');
 	text-wrap: balance;
 }
-%global__heading--xl {
-	@extend %global__heading--base;
-}
 
 %global__heading--lg {
 	@extend %global__heading--base;
@@ -59,10 +51,6 @@
 	@extend %global__heading--base;
 }
 
-%global__heading--xs {
-	@extend %global__heading--base;
-}
-
 %global__body--base {
 	font-family: tf.get-ff('secondary');
 	font-weight: tf.get-fw('regular');
@@ -70,24 +58,20 @@
 	letter-spacing: tf.get-ls('normal');
 	text-wrap: pretty;
 }
-%global__body--xl {
+
+%global__body--lg {
 	@extend %global__body--base;
 }
 
-%global__body--lg {
-	@extend %global__body--xl;
-}
-
 %global__body--md {
-	@extend %global__body--xl;
+	@extend %global__body--base;
 }
 
 %global__body--sm {
 	@extend %global__body--base;
-	letter-spacing: initial;
 }
 
-%global__body--xs {
+%global__label {
 	@extend %global__body--base;
 	font-weight: tf.get-fw('light');
 	letter-spacing: tf.get-ls('loose');
