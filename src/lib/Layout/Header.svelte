@@ -89,7 +89,7 @@ burger
 	logo
 ==========================*/
 	.header__logo-company {
-		@extend %global__body--base;
+		@extend %global__display--base;
 		color: get-light-dark('darkest', 'lightest');
 		font-weight: get-fw('light');
 		letter-spacing: get-ls('loose');

@@ -8,7 +8,7 @@
  * Large display heading style
  */
 %global__display--base {
-	font-family: tf.get-ff('primary');
+	font-family: tf.get-ff('display');
 	font-weight: tf.get-fw('bold');
 	line-height: tf.get-lh('tight');
 	letter-spacing: tf.get-ls('normal');

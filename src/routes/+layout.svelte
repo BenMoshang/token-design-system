@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '$lib/layout/Header.svelte';
+	import Header from '$lib/Layout/Header.svelte';
 </script>
 
 <Header />
@@ -167,21 +167,6 @@
 		display: none;
 	}
 
-	@font-face {
-		font-family: 'Inter';
-		src: url('/Fonts/Inter/Inter-Italic.ttf') format('truetype');
-		font-weight: 400;
-		font-display: swap;
-		font-style: italic;
-	}
-
-	@font-face {
-		font-family: 'Inter';
-		src: url('/Fonts/Inter/Inter.ttf') format('truetype');
-		font-weight: 400;
-		font-display: swap;
-		font-style: normal;
-	}
 
 	@font-face {
 		font-family: 'Bebas Neue';
@@ -190,4 +175,6 @@
 		font-display: swap;
 		font-style: normal;
 	}
+
+
 </style>
