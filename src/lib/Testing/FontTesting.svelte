@@ -1,4 +1,15 @@
+
 <section>
+
+
+	<div class="logo-testing">
+
+
+		<h1 class="logo-testing__version-1">MYMODERN</h1>
+		<h1 class="logo-testing__version-2">MYMODERN</h1>
+	
+	</div>
+	
 	<h1 class="display--lg">Large Display</h1>
 	<h1 class="display--md">Medium Display</h1>
 	<h1 class="display--sm">Small Display</h1>
@@ -13,6 +24,29 @@
 </section>
 
 <style lang="scss">
+
+
+.logo-testing {
+
+	padding: 1rem;
+	margin: 1rem;
+	
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	&__version-1 {
+		@extend %global__display--sm;
+}
+
+&__version-2 {
+	@extend %global__body--sm;
+	
+
+}
+}
+
+
+
 	.display--lg {
 		@extend %global__display--lg;
 	}

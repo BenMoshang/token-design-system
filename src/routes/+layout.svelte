@@ -35,7 +35,7 @@
 
 <!-- <Footer /> -->
 
-<style lang="scss">
+<style global lang="scss">
 	@use '$lib/scss/main.scss' as *;
 
 	/*--------------------------------------
@@ -43,9 +43,9 @@
 	 - Global element-level styles.
   ---------------------------------------*/
 
-	*,
-	*::before,
-	*::after {
+	:global(*),
+	:global(*::before),
+	:global(*::after) {
 		box-sizing: border-box;
 		hyphens: auto;
 		-webkit-hyphens: auto;
@@ -53,52 +53,52 @@
 
 	/* Example: A simple CSS reset 
      (You can replace or expand this with a more extensive reset or normalize) */
-	html,
-	body,
-	p,
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6,
-	ul,
-	li {
+	:global(html),
+	:global(body),
+	:global(p),
+	:global(h1),
+	:global(h2),
+	:global(h3),
+	:global(h4),
+	:global(h5),
+	:global(h6),
+	:global(ul),
+	:global(li) {
 		margin: 0;
 		padding: 0;
 	}
 
 	/* Interactive Elements */
-	button,
-	[role='button'],
-	select {
+	:global(button),
+	:global([role='button']),
+	:global(select) {
 		cursor: pointer;
 	}
 
 	/* Form Elements */
-	input,
-	button,
-	textarea,
-	select {
+	:global(input),
+	:global(button),
+	:global(textarea),
+	:global(select) {
 		font: inherit;
 	}
 
 	/* Typography */
-	p,
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
+	:global(p),
+	:global(h1),
+	:global(h2),
+	:global(h3),
+	:global(h4),
+	:global(h5),
+	:global(h6) {
 		overflow-wrap: break-word;
 	}
 
-	img,
-	picture,
-	video,
-	canvas,
-	svg {
+	:global(img),
+	:global(picture),
+	:global(video),
+	:global(canvas),
+	:global(svg) {
 		max-inline-size: 100%;
 		block-size: auto;
 		vertical-align: middle;
@@ -107,11 +107,60 @@
 		background-size: cover;
 		shape-margin: 1rem;
 	}
-	html,
-	body {
-		width: 100vw;
-		height: 100vh;
-		overflow-x: hidden;
+
+	/* Tables */
+	:global(table) {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	/* Blockquotes */
+	:global(blockquote),
+	:global(q) {
+		quotes: none;
+	}
+
+	:global(blockquote::before),
+	:global(blockquote::after),
+	:global(q::before),
+	:global(q::after) {
+		content: '';
+	}
+
+	/* Scrollbar Styles */
+	:global(::-webkit-scrollbar) {
+		width: 0.5rem;
+	}
+
+	:global(::-webkit-scrollbar-track) {
+		background: white;
+	}
+
+	:global(::-webkit-scrollbar-thumb) {
+		background-color: hsl(0, 0%, 53%);
+		border-radius: 0.625rem;
+		border: 0.125rem solid white;
+	}
+
+	:global(::-webkit-scrollbar-thumb:hover) {
+		background-color: hsl(0, 0%, 33%);
+	}
+
+	:global(::-webkit-scrollbar-button) {
+		display: none;
+	}
+
+	.page-grid {
+		max-inline-size: $max-viewport;
+
+		inline-size: 100%;
+		min-block-size: 100vh;
+		box-sizing: border-box;
+		margin: 0 auto;
+		overflow-x: clip;
+		display: grid;
+		// Define a 12-column layout:
+		// Gutter between columns (adjust as needed):
 		scroll-behavior: smooth;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
@@ -120,73 +169,20 @@
 		padding: 0;
 		border: 0;
 		box-sizing: border-box;
-	}
 
-	/* Tables */
-	table {
-		border-collapse: collapse;
-		border-spacing: 0;
-	}
+		display: contents;
+		// grid-template-columns: repeat(12, 1fr);
+		// //gutter between columns
+		// grid-column-gap: 1rem;
 
-	/* Blockquotes */
-	blockquote,
-	q {
-		quotes: none;
-	}
+		// grid-template-areas: 'col-1 col-2 col-3 col-4 col-5 col-6 col-7 col-8 col-9 col-10 col-11 col-12';
 
-	blockquote::before,
-	blockquote::after,
-	q::before,
-	q::after {
-		content: '';
-	}
-
-	/* Scrollbar Styles */
-	::-webkit-scrollbar {
-		width: 0.5rem;
-	}
-
-	::-webkit-scrollbar-track {
-		background: white;
-	}
-
-	::-webkit-scrollbar-thumb {
-		background-color: hsl(0, 0%, 53%);
-		border-radius: 0.625rem;
-		border: 0.125rem solid white;
-	}
-
-	::-webkit-scrollbar-thumb:hover {
-		background-color: hsl(0, 0%, 33%);
-	}
-
-	::-webkit-scrollbar-button {
-		display: none;
-	}
-
-	.page-grid {
-		inline-size: 100%;
-		min-block-size: 100vh;
-		box-sizing: border-box;
-		margin: 0 auto;
-		overflow-x: clip;
-		max-inline-size: 75rem;
-		display: grid;
-		// Define a 12-column layout:
-		// Gutter between columns (adjust as needed):
-
-		grid-template-columns: repeat(12, 1fr);
-		//gutter between columns
-		grid-column-gap: 1rem;
-
-		grid-template-areas: 'col-1 col-2 col-3 col-4 col-5 col-6 col-7 col-8 col-9 col-10 col-11 col-12';
-
-		//set grid column for each column
-		@for $i from 1 through 12 {
-			[data-area='col-#{$i}'] {
-				grid-column: $i;
-			}
-		}
+		// //set grid column for each column
+		// @for $i from 1 through 12 {
+		// 	[data-area='col-#{$i}'] {
+		// 		grid-column: $i;
+		// 	}
+		// }
 	}
 	@font-face {
 		font-family: 'Inter';

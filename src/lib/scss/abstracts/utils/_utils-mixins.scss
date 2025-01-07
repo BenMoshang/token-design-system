@@ -1,0 +1,32 @@
+
+// 1. Flexbox Utilities
+
+/**
+ * @mixin flex-center
+ * @desc Centers items both vertically and horizontally using flexbox.
+ */
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/**
+ * @mixin flex-between
+ * @desc Distributes items with space between using flexbox.
+ */
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/**
+ * @mixin flex-column
+ * @desc Arranges items in a column using flexbox.
+ */
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
