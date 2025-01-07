@@ -3,7 +3,7 @@
 </script>
 
 <Header />
-<main class="page-grid">
+<main class="page-container">
 	<slot />
 </main>
 
@@ -42,7 +42,7 @@
 	 BASE LAYER
 	 - Global element-level styles.
   ---------------------------------------*/
-
+	//!TODO: EDIT SCROLLBAR COLORS AND SIZE
 	:global(*),
 	:global(*::before),
 	:global(*::after) {
@@ -50,7 +50,24 @@
 		hyphens: auto;
 		-webkit-hyphens: auto;
 	}
+	.page-container {
+		box-sizing: border-box;
+		margin: 0 auto;
+		overflow-x: clip;
+		max-inline-size: $max-viewport;
+		inline-size: 100%;
+		min-block-size: 100vh;
+		padding-inline: get-sp(x4);
 
+		scroll-behavior: smooth;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeSpeed;
+
+		box-sizing: border-box;
+
+		display: contents;
+	}
 	/* Example: A simple CSS reset 
      (You can replace or expand this with a more extensive reset or normalize) */
 	:global(html),
@@ -150,40 +167,6 @@
 		display: none;
 	}
 
-	.page-grid {
-		max-inline-size: $max-viewport;
-
-		inline-size: 100%;
-		min-block-size: 100vh;
-		box-sizing: border-box;
-		margin: 0 auto;
-		overflow-x: clip;
-		display: grid;
-		// Define a 12-column layout:
-		// Gutter between columns (adjust as needed):
-		scroll-behavior: smooth;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-rendering: optimizeSpeed;
-		margin: 0;
-		padding: 0;
-		border: 0;
-		box-sizing: border-box;
-
-		display: contents;
-		// grid-template-columns: repeat(12, 1fr);
-		// //gutter between columns
-		// grid-column-gap: 1rem;
-
-		// grid-template-areas: 'col-1 col-2 col-3 col-4 col-5 col-6 col-7 col-8 col-9 col-10 col-11 col-12';
-
-		// //set grid column for each column
-		// @for $i from 1 through 12 {
-		// 	[data-area='col-#{$i}'] {
-		// 		grid-column: $i;
-		// 	}
-		// }
-	}
 	@font-face {
 		font-family: 'Inter';
 		src: url('/Fonts/Inter/Inter-Italic.ttf') format('truetype');
