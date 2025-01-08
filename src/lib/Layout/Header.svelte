@@ -1,8 +1,23 @@
 <script lang="ts">
-	let hideHeader: boolean = false;
+	let hideHeader = $state(false);
+	let lastScrollY = $state(0);
+
+	// Add scroll event listener when the component is mounted
+	$effect(() => {
+		const handleScroll = () => {
+			const currentScrollY = window.scrollY;
+			hideHeader = currentScrollY > lastScrollY && currentScrollY > 50;
+			lastScrollY = currentScrollY;
+		};
+
+		window.addEventListener('scroll', handleScroll, { passive: true });
+
+		// Cleanup listener on component destroy
+		return () => window.removeEventListener('scroll', handleScroll);
+	});
 </script>
 
-<header>
+<header class:hide={hideHeader}>
 	<a class="header__logo" href="/">
 		<h3 class="header__logo-company"><span>My</span><br />Modern</h3>
 	</a>
@@ -60,8 +75,14 @@
 		border-bottom-left-radius: $br-default;
 		border-bottom-right-radius: $br-default;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.125);
-	}
 
+		transition: transform 0.3s ease-in-out;
+		transform: translateY(0);
+	}
+	/* Hides header by sliding it up */
+	.hide {
+		transform: translateY(-100%);
+	}
 	/*==========================
 burger
 ==========================*/

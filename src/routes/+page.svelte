@@ -13,6 +13,10 @@
 <!-- <HeroSection /> -->
 <!-- <FontTesting /> -->
 <img src="../static/Images/city.jpg" alt="city" />
+<img src="../static/Images/city.jpg" alt="city" />
+<img src="../static/Images/city.jpg" alt="city" />
+<img src="../static/Images/city.jpg" alt="city" />
+<img src="../static/Images/city.jpg" alt="city" />
 
 <style lang="scss">
 	img {
