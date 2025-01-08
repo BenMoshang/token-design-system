@@ -1,5 +1,30 @@
+/*=============================================
+=            Global Variables                =
+=============================================*/
+
+/*=============================================
+=            Border Radius            =
+=============================================*/
+$border-radius: (
+	'default': 0.75rem,
+	'rounded': 9999px
+);
+$br-default: map-get($border-radius, 'default');
+$br-rounded: map-get($border-radius, 'rounded');
+
+/*=============================================
+=            for clamp             =
+=============================================*/
 $min-viewport: 20rem; // 320px 20rem
 $max-viewport: 80rem; // 1280px 80rem
+/*=============================================
+=          Breakpoints             =
+=============================================*/
 //min-width Mobile
-$mobile-viewport: 64rem; // 64rem
-$desktop-viewport: 80rem; // 80rem
+$mobile-viewport: 64rem; // 1024px
+$desktop-viewport: 80rem; // 1280px
+
+/*=============================================
+=            Page            =
+=============================================*/
+$page-header-height: 5rem;

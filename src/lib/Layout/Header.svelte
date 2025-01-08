@@ -1,11 +1,12 @@
 <script lang="ts">
-	let isMobile: boolean = false;
+	let hideHeader: boolean = false;
 </script>
 
 <header>
 	<a class="header__logo" href="/">
-		<h3 class="header__logo-company">MY MODERN</h3>
+		<h3 class="header__logo-company"><span>My</span><br />Modern</h3>
 	</a>
+
 	<!-- MOBILE: Menu Toggle -->
 	<label for="menu-toggle" class="header__menu-toggle-label">
 		<input type="checkbox" id="menu-toggle" class="header__menu-toggle" aria-label="Toggle menu" />
@@ -27,19 +28,38 @@
 	</nav>
 </header>
 
-<style lang="scss" scoped>
-	@use '$lib/scss/base/global-variables' as gv;
+<style lang="scss">
+	@use '$lib/scss/main.scss' as *;
 
 	/*==========================
 	OVERIVIEW: Styles Quick Reference
 	==========================*/
 
 	header {
-		--header-background: #{get-light-dark('lightest', 'darkest')};
-		--header-height: 5rem;
+		--header-height: #{$page-header-height};
 		& a {
 			text-decoration: none;
 		}
+	}
+	/*==========================
+	header
+==========================*/
+	header {
+		@include flex-between;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+		backdrop-filter: blur(16px) saturate(200%);
+		-webkit-backdrop-filter: blur(16px) saturate(200%);
+		width: 100%;
+		height: var(--header-height);
+		padding-inline: get-sp('x4');
+		backdrop-filter: blur(1rem);
+		border-bottom-left-radius: $br-default;
+		border-bottom-right-radius: $br-default;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.125);
 	}
 
 	/*==========================
@@ -47,33 +67,42 @@ burger
 ==========================*/
 	.header__menu-toggle-label {
 		cursor: pointer;
-	}
 
-	.header__menu-toggle-label input {
-		display: none;
-	}
+		& input {
+			display: none;
+		}
 
-	.header__menu-toggle-label svg {
-		/* The size of the SVG defines the overall size */
-		height: 3em;
-		/* Define the transition for transforming the SVG */
-		transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
-	}
+		& svg {
+			/* The size of the SVG defines the overall size */
+			--svg-size: 2.5rem;
+			--burger-centering: #{get-sp('x1')};
+			width: var(--svg-size);
+			height: var(--svg-size);
+			padding-block: var(--burger-centering);
+			padding-right: var(--burger-centering);
 
-	.line {
-		fill: none;
-		stroke: get-light-dark('light', 'lighter');
-		stroke-linecap: round;
-		stroke-linejoin: round;
-		stroke-width: 3;
-		/* Define the transition for transforming the Stroke */
-		transition:
-			stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
-			stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
-	}
+			/* Define the transition for transforming the SVG */
+			transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+			background: get-light-dark('darkest', 'lightest');
+			border-radius: $br-rounded;
+		}
 
-	.line-top-bottom {
-		stroke-dasharray: 12 63;
+		& .line {
+			fill: none;
+
+			stroke: get-light-dark('lighter', 'darker');
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-width: 3;
+			/* Define the transition for transforming the Stroke */
+			transition:
+				stroke-dasharray 500ms cubic-bezier(0.4, 0, 0.2, 1),
+				stroke-dashoffset 500ms cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		& .line-top-bottom {
+			stroke-dasharray: 12 63;
+		}
 	}
 
 	.header__menu-toggle-label input:checked + svg {
@@ -86,13 +115,10 @@ burger
 	}
 
 	/*==========================
-	logo
+	logo and logo text
 ==========================*/
 	.header__logo-company {
-		@extend %global__display--base;
-		color: get-light-dark('darkest', 'lightest');
-		font-weight: get-fw('light');
-		letter-spacing: get-ls('loose');
+		@extend %global__my-modern-logo;
 	}
 
 	/*==========================
@@ -101,16 +127,11 @@ burger
 	nav {
 		display: none;
 	}
-	header {
-		@include flex-between;
-		height: var(--header-height);
-		padding-inline: get-sp('x4');
-		background: var(--header-background);
-	}
+
 	/*==========================
 	Media Queries
 ==========================*/
-	@media (min-width: gv.$mobile-viewport) {
+	@media (min-width: $mobile-viewport) {
 		.header__menu-burger {
 			display: none;
 		}

@@ -10,10 +10,6 @@
 $typography-base-size: 1.125rem; // e.g., ~18px if 1rem=16px
 $typography-scale-ratio: 1.414; // Classic typographic ratio (sqrt(2))
 
-// Viewport breakpoints also in rem (e.g., 20rem ~ 320px, 75rem ~ 1200px)
-$min-viewport: 20rem; // ~320px if 1rem=16px
-$max-viewport: 75rem; // ~1200px if 1rem=16px
-
 /* ---------------------------------------------------------------------------
    2) Typographic Scales (REM Values)
    ---------------------------------------------------------------------------
@@ -82,7 +78,12 @@ $typography-scales: (
      $slope     = (maxSize - minSize) / (maxVW - minVW)
      $intercept = minSize - slope * minVW
 --------------------------------------------------------------------------- */
-@function clamp-size($min-size, $max-size, $min-viewport, $max-viewport) {
+@function clamp-size(
+	$min-size,
+	$max-size,
+	$min-viewport: gv.$min-viewport,
+	$max-viewport: gv.$max-viewport
+) {
 	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
 	$intercept: $min-size - ($slope * $min-viewport);
 

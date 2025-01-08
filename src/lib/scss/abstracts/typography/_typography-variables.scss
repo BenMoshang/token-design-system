@@ -1,5 +1,5 @@
 @use 'sass:math';
-
+@use '../../base/global-variables' as gv;
 /**
  * @var $font-family: (map)
  *    'primary': String - primary font family
@@ -41,8 +41,8 @@ $line-heights: (
  *    Values: em-based letter spacing values
  */
 $letter-spacing: (
-	'tight': -0.02em,
-	'snug': -0.01em,
+	'tight': -0.125rem,
+	'snug': -0.0625rem,
 	'normal': 0,
-	'loose': 0.01em
+	'loose': 0.125rem
 );

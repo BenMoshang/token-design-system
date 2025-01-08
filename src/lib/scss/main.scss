@@ -2,3 +2,8 @@
 @forward 'abstracts/spacing';
 @forward 'abstracts/typography';
 @forward 'abstracts/utils';
+@forward 'base';
+
+:root {
+	color-scheme: light dark;
+}

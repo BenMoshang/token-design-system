@@ -56,17 +56,27 @@
 		overflow-x: clip;
 		max-inline-size: $max-viewport;
 		inline-size: 100%;
-		min-block-size: 100vh;
-		padding-inline: get-sp(x4);
+		padding-top: $page-header-height;
 
-		scroll-behavior: smooth;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-rendering: optimizeSpeed;
+		padding-inline: get-sp(x4);
 
 		box-sizing: border-box;
 
 		display: contents;
+	}
+
+	:global(body) {
+		min-block-size: 100vh;
+		inline-size: 100%;
+
+		scroll-behavior: smooth;
+	}
+
+	:global(html) {
+		text-rendering: geometricPrecision;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-text-size-adjust: 100% !important; /* Prevents iOS from auto-resizing text */
 	}
 	/* Example: A simple CSS reset 
      (You can replace or expand this with a more extensive reset or normalize) */
@@ -167,14 +177,46 @@
 		display: none;
 	}
 
-
 	@font-face {
 		font-family: 'Bebas Neue';
 		src: url('/Fonts/Bebas-Neue/BebasNeue-Regular.ttf') format('truetype');
-		font-weight: 400;
-		font-display: swap;
+		font-weight: normal;
+
 		font-style: normal;
 	}
 
+	@font-face {
+		font-family: 'Roboto';
+		src: url('/Fonts/Roboto/Roboto-Light.ttf') format('truetype');
+		font-weight: 300;
+		font-style: normal;
+	}
 
+	@font-face {
+		font-family: 'Roboto';
+		src: url('/Fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+		font-weight: 400;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: 'Roboto';
+		src: url('/Fonts/Roboto/Roboto-Medium.ttf') format('truetype');
+		font-weight: 500;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: 'Roboto';
+		src: url('/Fonts/Roboto/Roboto-SemiBold.ttf') format('truetype');
+		font-weight: 600;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: 'Roboto';
+		src: url('/Fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+		font-weight: 700;
+		font-style: normal;
+	}
 </style>

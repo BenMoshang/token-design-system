@@ -1,12 +1,10 @@
 @use 'typography-functions' as tf;
 @use 'typography-font-size' as fsz;
 @use '../colors/colors-functions' as cf;
-/* Display (e.g., large hero text) */
-// !use light-dark() to set color
-/**
- * %global__display--lgx
- * Large display heading style
- */
+/*=============================================
+=            Display            =
+=============================================*/
+
 %global__display--base {
 	font-family: tf.get-ff('display');
 	font-weight: tf.get-fw('bold');
@@ -29,7 +27,9 @@
 %global__display--xs {
 	@extend %global__display--base;
 }
-/* Headings (e.g., h4, h5, h6) */
+/*=============================================
+=            Heading            =
+=============================================*/
 
 %global__heading--base {
 	font-family: tf.get-ff('primary');
@@ -50,7 +50,9 @@
 %global__heading--sm {
 	@extend %global__heading--base;
 }
-
+/*=============================================
+=            Body            =
+=============================================*/
 %global__body--base {
 	font-family: tf.get-ff('secondary');
 	font-weight: tf.get-fw('regular');
@@ -70,9 +72,33 @@
 %global__body--sm {
 	@extend %global__body--base;
 }
-
+/*=============================================
+=            Label            =
+=============================================*/
 %global__label {
 	@extend %global__body--base;
 	font-weight: tf.get-fw('light');
 	letter-spacing: tf.get-ls('loose');
+}
+/*=============================================
+=            My Modern Logo            =
+=============================================*/
+//!important: logo looks weird in dev tools F12, because it is an emulation of mobile screen size.
+//!important: IOS RENDERS LETTER SPACING DIFFERENTLY KEEP THIS MEDIA QUERY.
+
+%global__my-modern-logo {
+	font-family: tf.get-ff('display');
+	font-weight: tf.get-fw('semibold');
+	font-size: fsz.get-static-fsz('heading', 'md');
+	line-height: 0.8;
+	letter-spacing: -2.25px;
+	color: cf.get-light-dark('darkest', 'lightest');
+	text-rendering: geometricPrecision;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* For larger screens, reduce the negative spacing */
+	@media (min-width: 768px) {
+		letter-spacing: -0.5px; // or even 0px if overlap persists
+	}
 }
