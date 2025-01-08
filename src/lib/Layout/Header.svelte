@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ThemeToggle from '$lib/User/Preferences/ThemeToggle.svelte';
 	let hideHeader = $state(false);
 	let lastScrollY = $state(0);
 
@@ -21,6 +22,7 @@
 	<a class="header__logo" href="/">
 		<h3 class="header__logo-company"><span>My</span><br />Modern</h3>
 	</a>
+	<ThemeToggle />
 
 	<!-- MOBILE: Menu Toggle -->
 	<label for="menu-toggle" class="header__menu-toggle-label">
@@ -68,10 +70,10 @@
 		z-index: 1000;
 		backdrop-filter: blur(16px) saturate(200%);
 		-webkit-backdrop-filter: blur(16px) saturate(200%);
-		width: 100%;
-		height: var(--header-height);
+		inline-sizes: 100%;
+		block-size: var(--header-height);
 		padding-inline: get-sp('x4');
-		backdrop-filter: blur(1rem);
+		background: light-dark(hsla(191, 15%, 85%, 0.2), hsla(200, 64%, 6%, 0.2));
 		border-bottom-left-radius: $br-default;
 		border-bottom-right-radius: $br-default;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.125);
@@ -83,6 +85,7 @@
 	.hide {
 		transform: translateY(-100%);
 	}
+
 	/*==========================
 burger
 ==========================*/
