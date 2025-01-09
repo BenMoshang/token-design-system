@@ -1,8 +1,15 @@
 <script lang="ts">
 	import ThemeToggle from '$lib/User/Preferences/ThemeToggle.svelte';
+	import EmailButton from '$lib/Components/EmailButton.svelte';
+	import Navigation from './Navigation.svelte';
 	let hideHeader = $state(false);
 	let lastScrollY = $state(0);
+	let isNavOpen = $state(false);
 
+	function toggleNav() {
+		isNavOpen = !isNavOpen;
+		document.body.style.overflow = isNavOpen ? 'hidden' : '';
+	}
 	// Add scroll event listener when the component is mounted
 	$effect(() => {
 		const handleScroll = () => {
@@ -18,36 +25,38 @@
 	});
 </script>
 
-<header class:hide={hideHeader}>
+<header class="header" class:hide={hideHeader}>
 	<a class="header__logo" href="/">
 		<h3 class="header__logo-company"><span>My</span><br />Modern</h3>
 	</a>
-	<ThemeToggle />
+	<div class="header__content-wrapper">
+		<EmailButton />
+		<ThemeToggle />
+		<Navigation isOpen={isNavOpen} />
+		<!-- MOBILE: Menu Toggle -->
+		<label for="menu-toggle" class="header__burger">
+			<input
+				class="header__menu-toggle"
+				type="checkbox"
+				id="menu-toggle"
+				aria-label="Toggle menu"
+				onclick={toggleNav}
+			/>
 
-	<!-- MOBILE: Menu Toggle -->
-	<label for="menu-toggle" class="header__menu-toggle-label">
-		<input type="checkbox" id="menu-toggle" class="header__menu-toggle" aria-label="Toggle menu" />
-		<svg viewBox="0 0 32 32">
-			<path
-				class="line line-top-bottom"
-				d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
-			></path>
-			<path class="line" d="M7 16 27 16"></path>
-		</svg>
-	</label>
-	<nav class="header__nav" aria-label="Main site navigation">
-		<ul class="header__nav-list">
-			<li class="header__nav-item"><a href="/">Home</a></li>
-			<li class="header__nav-item"><a href="/">About</a></li>
-			<li class="header__nav-item"><a href="/">Services</a></li>
-			<li class="header__nav-item"><a href="/">Contact</a></li>
-		</ul>
-	</nav>
+			<svg viewBox="0 0 32 32">
+				<path
+					class="line line-top-bottom"
+					d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
+				></path>
+				<path class="line" d="M7 16 27 16"></path>
+			</svg>
+		</label>
+	</div>
 </header>
 
-<style lang="scss">
-	@use '$lib/scss/main.scss' as *;
+<!-- <Navigation isOpen={isNavOpen} /> -->
 
+<style lang="scss">
 	/*==========================
 	OVERIVIEW: Styles Quick Reference
 	==========================*/
@@ -85,19 +94,36 @@
 	.hide {
 		transform: translateY(-100%);
 	}
-
+	/*==========================
+	logo and logo text
+==========================*/
+	.header__logo-company {
+		@extend %global__my-modern-logo;
+	}
 	/*==========================
 burger
 ==========================*/
-	.header__menu-toggle-label {
+	.header__burger {
+		// @include hover-brightness;
 		cursor: pointer;
-
+		z-index: 1002;
+		/*---- Hide the checkbox ----*/
 		& input {
 			display: none;
+
+			/*---- Animatesburger----*/
+
+			&:checked + svg {
+				transform: rotate(-45deg);
+
+				& .line-top-bottom {
+					stroke-dasharray: 20 300;
+					stroke-dashoffset: -32.42;
+				}
+			}
 		}
 
 		& svg {
-			/* The size of the SVG defines the overall size */
 			--svg-size: 2.5rem;
 			--burger-centering: #{get-sp('x1')};
 			width: var(--svg-size);
@@ -105,59 +131,60 @@ burger
 			padding-block: var(--burger-centering);
 			padding-right: var(--burger-centering);
 
-			/* Define the transition for transforming the SVG */
+			/*---- Speed of the animation----*/
+
 			transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
-			background: get-light-dark('darkest', 'lightest');
+			background: get-light-dark('dark', 'lighter');
 			border-radius: $br-rounded;
 		}
+		/*---- Line styling----*/
 
 		& .line {
 			fill: none;
 
-			stroke: get-light-dark('lighter', 'darker');
+			stroke: get-light-dark('lighter', 'dark');
 			stroke-linecap: round;
 			stroke-linejoin: round;
-			stroke-width: 3;
+			stroke-width: 2.5;
+
 			/* Define the transition for transforming the Stroke */
 			transition:
 				stroke-dasharray 500ms cubic-bezier(0.4, 0, 0.2, 1),
 				stroke-dashoffset 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+			&-top-bottom {
+				stroke-dasharray: 12 63;
+			}
 		}
-
-		& .line-top-bottom {
-			stroke-dasharray: 12 63;
-		}
-	}
-
-	.header__menu-toggle-label input:checked + svg {
-		transform: rotate(-45deg);
-	}
-
-	.header__menu-toggle-label input:checked + svg .line-top-bottom {
-		stroke-dasharray: 20 300;
-		stroke-dashoffset: -32.42;
 	}
 
 	/*==========================
-	logo and logo text
+Content Nav
 ==========================*/
-	.header__logo-company {
-		@extend %global__my-modern-logo;
+	.header__content-wrapper {
+		margin-left: auto;
+		display: flex;
+		align-items: center;
+		gap: get-sp('x2');
 	}
-
 	/*==========================
 	nav
 ==========================*/
-	nav {
-		display: none;
-	}
 
-	/*==========================
-	Media Queries
-==========================*/
-	@media (min-width: $mobile-viewport) {
-		.header__menu-burger {
-			display: none;
+	.header__content-nav {
+		z-index: 1001;
+		position: absolute;
+		inset: 0;
+		margin: auto;
+
+		inline-size: 100vh;
+		block-size: 100vh;
+		background: get-light-dark('darkest', 'lightest');
+
+		&-list {
+			&-item {
+				@extend %global__heading--md;
+			}
 		}
 	}
 </style>

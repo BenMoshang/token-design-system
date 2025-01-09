@@ -1,11 +1,83 @@
 @use 'spacing-variables' as sv;
+@use '../../base/global-variables' as gv;
+@use 'sass:math';
 
-/**
- * @function get-sp
- * @desc Retrieves a spacing value from the $spacing map defined in spacing-variables.
- * @param {String} $size - The spacing key (e.g., 'x1','x2','x3', ... 'x10').
- * @return {Length} spacing value (e.g., 0.25rem for 'x1', 0.5rem for 'x2', etc.)
- */
+/* ---------------------------------------------------------------------------
+   1) Static Spacing Getter
+   ---------------------------------------------------------------------------
+   Retrieves a static spacing value from the $spacing map, with error checking.
+--------------------------------------------------------------------------- */
 @function get-sp($size) {
-	@return map-get(sv.$spacing, $size);
+	$spacing-value: map-get(sv.$spacing, $size);
+
+	@if not $spacing-value {
+		@error "Invalid spacing size '#{$size}'. " +
+			"Valid sizes are: x1, x2, x3, x4, x5, x6, x7, x8, x9, x10.";
+	}
+
+	@return $spacing-value;
 }
+
+/* ---------------------------------------------------------------------------
+   2) Pure Clamp Function (REM-Only)
+   ---------------------------------------------------------------------------
+   This is a direct clamp-based function for fluid spacing values.
+   Pass in:
+     - $min-size      (rem) e.g. 0.25rem
+     - $max-size      (rem) e.g. 1rem
+     - $min-viewport  (rem) e.g. 20rem  ( ~320px if 1rem=16px )
+     - $max-viewport  (rem) e.g. 75rem  ( ~1200px if 1rem=16px )
+
+   Returns:
+     clamp($min-size, calc($intercept + $slope * 100vw), $max-size)
+--------------------------------------------------------------------------- */
+@function clamp-spacing(
+	$min-size,
+	$max-size,
+	$min-viewport: gv.$min-viewport,
+	$max-viewport: gv.$max-viewport
+) {
+	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
+	$intercept: $min-size - ($slope * $min-viewport);
+
+	@return clamp($min-size, calc(#{$intercept} + #{$slope} * 100vw), $max-size);
+}
+
+/* ---------------------------------------------------------------------------
+   3) Responsive Spacing (From Scale + Clamp)
+   ---------------------------------------------------------------------------
+   Blends the spacing scale with the clamp approach:
+   1) Fetch the smaller (min) and larger (max) spacing values from the scale.
+   2) Use clamp-spacing() to create the fluid clamp expression.
+   3) Uses default $min-viewport / $max-viewport if not overridden.
+--------------------------------------------------------------------------- */
+@function get-res-sp($min-size, $max-size, $min-vw: gv.$min-viewport, $max-vw: gv.$max-viewport) {
+	$min-value: get-sp($min-size);
+	$max-value: get-sp($max-size);
+
+	@return clamp-spacing($min-value, $max-value, $min-vw, $max-vw);
+}
+
+/* ---------------------------------------------------------------------------
+   4) Example Usage
+   ---------------------------------------------------------------------------
+   - padding: scales between 'x2' and 'x6' across viewport range
+   - margin: scales between 'x1' and 'x4' with custom viewport range
+--------------------------------------------------------------------------- */
+
+// Example 1: Padding that scales between x2 (0.5rem) and x6 (1.5rem)
+// .element {
+//     padding: get-res-sp('x2', 'x6');
+//     // => clamp(0.5rem, calc(...), 1.5rem)
+// }
+
+// Example 2: Margin that scales between x1 and x4 with custom viewport range
+// .element {
+//     margin: get-res-sp('x1', 'x4', 30rem, 60rem);
+//     // => clamp(0.25rem, calc(...), 1rem)
+// }
+
+// Example 3: Using clamp-spacing() directly with rem values
+// .element {
+//     gap: clamp-spacing(0.5rem, 2rem, 30rem, 60rem);
+// }

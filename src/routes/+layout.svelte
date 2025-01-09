@@ -42,7 +42,6 @@
 	 BASE LAYER
 	 - Global element-level styles.
   ---------------------------------------*/
-	//!TODO: EDIT SCROLLBAR COLORS AND SIZE
 	:global(*),
 	:global(*::before),
 	:global(*::after) {
@@ -50,6 +49,75 @@
 		hyphens: auto;
 		-webkit-hyphens: auto;
 	}
+
+	/* Theme Custom Properties */
+	:global(:where(html)) {
+		--scrollbar-track: hsl(191, 15%, 85%);
+		--scrollbar-thumb: hsl(206, 18%, 35%);
+		--scrollbar-thumb-hover: hsl(206, 30%, 21%);
+		--scrollbar-thumb-active: hsl(206, 45%, 12%);
+
+		&.dark {
+			--scrollbar-track: hsl(206, 45%, 12%);
+			--scrollbar-thumb: hsl(206, 30%, 21%);
+			--scrollbar-thumb-hover: hsl(206, 18%, 35%);
+			--scrollbar-thumb-active: hsl(191, 15%, 85%);
+		}
+	}
+
+	/* Scrollbar Styles with Mobile Optimization */
+	@media (pointer: fine) {
+		:global(::-webkit-scrollbar) {
+			width: 0.375rem;
+			height: 0.375rem;
+
+			@media (max-width: 768px) {
+				width: 0.25rem;
+				height: 0.25rem;
+			}
+		}
+
+		:global(::-webkit-scrollbar-track) {
+			background: var(--scrollbar-track);
+			border-radius: 0.25rem;
+		}
+
+		:global(::-webkit-scrollbar-thumb) {
+			background-color: var(--scrollbar-thumb);
+			border-radius: 0.75rem;
+			transition: background-color 200ms ease;
+
+			&:hover {
+				background-color: var(--scrollbar-thumb-hover);
+			}
+
+			&:active {
+				background-color: var(--scrollbar-thumb-active);
+			}
+		}
+
+		:global(::-webkit-scrollbar-corner) {
+			background: transparent;
+		}
+
+		:global(::-webkit-scrollbar-button) {
+			display: none;
+		}
+	}
+
+	/* Touch Device Scrolling Optimization */
+	@media (pointer: coarse) {
+		:global(body) {
+			-webkit-overflow-scrolling: touch;
+			scroll-behavior: smooth;
+			overscroll-behavior-y: contain;
+		}
+
+		:global(*) {
+			-webkit-tap-highlight-color: transparent;
+		}
+	}
+
 	.page-container {
 		box-sizing: border-box;
 		margin: 0 auto;
@@ -57,11 +125,7 @@
 		max-inline-size: $max-viewport;
 		inline-size: 100%;
 		padding-top: $page-header-height;
-
 		padding-inline: get-sp(x4);
-
-		box-sizing: border-box;
-
 		display: contents;
 	}
 
@@ -152,29 +216,6 @@
 	:global(q::before),
 	:global(q::after) {
 		content: '';
-	}
-
-	/* Scrollbar Styles */
-	:global(::-webkit-scrollbar) {
-		width: 0.5rem;
-	}
-
-	:global(::-webkit-scrollbar-track) {
-		background: white;
-	}
-
-	:global(::-webkit-scrollbar-thumb) {
-		background-color: hsl(0, 0%, 53%);
-		border-radius: 0.625rem;
-		border: 0.125rem solid white;
-	}
-
-	:global(::-webkit-scrollbar-thumb:hover) {
-		background-color: hsl(0, 0%, 33%);
-	}
-
-	:global(::-webkit-scrollbar-button) {
-		display: none;
 	}
 
 	@font-face {

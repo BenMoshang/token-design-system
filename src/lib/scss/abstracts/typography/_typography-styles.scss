@@ -92,7 +92,7 @@
 	font-size: fsz.get-static-fsz('heading', 'md');
 	line-height: 0.8;
 	letter-spacing: -2.25px;
-	color: cf.get-light-dark('darkest', 'lightest');
+	color: cf.get-light-dark('darker', 'lightest');
 	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
