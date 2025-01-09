@@ -120,6 +120,8 @@
 </label>
 
 <style lang="scss">
+	//TODO: THEME SWITCH STYLING FOR SCROLLOBAR
+
 	/*==========================
 	theme switch
 ==========================*/
