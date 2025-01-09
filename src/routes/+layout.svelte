@@ -1,8 +1,10 @@
 <script lang="ts">
-	import Header from '$lib/Layout/Header.svelte';
+	import Header from './Layout/Header.svelte';
+
 </script>
 
 <Header />
+
 <main class="page-container">
 	<slot />
 </main>

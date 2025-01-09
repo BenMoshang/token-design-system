@@ -4,12 +4,13 @@
 	import Navigation from './Navigation.svelte';
 	let hideHeader = $state(false);
 	let lastScrollY = $state(0);
-	let isNavOpen = $state(false);
 
-	function toggleNav() {
+	let isNavOpen = $state(false);
+	export function toggleNav() {
 		isNavOpen = !isNavOpen;
 		document.body.style.overflow = isNavOpen ? 'hidden' : '';
 	}
+
 	// Add scroll event listener when the component is mounted
 	$effect(() => {
 		const handleScroll = () => {
@@ -32,7 +33,6 @@
 	<div class="header__content-wrapper">
 		<EmailButton />
 		<ThemeToggle />
-		<Navigation isOpen={isNavOpen} />
 		<!-- MOBILE: Menu Toggle -->
 		<label for="menu-toggle" class="header__burger">
 			<input
@@ -53,6 +53,7 @@
 		</label>
 	</div>
 </header>
+<Navigation isOpen={isNavOpen} />
 
 <!-- <Navigation isOpen={isNavOpen} /> -->
 
@@ -61,7 +62,7 @@
 	OVERIVIEW: Styles Quick Reference
 	==========================*/
 
-	header {
+	.header {
 		--header-height: #{$page-header-height};
 		& a {
 			text-decoration: none;
@@ -70,7 +71,7 @@
 	/*==========================
 	header
 ==========================*/
-	header {
+	.header {
 		@include flex-between;
 		position: fixed;
 		top: 0;
@@ -106,7 +107,7 @@ burger
 	.header__burger {
 		// @include hover-brightness;
 		cursor: pointer;
-		z-index: 1002;
+
 		/*---- Hide the checkbox ----*/
 		& input {
 			display: none;
@@ -167,24 +168,21 @@ Content Nav
 		align-items: center;
 		gap: get-sp('x2');
 	}
-	/*==========================
-	nav
-==========================*/
 
-	.header__content-nav {
-		z-index: 1001;
-		position: absolute;
-		inset: 0;
-		margin: auto;
+	// .header__content-nav {
+	// 	z-index: 1001;
+	// 	position: absolute;
+	// 	inset: 0;
+	// 	margin: auto;
 
-		inline-size: 100vh;
-		block-size: 100vh;
-		background: get-light-dark('darkest', 'lightest');
+	// 	inline-size: 100vh;
+	// 	block-size: 100vh;
+	// 	background: get-light-dark('darkest', 'lightest');
 
-		&-list {
-			&-item {
-				@extend %global__heading--md;
-			}
-		}
-	}
+	// 	&-list {
+	// 		&-item {
+	// 			@extend %global__heading--md;
+	// 		}
+	// 	}
+	// }
 </style>
