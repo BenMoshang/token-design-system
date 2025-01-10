@@ -45,8 +45,7 @@
 	:root {
 		--cards: 5;
 		--cardHeight: 90vh;
-		--cardTopPadding: 2.5rem;
-		--cardMargin: 5vw;
+		--cardMargin: 4vw;
 	}
 
 	.container {
@@ -56,65 +55,20 @@
 
 	#cards {
 		list-style: none;
-		padding-left: 0;
 		display: grid;
 		grid-template-columns: 1fr;
 		grid-template-rows: repeat(var(--cards), var(--cardHeight));
 		gap: var(--cardMargin);
 	}
 
-	#card1 {
-		--index: 1;
-	}
-	#card2 {
-		--index: 2;
-	}
-	#card3 {
-		--index: 3;
-	}
-	#card4 {
-		--index: 4;
-	}
-	#card5 {
-		--index: 5;
+	@for $i from 1 through 5 {
+		#card#{$i} {
+			--index: #{$i};
+		}
 	}
 
 	.card {
 		position: sticky;
 		top: 0;
-		// padding-top: calc(var(--index) * var(--cardTopPadding));
-	}
-
-	#card1 .card-body {
-		background-color: #52b2cf;
-	}
-	#card2 .card-body {
-		background-color: #e5a36f;
-	}
-	#card3 .card-body {
-		background-color: #9cadce;
-	}
-	#card4 .card-body {
-		background-color: #d4afb9;
-	}
-
-	#card5 .card-body {
-		background-color: #2e3537;
-	}
-
-	.card-body {
-		box-sizing: border-box;
-		padding: 30px;
-		border-radius: 50px;
-		box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.3);
-		height: var(--cardHeight);
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	h2 {
-		font-size: 2.5rem;
 	}
 </style>
