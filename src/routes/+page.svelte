@@ -1,16 +1,19 @@
 <script lang="ts">
 	import HeroSection from './LandingPage/Sections/Hero/HeroSection.svelte';
 	import AboutSection from './LandingPage/Sections/AboutSection.svelte';
+	import ServicesSection from './LandingPage/Sections/ServicesSection.svelte';
+	import PortfolioSection from './LandingPage/Sections/PortfolioSection.svelte';
+	import ContactSection from './LandingPage/Sections/ContactSection.svelte';
 	import FontTesting from '$lib/Testing/FontTesting.svelte';
 	import { fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
 	let cards = [
 		{ id: 'card1', title: 'Hero Section', component: HeroSection },
-		{ id: 'card2', title: 'About Section', component: AboutSection },
-		{ id: 'card3', title: 'Card 2', color: '#9cadce' },
-		{ id: 'card4', title: 'Card 3', color: '#d4afb9' },
-		{ id: 'card5', title: 'Card 4', color: '#2e3537' }
+		{ id: 'card2', title: 'Services Section', component: ServicesSection },
+		{ id: 'card3', title: 'Portfolio Section', component: PortfolioSection },
+		{ id: 'card4', title: 'About Section', component: AboutSection },
+		{ id: 'card5', title: 'Contact Section', component: ContactSection }
 	];
 </script>
 
@@ -32,13 +35,7 @@
 				id={card.id}
 				transition:fly={{ y: 50, duration: 500, delay: index * 150, easing: quintOut }}
 			>
-				{#if card.component}
-					<svelte:component this={card.component} />
-				{:else}
-					<div class="card-body" style="background-color: {card.color}">
-						<h2>{card.title}</h2>
-					</div>
-				{/if}
+				<svelte:component this={card.component} />
 			</li>
 		{/each}
 	</ul>
@@ -64,8 +61,6 @@
 		grid-template-columns: 1fr;
 		grid-template-rows: repeat(var(--cards), var(--cardHeight));
 		gap: var(--cardMargin);
-		padding-bottom: calc(var(--cards) * var(--cardTopPadding));
-		margin-bottom: var(--cardMargin);
 	}
 
 	#card1 {

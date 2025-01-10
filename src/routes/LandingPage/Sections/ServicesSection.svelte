@@ -1,16 +1,18 @@
 <script lang="ts">
 </script>
 
-<section class="about" aria-label="About Section">
-	<h1 class="about__title">About</h1>
+<section class="services" aria-label="Services Section">
+	<h1 class="services__title">Services</h1>
 </section>
 
 <style lang="scss">
-	.about {
+	.services {
 		@include section-base('light');
+
 		&__title {
 			@extend %global__display--xl;
 			color: get-light-dark('lightest', 'darkest');
 		}
 	}
 </style>
+

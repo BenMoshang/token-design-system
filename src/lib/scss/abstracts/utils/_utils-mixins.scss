@@ -1,37 +1,38 @@
-// 1. Flexbox Utilities
+@use '../../base/global-variables' as gv;
+@use '../colors/colors-functions' as cf;
 
-/**
- * @mixin flex-center
- * @desc Centers items both vertically and horizontally using flexbox.
- */
+// Centered Flexbox
 @mixin flex-center {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-/**
- * @mixin flex-between
- * @desc Distributes items with space between using flexbox.
- */
+// Flexbox Between
 @mixin flex-between {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 
-/**
- * @mixin flex-column
- * @desc Arranges items in a column using flexbox.
- */
+// Flexbox Column
 @mixin flex-column {
 	display: flex;
 	flex-direction: column;
 }
 
+// Flexbox Column Center
 @mixin flex-column-center {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+@mixin section-base($theme: 'dark') {
+	@include flex-center;
+	block-size: 90vh;
+	inline-size: 100%;
+	border-radius: gv.$br-default;
+	background: if($theme == 'light', cf.get-light-dark('medium', 'medium'), cf.get-light-dark('lightest', 'darkest'));
 }
