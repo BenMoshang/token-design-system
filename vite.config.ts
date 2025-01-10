@@ -8,7 +8,7 @@ export default defineConfig({
 			// Restrict file access outside the project root for better security
 			allow: ['..']
 		},
-		// host: '192.168.0.58',
+		host: '192.168.0.167',
 		port: 3000
 	},
 	build: {

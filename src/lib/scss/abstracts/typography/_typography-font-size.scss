@@ -103,8 +103,7 @@ $typography-scales: (
 	$min-key,
 	$max-key,
 	$min-vw: $min-viewport,
-	// default 20rem
-	$max-vw: $max-viewport // default 75rem
+	$max-vw: $max-viewport
 ) {
 	$min-size: get-static-fsz($font-category, $min-key);
 	$max-size: get-static-fsz($font-category, $max-key);
