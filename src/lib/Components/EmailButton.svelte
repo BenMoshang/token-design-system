@@ -71,7 +71,6 @@
 		font-family: get-ff('primary');
 		font-weight: get-fw('medium');
 		font-size: get-static-fsz('body', 'md');
-		letter-spacing: get-ls('snug');
 
 		// Colors and effects
 		color: get-light-dark('lightest', 'darkest');
