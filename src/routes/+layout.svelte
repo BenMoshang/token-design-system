@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Header from './Layout/Header.svelte';
-
 </script>
 
 <Header />
@@ -53,29 +52,22 @@
 	}
 
 	/* Theme Custom Properties */
-	:global(:where(html)) {
-		--scrollbar-track: hsl(191, 15%, 85%);
-		--scrollbar-thumb: hsl(206, 18%, 35%);
-		--scrollbar-thumb-hover: hsl(206, 30%, 21%);
-		--scrollbar-thumb-active: hsl(206, 45%, 12%);
-
-		&.dark {
-			--scrollbar-track: hsl(206, 45%, 12%);
-			--scrollbar-thumb: hsl(206, 30%, 21%);
-			--scrollbar-thumb-hover: hsl(206, 18%, 35%);
-			--scrollbar-thumb-active: hsl(191, 15%, 85%);
-		}
+	:global(html) {
+		--scrollbar-track: light-dark(hsl(191, 15%, 85%), hsl(206, 45%, 12%));
+		--scrollbar-thumb: light-dark(hsl(206, 18%, 35%), hsl(206, 30%, 21%));
+		--scrollbar-thumb-hover: light-dark(hsl(206, 30%, 21%), hsl(206, 18%, 35%));
+		--scrollbar-thumb-active: light-dark(hsl(206, 45%, 12%), hsl(191, 15%, 85%));
 	}
 
 	/* Scrollbar Styles with Mobile Optimization */
 	@media (pointer: fine) {
 		:global(::-webkit-scrollbar) {
-			width: 0.375rem;
-			height: 0.375rem;
+			width: 0.125rem;
+			height: 0.125rem;
 
-			@media (max-width: 768px) {
-				width: 0.25rem;
-				height: 0.25rem;
+			@media (max-width: 48rem) {
+				width: 0.5rem;
+				height: 0.5rem;
 			}
 		}
 
@@ -108,19 +100,20 @@
 	}
 
 	/* Touch Device Scrolling Optimization */
-	@media (pointer: coarse) {
-		:global(body) {
-			-webkit-overflow-scrolling: touch;
-			scroll-behavior: smooth;
-			overscroll-behavior-y: contain;
-		}
+	// @media (pointer: coarse) {
+	// 	:global(body) {
+	// 		-webkit-overflow-scrolling: touch;
+	// 		scroll-behavior: smooth;
+	// 		overscroll-behavior-y: contain;
+	// 	}
 
-		:global(*) {
-			-webkit-tap-highlight-color: transparent;
-		}
-	}
+	// 	:global(*) {
+	// 		-webkit-tap-highlight-color: transparent;
+	// 	}
+	// }
 
 	.page-container {
+		@include flex-column-center;
 		box-sizing: border-box;
 		margin: 0 auto;
 		overflow-x: clip;
@@ -128,7 +121,6 @@
 		inline-size: 100%;
 		padding-top: $page-header-height;
 		padding-inline: get-sp(x4);
-		display: contents;
 	}
 
 	:global(body) {

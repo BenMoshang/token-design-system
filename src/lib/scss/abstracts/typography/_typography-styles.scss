@@ -13,9 +13,16 @@
 	color: cf.get-light-dark('darkest', 'lightest');
 	text-wrap: balance;
 }
+%global__display--xl {
+	@extend %global__display--base;
+	font-size: fsz.get-static-fsz('display', 'xl');
+	line-height: tf.get-lh('tight');
+}
 
 %global__display--lg {
 	@extend %global__display--base;
+	font-size: fsz.get-static-fsz('display', 'lg');
+	line-height: tf.get-lh('tight');
 }
 %global__display--md {
 	@extend %global__display--base;
@@ -92,13 +99,13 @@
 	font-size: fsz.get-static-fsz('heading', 'md');
 	line-height: 0.8;
 	letter-spacing: -2.25px;
-	color: cf.get-light-dark('darker', 'lightest');
+	color: cf.get-light-dark('darkest', 'lightest');
 	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
 	/* For larger screens, reduce the negative spacing */
-	@media (min-width: 768px) {
+	@media (min-width: 64rem) {
 		letter-spacing: -0.5px; // or even 0px if overlap persists
 	}
 }

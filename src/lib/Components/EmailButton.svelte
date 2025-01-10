@@ -63,7 +63,7 @@
 		@include flex-center;
 		text-decoration: none;
 		position: relative;
-
+		max-block-size: 2rem;
 		gap: get-sp('x1');
 		padding: get-sp('x2') get-sp('x3');
 

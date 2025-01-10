@@ -3,16 +3,14 @@
 @forward 'abstracts/typography';
 @forward 'abstracts/utils';
 @forward 'base';
-//!sets the theme to dark for ThemeToggle.svelte
 
-:root[data-theme='dark'] {
-	color-scheme: dark;
-}
-//!sets the theme to light for ThemeToggle.svelte
-:root[data-theme='light'] {
-	color-scheme: light;
-}
-
+// Theme settings - default dark theme
 :root {
-	color-scheme: system;
+	// Set default color scheme
+	color-scheme: dark;
+
+	// Override for light theme
+	&[data-theme='light'] {
+		color-scheme: light;
+	}
 }

@@ -131,7 +131,7 @@
 		position: relative;
 		display: inline-block;
 		width: 4rem;
-		height: 2.125rem;
+		height: 2rem;
 		touch-action: pan-x;
 		-webkit-tap-highlight-color: transparent;
 
@@ -158,13 +158,13 @@
 			&:before {
 				position: absolute;
 				content: '';
-				height: 1.875rem;
-				width: 1.875rem;
+				height: 1.75rem;
+				width: 1.75rem;
 				border-radius: 1.25rem;
 				left: 0.125rem;
 				bottom: 0.125rem;
 				z-index: 2;
-				background-color: #e8e8e8;
+				background-color: get-light-dark('lightest', 'light');
 				transition: 0.4s;
 			}
 		}

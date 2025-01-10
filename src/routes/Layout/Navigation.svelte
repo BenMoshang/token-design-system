@@ -65,7 +65,7 @@
 
 	$nav-timing: 0.4s;
 	.nav {
-		$background-opacity: 0.8;
+		$background-opacity: 0.9;
 		position: fixed;
 		bottom: 0;
 		left: 0;
@@ -165,6 +165,12 @@
 
 		&:active {
 			transform: translateY(0);
+		}
+	}
+
+	@media (min-width: $mobile-viewport) {
+		.nav {
+			display: none;
 		}
 	}
 </style>

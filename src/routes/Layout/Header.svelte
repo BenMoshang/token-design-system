@@ -10,7 +10,13 @@
 		isNavOpen = !isNavOpen;
 		document.body.style.overflow = isNavOpen ? 'hidden' : '';
 	}
-
+	const navItems = [
+		{ href: '/', text: 'Home'.toUpperCase() },
+		{ href: '/about', text: 'About'.toUpperCase() },
+		{ href: '/about', text: 'Services'.toUpperCase() },
+		{ href: '/work', text: 'Portfolio'.toUpperCase() },
+		{ href: '/contact', text: 'Contact'.toUpperCase() }
+	];
 	// Add scroll event listener when the component is mounted
 	$effect(() => {
 		const handleScroll = () => {
@@ -30,6 +36,23 @@
 	<a class="header__logo" href="/">
 		<h3 class="header__logo-company"><span>My</span><br />Modern</h3>
 	</a>
+	<!-- DESKTOP NAV -->
+	<nav class="header__nav--desktop">
+		<ul class="nav__list" role="menubar" aria-label="Main menu">
+			{#each navItems as { href, text }}
+				<li class="nav__list-item" role="none">
+					<a
+						{href}
+						class="nav__link"
+						role="menuitem"
+						aria-current={href === '/' ? 'page' : undefined}
+					>
+						<span>{text}</span>
+					</a>
+				</li>
+			{/each}
+		</ul>
+	</nav>
 	<div class="header__content-wrapper">
 		<EmailButton />
 		<ThemeToggle />
@@ -125,7 +148,7 @@ burger
 		}
 
 		& svg {
-			--svg-size: 2.5rem;
+			--svg-size: 2rem;
 			--burger-centering: #{get-sp('x1')};
 			width: var(--svg-size);
 			height: var(--svg-size);
@@ -135,7 +158,7 @@ burger
 			/*---- Speed of the animation----*/
 
 			transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
-			background: get-light-dark('dark', 'lighter');
+			background: get-light-dark('darkest', 'lightest');
 			border-radius: $br-rounded;
 		}
 		/*---- Line styling----*/
@@ -166,23 +189,68 @@ Content Nav
 		margin-left: auto;
 		display: flex;
 		align-items: center;
-		gap: get-sp('x2');
+		gap: get-sp('x4');
 	}
 
-	// .header__content-nav {
-	// 	z-index: 1001;
-	// 	position: absolute;
-	// 	inset: 0;
-	// 	margin: auto;
+	.header__nav--desktop {
+		display: none;
+	}
 
-	// 	inline-size: 100vh;
-	// 	block-size: 100vh;
-	// 	background: get-light-dark('darkest', 'lightest');
+	@media (min-width: $mobile-viewport) {
+		.header__nav--desktop {
+			display: flex;
+		}
 
-	// 	&-list {
-	// 		&-item {
-	// 			@extend %global__heading--md;
-	// 		}
-	// 	}
-	// }
+		.header__burger {
+			display: none;
+		}
+	}
+
+	.nav__link {
+		@extend %global__heading--base;
+		position: relative;
+		font-weight: 600;
+		font-size: get-static-fsz('body', 'lg');
+		line-height: 1;
+
+		color: get-light-dark('darker', 'lightest');
+		text-decoration: none;
+		transition: color 0.3s ease;
+		// Underline effect
+		&::after {
+			content: '';
+			position: absolute;
+			left: 0;
+			bottom: -0.25rem;
+			width: 0;
+			height: 2px;
+			background: get-light-dark('darker', 'lighter');
+			transition: width 0.3s ease;
+		}
+
+		&:hover {
+			color: get-light-dark('darker', 'lighter');
+			transform: translateY(-1px);
+
+			&::after {
+				width: 100%;
+			}
+		}
+
+		&:active {
+			transform: translateY(0);
+		}
+	}
+
+	.nav__list {
+		$spacing-gap: get-sp('x4');
+		@include flex-center;
+		gap: $spacing-gap;
+		list-style: none;
+		margin-left: get-sp('x12');
+
+		&:last-child .nav__link {
+			color: hrgb(0, 83, 146);
+		}
+	}
 </style>
