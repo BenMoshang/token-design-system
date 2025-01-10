@@ -105,7 +105,7 @@
 		-webkit-backdrop-filter: blur(16px) saturate(200%);
 		inline-sizes: 100%;
 		block-size: var(--header-height);
-		padding-inline: get-sp('x2');
+		padding-inline: get-sp('x4');
 		background: light-dark(hsla(191, 15%, 85%, 0.2), hsla(200, 64%, 6%, 0.2));
 		border-bottom-left-radius: $br-default;
 		border-bottom-right-radius: $br-default;
