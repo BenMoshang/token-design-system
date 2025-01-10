@@ -1,33 +1,125 @@
 <script lang="ts">
 	import HeroSection from './LandingPage/Sections/Hero/HeroSection.svelte';
+	import AboutSection from './LandingPage/Sections/AboutSection.svelte';
 	import FontTesting from '$lib/Testing/FontTesting.svelte';
+	import { fly } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
+
+	let cards = [
+		{ id: 'card1', title: 'Hero Section', component: HeroSection },
+		{ id: 'card2', title: 'About Section', component: AboutSection },
+		{ id: 'card3', title: 'Card 2', color: '#9cadce' },
+		{ id: 'card4', title: 'Card 3', color: '#d4afb9' },
+		{ id: 'card5', title: 'Card 4', color: '#2e3537' }
+	];
 </script>
 
 <svelte:head>
 	<title>My Modern Site</title>
 	<meta
 		name="description"
-		content="Refresh your web presence with our expert web development services tailored for B2B enterprises. Our agency specializes in creating modern, scalable, and innovative digital solutions to drive your business forward. Partner with us for expert web design, development, and digital marketing strategies that deliver measurable results."
+		content="Refresh your web presence with our expert web development services tailored for B2B enterprises. 
+		Our agency specializes in creating modern, scalable, and innovative digital solutions to drive your business forward. 
+		Partner with us for expert web design, development, and digital marketing strategies that deliver measurable results."
 	/>
 </svelte:head>
 
-<HeroSection />
-
-<!-- <FontTesting /> -->
-<!-- <img src="../static/Images/city.jpg" alt="city" />
-<img src="../static/Images/city.jpg" alt="city" />
-<img src="../static/Images/city.jpg" alt="city" />
-<img src="../static/Images/city.jpg" alt="city" />
-<img src="../static/Images/city.jpg" alt="city" /> -->
+<div class="container">
+	<ul id="cards">
+		{#each cards as card, index}
+			<li
+				class="card"
+				id={card.id}
+				transition:fly={{ y: 50, duration: 500, delay: index * 150, easing: quintOut }}
+			>
+				{#if card.component}
+					<svelte:component this={card.component} />
+				{:else}
+					<div class="card-body" style="background-color: {card.color}">
+						<h2>{card.title}</h2>
+					</div>
+				{/if}
+			</li>
+		{/each}
+	</ul>
+</div>
 
 <style lang="scss">
-	img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		position: absolute;
+	:root {
+		--cards: 5;
+		--cardHeight: 90vh;
+		--cardTopPadding: 2.5rem;
+		--cardMargin: 5vw;
+	}
+
+	.container {
+		inline-size: 100%;
+		margin-inline: 0;
+	}
+
+	#cards {
+		list-style: none;
+		padding-left: 0;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: repeat(var(--cards), var(--cardHeight));
+		gap: var(--cardMargin);
+		padding-bottom: calc(var(--cards) * var(--cardTopPadding));
+		margin-bottom: var(--cardMargin);
+	}
+
+	#card1 {
+		--index: 1;
+	}
+	#card2 {
+		--index: 2;
+	}
+	#card3 {
+		--index: 3;
+	}
+	#card4 {
+		--index: 4;
+	}
+	#card5 {
+		--index: 5;
+	}
+
+	.card {
+		position: sticky;
 		top: 0;
-		left: 0;
-		z-index: -1;
+		// padding-top: calc(var(--index) * var(--cardTopPadding));
+	}
+
+	#card1 .card-body {
+		background-color: #52b2cf;
+	}
+	#card2 .card-body {
+		background-color: #e5a36f;
+	}
+	#card3 .card-body {
+		background-color: #9cadce;
+	}
+	#card4 .card-body {
+		background-color: #d4afb9;
+	}
+
+	#card5 .card-body {
+		background-color: #2e3537;
+	}
+
+	.card-body {
+		box-sizing: border-box;
+		padding: 30px;
+		border-radius: 50px;
+		box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.3);
+		height: var(--cardHeight);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	h2 {
+		font-size: 2.5rem;
 	}
 </style>

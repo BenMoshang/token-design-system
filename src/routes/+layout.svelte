@@ -119,7 +119,7 @@
 		box-sizing: border-box;
 		margin: 0 auto;
 		overflow-x: clip;
-		max-inline-size: $max-viewport;
+		// max-inline-size: $max-viewport;
 		inline-size: 100%;
 		padding-top: $page-header-height;
 		padding-inline: get-sp('x2');

@@ -21,7 +21,7 @@
 	$effect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
-			hideHeader = currentScrollY > lastScrollY && currentScrollY > 50;
+			hideHeader = currentScrollY > lastScrollY && currentScrollY > 100;
 			lastScrollY = currentScrollY;
 		};
 
