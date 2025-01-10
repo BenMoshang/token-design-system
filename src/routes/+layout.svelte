@@ -122,7 +122,7 @@
 		// max-inline-size: $max-viewport;
 		inline-size: 100%;
 		padding-top: $page-header-height;
-		padding-inline: get-sp('x2');
+		padding-inline: get-sp('x4');
 		position: relative;
 	}
 
@@ -233,13 +233,6 @@
 		font-family: 'Roboto';
 		src: url('/Fonts/Roboto/Roboto-Medium.ttf') format('truetype');
 		font-weight: 500;
-		font-style: normal;
-	}
-
-	@font-face {
-		font-family: 'Roboto';
-		src: url('/Fonts/Roboto/Roboto-SemiBold.ttf') format('truetype');
-		font-weight: 600;
 		font-style: normal;
 	}
 

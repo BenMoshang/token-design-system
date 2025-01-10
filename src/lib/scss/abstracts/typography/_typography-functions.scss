@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use 'sass:math';
 @use 'typography-variables' as tv;
 @use '../colors/colors-variables' as cv;
@@ -12,7 +13,7 @@ Other functions
  * @return {String} font-family name
  */
 @function get-ff($font) {
-	@return map-get(tv.$font-family, $font);
+	@return map.get(tv.$font-family, $font);
 }
 
 /**
@@ -22,7 +23,7 @@ Other functions
  * @return {Number} font-weight value
  */
 @function get-fw($weight) {
-	@return map-get(tv.$font-weights, $weight);
+	@return map.get(tv.$font-weights, $weight);
 }
 
 /**
@@ -32,7 +33,7 @@ Other functions
  * @return {Number} line-height multiplier
  */
 @function get-lh($height) {
-	@return map-get(tv.$line-heights, $height);
+	@return map.get(tv.$line-heights, $height);
 }
 
 /**
@@ -42,7 +43,7 @@ Other functions
  * @return {Number/Length} letter-spacing value
  */
 @function get-ls($ls) {
-	@return map-get(tv.$letter-spacing, $ls);
+	@return map.get(tv.$letter-spacing, $ls);
 }
 
 /**
