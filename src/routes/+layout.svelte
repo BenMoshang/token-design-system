@@ -2,12 +2,6 @@
 	import Header from './Layout/Header.svelte';
 </script>
 
-<Header />
-
-<main class="page-container">
-	<slot />
-</main>
-
 <svelte:head>
 	<link
 		rel="preload"
@@ -33,6 +27,12 @@
 		crossorigin="anonymous"
 	/>
 </svelte:head>
+
+<Header />
+
+<main class="page-container">
+	<slot />
+</main>
 
 <!-- <Footer /> -->
 
@@ -114,6 +114,7 @@
 
 	.page-container {
 		@include flex-column-center;
+		// @include grain-texture;
 		box-sizing: border-box;
 		margin: 0 auto;
 		overflow-x: clip;
@@ -121,6 +122,7 @@
 		inline-size: 100%;
 		padding-top: $page-header-height;
 		padding-inline: get-sp('x2');
+		position: relative;
 	}
 
 	:global(body) {
