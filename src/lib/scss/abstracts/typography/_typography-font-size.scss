@@ -34,7 +34,7 @@ $typography-scales: (
 		'sm': $typography-base-size * math.pow($typography-scale-ratio, 3),
 		'md': $typography-base-size * math.pow($typography-scale-ratio, 4),
 		'lg': $typography-base-size * math.pow($typography-scale-ratio, 5),
-		'xl': $typography-base-size * math.pow($typography-scale-ratio, 6)
+		'xl': $typography-base-size * math.pow($typography-scale-ratio, 5.5)
 	)
 );
 

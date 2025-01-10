@@ -9,14 +9,16 @@
 	font-family: tf.get-ff('display');
 	font-weight: tf.get-fw('bold');
 	line-height: tf.get-lh('tight');
-	letter-spacing: tf.get-ls('normal');
+	letter-spacing: tf.get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');
 	text-wrap: balance;
 }
 %global__display--xl {
 	@extend %global__display--base;
 	font-size: fsz.get-static-fsz('display', 'xl');
-	line-height: tf.get-lh('tight');
+	text-align: center;
+	letter-spacing: -0.0375em;
+	line-height: 0.85;
 }
 
 %global__display--lg {

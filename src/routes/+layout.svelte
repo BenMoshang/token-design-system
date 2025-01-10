@@ -120,7 +120,7 @@
 		max-inline-size: $max-viewport;
 		inline-size: 100%;
 		padding-top: $page-header-height;
-		padding-inline: get-sp(x4);
+		padding-inline: get-sp('x2');
 	}
 
 	:global(body) {
