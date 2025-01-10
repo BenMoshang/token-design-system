@@ -78,11 +78,16 @@ $typography-scales: (
      $slope     = (maxSize - minSize) / (maxVW - minVW)
      $intercept = minSize - slope * minVW
 --------------------------------------------------------------------------- */
+/*=============================================
+=            for clamp             =
+=============================================*/
+$min-viewport: 20rem; // 320px 20rem
+$max-viewport: 90rem; // 1440px
 @function clamp-size(
 	$min-size,
 	$max-size,
-	$min-viewport: gv.$min-viewport,
-	$max-viewport: gv.$max-viewport
+	$min-viewport: $min-viewport,
+	$max-viewport: $max-viewport
 ) {
 	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
 	$intercept: $min-size - ($slope * $min-viewport);

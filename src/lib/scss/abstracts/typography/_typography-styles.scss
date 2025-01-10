@@ -20,7 +20,7 @@
 
 %global__display--xl {
 	@extend %global__display--base;
-	font-size: fsz.get-static-fsz('display', 'xl');
+	font-size: fsz.get-res-fsz('display', 'sm', 'xl');
 	text-align: center;
 	line-height: 0.85;
 }
@@ -97,8 +97,6 @@
 /*=============================================
 =            My Modern Logo            =
 =============================================*/
-//!important: logo looks weird in dev tools F12, because it is an emulation of mobile screen size.
-//!important: IOS RENDERS LETTER SPACING DIFFERENTLY KEEP THIS MEDIA QUERY.
 
 %global__my-modern-logo {
 	font-family: tf.get-ff('display');

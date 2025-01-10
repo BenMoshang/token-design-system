@@ -196,7 +196,7 @@ Content Nav
 		display: none;
 	}
 
-	@media (min-width: $mobile-viewport) {
+	@media (min-width: $mobile-breakpoint) {
 		.header__nav--desktop {
 			display: flex;
 		}

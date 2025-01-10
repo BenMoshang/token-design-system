@@ -12,17 +12,13 @@ $border-radius: (
 $br-default: map-get($border-radius, 'default');
 $br-rounded: map-get($border-radius, 'rounded');
 
-/*=============================================
-=            for clamp             =
-=============================================*/
-$min-viewport: 20rem; // 320px 20rem
-$max-viewport: 90rem; // 1440px
+
 /*=============================================
 =          Breakpoints             =
 =============================================*/
 //min-width Mobile
-$mobile-viewport: 64rem; // 1024px
-$desktop-viewport: 80rem; // 1280px
+$mobile-breakpoint: 64rem; // 1024px
+$desktop-breakpoint: 80rem; // 1280px
 
 /*=============================================
 =            Page            =

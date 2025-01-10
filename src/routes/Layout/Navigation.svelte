@@ -168,7 +168,7 @@
 		}
 	}
 
-	@media (min-width: $mobile-viewport) {
+	@media (min-width: $mobile-breakpoint) {
 		.nav {
 			display: none;
 		}
