@@ -6,18 +6,22 @@
 =============================================*/
 
 %global__display--base {
+	--letter-spacing: #{tf.get-ls('tight')};
 	font-family: tf.get-ff('display');
-	font-weight: tf.get-fw('bold');
+	font-weight: 700;
 	line-height: tf.get-lh('tight');
-	letter-spacing: tf.get-ls('tight');
+	letter-spacing: var(--letter-spacing);
 	color: cf.get-light-dark('darkest', 'lightest');
 	text-wrap: balance;
+
+	@media (min-width: 64rem) {
+	}
 }
+
 %global__display--xl {
 	@extend %global__display--base;
 	font-size: fsz.get-static-fsz('display', 'xl');
 	text-align: center;
-	letter-spacing: -0.0375em;
 	line-height: 0.85;
 }
 
@@ -36,6 +40,7 @@
 %global__display--xs {
 	@extend %global__display--base;
 }
+
 /*=============================================
 =            Heading            =
 =============================================*/
@@ -97,17 +102,14 @@
 
 %global__my-modern-logo {
 	font-family: tf.get-ff('display');
-	font-weight: tf.get-fw('semibold');
+	font-weight: 700;
 	font-size: fsz.get-static-fsz('heading', 'md');
 	line-height: 0.8;
-	letter-spacing: -2.25px;
+	letter-spacing: get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');
 	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
 	/* For larger screens, reduce the negative spacing */
-	@media (min-width: 64rem) {
-		letter-spacing: -0.5px; // or even 0px if overlap persists
-	}
 }
