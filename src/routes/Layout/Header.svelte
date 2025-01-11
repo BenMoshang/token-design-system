@@ -34,7 +34,9 @@
 
 <header class="header" class:hide={hideHeader}>
 	<a class="header__logo" href="/">
-		<h3 class="header__logo-company"><span>My</span><br />Modern</h3>
+		<h3 class="header__logo-company">
+			<span class="header__logo-company-my">My</span><br />Modern
+		</h3>
 	</a>
 	<!-- DESKTOP NAV -->
 	<nav class="header__nav--desktop">
@@ -103,9 +105,10 @@
 		z-index: 1000;
 		backdrop-filter: blur(16px) saturate(200%);
 		-webkit-backdrop-filter: blur(16px) saturate(200%);
-		inline-sizes: 100%;
+		inline-size: 100%;
 		block-size: var(--header-height);
 		padding-inline: get-sp('x4');
+		padding-block: get-sp('x2');
 		background: light-dark(hsla(191, 15%, 85%, 0.2), hsla(200, 64%, 6%, 0.2));
 		border-bottom-left-radius: $br-default;
 		border-bottom-right-radius: $br-default;
@@ -211,6 +214,7 @@ Content Nav
 		position: relative;
 		font-weight: 600;
 		font-size: get-static-fsz('body', 'lg');
+		letter-spacing: get-ls('normal');
 		line-height: 1;
 
 		color: get-light-dark('darker', 'lightest');
@@ -223,7 +227,7 @@ Content Nav
 			left: 0;
 			bottom: -0.25rem;
 			width: 0;
-			height: 2px;
+			height: 0.125rem;
 			background: get-light-dark('darker', 'lighter');
 			transition: width 0.3s ease;
 		}

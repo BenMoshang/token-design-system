@@ -1,21 +1,18 @@
 @use 'typography-functions' as tf;
 @use 'typography-font-size' as fsz;
 @use '../colors/colors-functions' as cf;
+@use '../../base/global-styles' as gs;
 /*=============================================
 =            Display            =
 =============================================*/
 
 %global__display--base {
-	--letter-spacing: #{tf.get-ls('tight')};
 	font-family: tf.get-ff('display');
 	font-weight: 700;
 	line-height: tf.get-lh('tight');
-	letter-spacing: var(--letter-spacing);
+	letter-spacing: tf.get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');
 	text-wrap: balance;
-
-	@media (min-width: 64rem) {
-	}
 }
 
 %global__display--xl {
@@ -99,15 +96,16 @@
 =============================================*/
 
 %global__my-modern-logo {
+	@include gs.elastic-text-hover;
 	font-family: tf.get-ff('display');
 	font-weight: 700;
-	font-size: fsz.get-static-fsz('heading', 'md');
+	font-size: fsz.get-static-fsz('heading', 'sm');
 	line-height: 0.8;
-	letter-spacing: get-ls('tight');
+	letter-spacing: tf.get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');
 	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-
-	/* For larger screens, reduce the negative spacing */
+	inline-size: fit-content;
 }
+/* For larger screens, reduce the negative spacing */

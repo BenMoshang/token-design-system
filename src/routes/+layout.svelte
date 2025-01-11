@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Header from './Layout/Header.svelte';
+	import Footer from './Layout/Footer.svelte';
 </script>
 
 <svelte:head>
@@ -33,12 +34,24 @@
 <main class="page-container">
 	<slot />
 </main>
-<img src="/images/grain.svg" alt="Grain" class="grain-overlay" loading="eager" decoding="async" />
+<!-- <img src="/images/grain.svg" alt="Grain" class="grain-overlay" loading="eager" decoding="async" /> -->
 
-<!-- <Footer /> -->
+<Footer />
 
 <style global lang="scss">
 	@use '$lib/scss/main.scss' as *;
+	.page-container {
+		@include flex-column-center;
+		// @include grain-texture;
+		box-sizing: border-box;
+		margin: 0 auto;
+		overflow-x: clip;
+		// max-inline-size: $max-viewport;
+		inline-size: 100%;
+		padding-block: $page-header-height;
+		// padding-inline: get-sp('x4');
+		position: relative;
+	}
 
 	/*--------------------------------------
 	 BASE LAYER
@@ -52,92 +65,21 @@
 		-webkit-hyphens: auto;
 	}
 
-	/* Theme Custom Properties */
 	:global(html) {
-		--scrollbar-track: light-dark(hsl(191, 15%, 85%), hsl(206, 45%, 12%));
-		--scrollbar-thumb: light-dark(hsl(206, 18%, 35%), hsl(206, 30%, 21%));
-		--scrollbar-thumb-hover: light-dark(hsl(206, 30%, 21%), hsl(206, 18%, 35%));
-		--scrollbar-thumb-active: light-dark(hsl(206, 45%, 12%), hsl(191, 15%, 85%));
-	}
-
-	/* Scrollbar Styles with Mobile Optimization */
-	@media (pointer: fine) {
-		:global(::-webkit-scrollbar) {
-			width: 0.125rem;
-			height: 0.125rem;
-
-			@media (max-width: 48rem) {
-				width: 0.5rem;
-				height: 0.5rem;
-			}
-		}
-
-		:global(::-webkit-scrollbar-track) {
-			background: var(--scrollbar-track);
-			border-radius: 0.25rem;
-		}
-
-		:global(::-webkit-scrollbar-thumb) {
-			background-color: var(--scrollbar-thumb);
-			border-radius: 0.75rem;
-			transition: background-color 200ms ease;
-
-			&:hover {
-				background-color: var(--scrollbar-thumb-hover);
-			}
-
-			&:active {
-				background-color: var(--scrollbar-thumb-active);
-			}
-		}
-
-		:global(::-webkit-scrollbar-corner) {
-			background: transparent;
-		}
-
-		:global(::-webkit-scrollbar-button) {
-			display: none;
-		}
-	}
-
-	/* Touch Device Scrolling Optimization */
-	// @media (pointer: coarse) {
-	// 	:global(body) {
-	// 		-webkit-overflow-scrolling: touch;
-	// 		scroll-behavior: smooth;
-	// 		overscroll-behavior-y: contain;
-	// 	}
-
-	// 	:global(*) {
-	// 		-webkit-tap-highlight-color: transparent;
-	// 	}
-	// }
-
-	.page-container {
-		@include flex-column-center;
-		// @include grain-texture;
-		box-sizing: border-box;
-		margin: 0 auto;
-		overflow-x: clip;
-		// max-inline-size: $max-viewport;
-		inline-size: 100%;
-		padding-top: $page-header-height;
-		// padding-inline: get-sp('x4');
-		position: relative;
-	}
-
-	:global(body) {
-		min-block-size: 100vh;
-		inline-size: 100%;
-
+		background: get-light-dark('lightest', 'darkest');
+		scrollbar-color: get-light-dark('lightest', 'darkest') get-light-dark('light', 'dark');
+		scrollbar-width: thin;
 		scroll-behavior: smooth;
-	}
-
-	:global(html) {
 		text-rendering: geometricPrecision;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		-webkit-text-size-adjust: 100% !important; /* Prevents iOS from auto-resizing text */
+		scroll-behavior: smooth;
+	}
+	:global(body) {
+		min-block-size: 100vh;
+		inline-size: 100%;
+		scroll-behavior: smooth;
 	}
 	/* Example: A simple CSS reset 
      (You can replace or expand this with a more extensive reset or normalize) */
@@ -181,6 +123,10 @@
 	:global(h6) {
 		overflow-wrap: break-word;
 	}
+
+	/*=================================
+	Media Reset
+	=================================*/
 
 	:global(img),
 	:global(picture),

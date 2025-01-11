@@ -8,7 +8,7 @@
    remains consistent in rem.
 --------------------------------------------------------------------------- */
 $typography-base-size: 1.125rem; // e.g., ~18px if 1rem=16px
-$typography-scale-ratio: 1.414; // Classic typographic ratio (sqrt(2))
+$typography-scale-ratio: 1.618; // Classic typographic ratio (sqrt(2))
 
 /* ---------------------------------------------------------------------------
    2) Typographic Scales (REM Values)
@@ -82,7 +82,7 @@ $typography-scales: (
 =            for clamp             =
 =============================================*/
 $min-viewport: 20rem; // 320px 20rem
-$max-viewport: 90rem; // 1440px
+$max-viewport: 80rem; // 1440px
 @function clamp-size(
 	$min-size,
 	$max-size,

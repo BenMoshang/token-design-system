@@ -34,5 +34,9 @@
 	block-size: 90vh;
 	inline-size: 100%;
 	border-radius: gv.$br-default;
-	background: if($theme == 'light', cf.get-light-dark('medium', 'medium'), cf.get-light-dark('lightest', 'darkest'));
+	background: if(
+		$theme == 'light',
+		cf.get-light-dark('medium', 'medium'),
+		cf.get-light-dark('lightest', 'darkest')
+	);
 }
