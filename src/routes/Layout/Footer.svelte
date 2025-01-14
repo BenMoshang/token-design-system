@@ -76,9 +76,7 @@
 	<section class="footer__content">
 		<div class="footer__brand">
 			<a class="footer__logo" href="/">
-				<h3 class="footer__logo">
-					<span class="footer__logo-company-my">My</span><br />Modern
-				</h3>
+				<span class="footer__logo-company-my">My</span><br />Modern
 			</a>
 			<p class="footer__brand-description">
 				Creating exceptional digital experiences with modern web technologies.
@@ -161,8 +159,9 @@
 	<section class="footer__bottom">
 		<p class="footer__copyright">
 			<span class="visually-hidden">Copyright</span>
-			&copy; {currentYear} Your Brand. All rights reserved.
+			{currentYear} My Modern LLC.
 		</p>
+		<!-- &copy; -->
 	</section>
 </footer>
 
@@ -184,30 +183,30 @@
 		inline-size: calc(100% + get-sp('x4'));
 
 		fill: get-light-dark('lightest', 'darkest');
-		// fill: red;
 	}
 
-	$spacing: get-sp('x6');
 	/*=============================================
 	FOOTER CONTENT
 	=============================================*/
 	.footer {
-		@include flex-column-center;
-		flex-wrap: wrap;
 		background: get-light-dark('medium', 'darker');
 		padding-bottom: get-sp('x8');
 
 		&__content {
 			padding: get-sp('x4');
+			max-inline-size: $desktop-breakpoint;
+			margin-block: 0;
 			margin-inline: auto;
-			gap: get-sp('x6');
+			display: flex;
+			flex-direction: column;
+			gap: get-res-sp('x6', 'x8');
 		}
 
 		&__brand {
 			&-description {
 				@extend %global__body--md;
 				max-width: 35ch;
-				margin-bottom: $spacing;
+				// margin-bottom: get-sp('x6');
 			}
 		}
 
@@ -219,18 +218,20 @@
 			@extend %global__my-modern-logo;
 			text-decoration: none;
 			font-size: get-static-fsz('heading', 'lg');
-			margin-bottom: $spacing;
+			margin-bottom: get-sp('x4');
 		}
 
 		&__nav {
-			@include flex-column;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+			justify-content: space-between;
 			gap: get-sp('x6');
 		}
 
 		&__nav-title {
 			font-family: get-ff('primary');
-			font-size: get-static-fsz('heading', 'sm');
 			font-weight: 600;
+			font-size: get-static-fsz('heading', 'sm');
 			letter-spacing: get-ls('normal');
 			color: get-light-dark('darkest', 'lightest');
 			margin-block-end: get-sp('x4');
@@ -258,11 +259,11 @@
 
 		&__nav-link {
 			@extend %global__body--md;
-			color: get-light-dark('darker', 'lighter');
 			text-decoration: none;
 			transition: all 0.2s ease-in-out;
 			font-weight: 400;
 			font-size: get-static-fsz('body', 'md');
+			color: get-light-dark('darker', 'lighter');
 
 			&:focus-visible {
 				outline: 2px solid get-light-dark('lightest', 'darkest');
@@ -290,12 +291,13 @@
 			max-width: $desktop-breakpoint;
 			margin: get-sp('x8') auto 0;
 			padding-block-start: get-sp('x4');
-			border-block-start: 1px solid get-light-dark('darkest', 'lightest');
+			border-block-start: 0.0313rem solid get-light-dark('dark', 'light');
 			text-align: center;
 		}
 
 		&__copyright {
-			color: get-light-dark('lightest', 'darkest');
+			@extend %global__body--sm;
+			color: get-light-dark('dark', 'light');
 			font-size: get-static-fsz('body', 'sm');
 			font-weight: 300;
 		}

@@ -1,5 +1,5 @@
 @use 'sass:math';
-
+@use '../../base/global-variables' as gv;
 /* ---------------------------------------------------------------------------
    1) Global / Default Variables (REM Only)
    ---------------------------------------------------------------------------
@@ -81,8 +81,8 @@ $typography-scales: (
 /*=============================================
 =            for clamp             =
 =============================================*/
-$min-viewport: 20rem; // 320px 20rem
-$max-viewport: 80rem; // 1440px
+$min-viewport: gv.$mobile-breakpoint; // 320px 20rem
+$max-viewport: gv.$desktop-breakpoint; // 1440px
 @function clamp-size(
 	$min-size,
 	$max-size,

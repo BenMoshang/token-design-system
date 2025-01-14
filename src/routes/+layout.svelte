@@ -34,6 +34,7 @@
 <main class="page-container">
 	<slot />
 </main>
+
 <!-- <img src="/images/grain.svg" alt="Grain" class="grain-overlay" loading="eager" decoding="async" /> -->
 
 <Footer />

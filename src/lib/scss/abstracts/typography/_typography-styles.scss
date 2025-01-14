@@ -82,6 +82,7 @@
 
 %global__body--sm {
 	@extend %global__body--base;
+	font-size: fsz.get-static-fsz('body', 'sm');
 }
 /*=============================================
 =            Label            =
