@@ -18,7 +18,7 @@
 		});
 
 		// The RAF (requestAnimationFrame) loop to keep Lenis updated
-		const raf = (time) => {
+		const raf = (time: number) => {
 			lenis.raf(time);
 			requestAnimationFrame(raf);
 		};
