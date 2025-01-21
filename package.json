@@ -33,6 +33,7 @@
 		"vitest": "^2.0.4"
 	},
 	"dependencies": {
+		"@studio-freight/lenis": "^1.0.42",
 		"scss": "^0.2.4"
 	}
 }

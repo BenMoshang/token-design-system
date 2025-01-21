@@ -1,6 +1,35 @@
 <script lang="ts">
 	import Header from './Layout/Header.svelte';
 	import Footer from './Layout/Footer.svelte';
+	import { onMount } from 'svelte';
+	import Lenis from '@studio-freight/lenis'; // Adjust the import if necessary
+
+	onMount(() => {
+		// Initialize Lenis with any desired options
+		const lenis = new Lenis({
+			duration: 1.5,
+			easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Improved easing function
+			orientation: 'vertical',
+			gestureOrientation: 'vertical',
+			smoothWheel: true,
+			wheelMultiplier: 1,
+			touchMultiplier: 2,
+			infinite: false
+		});
+
+		// The RAF (requestAnimationFrame) loop to keep Lenis updated
+		const raf = (time) => {
+			lenis.raf(time);
+			requestAnimationFrame(raf);
+		};
+
+		requestAnimationFrame(raf);
+
+		// Optionally, you can return a cleanup function if needed
+		return () => {
+			// Add any cleanup or destroy logic for lenis here if the library provides it
+		};
+	});
 </script>
 
 <svelte:head>
@@ -70,12 +99,10 @@
 		background: get-light-dark('lightest', 'darkest');
 		scrollbar-color: get-light-dark('lightest', 'darkest') get-light-dark('light', 'dark');
 		scrollbar-width: thin;
-		scroll-behavior: smooth;
 		text-rendering: geometricPrecision;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		-webkit-text-size-adjust: 100% !important; /* Prevents iOS from auto-resizing text */
-		scroll-behavior: smooth;
 	}
 	:global(body) {
 		min-block-size: 100vh;
