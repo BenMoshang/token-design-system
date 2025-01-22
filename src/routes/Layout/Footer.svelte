@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	const currentYear = new Date().getFullYear();
 
 	interface Link {
@@ -54,13 +56,13 @@
 				name: 'Twitter',
 				href: 'https://twitter.com',
 				icon: '🔗',
-				ariaLabel: 'Follow us on Twitter'
+				ariaLabel: 'Visit our Twitter profile'
 			}
 		]
 	};
 </script>
 
-<footer class="footer" role="contentinfo" aria-label="Site footer">
+<footer class="footer" aria-label="Site footer">
 	<svg
 		class="footer__shape-top"
 		data-name="Layer 1"
@@ -176,7 +178,6 @@
 		line-height: 0;
 		inline-size: calc(100% + get-sp('x4'));
 		block-size: 5.25rem;
-		transform: rotateY(180deg);
 	}
 
 	.footer__shape-top .shape-fill {
@@ -189,6 +190,9 @@
 	FOOTER CONTENT
 	=============================================*/
 	.footer {
+		position: relative;
+		block-size: 100%;
+		inline-size: 100%;
 		background: get-light-dark('medium', 'darker');
 		padding-bottom: get-sp('x8');
 

@@ -43,12 +43,14 @@
 	@use '$lib/scss/main.scss' as *;
 	.page-container {
 		@include flex-column-center;
+
 		// @include grain-texture;
 		box-sizing: border-box;
 		margin: 0 auto;
 		overflow-x: clip;
 		// max-inline-size: $max-viewport;
 		inline-size: 100%;
+		block-size: 100%;
 		padding-block: $page-header-height;
 		// padding-inline: get-sp('x4');
 		position: relative;
@@ -76,9 +78,11 @@
 		-moz-osx-font-smoothing: grayscale;
 		-webkit-text-size-adjust: 100% !important; /* Prevents iOS from auto-resizing text */
 		scroll-behavior: smooth;
+		min-block-size: 100vh;
+		inline-size: 100%;
 	}
 	:global(body) {
-		min-block-size: 100vh;
+		block-size: 100%;
 		inline-size: 100%;
 		scroll-behavior: smooth;
 	}
