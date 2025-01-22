@@ -17,7 +17,7 @@
 
 %global__display--x4 {
 	@extend %global__display--base;
-	font-size: fsz.get-res-fsz('display', 'x1.5', 'x4');
+	font-size: fsz.get-res-fsz('display', 'x1.25', 'x4');
 	text-align: center;
 	line-height: 0.85;
 }
@@ -31,10 +31,6 @@
 	@extend %global__display--base;
 }
 %global__display--x1 {
-	@extend %global__display--base;
-}
-
-%global__display--xs {
 	@extend %global__display--base;
 }
 

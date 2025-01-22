@@ -33,7 +33,7 @@ $typography-scales: (
 	),
 	'display': (
 		'x1': $typography-base-size * math.pow($typography-scale-ratio, 3),
-		'x1.5': $typography-base-size * math.pow($typography-scale-ratio, 3.5),
+		'x1.25': $typography-base-size * math.pow($typography-scale-ratio, 3.25),
 		// @HERO-SECTION: this is used for hero section for h1 custom font size
 		'x2': $typography-base-size * math.pow($typography-scale-ratio, 4),
 		'x3': $typography-base-size * math.pow($typography-scale-ratio, 5),
