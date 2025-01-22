@@ -118,7 +118,7 @@
 		);
 		inline-size: 100%;
 		margin-inline: 0;
-		margin-bottom: get-sp('x12');
+		margin-bottom: get-sp('x15');
 		opacity: 0.5;
 		animation: pulse 2s ease-in-out infinite;
 	}
@@ -162,7 +162,7 @@
 		// Hero Title
 		&__title {
 			@extend %global__display--x4;
-			margin-bottom: get-sp('x8');
+			margin-bottom: get-sp('x4');
 			max-inline-size: 15ch;
 			animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 		}
@@ -171,7 +171,7 @@
 		&__subtitle {
 			@extend %global__display--base;
 			font-size: get-res-fsz('heading', 'x1', 'x2');
-			color: get-light-dark('darker', 'lighter');
+			color: get-light-dark('dark', 'lighter');
 		}
 
 		// Content container for p elements
