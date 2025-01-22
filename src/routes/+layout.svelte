@@ -79,6 +79,10 @@
 		scroll-behavior: smooth;
 		cursor: none; //remove this to bring cursor back
 		background: get-light-dark('lightest', 'darkest');
+
+		@media (min-width: $mobile-breakpoint) {
+			cursor: auto;
+		}
 	}
 
 	/* Example: A simple CSS reset 

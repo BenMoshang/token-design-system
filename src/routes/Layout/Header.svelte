@@ -110,11 +110,10 @@
 		padding-inline: get-sp('x4');
 		padding-block: get-sp('x2');
 		background: light-dark(hsla(191, 15%, 85%, 0.2), hsla(200, 64%, 6%, 0.2));
-
 		border-bottom: 1px solid rgba(255, 255, 255, 0.125);
-
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
+		animation: slide-down $hero-initial-entrance-delay ease-in-out;
 	}
 	/* Hides header by sliding it up */
 	.hide {

@@ -98,3 +98,24 @@ $text-pop-up-top-color: gv.get-light-dark('light', 'dark');
 			0 9px 0 $text-pop-up-top-color;
 	}
 }
+@keyframes slide-down {
+	0% {
+		transform: translateY(-100%);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes slide-down {
+	0% {
+		-webkit-transform: translateY(-100%);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		opacity: 1;
+	}
+}

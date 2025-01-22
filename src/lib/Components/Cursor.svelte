@@ -37,7 +37,7 @@
 <!-- Apply the transform so that the center of the ring follows the cursor -->
 <div class="cursor" style:transform={`translate(${posX - 12}px, ${posY - 12}px)`}></div>
 
-<style>
+<style lang="scss">
 	.cursor {
 		position: fixed;
 		pointer-events: none; /* Ensures the ring doesn't interfere with page interactions */
@@ -49,5 +49,11 @@
 		border-radius: 50%;
 		z-index: 999; /* 1 less than header (1000) to avoid overlap */
 		mix-blend-mode: difference;
+	}
+
+	@media (min-width: $mobile-breakpoint) {
+		.cursor {
+			display: none;
+		}
 	}
 </style>

@@ -7,7 +7,7 @@
    typically corresponds to 16px, but we're NOT using px at all, so everything
    remains consistent in rem.
 --------------------------------------------------------------------------- */
-$typography-base-size: 1.125rem; // e.g., ~18px if 1rem=16px
+$typography-base-size: 1rem; // e.g., ~18px if 1rem=16px
 $typography-scale-ratio: 1.618; // Classic typographic ratio (sqrt(2))
 
 /* ---------------------------------------------------------------------------
@@ -21,6 +21,7 @@ $typography-scales: (
 	'body': (
 		'x1': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.5)),
 		'x2': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.75)),
+		// @HERO-SECTION: this is used for hero section for p custom font size
 		'x3': $typography-base-size,
 		'x4': $typography-base-size * math.pow($typography-scale-ratio, 0.5)
 	),
@@ -32,6 +33,8 @@ $typography-scales: (
 	),
 	'display': (
 		'x1': $typography-base-size * math.pow($typography-scale-ratio, 3),
+		'x1.5': $typography-base-size * math.pow($typography-scale-ratio, 3.5),
+		// @HERO-SECTION: this is used for hero section for h1 custom font size
 		'x2': $typography-base-size * math.pow($typography-scale-ratio, 4),
 		'x3': $typography-base-size * math.pow($typography-scale-ratio, 5),
 		'x4': $typography-base-size * math.pow($typography-scale-ratio, 5.5)

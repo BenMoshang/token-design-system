@@ -17,7 +17,7 @@
 
 %global__display--x4 {
 	@extend %global__display--base;
-	font-size: fsz.get-res-fsz('display', 'x1', 'x4');
+	font-size: fsz.get-res-fsz('display', 'x1.5', 'x4');
 	text-align: center;
 	line-height: 0.85;
 }
@@ -48,6 +48,7 @@
 	line-height: tf.get-lh('snug');
 	letter-spacing: tf.get-ls('snug');
 	text-wrap: balance;
+	color: cf.get-light-dark('darker', 'lighter');
 }
 
 %global__heading--x3 {
@@ -70,6 +71,7 @@
 	line-height: tf.get-lh('normal');
 	letter-spacing: tf.get-ls('normal');
 	text-wrap: pretty;
+	color: cf.get-light-dark('dark', 'light');
 }
 
 %global__body--x3 {
@@ -78,6 +80,8 @@
 
 %global__body--x2 {
 	@extend %global__body--base;
+	// font-size: fsz.get-static-fsz('body', 'x2');
+	font-size: fsz.get-res-fsz('body', 'x3', 'x4');
 }
 
 %global__body--x1 {
@@ -88,9 +92,13 @@
 =            Label            =
 =============================================*/
 %global__label {
-	@extend %global__body--base;
+	font-family: tf.get-ff('secondary');
+	font-weight: tf.get-fw('regular');
+	line-height: tf.get-lh('normal');
 	font-weight: tf.get-fw('light');
 	letter-spacing: tf.get-ls('loose');
+	text-transform: uppercase;
+	color: cf.get-light-dark('darker', 'lighter');
 }
 /*=============================================
 =            My Modern Logo            =
