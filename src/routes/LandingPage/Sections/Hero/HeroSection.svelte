@@ -118,7 +118,7 @@
 		);
 		inline-size: 100%;
 		margin-inline: 0;
-		margin-bottom: get-sp('x6');
+		margin-bottom: get-sp('x12');
 		opacity: 0.5;
 		animation: pulse 2s ease-in-out infinite;
 	}
@@ -164,6 +164,7 @@
 			@extend %global__display--x4;
 			margin-bottom: get-sp('x8');
 			max-inline-size: 15ch;
+			animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 		}
 
 		// Hero Subtitle
