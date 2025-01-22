@@ -1,8 +1,11 @@
 <script lang="ts">
 	import Header from './Layout/Header.svelte';
 	import Footer from './Layout/Footer.svelte';
+	import Cursor from '../lib/Components/Cursor.svelte'
+	import SmoothScroll from '../lib/Components/SmoothScroll.svelte'
 </script>
-
+<Cursor />
+<SmoothScroll />
 <svelte:head>
 	<link
 		rel="preload"
@@ -72,7 +75,6 @@
 		background: get-light-dark('lightest', 'darkest');
 		scrollbar-color: get-light-dark('lightest', 'darkest') get-light-dark('light', 'dark');
 		scrollbar-width: thin;
-		scroll-behavior: smooth;
 		text-rendering: geometricPrecision;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
