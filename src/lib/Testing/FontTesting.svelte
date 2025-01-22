@@ -1,80 +1,67 @@
-
 <section>
-
-
 	<div class="logo-testing">
-
-
 		<h1 class="logo-testing__version-1">MYMODERN</h1>
 		<h1 class="logo-testing__version-2">MYMODERN</h1>
-	
 	</div>
-	
-	<h1 class="display--lg">Large Display</h1>
-	<h1 class="display--md">Medium Display</h1>
-	<h1 class="display--sm">Small Display</h1>
 
-	<h2 class="heading--lg">Large Heading</h2>
-	<h3 class="heading--md">Medium Heading</h3>
-	<h4 class="heading--sm">Small Heading</h4>
-	<p class="body--lg">Large Body</p>
-	<p class="body--md">Medium Body</p>
-	<p class="body--sm">Small Body</p>
+	<h1 class="display--x3">Large Display</h1>
+	<h1 class="display--x2">Medium Display</h1>
+	<h1 class="display--x1">Small Display</h1>
+
+	<h2 class="heading--x3">Large Heading</h2>
+	<h3 class="heading--x2">Medium Heading</h3>
+	<h4 class="heading--x1">Small Heading</h4>
+	<p class="body--x3">Large Body</p>
+	<p class="body--x2">Medium Body</p>
+	<p class="body--x1">Small Body</p>
 	<p class="label">Label</p>
 </section>
 
 <style lang="scss">
+	.logo-testing {
+		padding: 1rem;
+		margin: 1rem;
 
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		&__version-1 {
+			@extend %global__display--x1;
+		}
 
-.logo-testing {
-
-	padding: 1rem;
-	margin: 1rem;
-	
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-	&__version-1 {
-		@extend %global__display--sm;
-}
-
-&__version-2 {
-	@extend %global__body--sm;
-	
-
-}
-}
-
-
-
-	.display--lg {
-		@extend %global__display--lg;
-	}
-	.display--md {
-		@extend %global__display--md;
-	}
-	.display--sm {
-		@extend %global__display--sm;
+		&__version-2 {
+			@extend %global__body--x1;
+		}
 	}
 
-	.heading--lg {
-		@extend %global__heading--lg;
+	.display--x3 {
+		@extend %global__display--x3;
 	}
-	.heading--md {
-		@extend %global__heading--md;
+	.display--x2 {
+		@extend %global__display--x2;
 	}
-	.heading--sm {
-		@extend %global__heading--sm;
+	.display--x1 {
+		@extend %global__display--x1;
 	}
 
-	.body--lg {
-		@extend %global__body--lg;
+	.heading--x3 {
+		@extend %global__heading--x3;
 	}
-	.body--md {
-		@extend %global__body--md;
+	.heading--x2 {
+		@extend %global__heading--x2;
 	}
-	.body--sm {
-		@extend %global__body--sm;
+	.heading--x1 {
+		@extend %global__heading--x1;
+	}
+
+	.body--x3 {
+		@extend %global__body--x3;
+	}
+	.body--x2 {
+		@extend %global__body--x2;
+	}
+	.body--x1 {
+		@extend %global__body--x1;
 	}
 
 	.label {

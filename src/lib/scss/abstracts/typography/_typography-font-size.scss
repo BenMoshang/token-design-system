@@ -19,22 +19,22 @@ $typography-scale-ratio: 1.618; // Classic typographic ratio (sqrt(2))
 --------------------------------------------------------------------------- */
 $typography-scales: (
 	'body': (
-		'sm': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.5)),
-		'md': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.75)),
-		'lg': $typography-base-size,
-		'xl': $typography-base-size * math.pow($typography-scale-ratio, 0.5)
+		'x1': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.5)),
+		'x2': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.75)),
+		'x3': $typography-base-size,
+		'x4': $typography-base-size * math.pow($typography-scale-ratio, 0.5)
 	),
 	'heading': (
-		'sm': $typography-base-size * math.pow($typography-scale-ratio, 1),
-		'md': $typography-base-size * math.pow($typography-scale-ratio, 1.5),
-		'lg': $typography-base-size * math.pow($typography-scale-ratio, 2),
-		'xl': $typography-base-size * math.pow($typography-scale-ratio, 2.5)
+		'x1': $typography-base-size * math.pow($typography-scale-ratio, 1),
+		'x2': $typography-base-size * math.pow($typography-scale-ratio, 1.5),
+		'x3': $typography-base-size * math.pow($typography-scale-ratio, 2),
+		'x4': $typography-base-size * math.pow($typography-scale-ratio, 2.5)
 	),
 	'display': (
-		'sm': $typography-base-size * math.pow($typography-scale-ratio, 3),
-		'md': $typography-base-size * math.pow($typography-scale-ratio, 4),
-		'lg': $typography-base-size * math.pow($typography-scale-ratio, 5),
-		'xl': $typography-base-size * math.pow($typography-scale-ratio, 5.5)
+		'x1': $typography-base-size * math.pow($typography-scale-ratio, 3),
+		'x2': $typography-base-size * math.pow($typography-scale-ratio, 4),
+		'x3': $typography-base-size * math.pow($typography-scale-ratio, 5),
+		'x4': $typography-base-size * math.pow($typography-scale-ratio, 5.5)
 	)
 );
 
@@ -52,11 +52,6 @@ $typography-scales: (
 	}
 
 	$font-size: map-get($category-map, $size);
-
-	@if not $font-size {
-		@error "Invalid size '#{$size}' for '#{$font-category}'. " +
-           "Valid sizes are: sm, md, lg, xl.";
-	}
 
 	@return $font-size;
 }
@@ -119,20 +114,20 @@ $max-viewport: gv.$desktop-breakpoint; // 1440px
 /* ---------------------------------------------------------------------------
    6) Example Usage
    ---------------------------------------------------------------------------
-   - h1: fluidly scales between 'heading' 'sm' and 'heading' 'xl'
+   - h1: fluidly scales between 'heading' 'x1' and 'heading' 'x4'
          across 20rem to 75rem viewport range.
-   - p : fluidly scales between 'body' 'sm' and 'body' 'lg' with the same range.
+   - p : fluidly scales between 'body' 'x1' and 'body' 'x3' with the same range.
 --------------------------------------------------------------------------- */
 
-// Example 1: Heading that scales between 'sm' (small) and 'xl' (extra-large)
+// Example 1: Heading that scales between 'x1' (small) and 'x4' (extra-large)
 // h1 {
-//   font-size: get-res-fsz('heading', 'sm', 'xl');
+//   font-size: get-res-fsz('heading', 'x1', 'x4');
 //   // => clamp(1.59rem, calc(...), 3.18rem)  // Example numbers
 // }
 
-// // Example 2: Paragraph that scales between 'sm' and 'lg' for "body"
+// // Example 2: Paragraph that scales between 'x1' and 'x3' for "body"
 // p {
-//   font-size: get-res-fsz('body', 'sm', 'lg');
+//   font-size: get-res-fsz('body', 'x1', 'x3');
 //   // => clamp(0.94rem, calc(...), 1.13rem)  // Example numbers
 // }
 

@@ -208,7 +208,7 @@
 
 		&__brand {
 			&-description {
-				@extend %global__body--md;
+				@extend %global__body--x2;
 				max-width: 35ch;
 				// margin-bottom: get-sp('x6');
 			}
@@ -262,7 +262,7 @@
 		}
 
 		&__nav-link {
-			@extend %global__body--md;
+			@extend %global__body--x2;
 			text-decoration: none;
 			transition: all 0.2s ease-in-out;
 			font-weight: 400;
@@ -300,7 +300,7 @@
 		}
 
 		&__copyright {
-			@extend %global__body--sm;
+			@extend %global__body--x1;
 			color: get-light-dark('dark', 'light');
 			font-size: get-static-fsz('body', 'sm');
 			font-weight: 300;

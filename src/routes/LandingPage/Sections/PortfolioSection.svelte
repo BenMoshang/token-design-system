@@ -9,8 +9,7 @@
 	.portfolio {
 		@include section-base;
 		&__title {
-			@extend %global__display--xl;
+			@extend %global__display--x4;
 		}
 	}
 </style>
-

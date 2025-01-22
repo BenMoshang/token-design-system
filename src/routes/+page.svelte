@@ -25,6 +25,10 @@
 		Our agency specializes in creating modern, scalable, and innovative digital solutions to drive your business forward. 
 		Partner with us for expert web design, development, and digital marketing strategies that deliver measurable results."
 	/>
+	<!-- Make sure your site is added to the home screen -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- Options: default, black, black-translucent -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
 
 <div class="container">

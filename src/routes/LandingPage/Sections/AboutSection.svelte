@@ -9,7 +9,7 @@
 	.about {
 		@include section-base('light');
 		&__title {
-			@extend %global__display--xl;
+			@extend %global__display--x4;
 			color: get-light-dark('lightest', 'darkest');
 		}
 	}

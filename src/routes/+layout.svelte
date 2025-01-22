@@ -8,21 +8,6 @@
 <Cursor />
 <SmoothScroll />
 <svelte:head>
-	<link
-		rel="preload"
-		href="/Fonts/Inter/Inter.ttf"
-		as="font"
-		type="font/ttf"
-		crossorigin="anonymous"
-	/>
-	<link
-		rel="preload"
-		href="/Fonts/Inter/Inter-Italic.ttf"
-		as="font"
-		type="font/ttf"
-		crossorigin="anonymous"
-	/>
-
 	<!-- Preload Helvetica Now fonts -->
 	<link
 		rel="preload"
@@ -56,7 +41,7 @@
 		// max-inline-size: $max-viewport;
 		inline-size: 100%;
 		block-size: 100%;
-		padding-block: $page-header-height;
+		padding-bottom: $page-header-height;
 		// padding-inline: get-sp('x4');
 		position: relative;
 	}
@@ -74,14 +59,15 @@
 	}
 
 	:global(html) {
-		background: get-light-dark('lightest', 'darkest');
+		margin: 0;
+		padding: 0;
 		scrollbar-color: get-light-dark('lightest', 'darkest') get-light-dark('light', 'dark');
 		scrollbar-width: thin;
 		scroll-behavior: smooth;
-
+		background: transparent;
 		text-rendering: geometricPrecision;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-x1oothing: antialiased;
+		-moz-osx-font-x1oothing: grayscale;
 		-webkit-text-size-adjust: 100% !important; /* Prevents iOS from auto-resizing text */
 		min-block-size: 100vh;
 		inline-size: 100%;
@@ -91,7 +77,8 @@
 		block-size: 100%;
 		inline-size: 100%;
 		scroll-behavior: smooth;
-		cursor: none;
+		cursor: none; //remove this to bring cursor back
+		background: get-light-dark('lightest', 'darkest');
 	}
 
 	/* Example: A simple CSS reset 

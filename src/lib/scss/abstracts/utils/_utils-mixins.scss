@@ -30,8 +30,9 @@
 }
 
 @mixin section-base($theme: 'dark') {
+	padding-inline: get-sp('x4');
 	@include flex-center;
-	block-size: 90vh;
+	block-size: 100vh;
 	inline-size: 100%;
 	border-radius: gv.$br-default;
 	background: if(

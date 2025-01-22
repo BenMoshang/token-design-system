@@ -15,22 +15,22 @@
 	text-wrap: balance;
 }
 
-%global__display--xl {
+%global__display--x4 {
 	@extend %global__display--base;
-	font-size: fsz.get-res-fsz('display', 'sm', 'xl');
+	font-size: fsz.get-res-fsz('display', 'x1', 'x4');
 	text-align: center;
 	line-height: 0.85;
 }
 
-%global__display--lg {
+%global__display--x3 {
 	@extend %global__display--base;
-	font-size: fsz.get-static-fsz('display', 'lg');
+	font-size: fsz.get-static-fsz('display', 'x3');
 	line-height: tf.get-lh('tight');
 }
-%global__display--md {
+%global__display--x2 {
 	@extend %global__display--base;
 }
-%global__display--sm {
+%global__display--x1 {
 	@extend %global__display--base;
 }
 
@@ -50,15 +50,15 @@
 	text-wrap: balance;
 }
 
-%global__heading--lg {
+%global__heading--x3 {
 	@extend %global__heading--base;
 }
 
-%global__heading--md {
+%global__heading--x2 {
 	@extend %global__heading--base;
 }
 
-%global__heading--sm {
+%global__heading--x1 {
 	@extend %global__heading--base;
 }
 /*=============================================
@@ -72,17 +72,17 @@
 	text-wrap: pretty;
 }
 
-%global__body--lg {
+%global__body--x3 {
 	@extend %global__body--base;
 }
 
-%global__body--md {
+%global__body--x2 {
 	@extend %global__body--base;
 }
 
-%global__body--sm {
+%global__body--x1 {
 	@extend %global__body--base;
-	font-size: fsz.get-static-fsz('body', 'sm');
+	font-size: fsz.get-static-fsz('body', 'x1');
 }
 /*=============================================
 =            Label            =
@@ -100,13 +100,13 @@
 	@include gs.elastic-text-hover;
 	font-family: tf.get-ff('display');
 	font-weight: 700;
-	font-size: fsz.get-static-fsz('heading', 'sm');
+	font-size: fsz.get-static-fsz('heading', 'x1');
 	line-height: 0.8;
 	letter-spacing: tf.get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');
 	text-rendering: geometricPrecision;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-x1oothing: antialiased;
+	-moz-osx-font-x1oothing: grayscale;
 	inline-size: fit-content;
 }
 /* For larger screens, reduce the negative spacing */

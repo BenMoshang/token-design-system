@@ -5,19 +5,19 @@
 	</section>
 </section>
 
-<!-- <section class="spacing--sm">
+<!-- <section class="spacing--x1">
 		<div class="box"></div>
 		<div class="box"></div>
 	</section>
-	<section class="spacing--md">
+	<section class="spacing--x2">
 		<div class="box"></div>
 		<div class="box"></div>
 	</section>
-	<section class="spacing--lg">
+	<section class="spacing--x3">
 		<div class="box"></div>
 		<div class="box"></div>
 	</section>
-	<section class="spacing--xl">
+	<section class="spacing--x4">
 		<div class="box"></div>
 		<div class="box"></div>
 	</section>
