@@ -9,7 +9,7 @@
 	let targetY = 0;
 
 	// Easing factor for smooth movement (0 < easing < 1)
-	const easing = 0.075;
+	const easing = 1;
 
 	const handleMouseMove = (event) => {
 		targetX = event.clientX;

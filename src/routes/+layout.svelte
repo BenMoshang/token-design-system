@@ -1,9 +1,10 @@
 <script lang="ts">
 	import Header from './Layout/Header.svelte';
 	import Footer from './Layout/Footer.svelte';
-	import Cursor from '../lib/Components/Cursor.svelte'
-	import SmoothScroll from '../lib/Components/SmoothScroll.svelte'
+	import Cursor from '../lib/Components/Cursor.svelte';
+	import SmoothScroll from '../lib/Components/SmoothScroll.svelte';
 </script>
+
 <Cursor />
 <SmoothScroll />
 <svelte:head>
@@ -43,6 +44,7 @@
 <Footer />
 
 <style global lang="scss">
+	// !TODO: REMOVE CURSOR NONE IF YOU WANT TO USE CURSOR
 	@use '$lib/scss/main.scss' as *;
 	.page-container {
 		@include flex-column-center;
@@ -75,19 +77,23 @@
 		background: get-light-dark('lightest', 'darkest');
 		scrollbar-color: get-light-dark('lightest', 'darkest') get-light-dark('light', 'dark');
 		scrollbar-width: thin;
+		scroll-behavior: smooth;
+
 		text-rendering: geometricPrecision;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		-webkit-text-size-adjust: 100% !important; /* Prevents iOS from auto-resizing text */
-		scroll-behavior: smooth;
 		min-block-size: 100vh;
 		inline-size: 100%;
+		// scroll-behavior: smooth;
 	}
 	:global(body) {
 		block-size: 100%;
 		inline-size: 100%;
 		scroll-behavior: smooth;
+		cursor: none;
 	}
+
 	/* Example: A simple CSS reset 
      (You can replace or expand this with a more extensive reset or normalize) */
 	:global(html),
