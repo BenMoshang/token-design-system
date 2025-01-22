@@ -80,7 +80,7 @@
 					</g>
 				</g></svg
 			>
-			<span class="util__text--secondary">Web Development</span><mark class="util__text--primary"
+			<span class="util__text--secondary">WEB DEVELOPMENT</span><mark class="util__text--primary"
 				>{heroText.Work}</mark
 			>
 		</p>
