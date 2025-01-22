@@ -81,7 +81,7 @@
 %global__body--x2 {
 	@extend %global__body--base;
 	// font-size: fsz.get-static-fsz('body', 'x2');
-	font-size: fsz.get-res-fsz('body', 'x3', 'x4');
+	font-size: fsz.get-res-fsz('body', 'x2', 'x3');
 }
 
 %global__body--x1 {
@@ -93,12 +93,13 @@
 =============================================*/
 %global__label {
 	font-family: tf.get-ff('secondary');
-	font-weight: tf.get-fw('regular');
+
 	line-height: tf.get-lh('normal');
 	font-weight: tf.get-fw('light');
 	letter-spacing: tf.get-ls('loose');
 	text-transform: uppercase;
 	color: cf.get-light-dark('darker', 'lighter');
+	font-size: fsz.get-res-fsz('body', 'x2', 'x3');
 }
 /*=============================================
 =            My Modern Logo            =

@@ -1,13 +1,18 @@
 <script lang="ts">
 	const heroText = {
 		title: 'MODERN WEB\nDEVELOPEMENT',
+		subtitle: 'Future-Ready Websites, Built Today',
 		officeLocation: 'Baltimore, MD',
-		available: 'AROUND THE GLOBE',
+		available: 'Everywhere',
 		Work: '+ Designing'
 	} as const;
 </script>
 
 <section class="hero" aria-label="Hero Section">
+	<h2 class="hero__subtitle">
+		{heroText.subtitle}
+		<hr class="hero__divider" />
+	</h2>
 	<h1 class="hero__title">{heroText.title}</h1>
 
 	<div class="hero__content">
@@ -84,6 +89,38 @@
 
 <style lang="scss">
 	//remove the intial styling
+	//!TODO: MAKE THIS COLOR DYNAMIC FOR THE HR
+
+	hr {
+		margin-top: get-sp('x1');
+		--color-primary-rgb: 255, 255, 255;
+		display: inline block;
+		border: none;
+		height: 2px;
+		background: linear-gradient(
+			90deg,
+			rgba(var(--color-primary-rgb), 0) 0%,
+			rgba(var(--color-primary-rgb), 1) 50%,
+			rgba(var(--color-primary-rgb), 0) 100%
+		);
+		inline-size: 100%;
+		margin-inline: 0;
+		margin-bottom: get-sp('x6');
+		opacity: 0.5;
+		animation: pulse 2s ease-in-out infinite;
+	}
+
+	@keyframes pulse {
+		0% {
+			opacity: 0.3;
+		}
+		50% {
+			opacity: 0.7;
+		}
+		100% {
+			opacity: 0.3;
+		}
+	}
 	mark {
 		background-color: transparent;
 		color: inherit;
@@ -91,14 +128,13 @@
 	.hero {
 		@include section-base;
 		@include flex-column-center;
-		gap: get-sp('x8');
 		border-radius: 0;
 		/*=============================================
 =            Icons	         =
 =============================================*/
 		& svg {
 			grid-area: icon;
-			--icon-size: 2rem;
+			--icon-size: 1.5rem;
 			width: var(--icon-size);
 			height: var(--icon-size);
 			margin-bottom: get-sp('x2');
@@ -114,11 +150,20 @@
 ---------------------------------------*/
 		&__title {
 			@extend %global__display--x4;
+			margin-bottom: get-sp('x12');
+		}
+		&__subtitle {
+			@extend %global__display--base;
+			font-size: get-res-fsz('heading', 'x1', 'x2');
+			// font-family: get-ff('secondary');
+			// text-transform: uppercase;
+			color: get-light-dark('darker', 'lighter');
 		}
 
 		&__content {
+			width: 100%;
 			display: flex;
-			flex-direction: column;
+			justify-content: space-evenly;
 			gap: get-sp('x4');
 		}
 	}
@@ -128,6 +173,7 @@
 		grid-template-columns: 1fr;
 		grid-template-rows: auto-fit;
 		grid-template-areas: 'icon' 'text';
+
 		align-items: center;
 		justify-items: center;
 	}
