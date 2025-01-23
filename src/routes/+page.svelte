@@ -54,7 +54,7 @@
 
 	.container {
 		inline-size: 100%;
-		margin-inline: 0;
+		height: 100%;
 	}
 
 	#cards {

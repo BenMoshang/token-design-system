@@ -30,6 +30,7 @@
 }
 
 @mixin section-base($theme: 'dark') {
+	max-inline-size: gv.$section-max-width;
 	padding-inline: get-sp('x4');
 	@include flex-center;
 	block-size: 100vh;

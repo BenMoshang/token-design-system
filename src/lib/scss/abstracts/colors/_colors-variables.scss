@@ -8,6 +8,19 @@ $color-scale: (
 	'lightest': hsl(206, 15%, 95%)
 );
 
+$color-primary-scale: (
+	'darkest': hsl(223, 55%, 22%),
+	'darker': hsl(223, 55%, 32%),
+	'dark': hsl(223, 55%, 34%),
+	'medium': hsl(223, 55%, 40%),
+	'light': hsl(223, 55%, 46%),
+	'lighter': hsl(223, 55%, 52%),
+	'lightest': hsl(223, 55%, 58%)
+);
+
+/**=============================================
+=          SHORTHAND           =
+=============================================*/
 $ld-darkest: get-light-dark('darkest', 'lightest');
 $ld-darker: get-light-dark('darker', 'lighter');
 $ld-dark: get-light-dark('dark', 'light');

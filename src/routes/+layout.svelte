@@ -27,6 +27,7 @@
 	loading="eager"
 	decoding="async"
 /> -->
+
 <main class="page-container">
 	<slot />
 </main>
@@ -36,8 +37,8 @@
 <Footer />
 
 <style global lang="scss">
-	// !TODO: REMOVE CURSOR NONE IF YOU WANT TO USE CURSOR
 	@use '$lib/scss/main.scss' as *;
+
 	// .grain-overlay {
 	// 	position: fixed;
 	// 	inset: 0;
@@ -94,7 +95,7 @@
 		block-size: 100%;
 		inline-size: 100%;
 		scroll-behavior: smooth;
-		cursor: none; //remove this to bring cursor back
+
 		background: get-light-dark('lightest', 'darkest');
 		@media (min-width: $mobile-breakpoint) {
 			cursor: auto;
