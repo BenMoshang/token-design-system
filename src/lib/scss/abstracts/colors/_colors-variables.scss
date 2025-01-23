@@ -1,9 +1,28 @@
 $color-scale: (
-	'darkest': hsl(200, 64%, 6%),
-	'darker': hsl(206, 45%, 12%),
-	'dark': hsl(206, 30%, 21%),
-	'medium': hsl(206, 18%, 35%),
-	'light': hsl(191, 12%, 55%),
-	'lighter': hsl(191, 9%, 64%),
-	'lightest': hsl(191, 15%, 85%)
+	'darkest': hsl(200, 64%, 5%),
+	'darker': hsl(206, 45%, 10%),
+	'dark': hsl(206, 30%, 20%),
+	'medium': hsl(206, 18%, 40%),
+	'light': hsl(206, 12%, 60%),
+	'lighter': hsl(206, 9%, 80%),
+	'lightest': hsl(206, 15%, 95%)
 );
+
+$ld-darkest: get-light-dark('darkest', 'lightest');
+$ld-darker: get-light-dark('darker', 'lighter');
+$ld-dark: get-light-dark('dark', 'light');
+$ld-medium: get-light-dark('medium', 'medium');
+$ld-light: get-light-dark('light', 'dark');
+$ld-lighter: get-light-dark('lighter', 'darker');
+$ld-lightest: get-light-dark('lightest', 'darkest');
+
+//old
+// $color-scale: (
+// 	'darkest': hsl(200, 64%, 5%),
+// 	'darker': hsl(206, 45%, 10%),
+// 	'dark': hsl(206, 30%, 20%),
+// 	'medium': hsl(206, 18%, 40%),
+// 	'light': hsl(191, 12%, 55%),
+// 	'lighter': hsl(191, 9%, 64%),
+// 	'lightest': hsl(191, 15%, 85%)
+// );

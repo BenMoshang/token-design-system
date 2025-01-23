@@ -137,7 +137,7 @@
 		@extend %global__display--base;
 		position: relative;
 		font-size: get-static-fsz('display', 'sm');
-		color: get-light-dark('darkest', 'lightest');
+		color: get-light-dark('darker', 'lighter');
 		text-decoration: none;
 		transition: color 0.3s ease;
 		-webkit-animation: text-pop-up-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -155,7 +155,7 @@
 		}
 
 		&:hover {
-			color: get-light-dark('dark', 'lighter');
+			color: get-light-dark('dark', 'light');
 			transform: translateY(-1px);
 
 			&::after {

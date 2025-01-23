@@ -103,8 +103,8 @@
 		left: 0;
 		right: 0;
 		z-index: 1000;
-		backdrop-filter: blur(16px) saturate(200%);
-		-webkit-backdrop-filter: blur(16px) saturate(200%);
+		backdrop-filter: blur(1rem) saturate(200%);
+		-webkit-backdrop-filter: blur(1rem) saturate(200%);
 		inline-size: 100%;
 		block-size: var(--header-height);
 		padding-inline: get-sp('x4');

@@ -5,8 +5,8 @@
 	import SmoothScroll from '../lib/Components/SmoothScroll.svelte';
 </script>
 
-<Cursor />
-<SmoothScroll />
+<!-- <Cursor /> -->
+<!-- <SmoothScroll /> -->
 <svelte:head>
 	<!-- Preload Helvetica Now fonts -->
 	<link
@@ -19,7 +19,14 @@
 </svelte:head>
 
 <Header />
-
+<!-- ADDED GRAIN OVERLAY -->
+<!-- <img
+	src="/static/Images/nnnoise.svg"
+	alt="Grain"
+	class="grain-overlay"
+	loading="eager"
+	decoding="async"
+/> -->
 <main class="page-container">
 	<slot />
 </main>
@@ -31,19 +38,28 @@
 <style global lang="scss">
 	// !TODO: REMOVE CURSOR NONE IF YOU WANT TO USE CURSOR
 	@use '$lib/scss/main.scss' as *;
+	// .grain-overlay {
+	// 	position: fixed;
+	// 	inset: 0;
+	// 	width: 100vw;
+	// 	height: 100vh;
+	// 	object-fit: cover;
+	// 	z-index: 5;
+	// 	pointer-events: none;
+	// 	mix-blend-mode: overlay;
+	// 	opacity: 0.7;
+	// 	filter: contrast(120%) brightness(0.8);
+	// }
 	.page-container {
 		@include flex-column-center;
-
-		// @include grain-texture;
+		position: relative;
 		box-sizing: border-box;
 		margin: 0 auto;
 		overflow-x: clip;
+
 		// max-inline-size: $max-viewport;
-		inline-size: 100%;
-		block-size: 100%;
-		padding-bottom: $page-header-height;
-		// padding-inline: get-sp('x4');
-		position: relative;
+
+		padding-inline: get-sp('x4');
 	}
 
 	/*--------------------------------------
@@ -71,6 +87,7 @@
 		-webkit-text-size-adjust: 100% !important; /* Prevents iOS from auto-resizing text */
 		min-block-size: 100vh;
 		inline-size: 100%;
+
 		// scroll-behavior: smooth;
 	}
 	:global(body) {
@@ -79,7 +96,6 @@
 		scroll-behavior: smooth;
 		cursor: none; //remove this to bring cursor back
 		background: get-light-dark('lightest', 'darkest');
-
 		@media (min-width: $mobile-breakpoint) {
 			cursor: auto;
 		}
