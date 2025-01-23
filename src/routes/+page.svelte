@@ -5,6 +5,7 @@
 	import PortfolioSection from './LandingPage/Sections/PortfolioSection.svelte';
 	import ContactSection from './LandingPage/Sections/ContactSection.svelte';
 	import FontTesting from '$lib/Testing/FontTesting.svelte';
+	import DemoScroll from '$lib/Testing/DemoScroll.svelte';
 	import { fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
@@ -30,6 +31,7 @@
 	<!-- Options: default, black, black-translucent -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
+<DemoScroll />
 
 <div class="container">
 	<ul id="cards">

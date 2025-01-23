@@ -57,9 +57,7 @@
 		box-sizing: border-box;
 		margin: 0 auto;
 		overflow-x: clip;
-
-		// max-inline-size: $max-viewport;
-
+		max-inline-size: $section-max-width;
 		padding-inline: get-sp('x4');
 	}
 
