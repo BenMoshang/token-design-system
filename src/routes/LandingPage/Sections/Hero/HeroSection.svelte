@@ -19,19 +19,12 @@
 	<div class="hero__content">
 		<!-- Office Location -->
 		<p class="util__stack hero__office-location-wrapper">
-			<!-- Decorative icon; hide from screen readers -->
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				height="10"
-				width="7.5"
-				viewBox="0 0 384 512"
-				aria-hidden="true"
-			>
-				<path
+			<svg xmlns="http://www.w3.org/2000/svg" height="10" width="7.5" viewBox="0 0 384 512"
+				><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
 					fill="currentColor"
-					d="M384 192c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192z"
-				/>
-			</svg>
+					d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
+				/></svg
+			>
 			<span class="util__text--secondary">BASED IN,</span>
 			<mark class="util__text--primary hero__office-location">{heroText.officeLocation}</mark>
 		</p>
@@ -118,7 +111,7 @@
 		);
 		inline-size: 100%;
 		margin-inline: 0;
-		margin-bottom: get-sp('x15');
+		margin-bottom: get-sp('x16');
 		opacity: 0.5;
 		animation: pulse 2s ease-in-out infinite;
 	}
