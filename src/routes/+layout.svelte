@@ -1,11 +1,10 @@
 <script lang="ts">
 	import Header from './Layout/Header.svelte';
 	import Footer from './Layout/Footer.svelte';
-	import Cursor from '../lib/Components/Cursor.svelte';
-	import SmoothScroll from '../lib/Components/SmoothScroll.svelte';
+	// import Cursor from '../lib/Components/Cursor.svelte';
+	// import SmoothScroll from '../lib/Components/SmoothScroll.svelte';
 </script>
 
-<!-- <Cursor /> -->
 <!-- <SmoothScroll /> -->
 <svelte:head>
 	<!-- Preload Helvetica Now fonts -->
@@ -60,7 +59,24 @@
 		max-inline-size: $section-max-width;
 		padding-inline: get-sp('x4');
 	}
-
+	:root {
+		&[data-theme='light'] {
+			color-scheme: light;
+		}
+		&[data-theme='dark'] {
+			color-scheme: dark;
+		}
+	}
+	@media (prefers-color-scheme: dark) {
+		:root {
+			color-scheme: dark;
+		}
+	}
+	@media (prefers-color-scheme: light) {
+		:root {
+			color-scheme: light;
+		}
+	}
 	/*--------------------------------------
 	 BASE LAYER
 	 - Global element-level styles.

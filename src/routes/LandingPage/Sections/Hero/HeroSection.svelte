@@ -123,8 +123,9 @@
 		// Hero Subtitle
 		&__subtitle {
 			@extend %global__display--base;
+			@include gradient-text('dark', 'lighter', 'darkest', 'darkest');
+
 			font-size: get-res-fsz('heading', 'x1', 'x2');
-			@include gradient-text('lightest', 'light', 'darkest', 'dark');
 		}
 	}
 	mark {
@@ -164,24 +165,25 @@
 		}
 	}
 	// Utility stack for icons + text
-	.util__stack {
-		display: grid;
-		grid-template-columns: 1fr;
-		grid-template-rows: auto-fit;
-		grid-template-areas: 'icon' 'text';
-		align-items: center;
-		justify-items: center;
-	}
+	.util {
+		&__stack {
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: auto-fit;
+			grid-template-areas: 'icon' 'text';
+			align-items: center;
+			justify-items: center;
+		}
 
-	// Text classes
-	.util__text--primary {
-		@extend %global__label;
-	}
+		&__text--primary {
+			@extend %global__label;
+		}
 
-	.util__text--secondary {
-		@extend %global__body--x2;
-		color: get-light-dark('darkest', 'lightest');
-		font-weight: 600;
-		grid-area: text;
+		&__text--secondary {
+			@extend %global__body--x2;
+			color: get-light-dark('darkest', 'lightest');
+			font-weight: 600;
+			grid-area: text;
+		}
 	}
 </style>

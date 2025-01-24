@@ -3,19 +3,3 @@
 @forward 'abstracts/typography';
 @forward 'abstracts/utils';
 @forward 'base';
-
-// Define default theme variables (Dark Theme)
-:root {
-	// Gradient variables for dark theme
-	--gradient-start: #001f3f;
-	--gradient-end: #005f9f;
-	--gradient-direction: 360deg; // Adjust as needed
-
-	&[data-theme='dark'] {
-		color-scheme: dark;
-	}
-	// Override for light theme
-	&[data-theme='light'] {
-		color-scheme: light;
-	}
-}

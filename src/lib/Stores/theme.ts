@@ -16,6 +16,19 @@ function createThemeStore() {
 
 	const { subscribe, set } = writable<Theme>(getInitialTheme());
 
+	// Listen for system theme changes
+	if (typeof window !== 'undefined') {
+		window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+			const currentTheme = document.documentElement.getAttribute('data-theme') as Theme;
+			if (currentTheme === 'light') {
+				const newTheme = e.matches ? 'light' : 'dark';
+				document.documentElement.setAttribute('data-theme', newTheme);
+				localStorage.setItem('theme', newTheme);
+				set(newTheme);
+			}
+		});
+	}
+
 	return {
 		subscribe,
 		set: (value: Theme) => {
@@ -29,7 +42,10 @@ function createThemeStore() {
 			if (typeof window !== 'undefined') {
 				const currentTheme = document.documentElement.getAttribute('data-theme') as Theme;
 				const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+				document.documentElement.setAttribute('data-theme', newTheme);
+				localStorage.setItem('theme', newTheme);
 				set(newTheme);
+				console.log('newTheme', newTheme);
 			}
 		}
 	};

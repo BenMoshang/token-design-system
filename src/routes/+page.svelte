@@ -31,7 +31,6 @@
 	<!-- Options: default, black, black-translucent -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
-<DemoScroll />
 
 <div class="container">
 	<ul id="cards">
