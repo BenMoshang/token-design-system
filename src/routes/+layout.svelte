@@ -59,24 +59,7 @@
 		max-inline-size: $section-max-width;
 		padding-inline: get-sp('x4');
 	}
-	:root {
-		&[data-theme='light'] {
-			color-scheme: light;
-		}
-		&[data-theme='dark'] {
-			color-scheme: dark;
-		}
-	}
-	@media (prefers-color-scheme: dark) {
-		:root {
-			color-scheme: dark;
-		}
-	}
-	@media (prefers-color-scheme: light) {
-		:root {
-			color-scheme: light;
-		}
-	}
+
 	/*--------------------------------------
 	 BASE LAYER
 	 - Global element-level styles.
@@ -90,6 +73,22 @@
 	}
 
 	:global(html) {
+		color-scheme: dark;
+
+		@media (prefers-color-scheme: dark) {
+			color-scheme: dark;
+			&[data-theme='dark'] {
+				color-scheme: dark;
+			}
+		}
+		@media (prefers-color-scheme: light) {
+			color-scheme: light;
+
+			[data-theme='light'] {
+				color-scheme: light;
+			}
+		}
+
 		margin: 0;
 		padding: 0;
 		scrollbar-color: get-light-dark('lightest', 'darkest') get-light-dark('light', 'dark');

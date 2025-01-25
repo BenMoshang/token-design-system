@@ -6,27 +6,19 @@
 *   USAGE: 1. @include gradient-text();
 *          2. @include set-gradient('darkest', 'dark', 'dark', 'darkest', 360deg);
 */
-// Returns a color from the relevant Sass map
-@function get-color-scale($shade) {
-	@return map-get(cv.$color-scale, $shade);
-}
 
-@mixin gradient-text($dark-start, $dark-end, $light-start, $light-end, $direction: 360deg) {
-	@media (prefers-color-scheme: dark) {
-		background-image: linear-gradient(
-			$direction,
-			get-color-scale($dark-start),
-			get-color-scale($dark-end)
-		);
-	}
-
-	@media (prefers-color-scheme: light) {
-		background-image: linear-gradient(
-			$direction,
-			get-color-scale($light-start),
-			get-color-scale($light-end)
-		);
-	}
+@mixin gradient-text(
+	$dark-start: 'darkest',
+	$dark-end: 'dark',
+	$light-start: 'lightest',
+	$light-end: 'light',
+	$direction: 360deg
+) {
+	background-image: linear-gradient(
+		$direction,
+		cf.get-light-dark($light-start, $dark-start),
+		cf.get-light-dark($light-end, $dark-end)
+	);
 	color: transparent;
 	background-clip: text;
 	-webkit-background-clip: text;

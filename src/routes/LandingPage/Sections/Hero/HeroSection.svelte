@@ -123,7 +123,7 @@
 		// Hero Subtitle
 		&__subtitle {
 			@extend %global__display--base;
-			@include gradient-text('dark', 'lighter', 'darkest', 'darkest');
+			@include gradient-text('lightest', 'lightest', 'darkest', 'darkest');
 
 			font-size: get-res-fsz('heading', 'x1', 'x2');
 		}
