@@ -1,0 +1,31 @@
+@use '../../abstracts/colors/colors-functions' as cf;
+
+@mixin shadow-low($shadow-color: cf.get-light-dark('darkest', 'lightest')) {
+	box-shadow:
+		0.0187rem 0.0313rem 0.0437rem hsl($shadow-color / 0.36),
+		0.025rem 0.05rem 0.0625rem -0.0813rem hsl($shadow-color / 0.35),
+		0.0625rem 0.125rem 0.1563rem -0.1563rem hsl($shadow-color / 0.35);
+}
+
+@mixin shadow-medium($shadow-color: cf.get-light-dark('darker', 'lighter')) {
+	box-shadow:
+		0.0187rem 0.0313rem 0.0437rem hsl($shadow-color / 0.3),
+		0.0437rem 0.0813rem 0.1rem -0.0375rem hsl($shadow-color / 0.3),
+		0.0813rem 0.1625rem 0.2rem -0.0813rem hsl($shadow-color / 0.3),
+		0.1625rem 0.325rem 0.4063rem -0.1187rem hsl($shadow-color / 0.29),
+		0.3187rem 0.6312rem 0.7875rem -0.1563rem hsl($shadow-color / 0.29);
+}
+
+@mixin shadow-high($shadow-color: cf.get-light-dark('dark', 'light')) {
+	box-shadow:
+		0.0187rem 0.0313rem 0.0437rem hsl($shadow-color / 0.28),
+		0.075rem 0.15rem 0.1875rem -0.0187rem hsl($shadow-color / 0.28),
+		0.1313rem 0.2687rem 0.3312rem -0.0375rem hsl($shadow-color / 0.28),
+		0.2rem 0.4063rem 0.5062rem -0.05rem hsl($shadow-color / 0.28),
+		0.3rem 0.5938rem 0.7438rem -0.0688rem hsl($shadow-color / 0.27),
+		0.4313rem 0.8562rem 1.0688rem -0.0875rem hsl($shadow-color / 0.27),
+		0.6125rem 1.225rem 1.5313rem -0.1062rem hsl($shadow-color / 0.27),
+		0.8562rem 1.7188rem 2.1437rem -0.125rem hsl($shadow-color / 0.27),
+		1.1812rem 2.3625rem 2.95rem -0.1437rem hsl($shadow-color / 0.27),
+		1.5938rem 3.1875rem 3.9813rem -0.1563rem hsl($shadow-color / 0.27);
+}

@@ -1,7 +1,7 @@
 @use 'typography-functions' as tf;
 @use 'typography-font-size' as fsz;
 @use '../colors/colors-functions' as cf;
-@use '../../base/global-styles' as gs;
+@use '../../base/global-animations' as ga;
 /*=============================================
 =            Display            =
 =============================================*/
@@ -102,7 +102,7 @@
 =============================================*/
 
 %global__my-modern-logo {
-	@include gs.elastic-text-hover;
+	@include ga.elastic-text-hover;
 	font-family: tf.get-ff('display');
 	font-weight: 700;
 	font-size: fsz.get-static-fsz('heading', 'x1');
