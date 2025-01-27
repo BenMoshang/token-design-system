@@ -22,12 +22,11 @@
 	*/
 
 	* {
-		outline: 1px dashed red;
+		// outline: 1px dashed red;
 		transition: all 0.2s ease-in-out;
 	}
 	.benefit-card {
-		@include shadow-high;
-		--card-background: white;
+		@include shadow-low();
 		display: grid;
 
 		grid-template-columns: 1fr;
@@ -38,7 +37,7 @@
 		align-content: center;
 		max-block-size: 15.875rem;
 		max-inline-size: 11.875rem;
-		background: var(--card-background);
+		background-color: get-light-dark('lightest', 'darker');
 		border-radius: $br-default;
 
 		&__icon {

@@ -4,8 +4,8 @@
 	import ServicesSection from './LandingPage/Sections/ServicesSection.svelte';
 	import PortfolioSection from './LandingPage/Sections/PortfolioSection.svelte';
 	import ContactSection from './LandingPage/Sections/ContactSection.svelte';
-	import FontTesting from '$lib/Testing/FontTesting.svelte';
-	import DemoScroll from '$lib/Testing/DemoScroll.svelte';
+	// import FontTesting from '$lib/Testing/FontTesting.svelte';
+	// import DemoScroll from '$lib/Testing/DemoScroll.svelte';
 	import { fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 

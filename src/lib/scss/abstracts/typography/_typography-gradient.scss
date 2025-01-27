@@ -17,12 +17,7 @@
 	background-image: linear-gradient(
 		$direction,
 		cf.get-light-dark($light-start, $dark-start) 0%,
-		color-mix(
-				in srgb,
-				cf.get-light-dark($light-start, $dark-start) 50%,
-				cf.get-light-dark($light-end, $dark-end)
-			)
-			50%,
+
 		cf.get-light-dark($light-end, $dark-end) 100%
 	);
 	color: transparent;

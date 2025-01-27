@@ -17,7 +17,7 @@
 	/>
 </svelte:head>
 
-<!-- <Header /> -->
+<Header />
 <!-- ADDED GRAIN OVERLAY -->
 <!-- <img
 	src="/static/Images/nnnoise.svg"
@@ -33,23 +33,11 @@
 
 <!-- <img src="/images/grain.svg" alt="Grain" class="grain-overlay" loading="eager" decoding="async" /> -->
 
-<Footer />
+<!-- <Footer /> -->
 
 <style global lang="scss">
 	@use '$lib/scss/main.scss' as *;
 
-	// .grain-overlay {
-	// 	position: fixed;
-	// 	inset: 0;
-	// 	width: 100vw;
-	// 	height: 100vh;
-	// 	object-fit: cover;
-	// 	z-index: 5;
-	// 	pointer-events: none;
-	// 	mix-blend-mode: overlay;
-	// 	opacity: 0.7;
-	// 	filter: contrast(120%) brightness(0.8);
-	// }
 	.page-container {
 		@include flex-column-center;
 		position: relative;

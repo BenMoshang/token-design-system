@@ -1,31 +1,186 @@
+/**
+ * @file Shadow System - Provides a comprehensive shadow management system with dark/light mode support
+ * @module shadows
+ * @description 
+ * This module implements a flexible shadow system with three elevation levels (low, medium, high).
+ * It handles color scheme changes automatically and allows custom color overrides.
+ */
+
 @use '../../abstracts/colors/colors-functions' as cf;
+@use '../../abstracts/colors/colors-variables' as cv;
 
-@mixin shadow-low($shadow-color: cf.get-light-dark('darkest', 'lightest')) {
-	box-shadow:
-		0.0187rem 0.0313rem 0.0437rem hsl($shadow-color / 0.36),
-		0.025rem 0.05rem 0.0625rem -0.0813rem hsl($shadow-color / 0.35),
-		0.0625rem 0.125rem 0.1563rem -0.1563rem hsl($shadow-color / 0.35);
+/**
+ * Retrieves raw HSL color values from the color scale
+ * @param {String} $color - Color name from the raw-color-scale map
+ * @returns {String} Space-separated HSL values (hue saturation lightness)
+ * @throws Error if color is not found in map
+ */
+@function get-raw-color($color) {
+	@if not map-has-key(cv.$raw-color-scale, $color) {
+		@error "Color '#{$color}' not found in $raw-color-scale map";
+	}
+	$raw-color-values: map-get(cv.$raw-color-scale, $color);
+	@return nth($raw-color-values, 1) nth($raw-color-values, 2) nth($raw-color-values, 3);
 }
 
-@mixin shadow-medium($shadow-color: cf.get-light-dark('darker', 'lighter')) {
-	box-shadow:
-		0.0187rem 0.0313rem 0.0437rem hsl($shadow-color / 0.3),
-		0.0437rem 0.0813rem 0.1rem -0.0375rem hsl($shadow-color / 0.3),
-		0.0813rem 0.1625rem 0.2rem -0.0813rem hsl($shadow-color / 0.3),
-		0.1625rem 0.325rem 0.4063rem -0.1187rem hsl($shadow-color / 0.29),
-		0.3187rem 0.6312rem 0.7875rem -0.1563rem hsl($shadow-color / 0.29);
+/**
+ * Core mixin that handles shadow application with color scheme support
+ * @param {String} $light-value - HSL values for light mode
+ * @param {String} $dark-value - HSL values for dark mode  
+ * @param {List} $shadows - List of shadow offset/blur values
+ * @param {Number|List} $opacities - Single opacity or list of opacities
+ */
+@mixin apply-shadow($light-value, $dark-value, $shadows, $opacities) {
+	@media (prefers-color-scheme: light) {
+		--shadow-color: #{$light-value};
+	}
+	@media (prefers-color-scheme: dark) {
+		--shadow-color: #{$dark-value};
+	}
+
+	$shadow-list: ();
+	@for $i from 1 through length($shadows) {
+		$shadow: nth($shadows, $i);
+		$opacity: nth($opacities, min($i, length($opacities)));
+		$shadow-list: append($shadow-list, #{$shadow} hsl(var(--shadow-color) / #{$opacity}), comma);
+	}
+	box-shadow: $shadow-list;
 }
 
-@mixin shadow-high($shadow-color: cf.get-light-dark('dark', 'light')) {
-	box-shadow:
-		0.0187rem 0.0313rem 0.0437rem #{$shadow-color + '/' + 0.28},
-		0.075rem 0.15rem 0.1875rem -0.0187rem #{$shadow-color + '/' + 0.28},
-		0.1313rem 0.2687rem 0.3312rem -0.0375rem #{$shadow-color + '/' + 0.28},
-		0.2rem 0.4063rem 0.5062rem -0.05rem #{$shadow-color + '/' + 0.28},
-		0.3rem 0.5938rem 0.7438rem -0.0688rem #{$shadow-color + '/' + 0.27},
-		0.4313rem 0.8562rem 1.0688rem -0.0875rem #{$shadow-color + '/' + 0.27},
-		0.6125rem 1.225rem 1.5313rem -0.1062rem #{$shadow-color + '/' + 0.27},
-		0.8562rem 1.7188rem 2.1437rem -0.125rem #{$shadow-color + '/' + 0.27},
-		1.1812rem 2.3625rem 2.95rem -0.1437rem #{$shadow-color + '/' + 0.27},
-		1.5938rem 3.1875rem 3.9813rem -0.1563rem #{$shadow-color + '/' + 0.27};
+// Shadow Elevation Configurations
+// Each configuration defines x/y offsets, blur, spread and corresponding opacities
+
+/**
+ * Low elevation shadow configuration
+ * Suitable for: cards, buttons, low-prominence UI elements
+ */
+$shadow-low: (
+	shadows: (
+		0.0187rem 0.0313rem 0.0437rem,
+		0.025rem 0.05rem 0.0625rem -0.075rem,
+		0.0625rem 0.125rem 0.1563rem -0.1563rem
+	),
+	opacities: 0.34
+);
+
+/**
+ * Medium elevation shadow configuration
+ * Suitable for: dropdowns, popovers, floating elements
+ */
+$shadow-medium: (
+	shadows: (
+		0.0187rem 0.0313rem 0.0437rem,
+		0.05rem 0.1rem 0.125rem -0.05rem,
+		0.1313rem 0.2562rem 0.325rem -0.1062rem,
+		0.3125rem 0.625rem 0.7875rem -0.1563rem
+	),
+	opacities: 0.36
+);
+
+/**
+ * High elevation shadow configuration
+ * Suitable for: modals, dialogs, high-prominence UI elements
+ */
+$shadow-high: (
+	shadows: (
+		0.0187rem 0.0313rem 0.0437rem,
+		0.0938rem 0.1812rem 0.2313rem -0.025rem,
+		0.1688rem 0.3375rem 0.425rem -0.0437rem,
+		0.2813rem 0.5563rem 0.7rem -0.0688rem,
+		0.4437rem 0.8938rem 1.125rem -0.0875rem,
+		0.7rem 1.3938rem 1.7563rem -0.1125rem,
+		1.0625rem 2.1187rem 2.6688rem -0.1313rem,
+		0.8562rem 1.7188rem 2.1437rem -0.125rem,
+		1.5625rem 3.125rem 3.9312rem -0.1563rem
+	),
+	opacities: (
+		0.28,
+		0.28,
+		0.28,
+		0.28,
+		0.27,
+		0.27,
+		0.27,
+		0.27,
+		0.27
+	)
+);
+
+/**
+ * Inset shadow configuration
+ * Suitable for: pressed buttons, form inputs, recessed containers
+ */
+$shadow-inset: (
+	shadows: (
+		inset 0.0625rem 0.0625rem 0.125rem -0.0625rem,
+		inset -0.0625rem -0.0625rem 0.125rem -0.0625rem
+	),
+	opacities: (
+		0.25,
+		0.25
+	)
+);
+
+/**
+ * Applies low elevation shadow
+ * @param {String} $light-color ['light'] - Color name for light mode
+ * @param {String} $dark-color ['dark'] - Color name for dark mode
+ */
+@mixin shadow-low($light-color: 'light', $dark-color: 'dark') {
+	$light-value: get-raw-color($light-color);
+	$dark-value: get-raw-color($dark-color);
+	@include apply-shadow(
+		$light-value,
+		$dark-value,
+		map-get($shadow-low, shadows),
+		map-get($shadow-low, opacities)
+	);
+}
+
+/**
+ * Applies medium elevation shadow
+ * @param {String} $light-color ['light'] - Color name for light mode
+ * @param {String} $dark-color ['dark'] - Color name for dark mode
+ */
+@mixin shadow-medium($light-color: 'light', $dark-color: 'dark') {
+	$light-value: get-raw-color($light-color);
+	$dark-value: get-raw-color($dark-color);
+	@include apply-shadow(
+		$light-value,
+		$dark-value,
+		map-get($shadow-medium, shadows),
+		map-get($shadow-medium, opacities)
+	);
+}
+
+/**
+ * Applies high elevation shadow
+ * @param {String} $light-color ['lightest'] - Color name for light mode
+ * @param {String} $dark-color ['darkest'] - Color name for dark mode
+ */
+@mixin shadow-high($light-color: 'light', $dark-color: 'dark') {
+	$light-value: get-raw-color($light-color);
+	$dark-value: get-raw-color($dark-color);
+	@include apply-shadow(
+		$light-value,
+		$dark-value,
+		map-get($shadow-high, shadows),
+		map-get($shadow-high, opacities)
+	);
+}
+
+/**
+ * Applies inset shadow
+ * @param {String} $light-color ['light'] - Color name for light mode
+ * @param {String} $dark-color ['dark'] - Color name for dark mode
+ */
+@mixin shadow-inset($light-color: 'light', $dark-color: 'dark') {
+	$light-value: get-raw-color($light-color);
+	$dark-value: get-raw-color($dark-color);
+	@include apply-shadow(
+		$light-value,
+		$dark-value,
+		map-get($shadow-inset, shadows),
+		map-get($shadow-inset, opacities)
+	);
 }

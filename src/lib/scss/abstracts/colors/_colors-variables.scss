@@ -7,7 +7,30 @@ $color-scale: (
 	'lighter': hsl(206, 9%, 80%),
 	'lightest': hsl(206, 15%, 95%)
 );
-
+//FOR SHADOWS
+$raw-color-scale: (
+	'darkest': (
+		200 64% 5%
+	),
+	'darker': (
+		206 45% 10%
+	),
+	'dark': (
+		206 30% 20%
+	),
+	'medium': (
+		206 18% 40%
+	),
+	'light': (
+		206 12% 60%
+	),
+	'lighter': (
+		206 9% 80%
+	),
+	'lightest': (
+		206 15% 95%
+	)
+);
 $color-primary-scale: (
 	'darkest': hsl(223, 55%, 22%),
 	'darker': hsl(223, 55%, 32%),
