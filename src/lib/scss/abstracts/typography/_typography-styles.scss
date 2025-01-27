@@ -1,6 +1,7 @@
 @use 'typography-functions' as tf;
 @use 'typography-font-size' as fsz;
 @use '../colors/colors-functions' as cf;
+@use '../colors/colors-variables' as cv;
 @use '../../base/global-animations' as ga;
 /*=============================================
 =            Display            =
@@ -40,19 +41,21 @@
 
 %global__heading--base {
 	font-family: tf.get-ff('primary');
-	font-weight: tf.get-fw('medium');
+	font-weight: tf.get-fw('semibold');
 	line-height: tf.get-lh('snug');
 	letter-spacing: tf.get-ls('snug');
 	text-wrap: balance;
-	color: cf.get-light-dark('darker', 'lighter');
+	color: cf.get-light-dark('darkest', 'lightest');
 }
 
 %global__heading--x3 {
 	@extend %global__heading--base;
+	color: cv.$ld-darkest;
 }
 
 %global__heading--x2 {
 	@extend %global__heading--base;
+	font-size: fsz.get-res-fsz('heading', 'x1', 'x2');
 }
 
 %global__heading--x1 {
@@ -77,7 +80,7 @@
 %global__body--x2 {
 	@extend %global__body--base;
 	// font-size: fsz.get-static-fsz('body', 'x2');
-	font-size: fsz.get-res-fsz('body', 'x2', 'x3');
+	font-size: fsz.get-res-fsz('body', 'x1', 'x2');
 }
 
 %global__body--x1 {
@@ -89,9 +92,8 @@
 =============================================*/
 %global__label {
 	font-family: tf.get-ff('secondary');
-
-	line-height: tf.get-lh('normal');
 	font-weight: tf.get-fw('light');
+	line-height: tf.get-lh('normal');
 	letter-spacing: tf.get-ls('loose');
 	text-transform: uppercase;
 	color: hsl(206, 18%, 60%);

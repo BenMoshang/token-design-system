@@ -17,7 +17,7 @@
 	/>
 </svelte:head>
 
-<Header />
+<!-- <Header /> -->
 <!-- ADDED GRAIN OVERLAY -->
 <!-- <img
 	src="/static/Images/nnnoise.svg"
@@ -95,6 +95,18 @@
 		scrollbar-width: thin;
 		scroll-behavior: smooth;
 		background: transparent;
+		font-family:
+			system-ui,
+			-apple-system,
+			BlinkMacSystemFont,
+			'Segoe UI',
+			Roboto,
+			Oxygen,
+			Ubuntu,
+			Cantarell,
+			'Open Sans',
+			'Helvetica Neue',
+			sans-serif;
 		text-rendering: geometricPrecision;
 		-webkit-font-x1oothing: antialiased;
 		-moz-osx-font-x1oothing: grayscale;
