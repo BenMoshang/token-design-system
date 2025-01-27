@@ -17,7 +17,7 @@
 	/>
 </svelte:head>
 
-<Header />
+<!-- <Header /> -->
 <!-- ADDED GRAIN OVERLAY -->
 <!-- <img
 	src="/static/Images/nnnoise.svg"
@@ -59,24 +59,7 @@
 		max-inline-size: $section-max-width;
 		padding-inline: get-sp('x4');
 	}
-	:root {
-		&[data-theme='light'] {
-			color-scheme: light;
-		}
-		&[data-theme='dark'] {
-			color-scheme: dark;
-		}
-	}
-	@media (prefers-color-scheme: dark) {
-		:root {
-			color-scheme: dark;
-		}
-	}
-	@media (prefers-color-scheme: light) {
-		:root {
-			color-scheme: light;
-		}
-	}
+
 	/*--------------------------------------
 	 BASE LAYER
 	 - Global element-level styles.
@@ -90,12 +73,40 @@
 	}
 
 	:global(html) {
+		color-scheme: dark;
+
+		@media (prefers-color-scheme: dark) {
+			color-scheme: dark;
+			&[data-theme='dark'] {
+				color-scheme: dark;
+			}
+		}
+		@media (prefers-color-scheme: light) {
+			color-scheme: light;
+
+			[data-theme='light'] {
+				color-scheme: light;
+			}
+		}
+
 		margin: 0;
 		padding: 0;
 		scrollbar-color: get-light-dark('lightest', 'darkest') get-light-dark('light', 'dark');
 		scrollbar-width: thin;
 		scroll-behavior: smooth;
 		background: transparent;
+		font-family:
+			system-ui,
+			-apple-system,
+			BlinkMacSystemFont,
+			'Segoe UI',
+			Roboto,
+			Oxygen,
+			Ubuntu,
+			Cantarell,
+			'Open Sans',
+			'Helvetica Neue',
+			sans-serif;
 		text-rendering: geometricPrecision;
 		-webkit-font-x1oothing: antialiased;
 		-moz-osx-font-x1oothing: grayscale;

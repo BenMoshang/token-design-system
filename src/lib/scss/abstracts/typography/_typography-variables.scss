@@ -25,25 +25,16 @@ $font-weights: (
 	'bold': 700
 );
 
-/**
- * @var $line-heights: (map)
- *    Keys: 'tight', 'snug', 'normal', 'loose'
- *    Values: Line-height multipliers
- */
 $line-heights: (
-	'tight': 1.1,
-	'snug': 1.25,
-	'normal': 1.5,
-	'loose': 1.75
+	'tight': 90%,
+	'snug': 100%,
+	'normal': 120%,
+	'loose': 150%
 );
 
-/**       vvvvvvvvcxcvxcvxcv
- *    Keys: 'tight', 'snug', 'normal', 'loose'
- *    Values: em-based letter spacing values
- */
 $letter-spacing: (
-	'tight': -0.0313em,
-	'snug': -0.125em,
+	'tight': -3%,
+	'snug': -1%,
 	'normal': 0,
-	'loose': 0.125em
+	'loose': 1%
 );

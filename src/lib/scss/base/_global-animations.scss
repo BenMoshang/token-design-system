@@ -1,17 +1,62 @@
 @use '../abstracts/colors/colors-functions' as gv;
+
+@mixin hover-brightness {
+	transition:
+		filter 0.2s ease-out,
+		transform 0.2s ease-out;
+
+	&:hover,
+	&:focus-visible {
+		filter: brightness(1.15) contrast(1.05);
+		transform: translateY(-1px);
+	}
+
+	&:active {
+		filter: brightness(0.95);
+		transform: translateY(0);
+	}
+}
+
+@keyframes elastic-stretch {
+	0% {
+		transform: scaleX(1);
+	}
+	50% {
+		transform: scaleX(1.2);
+	}
+	65% {
+		transform: scaleX(0.95);
+	}
+	80% {
+		transform: scaleX(1.05);
+	}
+	100% {
+		transform: scaleX(1);
+	}
+}
+
+@mixin elastic-text-hover {
+	display: inline-block;
+	transition: transform 0.3s ease-out;
+
+	&:hover {
+		animation: elastic-stretch 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	}
+}
+
 @-webkit-keyframes text-pop-up-top {
 	0% {
-		-webkit-transform: translateY(0);
-		transform: translateY(0);
-		-webkit-transform-origin: 50% 50%;
-		transform-origin: 50% 50%;
+		// -webkit-transform: translateY(0);
+		// transform: translateY(0);
+		// -webkit-transform-origin: 50% 50%;
+		// transform-origin: 50% 50%;
 		text-shadow: none;
 	}
 	100% {
-		-webkit-transform: translateY(-50px);
-		transform: translateY(-50px);
-		-webkit-transform-origin: 50% 50%;
-		transform-origin: 50% 50%;
+		// -webkit-transform: translateY(-50px);
+		// // transform: translateY(-50px);
+		// -webkit-transform-origin: 50% 50%;
+		// transform-origin: 50% 50%;
 		text-shadow:
 			0 1px 0 #cccccc,
 			0 2px 0 #cccccc,
@@ -27,17 +72,17 @@
 }
 @keyframes text-pop-up-top {
 	0% {
-		-webkit-transform: translateY(0);
-		transform: translateY(0);
-		-webkit-transform-origin: 50% 50%;
-		transform-origin: 50% 50%;
-		text-shadow: none;
+		// -webkit-transform: translateY(0);
+		// transform: translateY(0);
+		// -webkit-transform-origin: 50% 50%;
+		// transform-origin: 50% 50%;
+		// text-shadow: none;
 	}
 	100% {
-		-webkit-transform: translateY(-50px);
-		transform: translateY(-50px);
-		-webkit-transform-origin: 50% 50%;
-		transform-origin: 50% 50%;
+		// -webkit-transform: translateY(-50px);
+		// transform: translateY(-50px);
+		// -webkit-transform-origin: 50% 50%;
+		// transform-origin: 50% 50%;
 		text-shadow:
 			0 1px 0 #cccccc,
 			0 2px 0 #cccccc,

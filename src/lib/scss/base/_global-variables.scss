@@ -12,7 +12,7 @@ $hero-initial-entrance-delay: 2s;
 =            Border Radius            =
 =============================================*/
 $border-radius: (
-	'default': 2.75rem,
+	'default': 1rem,
 	'rounded': 9999px
 );
 $br-default: map-get($border-radius, 'default');
