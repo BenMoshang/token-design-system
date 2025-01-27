@@ -107,21 +107,6 @@ $shadow-high: (
 );
 
 /**
- * Inset shadow configuration
- * Suitable for: pressed buttons, form inputs, recessed containers
- */
-$shadow-inset: (
-	shadows: (
-		inset 0.0625rem 0.0625rem 0.125rem -0.0625rem,
-		inset -0.0625rem -0.0625rem 0.125rem -0.0625rem
-	),
-	opacities: (
-		0.25,
-		0.25
-	)
-);
-
-/**
  * Applies low elevation shadow
  * @param {String} $light-color ['light'] - Color name for light mode
  * @param {String} $dark-color ['dark'] - Color name for dark mode

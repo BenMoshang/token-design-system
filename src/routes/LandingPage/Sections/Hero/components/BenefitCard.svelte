@@ -23,10 +23,9 @@
 
 	* {
 		// outline: 1px dashed red;
-		transition: all 0.2s ease-in-out;
 	}
 	.benefit-card {
-		@include shadow-low();
+		@include shadow-medium();
 		display: grid;
 
 		grid-template-columns: 1fr;

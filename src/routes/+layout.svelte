@@ -56,13 +56,12 @@
 	:global(*::before),
 	:global(*::after) {
 		box-sizing: border-box;
-		hyphens: auto;
-		-webkit-hyphens: auto;
 	}
 
 	:global(html) {
 		color-scheme: dark;
-
+		hyphens: auto;
+		-webkit-hyphens: auto;
 		@media (prefers-color-scheme: dark) {
 			color-scheme: dark;
 			&[data-theme='dark'] {

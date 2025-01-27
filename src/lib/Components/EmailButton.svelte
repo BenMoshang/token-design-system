@@ -58,7 +58,6 @@
 </a>
 
 <style lang="scss">
-	
 	.email-button {
 		@include hover-brightness;
 		@include flex-center;
@@ -70,7 +69,7 @@
 
 		// Typography styles
 		font-family: get-ff('primary');
-		font-weight: get-fw('medium');
+		font-weight: 600;
 		font-size: get-static-fsz('body', 'md');
 
 		color: get-light-dark('lightest', 'darkest');

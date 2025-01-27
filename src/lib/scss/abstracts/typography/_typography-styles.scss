@@ -93,7 +93,7 @@
 %global__label {
 	font-family: tf.get-ff('secondary');
 	font-weight: tf.get-fw('light');
-	line-height: tf.get-lh('normal');
+	line-height: tf.get-lh('loose');
 	letter-spacing: tf.get-ls('loose');
 	text-transform: uppercase;
 	color: hsl(206, 18%, 60%);
