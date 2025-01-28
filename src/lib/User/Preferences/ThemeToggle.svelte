@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { theme } from '$lib/Stores/theme';
 
-	// Use $state rune for reactive state
-	let touchStartX = $state(0);
-	let touchEndX = $state(0);
 	let isDark = $state(false);
 
 	// Update theme and save preference
@@ -78,7 +75,7 @@
 	theme switch
 ==========================*/
 	button {
-		@include hover-brightness;
+		@include hover-effect;
 		border: none;
 		background: none;
 		cursor: pointer;
@@ -88,10 +85,7 @@
 		inline-size: 1.5rem;
 		block-size: 1.5rem;
 		fill: $color;
-		transition-property: all;
-		transition-duration: 0.2s;
-		transition-timing-function: ease-in-out;
-		transition-behavior: allow-discrete;
+
 		& path {
 			fill: $color;
 		}

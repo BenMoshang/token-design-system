@@ -1,3 +1,7 @@
 @forward 'global-variables';
-@forward 'global-animations';
-@forward 'shadows';
+
+// shadows
+@forward '../base/shadows/shadows';
+
+// animations
+@forward 'animations';

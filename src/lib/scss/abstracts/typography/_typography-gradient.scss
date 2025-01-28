@@ -20,8 +20,6 @@
 
 		cf.get-light-dark($light-end, $dark-end) 100%
 	);
-	color: transparent;
 	background-clip: text;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+	color: transparent;
 }

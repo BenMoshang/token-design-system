@@ -50,7 +50,6 @@
 		--cards: 5;
 		--cardHeight: 90vh;
 		--cardMargin: 4vw;
-
 	}
 
 	.container {

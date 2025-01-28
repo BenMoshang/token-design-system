@@ -12,6 +12,8 @@ $font-family: (
 	'display': 'Bebas Neue'
 );
 
+$ff-display: 'Bebas Neue';
+$ff-primary: 'Roboto';
 /**
  * @var $font-weights: (map)
  *    Keys: 'light', 'regular', 'medium', 'semibold', 'bold'
@@ -33,8 +35,8 @@ $line-heights: (
 );
 
 $letter-spacing: (
-	'tight': -0.03em,
-	'snug': -0.01em,
+	'tight': -0.04em,
+	'snug': -0.02em,
 	'normal': 0,
-	'loose': 0.1em
+	'loose': 0.05em
 );

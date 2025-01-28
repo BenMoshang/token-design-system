@@ -6,16 +6,7 @@
 </script>
 
 <!-- <SmoothScroll /> -->
-<svelte:head>
-	<!-- Preload Helvetica Now fonts -->
-	<link
-		rel="preload"
-		href="/Fonts/Bebas-Neue/BebasNeue-Regular.ttf"
-		as="font"
-		type="font/ttf"
-		crossorigin="anonymous"
-	/>
-</svelte:head>
+<svelte:head></svelte:head>
 
 <Header />
 <!-- ADDED GRAIN OVERLAY -->
@@ -192,83 +183,5 @@
 	:global(q::before),
 	:global(q::after) {
 		content: '';
-	}
-
-	@font-face {
-		font-family: 'Roboto';
-		src: url('/Fonts/Roboto/Roboto-Light.ttf') format('truetype');
-		font-weight: 300;
-		font-style: normal;
-	}
-
-	@font-face {
-		font-family: 'Roboto';
-		src: url('/Fonts/Roboto/Roboto-Regular.ttf') format('truetype');
-		font-weight: 400;
-		font-style: normal;
-	}
-
-	@font-face {
-		font-family: 'Roboto';
-		src: url('/Fonts/Roboto/Roboto-Medium.ttf') format('truetype');
-		font-weight: 500;
-		font-style: normal;
-	}
-
-	@font-face {
-		font-family: 'Roboto';
-		src: url('/Fonts/Roboto/Roboto-Bold.ttf') format('truetype');
-		font-weight: 700;
-		font-style: normal;
-	}
-
-	@font-face {
-		font-family: 'Bebas Neue';
-		src:
-			url('/Fonts/Bebas-Neue/BebasNeueThin-4B3mY.ttf') format('truetype'),
-			url('/Fonts/Bebas-Neue/BebasNeueThin-owB7q.otf') format('opentype');
-		font-weight: 100;
-		font-style: normal;
-		font-display: swap;
-	}
-
-	@font-face {
-		font-family: 'Bebas Neue';
-		src:
-			url('/Fonts/Bebas-Neue/BebasNeueLight-L3ajy.ttf') format('truetype'),
-			url('/Fonts/Bebas-Neue/BebasNeueLight-PK7jP.otf') format('opentype');
-		font-weight: 300;
-		font-style: normal;
-		font-display: swap;
-	}
-
-	@font-face {
-		font-family: 'Bebas Neue';
-		src:
-			url('/Fonts/Bebas-Neue/BebasNeueBook-d9A1l.ttf') format('truetype'),
-			url('/Fonts/Bebas-Neue/BebasNeueBook-mLWvV.otf') format('opentype');
-		font-weight: 400;
-		font-style: normal;
-		font-display: swap;
-	}
-
-	@font-face {
-		font-family: 'Bebas Neue';
-		src:
-			url('/Fonts/Bebas-Neue/BebasNeueRegular-gxj83.ttf') format('truetype'),
-			url('/Fonts/Bebas-Neue/BebasNeueRegular-X34j2.otf') format('opentype');
-		font-weight: 500;
-		font-style: normal;
-		font-display: swap;
-	}
-
-	@font-face {
-		font-family: 'Bebas Neue';
-		src:
-			url('/Fonts/Bebas-Neue/BebasNeueBold-7B9LE.ttf') format('truetype'),
-			url('/Fonts/Bebas-Neue/BebasNeueBold-w1w42.otf') format('opentype');
-		font-weight: 700;
-		font-style: normal;
-		font-display: swap;
 	}
 </style>

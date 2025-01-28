@@ -15,7 +15,9 @@
 		{heroText.subtitle}
 		<hr class="hero__divider" />
 	</h2>
+
 	<h1 class="hero__title">{heroText.title}</h1>
+
 	<!-- <BenefitCard {heroText} /> -->
 	<div class="hero__benefits">
 		<!-- Office Location -->
@@ -97,6 +99,9 @@
 </section>
 
 <style lang="scss">
+	.test {
+		@include roboto;
+	}
 	.hero {
 		@include section-base; // assuming these mixins exist in your project
 		@include flex-column-center;
@@ -190,7 +195,7 @@
 		}
 		&__text--bottom {
 			@extend %global__label;
-		
+
 			grid-area: primary;
 			background-color: transparent;
 		}

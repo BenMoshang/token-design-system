@@ -11,12 +11,9 @@ $hero-initial-entrance-delay: 2s;
 /*=============================================
 =            Border Radius            =
 =============================================*/
-$border-radius: (
-	'default': 1rem,
-	'rounded': 9999px
-);
-$br-default: map-get($border-radius, 'default');
-$br-rounded: map-get($border-radius, 'rounded');
+
+$br-default: 1.25rem;
+$br-rounded: 2em;
 
 /*=============================================
 =          Breakpoints             =

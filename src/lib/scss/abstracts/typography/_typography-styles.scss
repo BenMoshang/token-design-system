@@ -2,18 +2,40 @@
 @use 'typography-font-size' as fsz;
 @use '../colors/colors-functions' as cf;
 @use '../colors/colors-variables' as cv;
-@use '../../base/global-animations' as ga;
-/*=============================================
-=            Display            =
-=============================================*/
+@use '../../base/animations/text/typography-animations' as ta;
+@use 'typography-variables' as tv;
 
+// Mixins
+@mixin bebas-neue {
+	font-family: tv.$ff-display;
+	font-weight: 400;
+	text-rendering: geometricPrecision;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+@mixin roboto {
+	font-family: tv.$ff-primary;
+	font-weight: 400;
+	text-rendering: geometricPrecision;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+// Base Typography Styles
+%typography-base {
+	text-wrap: balance;
+	color: cf.get-light-dark('darkest', 'lightest');
+}
+
+/*=============================================
+=            Display Typography              =
+=============================================*/
 %global__display--base {
+	@include bebas-neue;
 	font-family: tf.get-ff('display');
-	font-weight: 700;
 	line-height: tf.get-lh('tight');
 	letter-spacing: tf.get-ls('tight');
-	color: cf.get-light-dark('darkest', 'lightest');
-	text-wrap: balance;
+	@extend %typography-base;
 }
 
 %global__display--x4 {
@@ -28,28 +50,31 @@
 	font-size: fsz.get-static-fsz('display', 'x3');
 	line-height: tf.get-lh('tight');
 }
+
 %global__display--x2 {
 	@extend %global__display--base;
+	font-size: fsz.get-res-fsz('display', 'x1', 'x2');
 }
+
 %global__display--x1 {
 	@extend %global__display--base;
+	font-size: fsz.get-static-fsz('display', 'x1');
 }
 
 /*=============================================
-=            Heading            =
+=            Heading Typography              =
 =============================================*/
-
 %global__heading--base {
 	font-family: tf.get-ff('primary');
 	font-weight: tf.get-fw('semibold');
 	line-height: tf.get-lh('snug');
 	letter-spacing: tf.get-ls('snug');
-	text-wrap: balance;
-	color: cf.get-light-dark('darkest', 'lightest');
+	@extend %typography-base;
 }
 
 %global__heading--x3 {
 	@extend %global__heading--base;
+	font-size: fsz.get-res-fsz('heading', 'x2', 'x3');
 	color: cv.$ld-darkest;
 }
 
@@ -60,9 +85,11 @@
 
 %global__heading--x1 {
 	@extend %global__heading--base;
+	font-size: fsz.get-static-fsz('heading', 'x1');
 }
+
 /*=============================================
-=            Body            =
+=            Body Typography                 =
 =============================================*/
 %global__body--base {
 	font-family: tf.get-ff('secondary');
@@ -75,11 +102,11 @@
 
 %global__body--x3 {
 	@extend %global__body--base;
+	font-size: fsz.get-res-fsz('body', 'x2', 'x3');
 }
 
 %global__body--x2 {
 	@extend %global__body--base;
-	// font-size: fsz.get-static-fsz('body', 'x2');
 	font-size: fsz.get-res-fsz('body', 'x1', 'x2');
 }
 
@@ -87,8 +114,9 @@
 	@extend %global__body--base;
 	font-size: fsz.get-static-fsz('body', 'x1');
 }
+
 /*=============================================
-=            Label            =
+=            Label Typography                =
 =============================================*/
 %global__label {
 	font-family: tf.get-ff('secondary');
@@ -99,21 +127,17 @@
 	color: hsl(206, 18%, 60%);
 	font-size: fsz.get-res-fsz('body', 'x2', 'x3');
 }
-/*=============================================
-=            My Modern Logo            =
-=============================================*/
 
+/*=============================================
+=            Logo Typography                 =
+=============================================*/
 %global__my-modern-logo {
-	@include ga.elastic-text-hover;
-	font-family: tf.get-ff('display');
-	font-weight: 700;
+	@include bebas-neue;
+	@include ta.elastic-text-hover;
 	font-size: fsz.get-static-fsz('heading', 'x1');
 	line-height: 0.8;
 	letter-spacing: tf.get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');
-	text-rendering: geometricPrecision;
-	-webkit-font-x1oothing: antialiased;
-	-moz-osx-font-x1oothing: grayscale;
+	inline-size: -webkit-fill-available;
 	inline-size: fit-content;
 }
-/* For larger screens, reduce the negative spacing */
