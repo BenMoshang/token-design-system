@@ -1,5 +1,5 @@
 @use '../../../abstracts/colors/colors-functions' as cf;
-$text-pop-up-top-color: cf.get-light-dark('light', 'dark');
+$text-pop-up-top-color: cf.get-light-dark('medium', 'medium');
 
 @keyframes text-pop-up-top {
 	0% {

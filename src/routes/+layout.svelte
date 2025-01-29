@@ -31,12 +31,12 @@
 
 	.page-container {
 		@include flex-column-center;
-		position: relative;
-		box-sizing: border-box;
+		width: 100%;
+		min-block-size: 100vh;
+		padding-block: $page-header-height;
+		padding-inline: get-static-sp('x4');
 		margin: 0 auto;
 		overflow-x: clip;
-		max-inline-size: $section-max-width;
-		padding-inline: get-static-sp('x4');
 	}
 
 	/*--------------------------------------
@@ -48,24 +48,21 @@
 	:global(*::after) {
 		box-sizing: border-box;
 	}
+	:global(body) {
+		min-block-size: 100vh;
+
+		inline-size: 100%;
+
+		background: get-light-dark('lightest', 'darkest');
+		@media (min-width: $mobile-breakpoint) {
+			cursor: auto;
+		}
+	}
 
 	:global(html) {
 		color-scheme: dark;
 		hyphens: auto;
 		-webkit-hyphens: auto;
-		@media (prefers-color-scheme: dark) {
-			color-scheme: dark;
-			&[data-theme='dark'] {
-				color-scheme: dark;
-			}
-		}
-		@media (prefers-color-scheme: light) {
-			color-scheme: light;
-
-			[data-theme='light'] {
-				color-scheme: light;
-			}
-		}
 
 		margin: 0;
 		padding: 0;
@@ -93,16 +90,6 @@
 		inline-size: 100%;
 
 		// scroll-behavior: smooth;
-	}
-	:global(body) {
-		block-size: 100%;
-		inline-size: 100%;
-		scroll-behavior: smooth;
-
-		background: get-light-dark('lightest', 'darkest');
-		@media (min-width: $mobile-breakpoint) {
-			cursor: auto;
-		}
 	}
 
 	/* Example: A simple CSS reset 

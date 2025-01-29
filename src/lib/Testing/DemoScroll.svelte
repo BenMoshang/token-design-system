@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 	import { useScroll, useScrollAnimation, scrollReveal } from '$lib/animations/scroll.svelte';
 
 	let basicElement: HTMLElement | undefined;
@@ -49,7 +49,7 @@
 
 	<section class="demo-section">
 		<h2>2. Custom Scroll Animation</h2>
-		<div bind:this={customElement} class="demo-box" use:customAnimation>
+		<div class="demo-box" bind:this={customElement}  use:customAnimation>
 			<p>This box has a custom fade and slide animation.</p>
 		</div>
 	</section>
@@ -111,4 +111,4 @@
 	.demo-section:last-child {
 		margin-bottom: 2rem;
 	}
-</style>
+</style> -->

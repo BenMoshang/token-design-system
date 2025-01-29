@@ -31,9 +31,9 @@ $typography-scales: (
 	'x9': $typography-base-size * math.pow($typography-scale-ratio, 3),
 	//min for display
 	'x10': $typography-base-size * math.pow($typography-scale-ratio, 3.5),
-	'x11': $typography-base-size * math.pow($typography-scale-ratio, 4.25),
-	'x12': $typography-base-size * math.pow($typography-scale-ratio, 8),
-	'x13': $typography-base-size * math.pow($typography-scale-ratio, 8.75)
+	'x11': $typography-base-size * math.pow($typography-scale-ratio, 4),
+	'x12': $typography-base-size * math.pow($typography-scale-ratio, 7),
+	'x13': $typography-base-size * math.pow($typography-scale-ratio, 8)
 );
 
 /* ---------------------------------------------------------------------------

@@ -10,11 +10,10 @@
 	import { quintOut } from 'svelte/easing';
 
 	let cards = [
-		{ id: 'card1', title: 'Hero Section', component: HeroSection },
-		{ id: 'card2', title: 'Services Section', component: ServicesSection },
-		{ id: 'card3', title: 'Portfolio Section', component: PortfolioSection },
-		{ id: 'card4', title: 'About Section', component: AboutSection },
-		{ id: 'card5', title: 'Contact Section', component: ContactSection }
+		{ id: 'card1', title: 'Services Section', component: ServicesSection },
+		{ id: 'card2', title: 'Portfolio Section', component: PortfolioSection },
+		{ id: 'card3', title: 'About Section', component: AboutSection },
+		{ id: 'card4', title: 'Contact Section', component: ContactSection }
 	];
 </script>
 
@@ -31,11 +30,10 @@
 	<!-- Options: default, black, black-translucent -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
-
+<div class="hero-wrapper"><HeroSection /></div>
 <div class="container">
-	<FontTesting />
-
-	<!-- <ul id="cards">
+	<!-- <FontTesting /> -->
+	<ul id="cards">
 		{#each cards as card, index}
 			<li
 				class="card"
@@ -45,7 +43,7 @@
 				<svelte:component this={card.component} />
 			</li>
 		{/each}
-	</ul> -->
+	</ul>
 </div>
 
 <style lang="scss">
@@ -54,8 +52,16 @@
 		--cardHeight: 90vh;
 		--cardMargin: 4vw;
 	}
-
+	.hero-wrapper {
+		position: absolute;
+		inset: 0;
+		margin: auto;
+		z-index: 100;
+	}
 	.container {
+		@include flex-column-center;
+		@include section-gap();
+		position: relative;
 		inline-size: 100%;
 		height: 100%;
 		outline: 1px solid blue;

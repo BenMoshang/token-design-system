@@ -1,172 +1,302 @@
-/**
- * Simplified Scroll Animation Utilities for Svelte
- * Provides easy-to-use scroll-based animations and triggers
- */
+/******************************************************
+ * scroll.svelte.ts
+ * A GSAP-based scroll utility foundation for Svelte 5
+ *
+ * Features:
+ * 1) GSAP & ScrollTrigger initialization
+ * 2) Scroll-locking with a "pin-like" approach
+ * 3) A "useGsapAnimation" action for typical from->to
+ *    tween animations (with optional pin).
+ * 4) A "useGsapPin" action for quick pinning.
+ * 5) A scrollLocker object for fully locking
+ *    scrolling across the page.
+ ******************************************************/
 
 import { onMount, onDestroy } from 'svelte';
-import { writable, derived, type Writable } from 'svelte/store';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-type ScrollConfig = {
-	threshold?: number; // Intersection observer threshold (0-1)
-	once?: boolean; // Trigger only once
-	delay?: number; // Animation delay in ms
-	duration?: number; // Animation duration in ms
-};
+// ---------------------------------------------------
+// 1) Register the ScrollTrigger plugin globally
+// ---------------------------------------------------
+gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Creates a scroll trigger that tracks element visibility
+ * Initialize or configure GSAP's ScrollTrigger defaults.
+ * For example, you can override autoRefreshEvents, set ease defaults, etc.
+ *
+ * @param options - Optional ScrollTrigger config.
+ *                  See https://greensock.com/docs/v3/Plugins/ScrollTrigger/static.config()
  *
  * @example
- * ```svelte
- * <script>
- *   let element;
- *   const { visible, progress } = useScroll(element);
- * </script>
- *
- * <div bind:this={element}
- *      class:visible={$visible}
- *      style:opacity={$progress}>
- *   Content
- * </div>
- * ```
+ * initGsapScroll({
+ *   autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize",
+ *   ignoreMobileResize: true
+ * });
  */
-export function useScroll(node: HTMLElement, config: ScrollConfig = {}) {
-	const visible = writable(false);
-	const progress = writable(0);
+export function initGsapScroll(options: gsap.plugins.ScrollTriggerConfigVars = {}) {
+	ScrollTrigger.config(options);
+}
 
-	let observer: IntersectionObserver;
-	let cleanup: () => void;
+/* -------------------------------------------------------------------
+ * 2) scrollLocker: lock/unlock the entire page scroll
+ *    (Equivalent to "freeze" the page, not just pin an element)
+ * ------------------------------------------------------------------- */
+export const scrollLocker = {
+	isLocked: false,
+	originalScrollY: 0,
+	originalStyle: '',
+	touchListener: null as ((e: TouchEvent) => void) | null,
+	keyboardListener: null as ((e: KeyboardEvent) => void) | null,
 
-	function setup() {
-		if (!node) return;
+	lock(options: { allowTouchMove?: boolean; allowKeyboardScroll?: boolean } = {}) {
+		if (this.isLocked) return;
 
-		// Set up intersection observer
-		observer = new IntersectionObserver(
-			([entry]) => {
-				visible.set(entry.isIntersecting);
-				if (entry.isIntersecting && config.once) {
-					observer.disconnect();
+		const body = document.body;
+		this.originalScrollY = window.scrollY;
+		this.originalStyle = body.style.cssText;
+		const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+		// Freeze the body at the current scroll position
+		body.style.cssText = `
+			overflow: hidden;
+			position: fixed;
+			top: -${this.originalScrollY}px;
+			left: 0; 
+			right: 0; 
+			bottom: 0;
+			padding-right: ${scrollbarWidth}px;
+			${!options.allowTouchMove ? 'touch-action: none;' : ''}
+		`;
+
+		// Prevent touch scroll
+		if (!options.allowTouchMove) {
+			this.touchListener = (e: TouchEvent) => {
+				e.preventDefault();
+				e.stopPropagation();
+			};
+			document.addEventListener('touchmove', this.touchListener, { passive: false });
+		}
+
+		// Prevent keyboard scrolling (arrow keys, space, etc.)
+		if (!options.allowKeyboardScroll) {
+			this.keyboardListener = (e: KeyboardEvent) => {
+				if (
+					['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.code) ||
+					e.key === ' '
+				) {
+					e.preventDefault();
+					e.stopPropagation();
 				}
-			},
-			{ threshold: config.threshold ?? 0.2 }
-		);
+			};
+			document.addEventListener('keydown', this.keyboardListener);
+		}
 
-		// Set up scroll tracking
-		const updateProgress = () => {
-			const rect = node.getBoundingClientRect();
-			const windowHeight = window.innerHeight;
-			progress.set(Math.max(0, Math.min(1, 1 - rect.bottom / (windowHeight + rect.height))));
-		};
+		this.isLocked = true;
+	},
 
-		observer.observe(node);
-		window.addEventListener('scroll', updateProgress, { passive: true });
-		updateProgress();
+	unlock() {
+		if (!this.isLocked) return;
 
-		cleanup = () => {
-			observer?.disconnect();
-			window.removeEventListener('scroll', updateProgress);
-		};
+		const body = document.body;
+		body.style.cssText = this.originalStyle;
+		window.scrollTo(0, this.originalScrollY);
+
+		// Cleanup event listeners
+		if (this.touchListener) {
+			document.removeEventListener('touchmove', this.touchListener);
+			this.touchListener = null;
+		}
+		if (this.keyboardListener) {
+			document.removeEventListener('keydown', this.keyboardListener);
+			this.keyboardListener = null;
+		}
+
+		this.isLocked = false;
 	}
+};
 
-	onMount(setup);
-	onDestroy(() => cleanup?.());
-
-	// Computed values for animation states
-	const animating = derived(
-		[visible, progress],
-		([$visible, $progress]) => $visible || $progress > 0
-	);
-	const completed = derived(progress, ($progress) => $progress === 1);
-
-	return {
-		visible,
-		progress,
-		animating,
-		completed
-	};
+/* -------------------------------------------------------------------
+ * 3) "useGsapAnimation"
+ *    Svelte Action for a typical GSAP from->to tween with ScrollTrigger
+ *
+ *    Options:
+ *      - from: initial tween props
+ *      - to:   final tween props
+ *      - triggerConfig: a partial ScrollTrigger config
+ *                       (can include pin, start, end, scrub, etc.)
+ *      - immediateRender: If true, GSAP sets from-values immediately
+ *      - lockScroll: If true, we forcibly lock the entire page
+ *                    (similar to scrollLocker) during the animation
+ *                    range. This is a more extreme "pin."
+ * ------------------------------------------------------------------- */
+export interface GsapAnimationOptions {
+	from?: gsap.TweenVars;
+	to?: gsap.TweenVars;
+	triggerConfig?: Partial<ScrollTrigger.Vars>;
+	immediateRender?: boolean;
+	lockScroll?: boolean;
 }
 
 /**
- * Creates a scroll-based animation
+ * useGsapAnimation Svelte Action
  *
  * @example
- * ```svelte
- * <script>
- *   let element;
- *   const animation = useScrollAnimation(element, {
- *     from: { opacity: 0, y: 20 },
- *     to: { opacity: 1, y: 0 }
- *   });
+ * <script lang="ts">
+ *   import { useGsapAnimation, initGsapScroll } from './scroll.svelte.ts';
+ *   initGsapScroll(); // optional global config
+ *   let box;
  * </script>
  *
- * <div bind:this={element} use:animation>
- *   Animated content
+ * <div use:useGsapAnimation={{
+ *     from: { x: -200, opacity: 0 },
+ *     to: { x: 0, opacity: 1, duration: 1 },
+ *     triggerConfig: { start: 'top 80%', end: 'top 20%', scrub: 1, pin: true }
+ * }} bind:this={box}>
+ *   Animate me
  * </div>
- * ```
  */
-export function useScrollAnimation(
-	node: HTMLElement,
-	{
-		from = { opacity: 0, y: 20 },
-		to = { opacity: 1, y: 0 },
-		config = {}
-	}: {
-		from?: Record<string, number>;
-		to?: Record<string, number>;
-		config?: ScrollConfig;
-	} = {}
-) {
-	const { progress } = useScroll(node, config);
+export function useGsapAnimation(node: HTMLElement, options: GsapAnimationOptions = {}) {
+	let anim: gsap.core.Tween;
+	let st: ScrollTrigger;
 
-	function updateStyles(progressValue: number) {
-		if (!node) return;
+	function setup() {
+		const {
+			from = {},
+			to = {},
+			triggerConfig = {},
+			immediateRender = false,
+			lockScroll = false
+		} = options;
 
-		const interpolate = (start: number, end: number) => start + (end - start) * progressValue;
+		// If "lockScroll" is true, we set up a "fake pin" by locking the entire page
+		// This is basically an extreme approach where user can't scroll at all
+		// during the timeline range.
+		//
+		// Alternatively, you can set "pin: node" in `triggerConfig` for a normal GSAP pin.
+		if (lockScroll) {
+			// We'll lock the scroll at the start of the timeline, and unlock at the end
+			triggerConfig.onEnter = () => scrollLocker.lock();
+			triggerConfig.onLeave = () => scrollLocker.unlock();
+			triggerConfig.onEnterBack = () => scrollLocker.lock();
+			triggerConfig.onLeaveBack = () => scrollLocker.unlock();
+			triggerConfig.onUpdate = (self) => {
+				// If the user forcibly tries to scroll, keep it locked
+				if (self && !scrollLocker.isLocked) scrollLocker.lock();
+			};
+		}
 
-		const styles = Object.keys(from).reduce(
-			(acc, key) => {
-				const value = interpolate(from[key], to[key]);
-				if (key === 'y') {
-					acc.transform = `translateY(${value}px)`;
-				} else {
-					acc[key] = value;
-				}
-				return acc;
-			},
-			{} as Record<string, string | number>
+		anim = gsap.fromTo(
+			node,
+			{ ...from, immediateRender },
+			{ ...to, scrollTrigger: { trigger: node, ...triggerConfig } }
 		);
 
-		Object.assign(node.style, styles);
+		if (anim.scrollTrigger) {
+			st = anim.scrollTrigger;
+		}
 	}
 
-	const unsubscribe = progress.subscribe(updateStyles);
-	onDestroy(unsubscribe);
+	onMount(() => {
+		setup();
+	});
+
+	onDestroy(() => {
+		if (st) st.kill();
+		if (anim) anim.kill();
+		if (scrollLocker.isLocked) {
+			scrollLocker.unlock();
+		}
+	});
 
 	return {
-		update() {
-			// This will be called by Svelte when the component updates
-			progress.subscribe(updateStyles)();
+		update(newOptions: GsapAnimationOptions) {
+			// If your props change dynamically, re-initialize
+			options = newOptions;
+			if (st) st.kill();
+			if (anim) anim.kill();
+			setup();
 		},
 		destroy() {
-			unsubscribe();
+			if (st) st.kill();
+			if (anim) anim.kill();
+			if (scrollLocker.isLocked) {
+				scrollLocker.unlock();
+			}
 		}
 	};
 }
 
+/* -------------------------------------------------------------------
+ * 4) "useGsapPin"
+ *    Simple Svelte Action that just pins the node in place
+ *    while the user scrolls. The user can define start/end
+ *    positions, etc. (like typical GSAP ScrollTrigger pin).
+ * ------------------------------------------------------------------- */
+export interface GsapPinOptions {
+	start?: string | number;
+	end?: string | number;
+	pinSpacing?: boolean;
+	scrub?: boolean | number;
+	onEnter?: ScrollTrigger.Callback;
+	onLeave?: ScrollTrigger.Callback;
+	onEnterBack?: ScrollTrigger.Callback;
+	onLeaveBack?: ScrollTrigger.Callback;
+}
+
 /**
- * Action to apply scroll reveal animation
+ * useGsapPin - Svelte Action
  *
- * @example
- * ```svelte
- * <div use:scrollReveal>
- *   Content that fades in
- * </div>
- * ```
+ * Example usage:
+ * <section use:useGsapPin={{ start: 'top top', end: '+=500', scrub: true }}>
+ *   <h2>Pinned Section</h2>
+ * </section>
  */
-export function scrollReveal(node: HTMLElement, config: ScrollConfig = {}) {
-	return useScrollAnimation(node, {
-		from: { opacity: 0, y: 20 },
-		to: { opacity: 1, y: 0 },
-		config
+export function useGsapPin(node: HTMLElement, options: GsapPinOptions = {}) {
+	let st: ScrollTrigger;
+
+	function setupPin() {
+		const {
+			start = 'top top',
+			end = '+=1000', // how many px after we start do we unpin
+			pinSpacing = true,
+			scrub = false,
+			onEnter,
+			onLeave,
+			onEnterBack,
+			onLeaveBack
+		} = options;
+
+		st = ScrollTrigger.create({
+			trigger: node,
+			start,
+			end,
+			pin: true,
+			pinSpacing,
+			scrub,
+			onEnter,
+			onLeave,
+			onEnterBack,
+			onLeaveBack
+		});
+	}
+
+	onMount(() => {
+		setupPin();
 	});
+
+	onDestroy(() => {
+		if (st) st.kill();
+	});
+
+	return {
+		update(newOptions: GsapPinOptions) {
+			options = newOptions;
+			if (st) st.kill();
+			setupPin();
+		},
+		destroy() {
+			if (st) st.kill();
+		}
+	};
 }
