@@ -4,8 +4,17 @@
 @use '../colors/colors-variables' as cv;
 @use '../../base/animations/text/typography-animations' as ta;
 @use 'typography-variables' as tv;
+$responsive-font-size: (
+	'display--h1': fsz.get-fsz('x11', 'x13'),
+	'display--h2': fsz.get-fsz('x10', 'x12'),
+	'heading--h2': fsz.get-fsz('x8', 'x9'),
+	'heading--h3': fsz.get-fsz('x6', 'x7'),
+	'heading--h4': fsz.get-fsz('x4', 'x5'),
+	'body--lg': fsz.get-fsz('x4', 'x5'),
+	'body--md': fsz.get-fsz('x3', 'x4'),
+	'label': fsz.get-fsz('x1', 'x2')
+);
 
-// Mixins
 @mixin bebas-neue {
 	font-family: tv.$ff-display;
 	font-weight: 400;
@@ -13,7 +22,6 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-
 @mixin roboto {
 	font-family: tv.$ff-primary;
 	font-weight: 400;
@@ -39,12 +47,12 @@
 //h1
 %global__display--h1 {
 	@extend %global__display--base;
-	font-size: fsz.get-fsz('x11', 'x13');
+	font-size: map-get($responsive-font-size, 'display--h1');
 	text-align: center;
 }
 %global__display--h2 {
 	@extend %global__display--base;
-	font-size: fsz.get-fsz('x10', 'x12');
+	font-size: map-get($responsive-font-size, 'display--h2');
 	text-align: center;
 }
 
@@ -61,17 +69,17 @@
 
 %global__heading--h2 {
 	@extend %global__heading--base;
-	font-size: fsz.get-fsz('x1', 'x2');
+	font-size: map-get($responsive-font-size, 'heading--h2');
 }
 
 %global__heading--h3 {
 	@extend %global__heading--base;
-	font-size: fsz.get-fsz('x2', 'x3');
+	font-size: map-get($responsive-font-size, 'heading--h3');
 }
 
 %global__heading--h4 {
 	@extend %global__heading--base;
-	font-size: fsz.get-fsz('x3', 'x4');
+	font-size: map-get($responsive-font-size, 'heading--h4');
 }
 
 /*=============================================
@@ -85,24 +93,13 @@
 	color: cf.get-light-dark('dark', 'light');
 }
 
-%global__body--h1 {
+%global__body--lg {
 	@extend %global__body--base;
-	font-size: fsz.get-fsz('x3', 'x4');
+	font-size: map-get($responsive-font-size, 'body--lg');
 }
-/*----default----*/
-%global__body--x3 {
+%global__body--md {
 	@extend %global__body--base;
-	font-size: fsz.get-fsz('x2', 'x3');
-}
-/*----small----*/
-%global__body--x2 {
-	@extend %global__body--base;
-	font-size: fsz.get-fsz('x1', 'x2');
-}
-
-%global__body--x1 {
-	@extend %global__body--base;
-	font-size: fsz.get-static-fsz('x1');
+	font-size: map-get($responsive-font-size, 'body--md');
 }
 
 /*=============================================
@@ -115,7 +112,7 @@
 	letter-spacing: tf.get-ls('loose');
 	text-transform: uppercase;
 	color: hsl(206, 18%, 60%);
-	font-size: fsz.get-fsz('x2', 'x3');
+	font-size: map-get($responsive-font-size, 'label');
 }
 
 /*=============================================

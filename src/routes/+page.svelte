@@ -4,7 +4,7 @@
 	import ServicesSection from './LandingPage/Sections/ServicesSection.svelte';
 	import PortfolioSection from './LandingPage/Sections/PortfolioSection.svelte';
 	import ContactSection from './LandingPage/Sections/ContactSection.svelte';
-	// import FontTesting from '$lib/Testing/FontTesting.svelte';
+	import FontTesting from '$lib/Testing/FontTesting.svelte';
 	// import DemoScroll from '$lib/Testing/DemoScroll.svelte';
 	import { fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
@@ -31,8 +31,11 @@
 	<!-- Options: default, black, black-translucent -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
+
 <div class="container">
-	<ul id="cards">
+	<FontTesting />
+
+	<!-- <ul id="cards">
 		{#each cards as card, index}
 			<li
 				class="card"
@@ -42,7 +45,7 @@
 				<svelte:component this={card.component} />
 			</li>
 		{/each}
-	</ul>
+	</ul> -->
 </div>
 
 <style lang="scss">
@@ -55,6 +58,7 @@
 	.container {
 		inline-size: 100%;
 		height: 100%;
+		outline: 1px solid blue;
 	}
 
 	#cards {

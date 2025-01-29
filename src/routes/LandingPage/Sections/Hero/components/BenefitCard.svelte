@@ -48,7 +48,7 @@
 		}
 
 		&__title {
-			@extend %global__heading--x2;
+			@extend %global__heading--h2;
 			grid-area: title;
 			color: get-light-dark('darkest', 'lightest');
 		}
