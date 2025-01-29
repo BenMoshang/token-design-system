@@ -7,30 +7,21 @@
  *    'secondary': String - secondary font family
  */
 $font-family: (
-	'primary': 'Roboto',
-	'secondary': 'Roboto',
+	'heading': 'Roboto',
+	'body': 'Roboto',
 	'display': 'Bebas Neue'
 );
 
-$ff-display: 'Bebas Neue';
-$ff-primary: 'Roboto';
 /**
  * @var $font-weights: (map)
  *    Keys: 'light', 'regular', 'medium', 'semibold', 'bold'
  *    Values: Common font-weight values (300,400,500,600,700)
  */
-$font-weights: (
-	'light': 300,
-	'regular': 400,
-	'medium': 500,
-	'semibold': 600,
-	'bold': 700
-);
 
 $line-heights: (
 	'tight': 0.8,
-	'snug': 1,
-	'normal': 1.25,
+	'snug': 1.25,
+	'normal': 1.5,
 	'loose': 1.75
 );
 

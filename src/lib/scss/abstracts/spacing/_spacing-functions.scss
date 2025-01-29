@@ -1,13 +1,62 @@
 @use 'spacing-variables' as sv;
 @use '../../base/global-variables' as gv;
 @use 'sass:math';
+/* ---------------------------------------------------------------------------
+   1. Static Spacing (get-static-sp) TLDR USE THIS FOR FIXED UI ELEMENTS
+   ---------------------------------------------------------------------------
+   Use for elements that require fixed, predictable spacing:
+
+   Fixed UI Elements:
+   - Icon sizes and spacing
+   - Navigation bar heights 
+   - Form input padding
+   - Button padding
+   - Grid gaps in card layouts
+   - Borders and outlines
+   - Small decorative elements
+
+   Consistent Components:
+   - Internal padding within components
+   - Spacing between related elements
+   - Minimum spacing for accessibility
+   - Touch target sizes
+
+   Technical Requirements:
+   - Precise pixel alignment needs
+   - Pixel-perfect designs at breakpoints
+   - Third-party component integration
+--------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------
+   2. Fluid Spacing (get-sp) TLDR USE THIS FOR COMPONENTS
+   ---------------------------------------------------------------------------
+   Use for elements that should scale with viewport:
+
+   Layout-Level Spacing:
+   - Section padding
+   - Margins between major sections
+   - Hero section spacing
+   - Content area padding
+   - Grid container gaps
+
+   Responsive Design:
+   - Viewport-adaptive spacing
+   - Margins between unrelated components
+   - Container padding
+   - Section vertical spacing
+
+   Visual Hierarchy:
+   - Proportional spacing relationships
+   - Scalable visual rhythm
+   - Balanced cross-viewport layouts
+--------------------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------------------
    1) Static Spacing Getter
    ---------------------------------------------------------------------------
    Retrieves a static spacing value from the $spacing map, with error checking.
 --------------------------------------------------------------------------- */
-@function get-sp($size) {
+@function get-static-sp($size) {
 	$spacing-value: map-get(sv.$spacing, $size);
 
 	@if not $spacing-value {
@@ -41,43 +90,11 @@
 /* ---------------------------------------------------------------------------
    3) Responsive Spacing (From Scale + Clamp)
    ---------------------------------------------------------------------------
-   Blends the spacing scale with the clamp approach:
-   1) Fetch the smaller (min) and larger (max) spacing values from the scale.
-   2) Use clamp-spacing() to create the fluid clamp expression.
-   3) Uses default $min-viewport / $max-viewport if not overridden.
+
 --------------------------------------------------------------------------- */
-@function get-res-sp(
-	$min-size,
-	$max-size,
-	$min-vw: gv.$mobile-breakpoint,
-	$max-vw: gv.$desktop-breakpoint
-) {
-	$min-value: get-sp($min-size);
-	$max-value: get-sp($max-size);
+@function get-sp($min-size, $max-size, $min-vw: 20rem, $max-vw: 90rem) {
+	$min-value: get-static-sp($min-size);
+	$max-value: get-static-sp($max-size);
 
 	@return clamp-spacing($min-value, $max-value, $min-vw, $max-vw);
 }
-
-/* ---------------------------------------------------------------------------
-   4) Example Usage
-   ---------------------------------------------------------------------------
-   - padding: scales between 'x2' and 'x6' across viewport range
-   - margin: scales between 'x1' and 'x4' with custom viewport range
---------------------------------------------------------------------------- */
-
-// Example 1: Padding that scales between x2 (0.5rem) and x6 (1.5rem)
-// .element {
-//     padding: get-res-sp('x2', 'x6');
-//     // => clamp(0.5rem, calc(...), 1.5rem)
-// }
-
-// Example 2: Margin that scales between x1 and x4 with custom viewport range
-// .element {
-//     margin: get-res-sp('x1', 'x4', 30rem, 60rem);
-//     // => clamp(0.25rem, calc(...), 1rem)
-// }
-
-// Example 3: Using clamp-spacing() directly with rem values
-// .element {
-//     gap: clamp-spacing(0.5rem, 2rem, 30rem, 60rem);
-// }

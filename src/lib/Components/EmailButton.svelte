@@ -62,9 +62,9 @@
 	.email-button {
 		@include button-effect;
 		@include flex-center;
-		gap: get-sp('x1');
+		gap: get-static-sp('x1');
 		position: relative;
-		padding: get-sp('x2') get-sp('x3');
+		padding: get-static-sp('x2') get-static-sp('x3');
 		max-block-size: 2rem;
 
 		text-decoration: none;
@@ -79,11 +79,10 @@
 		cursor: pointer;
 
 		&__icon {
-			--icon-size: 1em;
+			display: block;
+			--icon-size: 1rem;
 			inline-size: var(--icon-size);
-
 			block-size: var(--icon-size);
-			line-height: 1;
 
 			&--path {
 				fill: get-light-dark('lightest', 'darkest');
@@ -92,9 +91,9 @@
 	}
 
 	.text {
+		@include display-overview;
+		color: get-light-dark('lightest', 'darkest');
 		line-height: 1;
-		@include roboto;
-		font-weight: 700;
 		font-size: get-static-fsz('x3');
 	}
 </style>

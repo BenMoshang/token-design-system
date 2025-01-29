@@ -114,14 +114,14 @@
 		}
 		/*----title variables----*/
 		--title-max-inline-size: 15ch;
-		--title-margin-bottom: #{get-sp('x4')};
+		--title-margin-bottom: #{get-static-sp('x4')};
 
 		/*----subtitle variables----*/
 		--subtitle-font-size: #{get-fsz('x1', 'x2')};
 
 		/*----icon variables----*/
 		--icon-size: 1.5rem;
-		--icon-margin-bottom: #{get-sp('x2')};
+		--icon-margin-bottom: #{get-static-sp('x2')};
 		--icon-color: #{get-light-dark('darkest', 'lightest')};
 	}
 
@@ -136,7 +136,7 @@
 			display: inline-block;
 			inline-size: 100%;
 			block-size: 0.125rem;
-			margin: get-sp('x1') 0 get-sp('x16');
+			margin: get-static-sp('x1') 0 get-static-sp('x16');
 			opacity: 0.5;
 			background: linear-gradient(
 				90deg,
@@ -155,7 +155,7 @@
 		}
 
 		&__subtitle {
-			@extend %global__display--base;
+			@include display-overview;
 			@include gradient-text('dark', 'lighter', 'lighter', 'dark');
 			font-size: var(--subtitle-font-size);
 		}

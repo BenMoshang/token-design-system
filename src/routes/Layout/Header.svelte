@@ -107,8 +107,8 @@
 		-webkit-backdrop-filter: blur(1rem) saturate(200%);
 		inline-size: 100%;
 		block-size: var(--header-height);
-		padding-inline: get-sp('x4');
-		padding-block: get-sp('x2');
+		padding-inline: get-static-sp('x4');
+		padding-block: get-static-sp('x2');
 		background: light-dark(hsla(191, 15%, 85%, 0.2), hsla(200, 64%, 6%, 0.2));
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
@@ -149,7 +149,7 @@ burger
 
 		& svg {
 			--svg-size: 2rem;
-			--burger-centering: #{get-sp('x1')};
+			--burger-centering: #{get-static-sp('x1')};
 			width: var(--svg-size);
 			height: var(--svg-size);
 			padding-block: var(--burger-centering);
@@ -189,7 +189,7 @@ Content Nav
 		margin-left: auto;
 		display: flex;
 		align-items: center;
-		gap: get-sp('x2');
+		gap: get-static-sp('x2');
 	}
 
 	.header__nav--desktop {
@@ -207,7 +207,7 @@ Content Nav
 	}
 
 	.nav__link {
-		@extend %global__heading--base;
+		@include heading-overview;
 		position: relative;
 		font-weight: 600;
 		font-size: get-static-fsz('x1');
@@ -244,11 +244,11 @@ Content Nav
 	}
 
 	.nav__list {
-		$spacing-gap: get-sp('x4');
+		$spacing-gap: get-static-sp('x4');
 		@include flex-center;
 		gap: $spacing-gap;
 		list-style: none;
-		margin-left: get-sp('x12');
+		margin-left: get-static-sp('x12');
 
 		&:last-child .nav__link {
 			color: hrgb(0, 83, 146);

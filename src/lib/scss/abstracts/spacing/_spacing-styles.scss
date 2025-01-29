@@ -1,0 +1,104 @@
+@use 'spacing-functions' as sf;
+@use 'spacing-variables' as sv;
+@use '../../base/global-variables' as gv;
+
+$responsive-spacing: (
+	'xs': sf.get-sp('x1', 'x2'),
+	// 4px to 8px
+	'sm': sf.get-sp('x2', 'x4'),
+	// 8px to 16px
+	'md': sf.get-sp('x4', 'x6'),
+	// 16px to 24px
+	'lg': sf.get-sp('x4', 'x8'),
+	// 16px to 32px
+	'xl': sf.get-sp('x6', 'x12'),
+	// 24px to 48px
+	'2xl': sf.get-sp('x8', 'x16'),
+	// 32px to 64px
+	'3xl': sf.get-sp('x10', 'x20'),
+	// 40px to 80px
+	'4xl': sf.get-sp('x12', 'x24') // 48px to 96px
+);
+$static-spacing: (
+	'xs': sf.get-static-sp('x1'),
+	// 4px
+	'sm': sf.get-static-sp('x2'),
+	// 8px
+	'md': sf.get-static-sp('x4'),
+	// 16px
+	'lg': sf.get-static-sp('x6'),
+	// 24px
+	'xl': sf.get-static-sp('x8'),
+	// 32px
+	'2xl': sf.get-static-sp('x12'),
+	// 48px
+	'3xl': sf.get-static-sp('x16'),
+	// 64px
+	'4xl': sf.get-static-sp('x20') // 80px
+);
+//i use these for (static) margin spacing
+$most-related: sf.get-static-sp('x1'); //4px *eg. icons next to text
+$closely-related: sf.get-static-sp('x2'); //8px *eg. space between nav links
+$semi-related: sf.get-static-sp('x4'); //12px *eg. heading to subheading
+$less-related: sf.get-static-sp('x6'); //24px *eg. subheading to paragraph
+/* ---------------------------------------------------------------------------
+   1) GAPS
+   -------------------------------------------------------------------------- */
+
+@mixin section-gap($size: '4xl') {
+	gap: map-get($responsive-spacing, $size);
+}
+@mixin inner-section-gap($size: 'xl') {
+	gap: map-get($responsive-spacing, $size);
+}
+@mixin component-gap($size: 'md') {
+	gap: map-get($responsive-spacing, $size);
+}
+
+/**
+* @param: $size: 'lg' | 'md' 
+* @description: Use this for components that need a static gap
+*/
+@mixin component-static-gap($size: 'md') {
+	$size: if($size == 'lg', 'lg', 'md');
+	gap: map-get($static-spacing, $size);
+}
+
+/* ---------------------------------------------------------------------------
+   2) PADDING
+   -------------------------------------------------------------------------- */
+
+// Section-level padding (for major layout sections)
+@mixin section-padding($size: '2xl') {
+	padding: map-get($responsive-spacing, $size);
+}
+
+// Inner section padding (for nested sections/containers)
+@mixin inner-section-padding($size: 'xl') {
+	padding: map-get($responsive-spacing, $size);
+}
+
+// Component-level padding (for UI components)
+@mixin component-padding($size: 'md') {
+	padding: map-get($responsive-spacing, $size);
+}
+
+/**
+* @param: $size: 'lg' | 'md' 
+* @description: Use this for components that need a static padding
+*/
+@mixin component-static-padding($size: 'md') {
+	$size: if($size == 'lg', 'lg', 'md');
+	padding: map-get($static-spacing, $size);
+}
+
+// Directional padding mixins for more granular control
+@mixin padding-inline($size: 'md', $static: false) {
+	$spacing-map: if($static, $static-spacing, $responsive-spacing);
+	padding-inline: map-get($spacing-map, $size);
+}
+
+@mixin padding-block($size: 'md', $static: false) {
+	$spacing-map: if($static, $static-spacing, $responsive-spacing);
+	padding-block: map-get($spacing-map, $size);
+}

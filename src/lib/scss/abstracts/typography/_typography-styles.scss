@@ -14,98 +14,53 @@ $responsive-font-size: (
 	'body--md': fsz.get-fsz('x3', 'x4'),
 	'label': fsz.get-fsz('x1', 'x2')
 );
-
 @mixin bebas-neue {
-	font-family: tv.$ff-display;
+	font-family: tf.get-ff('display');
 	font-weight: 400;
 	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
 @mixin roboto {
-	font-family: tv.$ff-primary;
+	font-family: tf.get-ff('body');
 	font-weight: 400;
 	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-// Base Typography Styles
-%typography-base {
-	text-wrap: balance;
+
+@mixin display-overview {
+	@include bebas-neue;
+
+	font-family: tf.get-ff('display');
+	font-weight: 400;
+	line-height: tf.get-lh('tight');
+	letter-spacing: tf.get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');
 }
 
-/*=============================================
-=            Display Typography              =
-=============================================*/
-%global__display--base {
-	@include bebas-neue;
-	line-height: tf.get-lh('tight');
-	letter-spacing: tf.get-ls('tight');
-	@extend %typography-base;
-}
-//h1
-%global__display--h1 {
-	@extend %global__display--base;
-	font-size: map-get($responsive-font-size, 'display--h1');
-	text-align: center;
-}
-%global__display--h2 {
-	@extend %global__display--base;
-	font-size: map-get($responsive-font-size, 'display--h2');
-	text-align: center;
-}
-
-/*=============================================
-=            Heading Typography              =
-=============================================*/
-%global__heading--base {
-	font-family: tf.get-ff('primary');
-	font-weight: tf.get-fw('semibold');
+@mixin heading-overview {
+	@include roboto;
+	font-family: tf.get-ff('heading');
+	font-weight: 600;
 	line-height: tf.get-lh('snug');
 	letter-spacing: tf.get-ls('snug');
-	@extend %typography-base;
+	color: cf.get-light-dark('darker', 'lighter');
 }
 
-%global__heading--h2 {
-	@extend %global__heading--base;
-	font-size: map-get($responsive-font-size, 'heading--h2');
-}
-
-%global__heading--h3 {
-	@extend %global__heading--base;
-	font-size: map-get($responsive-font-size, 'heading--h3');
-}
-
-%global__heading--h4 {
-	@extend %global__heading--base;
-	font-size: map-get($responsive-font-size, 'heading--h4');
-}
-
-/*=============================================
-=            Body Typography                 =
-=============================================*/
-%global__body--base {
+@mixin body-overview {
 	@include roboto;
+	font-family: tf.get-ff('body');
+	font-weight: 400;
 	line-height: tf.get-lh('normal');
 	letter-spacing: tf.get-ls('normal');
 	text-wrap: pretty;
 	color: cf.get-light-dark('dark', 'light');
 }
 
-%global__body--lg {
-	@extend %global__body--base;
-	font-size: map-get($responsive-font-size, 'body--lg');
-}
-%global__body--md {
-	@extend %global__body--base;
-	font-size: map-get($responsive-font-size, 'body--md');
-}
-
-/*=============================================
-=            Label Typography                =
-=============================================*/
-%global__label {
+@mixin label-overview {
+	@include roboto;
 	font-family: tf.get-ff('secondary');
 	font-weight: 300;
 	line-height: tf.get-lh('loose');
@@ -116,12 +71,73 @@ $responsive-font-size: (
 }
 
 /*=============================================
+=            Display Typography              =
+=============================================*/
+
+%global__display--h1 {
+	@include display-overview;
+	font-size: map-get($responsive-font-size, 'display--h1');
+	text-align: center;
+}
+
+%global__display--h2 {
+	@include display-overview;
+	font-size: map-get($responsive-font-size, 'display--h2');
+	text-align: center;
+}
+
+/*=============================================
+=            Heading Typography              =
+=============================================*/
+
+%global__heading--h2 {
+	@include heading-overview;
+
+	font-size: map-get($responsive-font-size, 'heading--h2');
+}
+
+%global__heading--h3 {
+	@include heading-overview;
+
+	font-size: map-get($responsive-font-size, 'heading--h3');
+}
+
+%global__heading--h4 {
+	@include heading-overview;
+	font-weight: 500 !important;
+	font-size: map-get($responsive-font-size, 'heading--h4');
+}
+
+/*=============================================
+=            Body Typography                 =
+=============================================*/
+
+%global__body--lg {
+	@include body-overview;
+
+	font-size: map-get($responsive-font-size, 'body--lg');
+}
+
+%global__body--md {
+	@include body-overview;
+
+	font-size: map-get($responsive-font-size, 'body--md');
+}
+
+/*=============================================
+=            Label Typography                =
+=============================================*/
+%global__label {
+	@include label-overview;
+}
+
+/*=============================================
 =            Logo Typography                 =
 =============================================*/
 %global__my-modern-logo {
 	@include bebas-neue;
 	@include ta.elastic-text-hover;
-	font-size: fsz.get-static-fsz('x1');
+	font-size: fsz.get-static-fsz('x4');
 	line-height: 0.8;
 	letter-spacing: tf.get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');

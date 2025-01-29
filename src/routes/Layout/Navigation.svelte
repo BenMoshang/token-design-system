@@ -103,7 +103,7 @@
 		padding-top: $page-header-height;
 		@include flex-column-center;
 		list-style: none;
-		gap: get-sp('x8');
+		gap: get-static-sp('x8');
 
 		inline-size: 100%;
 		block-size: 100%;
@@ -134,7 +134,7 @@
 =          Navigation Typography styling         =
 =============================================*/
 	.nav__link {
-		@extend %global__display--base;
+		@include display-overview;
 		position: relative;
 		font-size: get-static-fsz('x2');
 		color: get-light-dark('darker', 'lighter');

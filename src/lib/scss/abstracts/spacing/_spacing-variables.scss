@@ -29,10 +29,17 @@ $base-spacing: 0.25rem;
  *    - x4 = 16px
  *    - x5 = 20px
  *    - x6 = 24px
- *    - x7 = 28px
  *    - x8 = 32px
- *    - x9 = 36px
  *    - x10 = 40px
+ *    - x12 = 48px
+ *    - x14 = 56px
+ *    - x16 = 64px
+ *    - x18 = 72px
+ *    - x20 = 80px
+ *    - x22 = 88px
+ *    - x24 = 96px	
+ *    - x36 = 144px
+
  *
  * Adjust $base-spacing to scale the entire system up or down.
  */
@@ -43,7 +50,70 @@ $spacing: (
 	'x4': spacing-scale(4),
 	'x6': spacing-scale(6),
 	'x8': spacing-scale(8),
+	'x10': spacing-scale(10),
 	'x12': spacing-scale(12),
+	'x14': spacing-scale(14),
 	'x16': spacing-scale(16),
-	'x20': spacing-scale(20)
+	'x18': spacing-scale(18),
+	'x20': spacing-scale(20),
+	'x22': spacing-scale(22),
+	'x24': spacing-scale(24),
+	'x36': spacing-scale(36)
 );
+
+/* ---------------------------------------------------------------------------
+   Spacing Function Usage Guidelines
+   ---------------------------------------------------------------------------
+   This guide outlines when to use static vs fluid spacing functions for
+   consistent and responsive design implementation.
+--------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------
+   1. Static Spacing (get-static-sp) TLDR USE THIS FOR FIXED UI ELEMENTS
+   ---------------------------------------------------------------------------
+   Use for elements that require fixed, predictable spacing:
+
+   Fixed UI Elements:
+   - Icon sizes and spacing
+   - Navigation bar heights 
+   - Form input padding
+   - Button padding
+   - Grid gaps in card layouts
+   - Borders and outlines
+   - Small decorative elements
+
+   Consistent Components:
+   - Internal padding within components
+   - Spacing between related elements
+   - Minimum spacing for accessibility
+   - Touch target sizes
+
+   Technical Requirements:
+   - Precise pixel alignment needs
+   - Pixel-perfect designs at breakpoints
+   - Third-party component integration
+--------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------
+   2. Fluid Spacing (get-sp) TLDR USE THIS FOR COMPONENTS
+   ---------------------------------------------------------------------------
+   Use for elements that should scale with viewport:
+
+   Layout-Level Spacing:
+   - Section padding
+   - Margins between major sections
+   - Hero section spacing
+   - Content area padding
+   - Grid container gaps
+
+   Responsive Design:
+   - Viewport-adaptive spacing
+   - Margins between unrelated components
+   - Container padding
+   - Section vertical spacing
+
+   Visual Hierarchy:
+   - Proportional spacing relationships
+   - Scalable visual rhythm
+   - Balanced cross-viewport layouts
+--------------------------------------------------------------------------- */

@@ -31,7 +31,7 @@
 		grid-template-columns: 1fr;
 		grid-template-rows: auto-fit;
 		grid-template-areas: 'title' 'icon' 'subtitle';
-		padding: get-sp('x4');
+		padding: get-static-sp('x4');
 		justify-content: center;
 		align-content: center;
 		max-block-size: 15.875rem;
@@ -78,7 +78,7 @@
 		--icon-size: 1.5rem;
 		width: var(--icon-size);
 		height: var(--icon-size);
-		margin-bottom: get-sp('x2');
+		margin-bottom: get-static-sp('x2');
 
 		& path {
 			fill: get-light-dark('darkest', 'lightest');

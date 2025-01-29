@@ -36,7 +36,7 @@
 		margin: 0 auto;
 		overflow-x: clip;
 		max-inline-size: $section-max-width;
-		padding-inline: get-sp('x4');
+		padding-inline: get-static-sp('x4');
 	}
 
 	/*--------------------------------------
