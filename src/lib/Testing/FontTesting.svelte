@@ -13,7 +13,7 @@
 
 	<p class="body--lg">Large Body</p>
 	<p class="body--md">Medium Body</p>
-	
+
 	<p class="label">Label</p>
 </section>
 

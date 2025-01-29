@@ -31,12 +31,7 @@
    Returns:
      clamp($min-size, calc($intercept + $slope * 100vw), $max-size)
 --------------------------------------------------------------------------- */
-@function clamp-spacing(
-	$min-size,
-	$max-size,
-	$min-viewport: gv.$mobile-breakpoint,
-	$max-viewport: gv.$desktop-breakpoint
-) {
+@function clamp-spacing($min-size, $max-size, $min-viewport: 20rem, $max-viewport: 90rem) {
 	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
 	$intercept: $min-size - ($slope * $min-viewport);
 
@@ -51,7 +46,12 @@
    2) Use clamp-spacing() to create the fluid clamp expression.
    3) Uses default $min-viewport / $max-viewport if not overridden.
 --------------------------------------------------------------------------- */
-@function get-res-sp($min-size, $max-size, $min-vw: gv.$mobile-breakpoint, $max-vw: gv.$desktop-breakpoint) {
+@function get-res-sp(
+	$min-size,
+	$max-size,
+	$min-vw: gv.$mobile-breakpoint,
+	$max-vw: gv.$desktop-breakpoint
+) {
 	$min-value: get-sp($min-size);
 	$max-value: get-sp($max-size);
 
