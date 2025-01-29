@@ -136,7 +136,7 @@
 	.nav__link {
 		@extend %global__display--base;
 		position: relative;
-		font-size: get-static-fsz('display', 'sm');
+		font-size: get-static-fsz('x2');
 		color: get-light-dark('darker', 'lighter');
 		text-decoration: none;
 		transition: color 0.3s ease;

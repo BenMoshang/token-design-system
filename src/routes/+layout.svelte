@@ -147,7 +147,11 @@
 	:global(h6) {
 		overflow-wrap: break-word;
 	}
-
+	:global(textarea, input) {
+		font: inherit;
+		letter-spacing: inherit;
+		word-spacing: inherit;
+	}
 	/*=================================
 	Media Reset
 	=================================*/

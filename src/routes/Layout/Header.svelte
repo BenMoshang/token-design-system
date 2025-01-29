@@ -210,7 +210,7 @@ Content Nav
 		@extend %global__heading--base;
 		position: relative;
 		font-weight: 600;
-		font-size: get-static-fsz('body', 'lg');
+		font-size: get-static-fsz('x1');
 		letter-spacing: get-ls('normal');
 		line-height: 1;
 

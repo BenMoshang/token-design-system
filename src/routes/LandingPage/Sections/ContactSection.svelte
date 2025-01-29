@@ -9,7 +9,7 @@
 	.contact {
 		@include section-base;
 		&__title {
-			@extend %global__display--x4;
+			@extend %global__display--h2;
 		}
 	}
 </style>

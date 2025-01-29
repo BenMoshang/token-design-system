@@ -221,7 +221,7 @@
 		&__logo {
 			@extend %global__my-modern-logo;
 			text-decoration: none;
-			font-size: get-static-fsz('heading', 'lg');
+			font-size: get-static-fsz('x4');
 			margin-bottom: get-sp('x4');
 		}
 
@@ -235,7 +235,7 @@
 		&__nav-title {
 			font-family: get-ff('primary');
 			font-weight: 600;
-			font-size: get-static-fsz('heading', 'sm');
+			font-size: get-static-fsz('x1');
 			letter-spacing: get-ls('normal');
 			color: get-light-dark('darkest', 'lightest');
 			margin-block-end: get-sp('x4');
@@ -266,7 +266,7 @@
 			text-decoration: none;
 			transition: all 0.2s ease-in-out;
 			font-weight: 400;
-			font-size: get-static-fsz('body', 'md');
+			font-size: get-static-fsz('x3');
 			color: get-light-dark('darker', 'lighter');
 
 			&:focus-visible {
@@ -284,7 +284,7 @@
 		}
 
 		&__nav-icon {
-			font-size: get-static-fsz('body', 'lg');
+			font-size: get-static-fsz('x4');
 		}
 
 		&__nav-text {
@@ -302,7 +302,7 @@
 		&__copyright {
 			@extend %global__body--x1;
 			color: get-light-dark('dark', 'light');
-			font-size: get-static-fsz('body', 'sm');
+			font-size: get-static-fsz('x1');
 			font-weight: 300;
 		}
 	}

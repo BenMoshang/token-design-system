@@ -8,37 +8,29 @@
    remains consistent in rem.
 --------------------------------------------------------------------------- */
 $typography-base-size: 1rem; // e.g., ~18px if 1rem=16px
-$typography-scale-ratio: 1.618; // Classic typographic ratio (sqrt(2))
+
+$typography-scale-ratio: 1.414; // Classic typographic ratio (sqrt(2))
 
 /* ---------------------------------------------------------------------------
    2) Typographic Scales (REM Values)
    ---------------------------------------------------------------------------
-   We define a few categories ("body", "heading", "display"), each with size
-   keys ("sm", "md", "lg", "xl"). All values are in rem, derived from the
-   base size and ratio.
+
 --------------------------------------------------------------------------- */
 $typography-scales: (
-	'body': (
-		'x1': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.5)),
-		'x2': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.75)),
-		// @HERO-SECTION: this is used for hero section for p custom font size
-		'x3': $typography-base-size,
-		'x4': $typography-base-size * math.pow($typography-scale-ratio, 0.5)
-	),
-	'heading': (
-		'x1': $typography-base-size * math.pow($typography-scale-ratio, 1),
-		'x2': $typography-base-size * math.pow($typography-scale-ratio, 1.5),
-		'x3': $typography-base-size * math.pow($typography-scale-ratio, 2),
-		'x4': $typography-base-size * math.pow($typography-scale-ratio, 2.5)
-	),
-	'display': (
-		'x1': $typography-base-size * math.pow($typography-scale-ratio, 3),
-		'x1.25': $typography-base-size * math.pow($typography-scale-ratio, 3.25),
-		// @HERO-SECTION: this is used for hero section for h1 custom font size
-		'x2': $typography-base-size * math.pow($typography-scale-ratio, 4),
-		'x3': $typography-base-size * math.pow($typography-scale-ratio, 5),
-		'x4': $typography-base-size * math.pow($typography-scale-ratio, 5.5)
-	)
+	'x1': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.5)),
+	'x2': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.75)),
+	'x3': $typography-base-size,
+	'x4': $typography-base-size * math.pow($typography-scale-ratio, 0.5),
+	'x5': $typography-base-size * math.pow($typography-scale-ratio, 1),
+	'x6': $typography-base-size * math.pow($typography-scale-ratio, 1.5),
+	'x7': $typography-base-size * math.pow($typography-scale-ratio, 2),
+	'x8': $typography-base-size * math.pow($typography-scale-ratio, 2.5),
+	//min for display
+	'x9': $typography-base-size * math.pow($typography-scale-ratio, 3),
+	'x10': $typography-base-size * math.pow($typography-scale-ratio, 3.5),
+	'x11': $typography-base-size * math.pow($typography-scale-ratio, 4.25),
+	'x12': $typography-base-size * math.pow($typography-scale-ratio, 8),
+	'x13': $typography-base-size * math.pow($typography-scale-ratio, 8.75)
 );
 
 /* ---------------------------------------------------------------------------
@@ -46,15 +38,8 @@ $typography-scales: (
    ---------------------------------------------------------------------------
    Retrieves a static size from $typography-scales, returning a REM value.
 --------------------------------------------------------------------------- */
-@function get-static-fsz($font-category, $size) {
-	$category-map: map-get($typography-scales, $font-category);
-
-	@if not $category-map {
-		@error "Invalid category '#{$font-category}'. " +
-           "Valid categories are: body, heading, display.";
-	}
-
-	$font-size: map-get($category-map, $size);
+@function get-static-fsz($size) {
+	$font-size: map-get($typography-scales, $size);
 
 	@return $font-size;
 }
@@ -79,8 +64,8 @@ $typography-scales: (
 /*=============================================
 =            for clamp             =
 =============================================*/
-$min-viewport: gv.$mobile-breakpoint; // 320px 20rem
-$max-viewport: gv.$desktop-breakpoint; // 1440px
+$min-viewport: 20rem;
+$max-viewport: 90rem;
 @function clamp-size(
 	$min-size,
 	$max-size,
@@ -101,41 +86,9 @@ $max-viewport: gv.$desktop-breakpoint; // 1440px
    2) Use clamp-size() to create the fluid clamp expression.
    3) Uses default $min-viewport / $max-viewport if not overridden.
 --------------------------------------------------------------------------- */
-@function get-res-fsz(
-	$font-category,
-	$min-key,
-	$max-key,
-	$min-vw: $min-viewport,
-	$max-vw: $max-viewport
-) {
-	$min-size: get-static-fsz($font-category, $min-key);
-	$max-size: get-static-fsz($font-category, $max-key);
+@function get-fsz($min-key, $max-key, $min-vw: $min-viewport, $max-vw: $max-viewport) {
+	$min-size: get-static-fsz($min-key);
+	$max-size: get-static-fsz($max-key);
 
 	@return clamp-size($min-size, $max-size, $min-vw, $max-vw);
 }
-
-/* ---------------------------------------------------------------------------
-   6) Example Usage
-   ---------------------------------------------------------------------------
-   - h1: fluidly scales between 'heading' 'x1' and 'heading' 'x4'
-         across 20rem to 75rem viewport range.
-   - p : fluidly scales between 'body' 'x1' and 'body' 'x3' with the same range.
---------------------------------------------------------------------------- */
-
-// Example 1: Heading that scales between 'x1' (small) and 'x4' (extra-large)
-// h1 {
-//   font-size: get-res-fsz('heading', 'x1', 'x4');
-//   // => clamp(1.59rem, calc(...), 3.18rem)  // Example numbers
-// }
-
-// // Example 2: Paragraph that scales between 'x1' and 'x3' for "body"
-// p {
-//   font-size: get-res-fsz('body', 'x1', 'x3');
-//   // => clamp(0.94rem, calc(...), 1.13rem)  // Example numbers
-// }
-
-// Example 3: Using clamp-size() directly (no scale map), e.g., from 1rem to 2rem
-// across a 30rem to 70rem viewport range:
-// .my-class {
-//   font-size: clamp-size(1rem, 2rem, 30rem, 70rem);
-// }

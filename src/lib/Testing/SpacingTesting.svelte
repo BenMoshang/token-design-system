@@ -17,7 +17,7 @@
 		<div class="box"></div>
 		<div class="box"></div>
 	</section>
-	<section class="spacing--x4">
+	<section class="spacing--h1">
 		<div class="box"></div>
 		<div class="box"></div>
 	</section>
@@ -46,7 +46,7 @@
 		&--x3 {
 			gap: get-spacing('x3');
 		}
-		&--x4 {
+		&--h1 {
 			gap: get-spacing('x4');
 		}
 		&--x5 {

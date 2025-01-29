@@ -95,6 +95,6 @@
 		line-height: 1;
 		@include roboto;
 		font-weight: 700;
-		font-size: get-static-fsz('body', 'x3');
+		font-size: get-static-fsz('x3');
 	}
 </style>

@@ -32,33 +32,20 @@
 =============================================*/
 %global__display--base {
 	@include bebas-neue;
-	font-family: tf.get-ff('display');
 	line-height: tf.get-lh('tight');
 	letter-spacing: tf.get-ls('tight');
 	@extend %typography-base;
 }
-
-%global__display--x4 {
+//h1
+%global__display--h1 {
 	@extend %global__display--base;
-	font-size: fsz.get-res-fsz('display', 'x1.25', 'x4');
+	font-size: fsz.get-fsz('x11', 'x13');
 	text-align: center;
-	line-height: 0.85;
 }
-
-%global__display--x3 {
+%global__display--h2 {
 	@extend %global__display--base;
-	font-size: fsz.get-static-fsz('display', 'x3');
-	line-height: tf.get-lh('tight');
-}
-
-%global__display--x2 {
-	@extend %global__display--base;
-	font-size: fsz.get-res-fsz('display', 'x1', 'x2');
-}
-
-%global__display--x1 {
-	@extend %global__display--base;
-	font-size: fsz.get-static-fsz('display', 'x1');
+	font-size: fsz.get-fsz('x10', 'x12');
+	text-align: center;
 }
 
 /*=============================================
@@ -72,47 +59,50 @@
 	@extend %typography-base;
 }
 
-%global__heading--x3 {
+%global__heading--h2 {
 	@extend %global__heading--base;
-	font-size: fsz.get-res-fsz('heading', 'x2', 'x3');
-	color: cv.$ld-darkest;
+	font-size: fsz.get-fsz('x1', 'x2');
 }
 
-%global__heading--x2 {
+%global__heading--h3 {
 	@extend %global__heading--base;
-	font-size: fsz.get-res-fsz('heading', 'x1', 'x2');
+	font-size: fsz.get-fsz('x2', 'x3');
 }
 
-%global__heading--x1 {
+%global__heading--h4 {
 	@extend %global__heading--base;
-	font-size: fsz.get-static-fsz('heading', 'x1');
+	font-size: fsz.get-fsz('x3', 'x4');
 }
 
 /*=============================================
 =            Body Typography                 =
 =============================================*/
 %global__body--base {
-	font-family: tf.get-ff('secondary');
-	font-weight: tf.get-fw('regular');
+	@include roboto;
 	line-height: tf.get-lh('normal');
 	letter-spacing: tf.get-ls('normal');
 	text-wrap: pretty;
 	color: cf.get-light-dark('dark', 'light');
 }
 
+%global__body--h1 {
+	@extend %global__body--base;
+	font-size: fsz.get-fsz('x3', 'x4');
+}
+/*----default----*/
 %global__body--x3 {
 	@extend %global__body--base;
-	font-size: fsz.get-res-fsz('body', 'x2', 'x3');
+	font-size: fsz.get-fsz('x2', 'x3');
 }
-
+/*----small----*/
 %global__body--x2 {
 	@extend %global__body--base;
-	font-size: fsz.get-res-fsz('body', 'x1', 'x2');
+	font-size: fsz.get-fsz('x1', 'x2');
 }
 
 %global__body--x1 {
 	@extend %global__body--base;
-	font-size: fsz.get-static-fsz('body', 'x1');
+	font-size: fsz.get-static-fsz('x1');
 }
 
 /*=============================================
@@ -120,12 +110,12 @@
 =============================================*/
 %global__label {
 	font-family: tf.get-ff('secondary');
-	font-weight: tf.get-fw('light');
+	font-weight: 300;
 	line-height: tf.get-lh('loose');
 	letter-spacing: tf.get-ls('loose');
 	text-transform: uppercase;
 	color: hsl(206, 18%, 60%);
-	font-size: fsz.get-res-fsz('body', 'x2', 'x3');
+	font-size: fsz.get-fsz('x2', 'x3');
 }
 
 /*=============================================
@@ -134,10 +124,9 @@
 %global__my-modern-logo {
 	@include bebas-neue;
 	@include ta.elastic-text-hover;
-	font-size: fsz.get-static-fsz('heading', 'x1');
+	font-size: fsz.get-static-fsz('x1');
 	line-height: 0.8;
 	letter-spacing: tf.get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');
-	inline-size: -webkit-fill-available;
 	inline-size: fit-content;
 }
