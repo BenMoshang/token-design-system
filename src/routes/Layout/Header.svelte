@@ -210,7 +210,6 @@ Content Nav
 	.nav__link {
 		@include heading-overview;
 		position: relative;
-		font-weight: 700;
 		font-size: get-static-fsz('x1');
 		letter-spacing: get-ls('normal');
 		line-height: 1;

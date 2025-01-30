@@ -30,11 +30,6 @@
 	@use '$lib/scss/main.scss' as *;
 
 	.page-container {
-		@include flex-column-center;
-		width: 100%;
-		min-block-size: 100vh;
-		padding-block: $page-header-height;
-		padding-inline: get-static-sp('s16');
-		margin: 0 auto;
+		@include page-grid-container;
 	}
 </style>

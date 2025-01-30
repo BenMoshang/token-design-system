@@ -31,20 +31,19 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
 <!-- <div class="hero-wrapper"><HeroSection /></div> -->
-<div class="container">
-	<!-- <FontTesting /> -->
-	<ul id="cards">
-		{#each cards as card, index}
-			<li
-				class="card"
-				id={card.id}
-				transition:fly={{ y: 50, duration: 500, delay: index * 150, easing: quintOut }}
-			>
-				<svelte:component this={card.component} />
-			</li>
-		{/each}
-	</ul>
-</div>
+<FontTesting />
+
+<!-- <ul id="cards">
+	{#each cards as card, index}
+		<li
+			class="card"
+			id={card.id}
+			transition:fly={{ y: 50, duration: 500, delay: index * 150, easing: quintOut }}
+		>
+			<svelte:component this={card.component} />
+		</li>
+	{/each}
+</ul> -->
 
 <style lang="scss">
 	:root {
@@ -59,14 +58,6 @@
 		inset: 0;
 		margin: auto;
 		z-index: 100;
-	}
-	.container {
-		@include flex-column-center;
-		@include section-gap();
-		position: relative;
-		inline-size: 100%;
-		height: 100%;
-		outline: 1px solid blue;
 	}
 
 	#cards {

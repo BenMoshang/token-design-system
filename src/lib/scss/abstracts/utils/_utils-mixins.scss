@@ -1,6 +1,6 @@
 @use '../../base/global-variables' as gv;
 @use '../colors/colors-functions' as cf;
-
+@use '../spacing/page/page-grid' as pg;
 // Centered Flexbox
 @mixin flex-center {
 	display: flex;
@@ -30,10 +30,9 @@
 }
 
 @mixin section-base($theme: 'dark') {
-	max-inline-size: gv.$section-max-width;
+	@include pg.page-grid-item;
 	padding-inline: get-static-sp('s16');
-	@include flex-center;
-	block-size: 100vh;
+	block-size: 100%;
 	inline-size: 100%;
 	border-radius: gv.$br-default;
 	background: if(

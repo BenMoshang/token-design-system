@@ -4,6 +4,7 @@
 @use '../colors/colors-variables' as cv;
 @use '../../base/animations/text/typography-animations' as ta;
 @use 'typography-variables' as tv;
+
 $responsive-font-size: (
 	'display--h1': fsz.get-fsz('x11', 'x13'),
 	'display--h2': fsz.get-fsz('x10', 'x12'),
@@ -32,7 +33,7 @@ $responsive-font-size: (
 	@include bebas-neue;
 
 	font-family: tf.get-ff('display');
-	font-weight: 400;
+	font-weight: tf.get-fw('display');
 	line-height: tf.get-lh('tight');
 	letter-spacing: tf.get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');
@@ -41,7 +42,7 @@ $responsive-font-size: (
 @mixin heading-overview {
 	@include roboto;
 	font-family: tf.get-ff('heading');
-	font-weight: 600;
+	font-weight: tf.get-fw('heading');
 	line-height: tf.get-lh('snug');
 	letter-spacing: tf.get-ls('snug');
 	color: cf.get-light-dark('darker', 'lighter');
@@ -50,7 +51,7 @@ $responsive-font-size: (
 @mixin body-overview {
 	@include roboto;
 	font-family: tf.get-ff('body');
-	font-weight: 400;
+	font-weight: tf.get-fw('body');
 	line-height: tf.get-lh('normal');
 	letter-spacing: tf.get-ls('normal');
 	text-wrap: pretty;
@@ -60,7 +61,7 @@ $responsive-font-size: (
 @mixin label-overview {
 	@include roboto;
 	font-family: tf.get-ff('secondary');
-	font-weight: 300;
+	font-weight: tf.get-fw('label');
 	line-height: tf.get-lh('loose');
 	letter-spacing: tf.get-ls('loose');
 	text-transform: uppercase;
@@ -102,7 +103,7 @@ $responsive-font-size: (
 
 %global__heading--h4 {
 	@include heading-overview;
-	font-weight: 500 !important;
+	font-weight: tf.get-fw('heading');
 	font-size: map-get($responsive-font-size, 'heading--h4');
 }
 
@@ -135,7 +136,7 @@ $responsive-font-size: (
 %global__my-modern-logo {
 	@include bebas-neue;
 	@include ta.elastic-text-hover;
-	font-weight: 400;
+	font-weight: tf.get-fw('display');
 	font-size: fsz.get-static-fsz('x4');
 	line-height: 0.8;
 	letter-spacing: tf.get-ls('tight');

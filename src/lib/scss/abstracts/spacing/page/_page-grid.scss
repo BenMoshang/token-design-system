@@ -1,0 +1,84 @@
+@use '../../spacing/spacing-functions' as sf;
+@use '../../../base/global-variables' as gv;
+//-------------------------------------
+// 2. Breakpoints Map & Mixin
+//-------------------------------------
+// Define common breakpoints for mobile, tablet, and desktop.
+$breakpoints: (
+	'mobile': 30rem,
+	// Example mobile breakpoint
+	'tablet': 48rem,
+	// Example tablet breakpoint
+	'desktop': 64rem // Example desktop breakpoint
+);
+
+// A helper mixin for quickly targeting breakpoints.
+// Usage: @include respond-to('tablet') { ... }
+@mixin respond-to($breakpoint) {
+	@media (min-width: map-get($breakpoints, $breakpoint)) {
+		@content;
+	}
+}
+
+//-------------------------------------
+// 3. Grid Container Mixin
+//-------------------------------------
+// Creates a flexible grid container with a specified number of columns
+// and gutter spacing (referenced from the spacing scale).
+@mixin grid-container($columns: 12, $gutter-key: 's16') {
+	// Retrieve gutter spacing from the spacing map
+	$gutter: sf.get-static-sp($gutter-key);
+	display: grid;
+	grid-template-columns: repeat($columns, minmax(0, 1fr));
+	column-gap: $gutter; // Horizontal spacing between columns
+	row-gap: $gutter; // Vertical spacing between rows
+	place-content: center;
+	margin: 0 auto;
+	block-size: 100%;
+	inline-size: 100%;
+	// max-inline-size: 1440px;	// Optionally limit overall width and center it was 1200px
+	padding-block: gv.$page-header-height;
+	padding-inline: get-static-sp('s16');
+}
+
+//-------------------------------------
+// 4. HELPER Grid Item Mixin
+//-------------------------------------
+// Allows a grid item to span a specific number of columns.
+// Defaults to 12, meaning it occupies a full row.
+@mixin grid-item($span: 12) {
+	grid-column: span $span;
+}
+
+//-------------------------------------
+// 5. Example Usage
+//-------------------------------------
+@mixin page-grid-container {
+	// Base layout for mobile (using the full 12 columns and default gutter 's16')
+	@include grid-container(12, 's16');
+
+	// Increase gutter on tablet and keep 12 columns
+	@include respond-to('tablet') {
+		@include grid-container(12, 's24');
+	}
+
+	// Further spacing adjustments on desktop
+	@include respond-to('desktop') {
+		@include grid-container(12, 's32');
+	}
+}
+
+@mixin page-grid-item($span: 12) {
+	// By default, each item spans all 12 columns (full width)
+	@include grid-item($span);
+
+	// On tablet, let each item span 6 columns (two items per row)
+	@include respond-to('tablet') {
+		@include grid-item(6);
+	}
+
+	// On desktop, let each item span 4 columns (three items per row)
+	@include respond-to('desktop') {
+		@include grid-item(4);
+	}
+}

@@ -190,6 +190,8 @@
 		}
 	}
 	.hero {
+		@include page-grid-item;
+
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -224,7 +226,6 @@
 		&__subtitle {
 			@extend %global__heading--h2;
 			@include shimmer;
-			font-weight: 300;
 			text-transform: uppercase;
 			word-spacing: 1rem;
 			letter-spacing: 0.1em;
@@ -262,7 +263,7 @@
 		&__text--top {
 			@extend %global__body--lg;
 			color: get-light-dark('darker', 'lighter');
-			font-weight: 600;
+			font-weight: get-fw('heading');
 			text-wrap: nowrap;
 		}
 

@@ -17,9 +17,16 @@ $font-family: (
  *    Keys: 'light', 'regular', 'medium', 'semibold', 'bold'
  *    Values: Common font-weight values (300,400,500,600,700)
  */
+$font-weights: (
+	'label': 300,
+	'body': 400,
+	'emphasis': 550,
+	'heading': 700,
+	'display': 400
+);
 
 $line-heights: (
-	'tight': 0.8em,
+	'tight': 0.8,
 	'snug': 1.25em,
 	'normal': 1.6em,
 	'loose': 1.75em

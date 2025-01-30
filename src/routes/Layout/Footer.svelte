@@ -233,7 +233,6 @@
 
 		&__nav-title {
 			font-family: get-ff('primary');
-			font-weight: 600;
 			font-size: get-static-fsz('x1');
 			letter-spacing: get-ls('normal');
 			color: get-light-dark('darkest', 'lightest');
@@ -264,7 +263,6 @@
 			@extend %global__body--md;
 			text-decoration: none;
 			transition: all 0.2s ease-in-out;
-			font-weight: 400;
 			font-size: get-static-fsz('x3');
 			color: get-light-dark('darker', 'lighter');
 
@@ -302,7 +300,6 @@
 			@extend %global__body--md;
 			color: get-light-dark('dark', 'light');
 			font-size: get-static-fsz('x1');
-			font-weight: 300;
 		}
 	}
 

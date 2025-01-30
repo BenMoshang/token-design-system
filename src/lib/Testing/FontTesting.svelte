@@ -21,7 +21,9 @@
 	* {
 		outline: 1px solid red;
 	}
+
 	.logo-testing {
+		@include page-grid-item;
 		padding: 1rem;
 		margin: 1rem;
 

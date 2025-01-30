@@ -186,7 +186,7 @@
 		&__text--top {
 			@extend %global__body--lg;
 			color: get-light-dark('darker', 'lighter');
-			font-weight: 600;
+			font-weight: get-fw('body');
 			text-wrap: nowrap;
 		}
 
