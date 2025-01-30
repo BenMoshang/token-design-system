@@ -30,9 +30,9 @@
 	<!-- Options: default, black, black-translucent -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
-<div class="hero-wrapper"><HeroSection /></div>
+<!-- <div class="hero-wrapper"><HeroSection /></div> -->
 <div class="container">
-	<!-- <FontTesting /> -->
+	<FontTesting />
 	<ul id="cards">
 		{#each cards as card, index}
 			<li
@@ -53,6 +53,8 @@
 		--cardMargin: 4vw;
 	}
 	.hero-wrapper {
+		width: 100%;
+		height: 100%;
 		position: absolute;
 		inset: 0;
 		margin: auto;

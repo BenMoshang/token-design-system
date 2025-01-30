@@ -11,41 +11,41 @@
 	/* Refs to the top & bottom door panels */
 	let topPanel: HTMLElement;
 	let bottomPanel: HTMLElement;
+	let heroSection: HTMLElement;
 
 	/* We'll store the timeline so we can kill it onDestroy. */
 	let doorTimeline: gsap.core.Timeline;
 
 	onMount(() => {
-		// Create a pinned scroll effect on the hero container (parent).
+		// Create a pinned scroll effect on the hero container
 		doorTimeline = gsap.timeline({
 			scrollTrigger: {
-				trigger: topPanel.parentElement, // The <section> container
-				start: 'top top',
-				end: '+=500vh', // Doubled the pin duration to 2 viewport heights
-				pin: true, // keep the hero pinned
-				scrub: 2, // Increased scrub value for smoother/slower animation
+				trigger: heroSection, // Use the hero section directly
+				start: 'top top', // Start when top of hero hits top of viewport
+				end: '+=100%', // End after scrolling 100% of viewport height
+				pin: true,
+				pinSpacing: true, // Ensures proper spacing
+				scrub: 2, // Smoother scrubbing
+				markers: true, // Helpful for debugging - remove in production
 				anticipatePin: 1
 			}
 		});
 
-		// Animate top door sliding up, bottom door sliding down
-		// Added slower easing and longer duration
+		// Animate panels with percentage-based transforms
 		doorTimeline
-			.to(
-				topPanel,
-				{
-					y: '-120%',
-					ease: 'power1.inOut' // Smoother easing
-				},
-				0
-			)
+			.to(topPanel, {
+				yPercent: -120, // Move up by 100% of its height
+				ease: 'power2.inOut',
+				duration: 6
+			})
 			.to(
 				bottomPanel,
 				{
-					y: '120%',
-					ease: 'power1.inOut' // Smoother easing
+					yPercent: 120, // Move down by 100% of its height
+					ease: 'power2.inOut',
+					duration: 6
 				},
-				0
+				'<' // Start at same time as previous animation
 			);
 	});
 
@@ -64,7 +64,7 @@
 	} as const;
 </script>
 
-<section class="hero">
+<section class="hero" bind:this={heroSection}>
 	<!-- Top panel (door) -->
 	<div class="panel" bind:this={topPanel}>
 		<h1 class="hero__title hero__title--top-position">Modern Web</h1>
@@ -81,8 +81,13 @@
 		<ul class="hero__benefits">
 			<!-- Office Location -->
 			<li class="util__stack hero__office-location-wrapper">
-				<svg xmlns="http://www.w3.org/2000/svg" height="10" width="7.5" viewBox="0 0 384 512"
-					><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
+				<svg
+					class="hero__benefits-icon"
+					xmlns="http://www.w3.org/2000/svg"
+					height="10"
+					width="7.5"
+					viewBox="0 0 384 512"
+					><path
 						fill="currentColor"
 						d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
 					/></svg
@@ -94,6 +99,7 @@
 			<!-- Availability -->
 			<li class="util__stack">
 				<svg
+					class="hero__benefits-icon"
 					xmlns="http://www.w3.org/2000/svg"
 					height="10"
 					width="10"
@@ -112,6 +118,7 @@
 			<!-- Remote / Work -->
 			<li class="util__stack">
 				<svg
+					class="hero__benefits-icon"
 					fill="currentColor"
 					height="200px"
 					width="200px"
@@ -187,10 +194,11 @@
 		flex-direction: column;
 		justify-content: center;
 		align-content: center;
-		position: relative;
 		width: 100%;
 		height: 100vh; /* One full viewport height */
 		overflow: hidden; /* No scroll bars inside hero itself */
+		overscroll-behavior: contain;
+
 		&__title {
 			@extend %global__display--h1;
 
@@ -216,17 +224,23 @@
 		&__subtitle {
 			@extend %global__heading--h2;
 			@include shimmer;
-			font-weight: 100;
+			font-weight: 300;
 			text-transform: uppercase;
 			word-spacing: 1rem;
 			letter-spacing: 0.1em;
 		}
 
 		&__benefits {
-			display: none;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+			display: flex;
 			justify-content: space-around;
+			--icon-size: 1.5rem;
 
-			& svg {
+			&-icon {
 				width: var(--icon-size);
 				height: var(--icon-size);
 				margin-bottom: var(--icon-margin-bottom);
@@ -267,6 +281,7 @@
 		height: 50%;
 		color: #fff;
 		transform: translateY(0%); /* default position */
+		position: relative;
 		background: get-light-dark('lighter', 'darker');
 	}
 </style>
