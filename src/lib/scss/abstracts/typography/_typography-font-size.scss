@@ -7,7 +7,7 @@
    typically corresponds to 16px, but we're NOT using px at all, so everything
    remains consistent in rem.
 --------------------------------------------------------------------------- */
-$typography-base-size: 1.125rem; // e.g., ~18px if 1rem=16px
+$typography-base-size: 1.25rem; // e.g., ~20px
 
 $typography-scale-ratio: 1.414; // Classic typographic ratio (sqrt(2))
 

@@ -21,23 +21,27 @@
 	* {
 		outline: 1px solid red;
 	}
-
+	section {
+		padding-inline: 1rem;
+		@include flex-column-center;
+		@extend %page-grid-item;
+		& > * {
+			text-align: left !important;
+		}
+	}
 	.logo-testing {
-		@include page-grid-item;
 		padding: 1rem;
 		margin: 1rem;
 
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		& > * {
-			text-align: center;
-		}
 	}
 
 	.display {
 		&--h1 {
 			@extend %global__display--h1;
+			text-align: left !important;
 		}
 		&--h2 {
 			@extend %global__display--h2;

@@ -9,7 +9,7 @@ export default defineConfig({
 			allow: ['..']
 		},
 		//ben desktop
-		host: '192.168.0.167',
+		// host: '192.168.0.167',
 		//ben laptop
 		// host: '192.168.0.85',
 		port: 3000

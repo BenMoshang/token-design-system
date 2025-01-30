@@ -30,7 +30,7 @@
 }
 
 @mixin section-base($theme: 'dark') {
-	@include pg.page-grid-item;
+	@extend %page-grid-item;
 	padding-inline: get-static-sp('s16');
 	block-size: 100%;
 	inline-size: 100%;

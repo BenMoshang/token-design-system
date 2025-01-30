@@ -190,7 +190,7 @@
 		}
 	}
 	.hero {
-		@include page-grid-item;
+		@extend %page-grid-item;
 
 		display: flex;
 		flex-direction: column;

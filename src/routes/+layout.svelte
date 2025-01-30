@@ -30,6 +30,6 @@
 	@use '$lib/scss/main.scss' as *;
 
 	.page-container {
-		@include page-grid-container;
+		@extend %page-grid-container;
 	}
 </style>

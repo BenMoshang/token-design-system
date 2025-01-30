@@ -53,32 +53,32 @@ $breakpoints: (
 //-------------------------------------
 // 5. Example Usage
 //-------------------------------------
-@mixin page-grid-container {
+%page-grid-container {
 	// Base layout for mobile (using the full 12 columns and default gutter 's16')
-	@include grid-container(12, 's16');
+	@include grid-container(4, 's16');
 
 	// Increase gutter on tablet and keep 12 columns
 	@include respond-to('tablet') {
-		@include grid-container(12, 's24');
+		@include grid-container(8, 's20');
 	}
 
 	// Further spacing adjustments on desktop
 	@include respond-to('desktop') {
-		@include grid-container(12, 's32');
+		@include grid-container(12, 's24');
 	}
 }
 
-@mixin page-grid-item($span: 12) {
+%page-grid-item {
 	// By default, each item spans all 12 columns (full width)
-	@include grid-item($span);
+	@include grid-item(4);
 
 	// On tablet, let each item span 6 columns (two items per row)
 	@include respond-to('tablet') {
-		@include grid-item(6);
+		@include grid-item(8);
 	}
 
 	// On desktop, let each item span 4 columns (three items per row)
 	@include respond-to('desktop') {
-		@include grid-item(4);
+		@include grid-item(12);
 	}
 }

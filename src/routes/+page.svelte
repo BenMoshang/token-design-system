@@ -30,20 +30,21 @@
 	<!-- Options: default, black, black-translucent -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
-<!-- <div class="hero-wrapper"><HeroSection /></div> -->
-<FontTesting />
 
-<!-- <ul id="cards">
-	{#each cards as card, index}
-		<li
-			class="card"
-			id={card.id}
-			transition:fly={{ y: 50, duration: 500, delay: index * 150, easing: quintOut }}
-		>
-			<svelte:component this={card.component} />
-		</li>
-	{/each}
-</ul> -->
+<HeroSection />
+
+<!-- <ul id="cards"> -->
+{#each cards as card, index}
+	<section
+		class="card"
+		id={card.id}
+		transition:fly={{ y: 50, duration: 500, delay: index * 150, easing: quintOut }}
+	>
+		<svelte:component this={card.component} />
+	</section>
+{/each}
+
+<!-- </ul> -->
 
 <style lang="scss">
 	:root {
@@ -51,22 +52,22 @@
 		--cardHeight: 90vh;
 		--cardMargin: 4vw;
 	}
-	.hero-wrapper {
-		width: 100%;
-		height: 100%;
-		position: absolute;
-		inset: 0;
-		margin: auto;
-		z-index: 100;
-	}
+	// .hero-wrapper {
+	// 	width: 100%;
+	// 	height: 100%;
+	// 	position: absolute;
+	// 	inset: 0;
+	// 	margin: auto;
+	// 	z-index: 100;
+	// }
 
-	#cards {
-		list-style: none;
-		display: grid;
-		grid-template-columns: 1fr;
-		grid-template-rows: repeat(var(--cards), var(--cardHeight));
-		gap: var(--cardMargin);
-	}
+	// #cards {
+	// 	list-style: none;
+	// 	display: grid;
+	// 	grid-template-columns: 1fr;
+	// 	grid-template-rows: repeat(var(--cards), var(--cardHeight));
+	// 	gap: var(--cardMargin);
+	// }
 
 	@for $i from 1 through 5 {
 		#card#{$i} {
@@ -75,6 +76,7 @@
 	}
 
 	.card {
+		@extend %page-grid-item;
 		position: sticky;
 		top: 0;
 	}

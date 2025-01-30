@@ -24,11 +24,13 @@
 	// line-height: 1.5em;
 
 	text-rendering: geometricPrecision;
-	-webkit-font-x1oothing: antialiased;
-	-moz-osx-font-x1oothing: grayscale;
+	font-smooth: always;
+	-webkit-font-smoothing: subpixel-antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	-webkit-hyphens: auto;
 	hyphens: auto;
 	-webkit-text-size-adjust: 100% !important; /* Prevents iOS from auto-resizing text */
+
 	@media (min-width: gv.$mobile-breakpoint) {
 		cursor: auto;
 	}
