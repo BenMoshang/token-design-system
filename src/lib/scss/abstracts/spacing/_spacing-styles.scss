@@ -2,45 +2,45 @@
 @use 'spacing-variables' as sv;
 @use '../../base/global-variables' as gv;
 $static-spacing: (
-	'xs': sf.get-static-sp('x1'),
+	'xs': sf.get-static-sp('s4'),
 	// 4px
-	'sm': sf.get-static-sp('x2'),
+	'sm': sf.get-static-sp('s8'),
 	// 8px
-	'md': sf.get-static-sp('x4'),
+	'md': sf.get-static-sp('s16'),
 	// 16px
-	'lg': sf.get-static-sp('x6'),
+	'lg': sf.get-static-sp('s24'),
 	// 24px
-	'xl': sf.get-static-sp('x8'),
+	'xl': sf.get-static-sp('s32'),
 	// 32px
-	'2xl': sf.get-static-sp('x12'),
+	'2xl': sf.get-static-sp('s48'),
 	// 48px
-	'3xl': sf.get-static-sp('x16'),
+	'3xl': sf.get-static-sp('s64'),
 	// 64px
-	'4xl': sf.get-static-sp('x20') // 80px
+	'4xl': sf.get-static-sp('s80') // 80px
 );
 $responsive-spacing: (
-	'xs': sf.get-sp('x1', 'x2'),
+	'xs': sf.get-sp('s4', 's8'),
 	// 4px to 8px
-	'sm': sf.get-sp('x2', 'x4'),
+	'sm': sf.get-sp('s8', 's16'),
 	// 8px to 16px
-	'md': sf.get-sp('x4', 'x6'),
+	'md': sf.get-sp('s16', 's24'),
 	// 16px to 24px
-	'lg': sf.get-sp('x4', 'x8'),
+	'lg': sf.get-sp('s24', 's32'),
 	// 16px to 32px
-	'xl': sf.get-sp('x6', 'x12'),
+	'xl': sf.get-sp('s32', 's48'),
 	// 24px to 48px
-	'2xl': sf.get-sp('x8', 'x16'),
+	'2xl': sf.get-sp('s48', 's64'),
 	// 32px to 64px
-	'3xl': sf.get-sp('x10', 'x20'),
+	'3xl': sf.get-sp('s64', 's80'),
 	// 40px to 80px
-	'4xl': sf.get-sp('x12', 'x24') // 48px to 96px
+	'4xl': sf.get-sp('s80', 's144') // 48px to 96px
 );
 
 //i use these for (static) margin spacing
-$most-related: sf.get-static-sp('x1'); //4px *eg. icons next to text
-$closely-related: sf.get-static-sp('x2'); //8px *eg. space between nav links
-$semi-related: sf.get-static-sp('x4'); //12px *eg. heading to subheading
-$less-related: sf.get-static-sp('x6'); //24px *eg. subheading to paragraph
+$most-related: sf.get-static-sp('s4'); //4px *eg. icons next to text
+$closely-related: sf.get-static-sp('s8'); //8px *eg. space between nav links
+$semi-related: sf.get-static-sp('s16'); //12px *eg. heading to subheading
+$less-related: sf.get-static-sp('s24'); //24px *eg. subheading to paragraph
 
 // Directional padding mixins for more granular control
 @mixin padding-inline($size: 'md', $static: false) {

@@ -1,5 +1,6 @@
-@forward 'abstracts/colors';
-@forward 'abstracts/spacing';
+@forward 'base';
 @forward 'abstracts/typography';
 @forward 'abstracts/utils';
-@forward 'base';
+
+@forward 'abstracts/spacing';
+@forward 'abstracts/colors';

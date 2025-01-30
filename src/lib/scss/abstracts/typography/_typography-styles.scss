@@ -16,7 +16,6 @@ $responsive-font-size: (
 );
 @mixin bebas-neue {
 	font-family: tf.get-ff('display');
-	font-weight: 400;
 	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -24,7 +23,6 @@ $responsive-font-size: (
 
 @mixin roboto {
 	font-family: tf.get-ff('body');
-	font-weight: 400;
 	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -137,6 +135,7 @@ $responsive-font-size: (
 %global__my-modern-logo {
 	@include bebas-neue;
 	@include ta.elastic-text-hover;
+	font-weight: 400;
 	font-size: fsz.get-static-fsz('x4');
 	line-height: 0.8;
 	letter-spacing: tf.get-ls('tight');

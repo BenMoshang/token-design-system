@@ -44,21 +44,21 @@ $base-spacing: 0.25rem;
  * Adjust $base-spacing to scale the entire system up or down.
  */
 $spacing: (
-	'x1': spacing-scale(1),
-	'x2': spacing-scale(2),
-	'x3': spacing-scale(3),
-	'x4': spacing-scale(4),
-	'x6': spacing-scale(6),
-	'x8': spacing-scale(8),
-	'x10': spacing-scale(10),
-	'x12': spacing-scale(12),
-	'x14': spacing-scale(14),
-	'x16': spacing-scale(16),
-	'x18': spacing-scale(18),
-	'x20': spacing-scale(20),
-	'x22': spacing-scale(22),
-	'x24': spacing-scale(24),
-	'x36': spacing-scale(36)
+	's4': spacing-scale(1),
+	's8': spacing-scale(2),
+	's12': spacing-scale(3),
+	's16': spacing-scale(4),
+	's24': spacing-scale(6),
+	's32': spacing-scale(8),
+	's40': spacing-scale(10),
+	's48': spacing-scale(12),
+	's56': spacing-scale(14),
+	's64': spacing-scale(16),
+	's72': spacing-scale(18),
+	's80': spacing-scale(20),
+	's88': spacing-scale(22),
+	's96': spacing-scale(24),
+	's144': spacing-scale(36)
 );
 
 /* ---------------------------------------------------------------------------

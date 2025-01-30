@@ -107,12 +107,13 @@
 		-webkit-backdrop-filter: blur(1rem) saturate(200%);
 		inline-size: 100%;
 		block-size: var(--header-height);
-		padding-inline: get-static-sp('x4');
-		padding-block: get-static-sp('x2');
-		background: light-dark(hsla(191, 15%, 85%, 0.2), hsla(200, 64%, 6%, 0.2));
+		padding-inline: get-static-sp('s16');
+		padding-block: get-static-sp('s8');
+		// background: light-dark(hsla(191, 15%, 85%, 0.2), hsla(200, 64%, 6%, 0.2));
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
 		animation: slide-down $hero-initial-entrance-delay ease-in-out;
+		@include shadow-low;
 	}
 	/* Hides header by sliding it up */
 	.hide {
@@ -149,7 +150,7 @@ burger
 
 		& svg {
 			--svg-size: 2rem;
-			--burger-centering: #{get-static-sp('x1')};
+			--burger-centering: #{get-static-sp('s4')};
 			width: var(--svg-size);
 			height: var(--svg-size);
 			padding-block: var(--burger-centering);
@@ -189,7 +190,7 @@ Content Nav
 		margin-left: auto;
 		display: flex;
 		align-items: center;
-		gap: get-static-sp('x2');
+		gap: get-static-sp('s8');
 	}
 
 	.header__nav--desktop {
@@ -209,12 +210,12 @@ Content Nav
 	.nav__link {
 		@include heading-overview;
 		position: relative;
-		font-weight: 600;
+		font-weight: 700;
 		font-size: get-static-fsz('x1');
 		letter-spacing: get-ls('normal');
 		line-height: 1;
 
-		color: get-light-dark('darker', 'lightest');
+		color: get-light-dark('dark', 'light');
 		text-decoration: none;
 		transition: color 0.3s ease;
 		// Underline effect
@@ -244,11 +245,11 @@ Content Nav
 	}
 
 	.nav__list {
-		$spacing-gap: get-static-sp('x4');
+		$spacing-gap: get-static-sp('s16');
 		@include flex-center;
 		gap: $spacing-gap;
 		list-style: none;
-		margin-left: get-static-sp('x12');
+		margin-left: get-static-sp('s48');
 
 		&:last-child .nav__link {
 			color: hrgb(0, 83, 146);

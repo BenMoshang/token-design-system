@@ -32,7 +32,7 @@
 </svelte:head>
 <!-- <div class="hero-wrapper"><HeroSection /></div> -->
 <div class="container">
-	<FontTesting />
+	<!-- <FontTesting /> -->
 	<ul id="cards">
 		{#each cards as card, index}
 			<li

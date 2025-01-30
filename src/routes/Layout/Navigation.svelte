@@ -103,7 +103,7 @@
 		padding-top: $page-header-height;
 		@include flex-column-center;
 		list-style: none;
-		gap: get-static-sp('x8');
+		gap: get-static-sp('s32');
 
 		inline-size: 100%;
 		block-size: 100%;

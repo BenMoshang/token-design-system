@@ -114,14 +114,14 @@
 		}
 		/*----title variables----*/
 		--title-max-inline-size: 15ch;
-		--title-margin-bottom: #{get-static-sp('x4')};
+		--title-margin-bottom: #{get-static-sp('s16')};
 
 		/*----subtitle variables----*/
 		--subtitle-font-size: #{get-fsz('x1', 'x2')};
 
 		/*----icon variables----*/
 		--icon-size: 1.5rem;
-		--icon-margin-bottom: #{get-static-sp('x2')};
+		--icon-margin-bottom: #{get-static-sp('s8')};
 		--icon-color: #{get-light-dark('darkest', 'lightest')};
 	}
 
@@ -136,7 +136,7 @@
 			display: inline-block;
 			inline-size: 100%;
 			block-size: 0.125rem;
-			margin: get-static-sp('x1') 0 get-static-sp('x16');
+			margin: get-static-sp('s4') 0 get-static-sp('s64');
 			opacity: 0.5;
 			background: linear-gradient(
 				90deg,

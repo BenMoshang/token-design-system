@@ -62,9 +62,9 @@
 	.email-button {
 		@include button-effect;
 		@include flex-center;
-		gap: get-static-sp('x1');
+		gap: get-static-sp('s4');
 		position: relative;
-		padding: get-static-sp('x2') get-static-sp('x3');
+		padding: get-static-sp('s8') get-static-sp('s12');
 		max-block-size: 2rem;
 
 		text-decoration: none;

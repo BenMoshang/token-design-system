@@ -176,12 +176,12 @@
 	=============================================*/
 	.footer__shape-top {
 		line-height: 0;
-		inline-size: calc(100% + get-static-sp('x4'));
+		inline-size: calc(100% + get-static-sp('s16'));
 		block-size: 5.25rem;
 	}
 
 	.footer__shape-top .shape-fill {
-		inline-size: calc(100% + get-static-sp('x4'));
+		inline-size: calc(100% + get-static-sp('s16'));
 
 		fill: get-light-dark('lightest', 'darkest');
 	}
@@ -194,23 +194,22 @@
 		block-size: 100%;
 		inline-size: 100%;
 		background: get-light-dark('medium', 'darker');
-		padding-bottom: get-static-sp('x8');
+		padding-bottom: get-static-sp('s32');
 
 		&__content {
-			padding: get-static-sp('x4');
+			padding: get-static-sp('s16');
 			max-inline-size: $desktop-breakpoint;
 			margin-block: 0;
 			margin-inline: auto;
 			display: flex;
 			flex-direction: column;
-			gap: get-sp('x6', 'x8');
 		}
 
 		&__brand {
 			&-description {
 				@extend %global__body--md;
 				max-width: 35ch;
-				// margin-bottom: get-static-sp('x6');
+				// margin-bottom: get-static-sp('s24');
 			}
 		}
 
@@ -222,14 +221,14 @@
 			@extend %global__my-modern-logo;
 			text-decoration: none;
 			font-size: get-static-fsz('x4');
-			margin-bottom: get-static-sp('x4');
+			margin-bottom: get-static-sp('s16');
 		}
 
 		&__nav {
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
 			justify-content: space-between;
-			gap: get-static-sp('x6');
+			gap: get-static-sp('s24');
 		}
 
 		&__nav-title {
@@ -238,7 +237,7 @@
 			font-size: get-static-fsz('x1');
 			letter-spacing: get-ls('normal');
 			color: get-light-dark('darkest', 'lightest');
-			margin-block-end: get-static-sp('x4');
+			margin-block-end: get-static-sp('s16');
 		}
 
 		&__nav-list {
@@ -249,12 +248,12 @@
 			&--social {
 				display: flex;
 				flex-direction: column;
-				gap: get-static-sp('x2');
+				gap: get-static-sp('s8');
 			}
 		}
 
 		&__nav-item {
-			margin-block-end: get-static-sp('x2');
+			margin-block-end: get-static-sp('s8');
 
 			& svg path {
 				fill: get-light-dark('dark', 'light');
@@ -278,8 +277,8 @@
 			&--social {
 				display: flex;
 				align-items: center;
-				padding: get-static-sp('x2');
-				margin: calc(get-static-sp('x2') * -1);
+				padding: get-static-sp('s8');
+				margin: calc(get-static-sp('s8') * -1);
 			}
 		}
 
@@ -288,13 +287,13 @@
 		}
 
 		&__nav-text {
-			margin-inline-start: get-static-sp('x2');
+			margin-inline-start: get-static-sp('s8');
 		}
 
 		&__bottom {
 			max-width: $desktop-breakpoint;
-			margin: get-static-sp('x8') auto 0;
-			padding-block-start: get-static-sp('x4');
+			margin: get-static-sp('s32') auto 0;
+			padding-block-start: get-static-sp('s16');
 			border-block-start: 0.0313rem solid get-light-dark('dark', 'light');
 			text-align: center;
 		}
