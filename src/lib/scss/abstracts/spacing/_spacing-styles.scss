@@ -35,6 +35,15 @@ $responsive-spacing: (
 	// 40px to 80px
 	'4xl': sf.get-sp('s80', 's144') // 48px to 96px
 );
+//todo: get word spacing
+@function get-sp-range($key) {
+	@if map-has-key($responsive-spacing, $key) {
+		@return map-get($responsive-spacing, $key);
+	} @else {
+		@error "Key '#{$key}' not found in $responsive-spacing map";
+		@return null;
+	}
+}
 
 //i use these for (static) margin spacing
 $most-related: sf.get-static-sp('s4'); //4px *eg. icons next to text

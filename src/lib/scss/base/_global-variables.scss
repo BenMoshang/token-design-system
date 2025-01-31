@@ -26,3 +26,17 @@ $desktop-breakpoint: 90rem; // 1440px
 =            Page            =
 =============================================*/
 $page-header-height: 4.5rem;
+
+@mixin small-inset-shadow {
+	@media (prefers-color-scheme: dark) {
+		box-shadow:
+			0 0.125rem 0.25rem hsla(0, 0, 0, 0.1),
+			inset 0 0.0625rem hsla(255, 255, 255, 0.3);
+	}
+
+	@media (prefers-color-scheme: light) {
+		box-shadow:
+			0 0.125rem 0.25rem rgba(0, 0, 0, 0.1),
+			inset 0 0.0625rem hsla(0, 0, 0, 0.3);
+	}
+}

@@ -5,7 +5,6 @@
 	// If your scroll.svelte.ts already registers the plugin,
 	// you can omit these two lines. Otherwise:
 	gsap.registerPlugin(ScrollTrigger);
-
 	import { onMount, onDestroy } from 'svelte';
 
 	/* Refs to the top & bottom door panels */
@@ -26,7 +25,7 @@
 				pin: true,
 				pinSpacing: true, // Ensures proper spacing
 				scrub: 2, // Smoother scrubbing
-				markers: true, // Helpful for debugging - remove in production
+				markers: false, // Helpful for debugging - remove in production
 				anticipatePin: 1
 			}
 		});
@@ -56,31 +55,45 @@
 		}
 	});
 
-	const heroText = {
-		subtitle: 'Future-Ready Websites, Built Today',
-		officeLocation: 'Baltimore, MD',
-		available: 'Everywhere',
-		Work: '+ Designing'
-	} as const;
+	const heroInjectable = {
+		titleFirstHalf: 'Modern Web',
+		titleSecondHalf: 'Development',
+		subtitle: 'Future-Ready Websites, Built Today'
+	};
+
+	const benefitsInjectable = [
+		{
+			firstHalf: 'BASED IN,',
+			secondHalf: 'BALTIMORE, MD'
+		},
+
+		{
+			firstHalf: 'AVAILABLE',
+			secondHalf: 'EVERYWHERE'
+		},
+
+		{
+			firstHalf: 'WEB DEVELOPMENT',
+			secondHalf: '+ DESIGN'
+		}
+	];
 </script>
 
 <section class="hero" bind:this={heroSection}>
 	<!-- Top panel (door) -->
-	<div class="panel" bind:this={topPanel}>
-		<h1 class="hero__title hero__title--top-position">Modern Web</h1>
+	<div class="hero__panel" bind:this={topPanel}>
+		<h1 class="hero__title hero__title--top">{heroInjectable.titleFirstHalf}</h1>
 	</div>
 
 	<!-- Bottom panel (door) -->
-	<div class="panel" bind:this={bottomPanel}>
-		<h1 class="hero__title hero__title--bottom-position">Development</h1>
+	<div class="hero__panel" bind:this={bottomPanel}>
+		<h1 class="hero__title hero__title--bottom">{heroInjectable.titleSecondHalf}</h1>
 
-		<h2 class="hero__subtitle">
-			{heroText.subtitle}
-		</h2>
+		<h2 class="hero__subtitle">{heroInjectable.subtitle}</h2>
 
 		<ul class="hero__benefits">
 			<!-- Office Location -->
-			<li class="util__stack hero__office-location-wrapper">
+			<li class="hero__benefits-item">
 				<svg
 					class="hero__benefits-icon"
 					xmlns="http://www.w3.org/2000/svg"
@@ -92,31 +105,14 @@
 						d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
 					/></svg
 				>
-				<p class="util__text--top">BASED IN,</p>
-				<p class="util__text--bottom hero__office-location">{heroText.officeLocation}</p>
-			</li>
 
-			<!-- Availability -->
-			<li class="util__stack">
-				<svg
-					class="hero__benefits-icon"
-					xmlns="http://www.w3.org/2000/svg"
-					height="10"
-					width="10"
-					viewBox="0 0 512 512"
-					aria-hidden="true"
-				>
-					<path
-						fill="currentColor"
-						d="M352 256c0 22.2-1.2 43.6-3.3 64l-185.3 0c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64l185.3 0c2.2 20.4 3.3 41.8 3.3 64zm28.8-64l123.1 0c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64l-123.1 0c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32l-116.7 0c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-149.1 0l-176.6 0c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 20.9 58.2 27 94.7zm-209 0L18.6 160C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM8.1 192l123.1 0c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64L8.1 320C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM194.7 446.6c-11.6-26-20.9-58.2-27-94.6l176.6 0c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.3 512 256 512s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6C112.2 482.9 48.6 426.1 18.6 352l116.7 0zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6l116.7 0z"
-					/>
-				</svg>
-				<p class="util__text--top">AVAILABLE,</p>
-				<p class="util__text--bottom">{heroText.available}</p>
+				<strong class="hero__benefits-text">
+					<span class="hero__benefits-text--first-half">{benefitsInjectable[0].firstHalf} </span>
+					<span class="hero__benefits-text--second-half">{benefitsInjectable[0].secondHalf} </span>
+				</strong>
 			</li>
-
 			<!-- Remote / Work -->
-			<li class="util__stack">
+			<li class="hero__benefits-item">
 				<svg
 					class="hero__benefits-icon"
 					fill="currentColor"
@@ -158,8 +154,30 @@
 					c4.9,0,9.5-2.9,11.4-7.7l61.7-154.3C300.5,224.5,297.4,217.4,291.1,214.9z"
 					/>
 				</svg>
-				<p class="util__text--top">WEB DEVELOPMENT</p>
-				<p class="util__text--bottom">{heroText.Work}</p>
+				<strong class="hero__benefits-text">
+					<span class="hero__benefits-text--first-half">{benefitsInjectable[2].firstHalf} </span>
+					<span class="hero__benefits-text--second-half">{benefitsInjectable[2].secondHalf} </span>
+				</strong>
+			</li>
+			<!-- Availability -->
+			<li class="hero__benefits-item">
+				<svg
+					class="hero__benefits-icon"
+					xmlns="http://www.w3.org/2000/svg"
+					height="10"
+					width="10"
+					viewBox="0 0 512 512"
+					aria-hidden="true"
+				>
+					<path
+						fill="currentColor"
+						d="M352 256c0 22.2-1.2 43.6-3.3 64l-185.3 0c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64l185.3 0c2.2 20.4 3.3 41.8 3.3 64zm28.8-64l123.1 0c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64l-123.1 0c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32l-116.7 0c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-149.1 0l-176.6 0c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 20.9 58.2 27 94.7zm-209 0L18.6 160C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM8.1 192l123.1 0c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64L8.1 320C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM194.7 446.6c-11.6-26-20.9-58.2-27-94.6l176.6 0c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.3 512 256 512s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6C112.2 482.9 48.6 426.1 18.6 352l116.7 0zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6l116.7 0z"
+					/>
+				</svg>
+				<strong class="hero__benefits-text">
+					<span class="hero__benefits-text--first-half">{benefitsInjectable[1].firstHalf} </span>
+					<span class="hero__benefits-text--second-half">{benefitsInjectable[1].secondHalf} </span>
+				</strong>
 			</li>
 		</ul>
 	</div>
@@ -189,9 +207,18 @@
 			background-position: 100% 0;
 		}
 	}
+
+	.hero {
+		/*----title variables----*/
+		--title-max-inline-size: 15ch;
+		--title-margin-bottom: #{get-static-sp('s16')};
+
+		/*----icon variables----*/
+		--icon-size: 1em;
+		--icon-color: #{get-light-dark('darkest', 'lightest')};
+	}
 	.hero {
 		@extend %page-grid-item;
-
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -203,9 +230,9 @@
 
 		&__title {
 			@extend %global__display--h1;
-
 			animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-			&--top-position {
+
+			&--top {
 				position: absolute;
 				bottom: 0;
 				left: 0;
@@ -213,21 +240,21 @@
 				margin: auto;
 			}
 
-			&--bottom-position {
+			&--bottom {
 				position: absolute;
 				top: 0;
 				left: 0;
 				right: 0;
-
 				margin: auto;
 			}
 		}
 
 		&__subtitle {
-			@extend %global__heading--h2;
+			@extend %global__label;
 			@include shimmer;
 			text-transform: uppercase;
-			word-spacing: 1rem;
+			font-size: get-fsz-range('heading--h3');
+			word-spacing: get-sp-range('xs');
 			letter-spacing: 0.1em;
 		}
 
@@ -238,51 +265,52 @@
 			right: 0;
 			margin: auto;
 			display: flex;
-			justify-content: space-around;
-			--icon-size: 1.5rem;
-
-			&-icon {
-				width: var(--icon-size);
-				height: var(--icon-size);
-				margin-bottom: var(--icon-margin-bottom);
-
-				& path {
-					fill: var(--icon-color);
-				}
+			justify-content: space-between;
+			align-items: center;
+			list-style: none;
+			& > * {
+				flex-basis: 23%;
 			}
 		}
-	}
 
-	.util {
-		&__stack {
+		&__benefits-item {
 			display: flex;
-			flex-direction: column;
 			align-items: center;
+			justify-content: center;
 		}
 
-		&__text--top {
-			@extend %global__body--lg;
-			color: get-light-dark('darker', 'lighter');
-			font-weight: get-fw('heading');
-			text-wrap: nowrap;
+		&__benefits-icon {
+			width: var(--icon-size);
+			height: var(--icon-size);
+			margin-right: $closely-related;
+			& path {
+				fill: var(--icon-color);
+			}
 		}
 
-		&__text--bottom {
-			@extend %global__label;
+		&__benefits-text {
 			text-wrap: nowrap;
+			line-height: get-lh('tight');
+
+			&--first-half {
+				@extend %global__label;
+				color: get-light-dark('darker', 'light');
+				font-weight: 600;
+			}
+
+			&--second-half {
+				@extend %global__label;
+			}
 		}
-	}
-	/* Panels each occupy 50% of the hero vertically */
-	.panel {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-		height: 50%;
-		color: #fff;
-		transform: translateY(0%); /* default position */
-		position: relative;
-		background: get-light-dark('lighter', 'darker');
+
+		&__panel {
+			@include flex-center;
+			position: relative;
+			transform: translateY(0%); /* default position */
+
+			width: 100%;
+			height: 50%;
+			// background: get-light-dark('lightest', 'darkest');
+		}
 	}
 </style>

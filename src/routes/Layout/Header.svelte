@@ -33,9 +33,10 @@
 </script>
 
 <header class="header" class:hide={hideHeader}>
+	<!-- todo: edit this to stack the Y over odern and do 1 big M -->
 	<a class="header__logo" href="/">
 		<h3 class="header__logo-company">
-			<span class="header__logo-company-my">My</span><br />Modern
+			<span class="m"> M </span><span class="header__logo-company-my">y</span><br />odern
 		</h3>
 	</a>
 	<!-- DESKTOP NAV -->
@@ -56,8 +57,9 @@
 		</ul>
 	</nav>
 	<div class="header__content-wrapper">
-		<EmailButton />
 		<ThemeToggle />
+
+		<EmailButton />
 		<!-- MOBILE: Menu Toggle -->
 		<label for="menu-toggle" class="header__burger">
 			<input
@@ -102,13 +104,16 @@
 		top: 0;
 		left: 0;
 		right: 0;
+		margin-top: get-static-sp('s4');
+		margin-inline: auto;
 		z-index: 1000;
-		backdrop-filter: blur(1rem) saturate(200%);
+		backdrop-filter: blur(1rem) saturate(100%);
 		-webkit-backdrop-filter: blur(1rem) saturate(200%);
-		inline-size: 100%;
+		inline-size: 80%;
+		border-radius: $br-rounded;
 		block-size: var(--header-height);
-		padding-inline: get-static-sp('s16');
-		padding-block: get-static-sp('s8');
+		padding-inline: get-static-sp('s24');
+		padding-block: get-static-sp('s16');
 		// background: light-dark(hsla(191, 15%, 85%, 0.2), hsla(200, 64%, 6%, 0.2));
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
@@ -128,6 +133,7 @@
 	/*==========================
 burger
 ==========================*/
+
 	.header__burger {
 		// @include hover-effect;
 		cursor: pointer;
@@ -187,10 +193,8 @@ burger
 Content Nav
 ==========================*/
 	.header__content-wrapper {
-		margin-left: auto;
 		display: flex;
-		align-items: center;
-		gap: get-static-sp('s8');
+		gap: get-static-sp('s16');
 	}
 
 	.header__nav--desktop {
@@ -199,7 +203,9 @@ Content Nav
 
 	@media (min-width: $mobile-breakpoint) {
 		.header__nav--desktop {
-			display: flex;
+			display: unset;
+			margin-left: get-static-sp('s24');
+			margin-right: auto;
 		}
 
 		.header__burger {
@@ -208,16 +214,17 @@ Content Nav
 	}
 
 	.nav__link {
-		@include heading-overview;
+		@include body-overview;
 		position: relative;
-		font-size: get-static-fsz('x1');
-		letter-spacing: get-ls('normal');
+
 		line-height: 1;
 
-		color: get-light-dark('dark', 'light');
+		color: get-light-dark('darkest', 'lightest');
+
 		text-decoration: none;
 		transition: color 0.3s ease;
 		// Underline effect
+
 		&::after {
 			content: '';
 			position: absolute;
@@ -246,9 +253,10 @@ Content Nav
 	.nav__list {
 		$spacing-gap: get-static-sp('s16');
 		@include flex-center;
+		align-self: flex-start;
 		gap: $spacing-gap;
 		list-style: none;
-		margin-left: get-static-sp('s48');
+		margin-left: get-static-sp('s16');
 
 		&:last-child .nav__link {
 			color: hrgb(0, 83, 146);

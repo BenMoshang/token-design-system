@@ -66,7 +66,6 @@
 		</svg>
 	{/if}
 </button>
-<span class="slider" aria-hidden="true"></span>
 
 <style lang="scss">
 	//TODO: THEME SWITCH STYLING FOR SCROLLOBAR
@@ -81,9 +80,9 @@
 		cursor: pointer;
 	}
 	svg {
-		$color: get-light-dark('dark', 'light');
-		inline-size: 1.5rem;
-		block-size: 1.5rem;
+		$color: get-light-dark('darker', 'lighter');
+		inline-size: 2rem;
+		block-size: 2rem;
 		fill: $color;
 
 		& path {

@@ -1,14 +1,36 @@
 @use 'colors-variables' as cv;
 
-@function get-light-dark($color1, $color2, $scale: cv.$color-scale) {
-	$selected-scale: if($scale == 'primary', cv.$color-primary-scale, cv.$color-scale);
+@function get-color($color, $scale: 'neutral') {
+	// Select the appropriate color scale based on the $scale parameter
+	$selected-scale: if($scale == 'brand', cv.$brand-scale, cv.$neutral-scale);
 
-	$light: map-get($selected-scale, $color1);
-	$dark: map-get($selected-scale, $color2);
+	// Return the color value from the selected scale
+	@return map-get($selected-scale, $color);
+}
+
+@function get-light-dark($color1, $color2, $scale: 'neutral') {
+	$light: get-color($color1, $scale);
+	$dark: get-color($color2, $scale);
 
 	@return light-dark($light, $dark);
 }
-@function get-color-with-lightness($color1, $color2, $lightness-value) {
-	$base-color: light-dark($color1, $color2);
-	@return hsl(hue($base-color), saturation($base-color), $lightness-value);
+
+//-------------------------------------
+// Color Scheme Preference Mixin
+//-------------------------------------
+
+@mixin color-scheme($scheme) {
+	@if $scheme == 'dark' {
+		@media (prefers-color-scheme: dark) {
+			@content;
+		}
+	} @else if $scheme == 'light' {
+		@media (prefers-color-scheme: light) {
+			@content;
+		}
+	} @else {
+		@media (prefers-color-scheme: #{$scheme}) {
+			@content;
+		}
+	}
 }

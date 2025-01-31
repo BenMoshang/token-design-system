@@ -6,8 +6,10 @@
 // Define common breakpoints for mobile, tablet, and desktop.
 $breakpoints: (
 	'mobile': 30rem,
+	//480px
 	// Example mobile breakpoint
 	'tablet': 48rem,
+	//768px
 	// Example tablet breakpoint
 	'desktop': 64rem // Example desktop breakpoint
 );
@@ -37,7 +39,6 @@ $breakpoints: (
 	block-size: 100%;
 	inline-size: 100%;
 	// max-inline-size: 1440px;	// Optionally limit overall width and center it was 1200px
-	padding-block: gv.$page-header-height;
 	padding-inline: get-static-sp('s16');
 }
 

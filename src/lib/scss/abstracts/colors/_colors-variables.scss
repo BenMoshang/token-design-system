@@ -1,4 +1,4 @@
-// $color-scale: (
+// $neutral-scale: (
 // 	'darkest': hsl(208, 19%, 17%),
 // 	'darker': hsl(209, 37%, 16%),
 // 	'dark': hsl(210, 28%, 31%),
@@ -7,15 +7,35 @@
 // 	'lighter': hsl(209, 34%, 83%),
 // 	'lightest': hsl(216, 67%, 94%)
 // );
-$color-scale: (
-	'darkest': hsl(200, 64%, 5%),
-	'darker': hsl(206, 45%, 10%),
-	'dark': hsl(206, 30%, 20%),
-	'medium': hsl(206, 18%, 40%),
-	'light': hsl(206, 12%, 60%),
-	'lighter': hsl(206, 9%, 80%),
-	'lightest': hsl(206, 15%, 95%)
+
+$neutral-scale: (
+	'darkest': hsl(240, 10%, 8%),
+	// Primary background
+	'darker': hsl(240, 9%, 10%),
+	// Layered background or cards
+	'dark': hsl(240, 8%, 18%),
+	// Surfaces (e.g., raised elements, modals)
+	'medium': hsl(240, 7%, 30%),
+	// Subtle borders, less prominent text
+	'light': hsl(240, 6%, 50%),
+	// Body text color
+	'lighter': hsl(240, 5%, 70%),
+	// Secondary text, icons
+	'lightest': hsl(240, 4%, 92%) // High-contrast text or highlights on dark backgrounds
 );
+// Brand Scale hsl(240, 3%, 12%)
+$brand-scale: (
+	'darkest': hsl(240, 70%, 20%),
+	// Very saturated dark accent
+	'darker': #141471,
+	'dark': hsl(240, 72%, 32%),
+	'medium': hsl(240, 80%, 40%),
+	// Primary brand color on dark surfaces
+	'light': hsl(240, 85%, 50%),
+	'lighter': hsl(240, 88%, 65%),
+	'lightest': hsl(240, 90%, 80%) // Light accent color
+);
+
 //FOR SHADOWS
 $raw-color-scale: (
 	'darkest': (
@@ -40,34 +60,3 @@ $raw-color-scale: (
 		206 15% 95%
 	)
 );
-$color-primary-scale: (
-	'darkest': hsl(223, 55%, 22%),
-	'darker': hsl(223, 55%, 32%),
-	'dark': hsl(223, 55%, 34%),
-	'medium': hsl(223, 55%, 40%),
-	'light': hsl(223, 55%, 46%),
-	'lighter': hsl(223, 55%, 52%),
-	'lightest': hsl(223, 55%, 58%)
-);
-
-/**=============================================
-=          SHORTHAND           =
-=============================================*/
-$ld-darkest: get-light-dark('darkest', 'lightest');
-$ld-darker: get-light-dark('darker', 'lighter');
-$ld-dark: get-light-dark('dark', 'light');
-$ld-medium: get-light-dark('medium', 'medium');
-$ld-light: get-light-dark('light', 'dark');
-$ld-lighter: get-light-dark('lighter', 'darker');
-$ld-lightest: get-light-dark('lightest', 'darkest');
-
-//old
-// $color-scale: (
-// 	'darkest': hsl(200, 64%, 5%),
-// 	'darker': hsl(206, 45%, 10%),
-// 	'dark': hsl(206, 30%, 20%),
-// 	'medium': hsl(206, 18%, 40%),
-// 	'light': hsl(191, 12%, 55%),
-// 	'lighter': hsl(191, 9%, 64%),
-// 	'lightest': hsl(191, 15%, 85%)
-// );

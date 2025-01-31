@@ -15,6 +15,15 @@ $responsive-font-size: (
 	'body--md': fsz.get-fsz('x3', 'x4'),
 	'label': fsz.get-fsz('x1', 'x2')
 );
+@function get-fsz-range($key) {
+	@if map-has-key($responsive-font-size, $key) {
+		@return map-get($responsive-font-size, $key);
+	} @else {
+		@error "Key '#{$key}' not found in $responsive-font-size map";
+		@return null;
+	}
+}
+
 @mixin bebas-neue {
 	font-family: tf.get-ff('display');
 	text-rendering: geometricPrecision;
@@ -138,8 +147,12 @@ $responsive-font-size: (
 	@include ta.elastic-text-hover;
 	font-weight: tf.get-fw('display');
 	font-size: fsz.get-static-fsz('x4');
-	line-height: 0.8;
+	line-height: 0.75;
 	letter-spacing: tf.get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');
 	inline-size: fit-content;
+	text-shadow:
+		0.0625rem 0.0625rem 0 get-light-dark('darker', 'lighter'),
+		0.125rem 0.125rem 0 get-light-dark('medium', 'medium'),
+		0.1875rem 0.1875rem 0 get-light-dark('light', 'dark');
 }

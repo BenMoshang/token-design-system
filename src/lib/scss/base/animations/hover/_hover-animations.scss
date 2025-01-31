@@ -47,14 +47,9 @@
 		content: '';
 		position: absolute;
 		inset: 0;
-		margin: auto;
 		background: white;
 		border-radius: inherit;
-
-		inline-size: 100%;
-		block-size: 100%;
 		mix-blend-mode: difference;
-		will-change: transform;
 		transform: scaleX(0);
 		transform-origin: center;
 		transition: transform 0.3s ease;

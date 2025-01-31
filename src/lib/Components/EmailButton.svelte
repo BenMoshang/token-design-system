@@ -45,12 +45,10 @@
 		aria-hidden="true"
 		role="img"
 		focusable="false"
-		class="email__icon"
+		class="email-button__icon"
 	>
-		<title>Email icon</title>
-		<desc>An envelope icon representing email contact</desc>
 		<path
-			class="email__icon--path"
+			class="email-button__icon--path"
 			fill="currentColor"
 			d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
 		/>
@@ -60,40 +58,45 @@
 
 <style lang="scss">
 	.email-button {
-		@include button-effect;
-		@include flex-center;
-		gap: get-static-sp('s4');
-		position: relative;
-		padding: get-static-sp('s8') get-static-sp('s12');
-		max-block-size: 2rem;
+		--icon-size: 1em;
 
+		@include flex-center;
+		@include button-effect;
+		@include small-inset-shadow;
+
+		gap: get-static-sp('s4');
 		text-decoration: none;
-		border-radius: $br-rounded;
-		// Colors and effects
-		color: get-light-dark('lightest', 'darkest');
-		background-color: light-dark(black, white);
-		outline: 1px solid light-dark(black, white);
+		position: relative;
 		overflow: hidden;
-		// Border and shape
-		// Interactive states
 		cursor: pointer;
+		border-radius: $br-default;
+		border: 0.0625rem solid get-light-dark('darkest', 'lightest');
+		color: get-light-dark('lightest', 'darkest');
+		padding: get-static-sp('s8');
+		background: get-light-dark('darkest', 'lightest');
+
+		@include respond-to('mobile') {
+			padding-inline: get-static-sp('s12');
+			padding-block: get-static-sp('s8');
+		}
 
 		&__icon {
 			display: block;
-			--icon-size: 1rem;
 			inline-size: var(--icon-size);
 			block-size: var(--icon-size);
-
-			&--path {
-				fill: get-light-dark('lightest', 'darkest');
-			}
 		}
 	}
 
 	.text {
-		@include display-overview;
-		color: get-light-dark('lightest', 'darkest');
+		@include heading-overview;
+		display: none;
+		color: inherit;
+
 		line-height: 1;
 		font-size: get-static-fsz('x3');
+
+		@include respond-to('mobile') {
+			display: inline;
+		}
 	}
 </style>

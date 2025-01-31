@@ -3,7 +3,6 @@
 @use 'typography-variables' as tv;
 @use '../colors/colors-variables' as cv;
 
-
 /*==================================
 Other functions
 ======================================*/
@@ -45,14 +44,4 @@ Other functions
  */
 @function get-ls($ls) {
 	@return map.get(tv.$letter-spacing, $ls);
-}
-
-/**
- * @function get-color
- * @desc Retrieves a color from $color-scale map
- * @param {String} $color - 'darkest','darker','dark','medium','light','lighter','lightest'
- * @return {Color} color value
- */
-@function get-color($color) {
-	@return map-get(cv.$color-scale, $color);
 }
