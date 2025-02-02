@@ -218,7 +218,6 @@
 	=============================================*/
 
 		&__logo {
-			@extend %global__my-modern-logo;
 			text-decoration: none;
 			font-size: get-static-fsz('x4');
 			margin-bottom: get-static-sp('s16');

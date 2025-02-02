@@ -26,6 +26,7 @@ $breakpoints: (
 // 3. Grid Container Mixin
 //-------------------------------------
 // Creates a flexible grid container with a specified number of columns
+
 // and gutter spacing (referenced from the spacing scale).
 @mixin grid-container($columns: 12, $gutter-key: 's16') {
 	// Retrieve gutter spacing from the spacing map

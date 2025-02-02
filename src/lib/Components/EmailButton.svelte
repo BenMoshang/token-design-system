@@ -70,14 +70,16 @@
 		overflow: hidden;
 		cursor: pointer;
 		border-radius: $br-default;
-		border: 0.0625rem solid get-light-dark('darkest', 'lightest');
+		border: .0625rem solid get-light-dark('darkest', 'lightest');
 		color: get-light-dark('lightest', 'darkest');
 		padding: get-static-sp('s8');
 		background: get-light-dark('darkest', 'lightest');
+		max-height: 1.5rem;
+		
 
 		@include respond-to('mobile') {
 			padding-inline: get-static-sp('s12');
-			padding-block: get-static-sp('s8');
+			padding-block: get-static-sp('s4');
 		}
 
 		&__icon {

@@ -2,6 +2,7 @@
 	import ThemeToggle from '$lib/User/Preferences/ThemeToggle.svelte';
 	import EmailButton from '$lib/Components/EmailButton.svelte';
 	import Navigation from './Navigation.svelte';
+	import BrandLogo from '$lib/Components/BrandLogo.svelte';
 	let hideHeader = $state(false);
 	let lastScrollY = $state(0);
 
@@ -34,11 +35,7 @@
 
 <header class="header" class:hide={hideHeader}>
 	<!-- todo: edit this to stack the Y over odern and do 1 big M -->
-	<a class="header__logo" href="/">
-		<h3 class="header__logo-company">
-			<span class="m"> M </span><span class="header__logo-company-my">y</span><br />odern
-		</h3>
-	</a>
+	<BrandLogo />
 	<!-- DESKTOP NAV -->
 	<nav class="header__nav--desktop">
 		<ul class="nav__list" role="menubar" aria-label="Main menu">
@@ -127,9 +124,7 @@
 	/*==========================
 	logo and logo text
 ==========================*/
-	.header__logo-company {
-		@extend %global__my-modern-logo;
-	}
+
 	/*==========================
 burger
 ==========================*/

@@ -55,6 +55,7 @@ $responsive-font-size: (
 	line-height: tf.get-lh('snug');
 	letter-spacing: tf.get-ls('snug');
 	color: cf.get-light-dark('darker', 'lighter');
+	max-inline-size: 35ch;
 }
 
 @mixin body-overview {
@@ -65,6 +66,7 @@ $responsive-font-size: (
 	letter-spacing: tf.get-ls('normal');
 	text-wrap: pretty;
 	color: cf.get-light-dark('dark', 'light');
+	max-inline-size: 65ch;
 }
 
 @mixin label-overview {
@@ -137,22 +139,4 @@ $responsive-font-size: (
 =============================================*/
 %global__label {
 	@include label-overview;
-}
-
-/*=============================================
-=            Logo Typography                 =
-=============================================*/
-%global__my-modern-logo {
-	@include bebas-neue;
-	@include ta.elastic-text-hover;
-	font-weight: tf.get-fw('display');
-	font-size: fsz.get-static-fsz('x4');
-	line-height: 0.75;
-	letter-spacing: tf.get-ls('tight');
-	color: cf.get-light-dark('darkest', 'lightest');
-	inline-size: fit-content;
-	text-shadow:
-		0.0625rem 0.0625rem 0 get-light-dark('darker', 'lighter'),
-		0.125rem 0.125rem 0 get-light-dark('medium', 'medium'),
-		0.1875rem 0.1875rem 0 get-light-dark('light', 'dark');
 }

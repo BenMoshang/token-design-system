@@ -81,9 +81,10 @@
 	}
 	svg {
 		$color: get-light-dark('darker', 'lighter');
-		inline-size: 2rem;
-		block-size: 2rem;
+		inline-size: 1.5rem;
+		block-size: 1.5rem;
 		fill: $color;
+
 
 		& path {
 			fill: $color;

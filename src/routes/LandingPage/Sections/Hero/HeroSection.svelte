@@ -63,18 +63,15 @@
 
 	const benefitsInjectable = [
 		{
-			firstHalf: 'BASED IN,',
-			secondHalf: 'BALTIMORE, MD'
-		},
-
-		{
 			firstHalf: 'AVAILABLE',
+			seperator: '|',
 			secondHalf: 'EVERYWHERE'
 		},
 
 		{
 			firstHalf: 'WEB DEVELOPMENT',
-			secondHalf: '+ DESIGN'
+			seperator: '|',
+			secondHalf: 'DESIGN'
 		}
 	];
 </script>
@@ -92,25 +89,6 @@
 		<h2 class="hero__subtitle">{heroInjectable.subtitle}</h2>
 
 		<ul class="hero__benefits">
-			<!-- Office Location -->
-			<li class="hero__benefits-item">
-				<svg
-					class="hero__benefits-icon"
-					xmlns="http://www.w3.org/2000/svg"
-					height="10"
-					width="7.5"
-					viewBox="0 0 384 512"
-					><path
-						fill="currentColor"
-						d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
-					/></svg
-				>
-
-				<strong class="hero__benefits-text">
-					<span class="hero__benefits-text--first-half">{benefitsInjectable[0].firstHalf} </span>
-					<span class="hero__benefits-text--second-half">{benefitsInjectable[0].secondHalf} </span>
-				</strong>
-			</li>
 			<!-- Remote / Work -->
 			<li class="hero__benefits-item">
 				<svg
@@ -155,10 +133,12 @@
 					/>
 				</svg>
 				<strong class="hero__benefits-text">
-					<span class="hero__benefits-text--first-half">{benefitsInjectable[2].firstHalf} </span>
-					<span class="hero__benefits-text--second-half">{benefitsInjectable[2].secondHalf} </span>
+					<span class="hero__benefits-text--first-half">{benefitsInjectable[0].firstHalf}</span>
+					<span class="hero__benefits-text--seperator">{benefitsInjectable[0].seperator}</span>
+					<span class="hero__benefits-text--second-half">{benefitsInjectable[0].secondHalf} </span>
 				</strong>
 			</li>
+
 			<!-- Availability -->
 			<li class="hero__benefits-item">
 				<svg
@@ -175,7 +155,8 @@
 					/>
 				</svg>
 				<strong class="hero__benefits-text">
-					<span class="hero__benefits-text--first-half">{benefitsInjectable[1].firstHalf} </span>
+					<span class="hero__benefits-text--first-half">{benefitsInjectable[1].firstHalf}</span>
+					<span class="hero__benefits-text--seperator">{benefitsInjectable[1].seperator}</span>
 					<span class="hero__benefits-text--second-half">{benefitsInjectable[1].secondHalf} </span>
 				</strong>
 			</li>
@@ -192,27 +173,26 @@
 			get-light-dark('lightest', 'lightest') 50%,
 			get-light-dark('medium', 'medium') 75%,
 			get-light-dark('lightest', 'lightest') 100%
-		);
-		background-size: 300%;
-		background-clip: text;
-		background-clip: text;
-		color: transparent;
-		animation: shimmer 15s infinite;
-	}
-	@keyframes shimmer {
-		0% {
-			background-position: -100% 0;
+			);
+			background-size: 300%;
+			background-clip: text;
+			color: transparent;
+			animation: shimmer 15s infinite;
 		}
-		100% {
-			background-position: 100% 0;
+		@keyframes shimmer {
+			0% {
+				background-position: -100% 0;
+			}
+			100% {
+				background-position: 100% 0;
+			}
 		}
-	}
-
-	.hero {
+		
+		.hero {
 		/*----title variables----*/
 		--title-max-inline-size: 15ch;
 		--title-margin-bottom: #{get-static-sp('s16')};
-
+		
 		/*----icon variables----*/
 		--icon-size: 1em;
 		--icon-color: #{get-light-dark('darkest', 'lightest')};
@@ -227,7 +207,17 @@
 		height: 100vh; /* One full viewport height */
 		overflow: hidden; /* No scroll bars inside hero itself */
 		overscroll-behavior: contain;
-
+		
+		&__panel {
+			@include flex-center;
+			position: relative;
+			transform: translateY(0%); /* default position */
+		
+			width: 100%;
+			height: 50%;
+			background: get-light-dark('lighter', 'darker');
+		}
+		
 		&__title {
 			@extend %global__display--h1;
 			animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -250,10 +240,12 @@
 		}
 
 		&__subtitle {
-			@extend %global__label;
+			@include label-overview;
 			@include shimmer;
+
 			text-transform: uppercase;
-			font-size: get-fsz-range('heading--h3');
+			font-size: get-fsz-range('body--lg');
+			text-align: center;
 			word-spacing: get-sp-range('xs');
 			letter-spacing: 0.1em;
 		}
@@ -274,9 +266,7 @@
 		}
 
 		&__benefits-item {
-			display: flex;
-			align-items: center;
-			justify-content: center;
+			@include flex-center;
 		}
 
 		&__benefits-icon {
@@ -287,30 +277,26 @@
 				fill: var(--icon-color);
 			}
 		}
-
+	
 		&__benefits-text {
+				@extend %global__label;
+
 			text-wrap: nowrap;
 			line-height: get-lh('tight');
 
 			&--first-half {
-				@extend %global__label;
-				color: get-light-dark('darker', 'light');
+				letter-spacing: get-ls('normal');
+				color: get-light-dark('darker', 'lighter');
 				font-weight: 600;
 			}
-
-			&--second-half {
-				@extend %global__label;
+			&--seperator {
+				color: get-light-dark('dark', 'light');
 			}
+			&--second-half {
+				color: get-light-dark('dark', 'light');
+			}
+
 		}
 
-		&__panel {
-			@include flex-center;
-			position: relative;
-			transform: translateY(0%); /* default position */
-
-			width: 100%;
-			height: 50%;
-			// background: get-light-dark('lightest', 'darkest');
-		}
 	}
 </style>
