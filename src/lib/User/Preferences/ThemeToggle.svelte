@@ -45,6 +45,8 @@
 	});
 </script>
 
+<!-- todo: bug: does not work on intial click -->
+
 <!-- THEME SWITCH -->
 
 <button class="input" aria-label="Toggle dark mode" onclick={toggleTheme}>

@@ -62,7 +62,7 @@
 		@include flex-center;
 		@include button-effect;
 		@include small-inset-shadow;
-
+		height: 2rem;
 		gap: get-static-sp('s4');
 		text-decoration: none;
 		position: relative;

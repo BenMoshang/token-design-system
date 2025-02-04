@@ -193,7 +193,6 @@
 
 	.hero {
 		/*----title variables----*/
-		--title-max-inline-size: 15ch;
 		--title-margin-bottom: #{get-static-sp('s16')};
 
 		/*----icon variables----*/
@@ -271,7 +270,6 @@
 			}
 			& svg {
 				display: block;
-				line-height: none;
 				width: var(--icon-size);
 				height: var(--icon-size);
 				margin-right: $closely-related;

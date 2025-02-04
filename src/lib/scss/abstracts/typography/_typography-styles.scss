@@ -110,6 +110,7 @@ $responsive-font-size: (
 	@include display-overview;
 	font-size: map-get($responsive-font-size, 'display--h1');
 	text-align: center;
+	text-wrap: balance;
 }
 
 %global__display--h2 {

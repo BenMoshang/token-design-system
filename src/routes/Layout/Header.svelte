@@ -34,7 +34,7 @@
 </script>
 
 <header class="header" class:hide={hideHeader}>
-	<!-- todo: edit this to stack the Y over odern and do 1 big M -->
+	<!-- todo: active state for nav links-->
 	<BrandLogo />
 	<!-- DESKTOP NAV -->
 	<nav class="header__nav--desktop">
@@ -105,7 +105,7 @@
 		margin-inline: auto;
 
 		z-index: 1000;
-		backdrop-filter: blur(1rem);
+		// backdrop-filter: blur(1rem);
 		inline-size: 100%;
 		border-radius: $br-rounded;
 		block-size: var(--header-height);
@@ -114,8 +114,7 @@
 		// background: light-dark(hsla(191, 15%, 85%, 0.2), hsla(200, 64%, 6%, 0.2));
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
-		animation: slide-down $hero-initial-entrance-delay ease-in-out;
-		@include shadow-low;
+		// @include shadow-low;
 
 		@include respond-to('desktop') {
 			inline-size: 80%;
@@ -215,7 +214,9 @@ Content Nav
 
 	.nav__link {
 		@include body-overview;
+		font-family: get-ff('display');
 		position: relative;
+
 		font-size: get-static-fsz('x2');
 		line-height: 1;
 		color: get-light-dark('dark', 'light');
@@ -235,7 +236,8 @@ Content Nav
 			transition: width 0.3s ease;
 		}
 
-		&:hover {
+		&:hover,
+		&:focus {
 			color: get-light-dark('darker', 'lighter');
 			transform: translateY(-1px);
 
@@ -250,12 +252,11 @@ Content Nav
 	}
 
 	.nav__list {
-		$spacing-gap: get-static-sp('s16');
+		$spacing-gap: get-static-sp('s24');
 		@include flex-center;
 		align-self: flex-start;
 		gap: $spacing-gap;
 		list-style: none;
-		margin-left: get-static-sp('s16');
 
 		&:last-child .nav__link {
 			color: hrgb(0, 83, 146);

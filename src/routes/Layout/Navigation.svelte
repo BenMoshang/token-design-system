@@ -1,4 +1,6 @@
 <script lang="ts">
+	import EmailButton from '$lib/Components/EmailButton.svelte';
+
 	let { isOpen } = $props();
 
 	// Track whether animations have completed and if element should be shown
@@ -55,6 +57,7 @@
 				</li>
 			{/each}
 		</ul>
+		<EmailButton />
 	</nav>
 {/if}
 

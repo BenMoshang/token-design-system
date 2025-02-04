@@ -1,14 +1,4 @@
-// $neutral-scale: (
-// 	'darkest': hsl(208, 19%, 17%),
-// 	'darker': hsl(209, 37%, 16%),
-// 	'dark': hsl(210, 28%, 31%),
-// 	'medium': hsl(210, 24%, 45%),
-// 	'light': hsl(212, 22%, 61%),
-// 	'lighter': hsl(209, 34%, 83%),
-// 	'lightest': hsl(216, 67%, 94%)
-// );
-
-$neutral-scale: (
+$dark-scale: (
 	'darkest': hsl(240, 10%, 8%),
 	// Primary background
 	'darker': hsl(240, 9%, 14%),
@@ -22,6 +12,21 @@ $neutral-scale: (
 	'lighter': hsl(240, 4%, 75%),
 	// Secondary text, icons
 	'lightest': hsl(240, 4%, 95%) // High-contrast text / highlights on dark backgrounds
+);
+$light-scale: (
+	'darkest': hsl(75, 10%, 8%),
+	// ~ #2B2B2B (near-black text)
+	'darker': hsl(75, 9%, 14%),
+	// ~ #3F3F3F
+	'dark': hsl(75, 8%, 20%),
+	// ~ #595959
+	'medium': hsl(75, 7%, 30%),
+	// ~ #8C8C8C
+	'light': hsl(75, 6%, 50%),
+	// ~ #C2C2C2
+	'lighter': hsl(75, 4%, 75%),
+	// ~ #E1E1E1
+	'lightest': hsl(75, 10%, 89%) // ~ #FFF8F2 (warm off-white background)
 );
 
 // Brand Scale hsl(240, 3%, 12%)

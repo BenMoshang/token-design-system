@@ -1,16 +1,16 @@
 @use 'colors-variables' as cv;
 
-@function get-color($color, $scale: 'neutral') {
+@function get-color($color, $scale: 'dark') {
 	// Select the appropriate color scale based on the $scale parameter
-	$selected-scale: if($scale == 'brand', cv.$brand-scale, cv.$neutral-scale);
+	$selected-scale: if($scale == 'brand', cv.$brand-scale, cv.$dark-scale);
 
 	// Return the color value from the selected scale
 	@return map-get($selected-scale, $color);
 }
 
-@function get-light-dark($color1, $color2, $scale: 'neutral') {
-	$light: get-color($color1, $scale);
-	$dark: get-color($color2, $scale);
+@function get-light-dark($color1, $color2) {
+	$light: get-color($color1, cv.$light-scale);
+	$dark: get-color($color2, cv.$dark-scale);
 
 	@return light-dark($light, $dark);
 }

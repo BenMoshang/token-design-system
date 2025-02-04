@@ -9,7 +9,7 @@
 @use '../../abstracts/colors/colors-functions' as cf;
 @use '../../abstracts/colors/colors-variables' as cv;
 
-$text-pop-up-top-color: cf.get-light-dark('medium', 'medium');
+$text-pop-up-top-color: cf.get-light-dark('light', 'medium');
 
 @mixin text-pop-up-top {
 	text-shadow:
