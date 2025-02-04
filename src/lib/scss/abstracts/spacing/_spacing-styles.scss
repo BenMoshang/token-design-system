@@ -50,7 +50,7 @@ $most-related: sf.get-static-sp('s4'); //4px *eg. icons next to text
 $closely-related: sf.get-static-sp('s8'); //8px *eg. space between nav links
 $semi-related: sf.get-static-sp('s16'); //12px *eg. heading to subheading
 $less-related: sf.get-static-sp('s24'); //24px *eg. subheading to paragraph
-
+$not-related: sf.get-static-sp('s32'); //32px *eg. space between paragraphs
 // Directional padding mixins for more granular control
 @mixin padding-inline($size: 'md', $static: false) {
 	$spacing-map: if($static, $static-spacing, $responsive-spacing);

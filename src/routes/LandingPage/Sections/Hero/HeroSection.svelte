@@ -206,7 +206,7 @@
 		flex-direction: column;
 		justify-content: center;
 		width: 100%;
-		height: 100vh; /* One full viewport height */
+		height: 100svh; /* One full viewport height */
 		overflow: hidden; /* No scroll bars inside hero itself */
 		overscroll-behavior: contain;
 		& > * {
@@ -246,14 +246,16 @@
 
 		&__subtitle {
 			@include shimmer;
-			@extend %global__heading--h4;
-			margin-top: $semi-related;
+			@extend %global__heading--h3;
+			margin-top: $not-related;
 			margin-inline: auto;
 			text-align: center;
 			font-weight: get-fw('emphasis');
-			word-spacing: get-sp-range('xs');
 			text-transform: uppercase;
 			text-wrap: pretty;
+			@include respond-to('mobile') {
+				word-spacing: get-sp-range('xs');
+			}
 		}
 
 		&__benefits {

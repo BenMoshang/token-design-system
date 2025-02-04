@@ -33,7 +33,7 @@ $typography-scales: (
 	'x10': $typography-base-size * math.pow($typography-scale-ratio, 7),
 	'x11': $typography-base-size * math.pow($typography-scale-ratio, 8),
 	'x12': $typography-base-size * math.pow($typography-scale-ratio, 9),
-	'x13': $typography-base-size * math.pow($typography-scale-ratio, 10.25)
+	'x13': $typography-base-size * math.pow($typography-scale-ratio, 10)
 );
 
 /* ---------------------------------------------------------------------------

@@ -9,7 +9,7 @@ $responsive-font-size: (
 	'display--h1': fsz.get-fsz('x7', 'x13'),
 	'display--h2': fsz.get-fsz('x10', 'x12'),
 	'heading--h2': fsz.get-fsz('x8', 'x9'),
-	'heading--h3': fsz.get-fsz('x6', 'x7'),
+	'heading--h3': fsz.get-fsz('x4', 'x7'),
 	'heading--h4': fsz.get-fsz('x4', 'x5'),
 	'body--lg': fsz.get-fsz('x4', 'x5'),
 	'body--md': fsz.get-fsz('x3', 'x4'),
@@ -57,8 +57,6 @@ $responsive-font-size: (
 	letter-spacing: tf.get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');
 
-	text-box-trim: trim-both;
-	text-box-edge: cap alphabetic;
 	text-wrap: balance;
 }
 
@@ -69,8 +67,7 @@ $responsive-font-size: (
 	line-height: tf.get-lh('snug');
 	letter-spacing: tf.get-ls('snug');
 	color: cf.get-light-dark('darker', 'lighter');
-	text-box-trim: trim-both;
-	text-box-edge: cap alphabetic;
+
 	text-wrap: balance;
 }
 
@@ -82,8 +79,6 @@ $responsive-font-size: (
 	letter-spacing: tf.get-ls('normal');
 	color: cf.get-light-dark('dark', 'light');
 
-	text-box-trim: trim-both;
-	text-box-edge: cap alphabetic;
 	text-wrap: pretty;
 	max-inline-size: 65ch;
 }
@@ -96,8 +91,7 @@ $responsive-font-size: (
 	line-height: tf.get-lh('loose');
 	letter-spacing: tf.get-ls('loose');
 	color: cf.get-light-dark('medium', 'medium');
-	text-box-trim: trim-both;
-	text-box-edge: cap alphabetic;
+
 	text-transform: uppercase;
 	text-wrap: balance;
 }

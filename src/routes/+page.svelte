@@ -8,9 +8,9 @@
 	import { quintOut } from 'svelte/easing';
 
 	let cards = [
-		{ id: 'card1', title: 'Services Section', component: ServicesSection },
-		{ id: 'card2', title: 'Portfolio Section', component: PortfolioSection },
-		{ id: 'card3', title: 'About Section', component: AboutSection },
+		{ id: 'card1', title: 'About Section', component: AboutSection },
+		{ id: 'card2', title: 'Services Section', component: ServicesSection },
+		{ id: 'card3', title: 'Portfolio Section', component: PortfolioSection },
 		{ id: 'card4', title: 'Contact Section', component: ContactSection }
 	];
 </script>
@@ -30,8 +30,9 @@
 </svelte:head>
 
 <HeroSection />
+<AboutSection />
 
-{#each cards as card, index}
+<!-- {#each cards as card, index}
 	<section
 		class="card"
 		id={card.id}
@@ -39,7 +40,7 @@
 	>
 		<svelte:component this={card.component} />
 	</section>
-{/each}
+{/each} -->
 
 <style lang="scss">
 	:root {

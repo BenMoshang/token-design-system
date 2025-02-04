@@ -70,26 +70,34 @@
 	.nav {
 		$background-opacity: 0.9;
 		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
+		inset: 0;
 		margin: auto;
 		z-index: 999;
 		inline-size: 100vw;
-		block-size: 100vh;
-		background: light-dark(hsl(240, 4%, 92%, 0.6), hsla(240, 8%, 18%, 0.6));
-		backdrop-filter: blur(1.25rem);
-		-webkit-backdrop-filter: blur(1.25rem);
+		block-size: 100svh;
+		background: light-dark(hsl(240, 4%, 92%, 0), hsla(240, 8%, 18%, 0));
+		backdrop-filter: blur(0);
+		-webkit-backdrop-filter: blur(0);
 		opacity: 0;
 		transition:
 			transform $nav-timing cubic-bezier(0.77, 0, 0.175, 1),
-			opacity $nav-timing cubic-bezier(0.77, 0, 0.175, 1);
+			opacity $nav-timing cubic-bezier(0.77, 0, 0.175, 1),
+			backdrop-filter $nav-timing cubic-bezier(0.77, 0, 0.175, 1),
+			background $nav-timing cubic-bezier(0.77, 0, 0.175, 1);
 
 		&--active {
+			background: light-dark(hsl(240, 4%, 92%, 0.6), hsla(240, 8%, 18%, 0.6));
+			backdrop-filter: blur(1.25rem);
+			-webkit-backdrop-filter: blur(1.25rem);
+			opacity: 1;
 			-webkit-animation: scale-in-tr $nav-timing cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 			animation: scale-in-tr $nav-timing cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 		}
 		&--inactive {
+			background: light-dark(hsl(240, 4%, 92%, 0), hsla(240, 8%, 18%, 0));
+			backdrop-filter: blur(0);
+			-webkit-backdrop-filter: blur(0);
+			opacity: 0;
 			-webkit-animation: scale-out-tr $nav-timing cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
 			animation: scale-out-tr $nav-timing cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
 		}
@@ -101,21 +109,20 @@
 
 	.nav__list {
 		padding-top: $page-header-height;
-		@include flex-column-center;
+		@include flex-column;
+		align-content: center;
 		list-style: none;
-		gap: get-static-sp('s32');
-
+		gap: $not-related;
 		inline-size: 100%;
 		block-size: 100%;
 		position: absolute;
 		inset: 0;
 		margin: auto;
-		text-align: center;
 	}
 
 	.nav__list-item {
 		opacity: 0;
-		transform: translateY(20px);
+		transform: translateY(1.25rem);
 
 		@for $i from 1 through 5 {
 			&:nth-child(#{$i}) {
@@ -136,10 +143,12 @@
 	.nav__link {
 		@include display-overview;
 		position: relative;
-		font-size: get-static-fsz('x10');
-		color: get-light-dark('darker', 'lighter');
+		font-size: get-static-fsz('x8');
+		color: get-light-dark('darkest', 'lightest');
 		text-decoration: none;
 		transition: color 0.3s ease;
+
+		text-align: left;
 		animation: text-pop-up-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 		// Underline effect
 		&::after {
