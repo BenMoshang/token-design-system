@@ -59,12 +59,12 @@
 	{/if}
 	{#if !isDark}
 		<svg class="sun" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-			<g fill="currentColor">
+			<svg fill="currentColor">
 				<circle r="5" cy="12" cx="12"></circle>
 				<path
 					d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1 -.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1 -.75.29zm-12.02 12.02a1 1 0 0 1 -.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1 -.7.24zm6.36-14.36a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm0 17a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm-5.66-14.66a1 1 0 0 1 -.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.29zm12.02 12.02a1 1 0 0 1 -.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.24z"
 				></path>
-			</g>
+			</svg>
 		</svg>
 	{/if}
 </button>
@@ -82,7 +82,7 @@
 		cursor: pointer;
 	}
 	svg {
-		$color: get-light-dark('darker', 'lighter');
+		$color: light-dark(hsl(75, 9%, 14%), hsl(240, 4%, 75%));
 		inline-size: 1.5rem;
 		block-size: 1.5rem;
 		fill: $color;

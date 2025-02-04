@@ -30,10 +30,7 @@ $text-pop-up-top-color: cf.get-light-dark('light', 'medium');
  * @throws Error if color is not found in map
  */
 @function get-raw-color($color) {
-	@if not map-has-key(cv.$raw-color-scale, $color) {
-		@error "Color '#{$color}' not found in $raw-color-scale map";
-	}
-	$raw-color-values: map-get(cv.$raw-color-scale, $color);
+	$raw-color-values: map-get(cv.$raw-light-scale, $color);
 	@return nth($raw-color-values, 1) nth($raw-color-values, 2) nth($raw-color-values, 3);
 }
 
@@ -125,7 +122,7 @@ $shadow-high: (
  * @param {String} $light-color ['light'] - Color name for light mode
  * @param {String} $dark-color ['dark'] - Color name for dark mode
  */
-@mixin shadow-low($light-color: 'light', $dark-color: 'dark') {
+@mixin shadow-low($light-color: 'lightest', $dark-color: 'darkest') {
 	$light-value: get-raw-color($light-color);
 	$dark-value: get-raw-color($dark-color);
 	@include apply-shadow(

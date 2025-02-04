@@ -28,22 +28,7 @@ $light-scale: (
 	// ~ #E1E1E1
 	'lightest': hsl(75, 10%, 89%) // ~ #FFF8F2 (warm off-white background)
 );
-
-// Brand Scale hsl(240, 3%, 12%)
-$brand-scale: (
-	'darkest': hsl(240, 70%, 20%),
-	// Very saturated dark accent
-	'darker': #141471,
-	'dark': hsl(240, 72%, 32%),
-	'medium': hsl(240, 80%, 40%),
-	// Primary brand color on dark surfaces
-	'light': hsl(240, 85%, 50%),
-	'lighter': hsl(240, 88%, 65%),
-	'lightest': hsl(240, 90%, 80%) // Light accent color
-);
-
-//FOR SHADOWS
-$raw-color-scale: (
+$raw-dark-scale: (
 	'darkest': (
 		240 10% 8%
 	),
@@ -64,5 +49,29 @@ $raw-color-scale: (
 	),
 	'lightest': (
 		240 4% 95%
+	)
+);
+
+$raw-light-scale: (
+	'darkest': (
+		75 10% 8%
+	),
+	'darker': (
+		75 9% 14%
+	),
+	'dark': (
+		75 8% 20%
+	),
+	'medium': (
+		75 7% 30%
+	),
+	'light': (
+		75 6% 50%
+	),
+	'lighter': (
+		75 4% 75%
+	),
+	'lightest': (
+		75 10% 89%
 	)
 );
