@@ -84,7 +84,7 @@
 		inline-size: 1.5rem;
 		block-size: 1.5rem;
 		fill: $color;
-
+		object-fit: cover;
 
 		& path {
 			fill: $color;

@@ -74,12 +74,9 @@
 		z-index: 999;
 		inline-size: 100vw;
 		block-size: 100vh;
-		background: light-dark(
-			hsla(191, 15%, 85%, $background-opacity),
-			hsla(200, 64%, 6%, $background-opacity)
-		);
-		backdrop-filter: blur(16px) saturate(200%);
-		-webkit-backdrop-filter: blur(16px) saturate(200%);
+		background: light-dark(hsl(240, 4%, 92%, 0.6), hsla(240, 8%, 18%, 0.6));
+		backdrop-filter: blur(1.25rem);
+		-webkit-backdrop-filter: blur(1.25rem);
 		opacity: 0;
 		transition:
 			transform $nav-timing cubic-bezier(0.77, 0, 0.175, 1),
@@ -136,11 +133,10 @@
 	.nav__link {
 		@include display-overview;
 		position: relative;
-		font-size: get-static-fsz('x2');
+		font-size: get-static-fsz('x10');
 		color: get-light-dark('darker', 'lighter');
 		text-decoration: none;
 		transition: color 0.3s ease;
-		-webkit-animation: text-pop-up-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 		animation: text-pop-up-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 		// Underline effect
 		&::after {

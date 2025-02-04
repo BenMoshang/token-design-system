@@ -199,8 +199,7 @@ Content Nav
 	@media (min-width: $mobile-breakpoint) {
 		.header__nav--desktop {
 			display: unset;
-			margin-left: get-static-sp('s24');
-			margin-right: auto;
+			margin-inline: auto;
 		}
 
 		.header__burger {

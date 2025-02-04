@@ -11,18 +11,19 @@
 $neutral-scale: (
 	'darkest': hsl(240, 10%, 8%),
 	// Primary background
-	'darker': hsl(240, 9%, 10%),
-	// Layered background or cards
-	'dark': hsl(240, 8%, 18%),
-	// Surfaces (e.g., raised elements, modals)
+	'darker': hsl(240, 9%, 14%),
+	// Layered background / cards
+	'dark': hsl(240, 8%, 20%),
+	// Surfaces (e.g., modals, raised elements)
 	'medium': hsl(240, 7%, 30%),
 	// Subtle borders, less prominent text
 	'light': hsl(240, 6%, 50%),
 	// Body text color
-	'lighter': hsl(240, 5%, 70%),
+	'lighter': hsl(240, 4%, 75%),
 	// Secondary text, icons
-	'lightest': hsl(240, 4%, 92%) // High-contrast text or highlights on dark backgrounds
+	'lightest': hsl(240, 4%, 95%) // High-contrast text / highlights on dark backgrounds
 );
+
 // Brand Scale hsl(240, 3%, 12%)
 $brand-scale: (
 	'darkest': hsl(240, 70%, 20%),
@@ -39,24 +40,24 @@ $brand-scale: (
 //FOR SHADOWS
 $raw-color-scale: (
 	'darkest': (
-		200 64% 5%
+		240 10% 8%
 	),
 	'darker': (
-		206 45% 10%
+		240 9% 14%
 	),
 	'dark': (
-		206 30% 20%
+		240 8% 20%
 	),
 	'medium': (
-		206 18% 40%
+		240 7% 30%
 	),
 	'light': (
-		206 12% 60%
+		240 6% 50%
 	),
 	'lighter': (
-		206 9% 80%
+		240 4% 75%
 	),
 	'lightest': (
-		206 15% 95%
+		240 4% 95%
 	)
 );

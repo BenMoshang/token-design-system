@@ -62,6 +62,7 @@
 
 		@include flex-center;
 		@include button-effect;
+
 		@include small-inset-shadow;
 
 		gap: get-static-sp('s4');
@@ -70,22 +71,21 @@
 		overflow: hidden;
 		cursor: pointer;
 		border-radius: $br-default;
-		border: .0625rem solid get-light-dark('darkest', 'lightest');
+		border: 0.0625rem solid get-light-dark('darkest', 'lightest');
 		color: get-light-dark('lightest', 'darkest');
 		padding: get-static-sp('s8');
 		background: get-light-dark('darkest', 'lightest');
-		max-height: 1.5rem;
-		
 
 		@include respond-to('mobile') {
 			padding-inline: get-static-sp('s12');
-			padding-block: get-static-sp('s4');
+			padding-block: get-static-sp('s6');
 		}
 
 		&__icon {
 			display: block;
-			inline-size: var(--icon-size);
 			block-size: var(--icon-size);
+			inline-size: var(--icon-size);
+			object-fit: cover;
 		}
 	}
 
@@ -93,7 +93,7 @@
 		@include heading-overview;
 		display: none;
 		color: inherit;
-
+		font-weight: 600;
 		line-height: 1;
 		font-size: get-static-fsz('x3');
 

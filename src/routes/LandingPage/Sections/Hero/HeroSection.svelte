@@ -1,7 +1,25 @@
 <script lang="ts">
 	import gsap from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	const heroInjectable = {
+		titleFirstHalf: 'MODERN WEB',
+		titleSecondHalf: 'DEVELOPMENT',
+		subtitle: 'FUTURE-READY WEBSITES, BUILT TODAY'
+	};
 
+	const benefitsInjectable = [
+		{
+			firstHalf: 'AVAILABLE',
+			seperator: '•',
+			secondHalf: 'EVERYWHERE'
+		},
+
+		{
+			firstHalf: 'WEB DEVELOPMENT',
+			seperator: '•',
+			secondHalf: 'DESIGN'
+		}
+	];
 	// If your scroll.svelte.ts already registers the plugin,
 	// you can omit these two lines. Otherwise:
 	gsap.registerPlugin(ScrollTrigger);
@@ -33,18 +51,22 @@
 		// Animate panels with percentage-based transforms
 		doorTimeline
 			.to(topPanel, {
-				yPercent: -120, // Move up by 100% of its height
-				ease: 'power2.inOut',
-				duration: 6
+				yPercent: -120,
+				ease: 'power4.inOut', // Smoother easing
+				duration: 4, // Shorter duration for snappier animation
+				force3D: true, // Force GPU acceleration
+				willChange: 'transform' // Browser optimization hint
 			})
 			.to(
 				bottomPanel,
 				{
-					yPercent: 120, // Move down by 100% of its height
-					ease: 'power2.inOut',
-					duration: 6
+					yPercent: 120,
+					ease: 'power4.inOut',
+					duration: 4,
+					force3D: true,
+					willChange: 'transform'
 				},
-				'<' // Start at same time as previous animation
+				'<'
 			);
 	});
 
@@ -54,36 +76,16 @@
 			doorTimeline.kill();
 		}
 	});
-
-	const heroInjectable = {
-		titleFirstHalf: 'Modern Web',
-		titleSecondHalf: 'Development',
-		subtitle: 'Future-Ready Websites, Built Today'
-	};
-
-	const benefitsInjectable = [
-		{
-			firstHalf: 'AVAILABLE',
-			seperator: '|',
-			secondHalf: 'EVERYWHERE'
-		},
-
-		{
-			firstHalf: 'WEB DEVELOPMENT',
-			seperator: '|',
-			secondHalf: 'DESIGN'
-		}
-	];
 </script>
 
 <section class="hero" bind:this={heroSection}>
 	<!-- Top panel (door) -->
-	<div class="hero__panel" bind:this={topPanel}>
+	<div class="hero__panel hero__panel--top" bind:this={topPanel}>
 		<h1 class="hero__title hero__title--top">{heroInjectable.titleFirstHalf}</h1>
 	</div>
 
 	<!-- Bottom panel (door) -->
-	<div class="hero__panel" bind:this={bottomPanel}>
+	<div class="hero__panel hero__panel--bottom" bind:this={bottomPanel}>
 		<h1 class="hero__title hero__title--bottom">{heroInjectable.titleSecondHalf}</h1>
 
 		<h2 class="hero__subtitle">{heroInjectable.subtitle}</h2>
@@ -168,81 +170,86 @@
 	@mixin shimmer {
 		background: linear-gradient(
 			90deg,
-			get-light-dark('lightest', 'lightest') 0%,
-			get-light-dark('medium', 'medium') 25%,
-			get-light-dark('lightest', 'lightest') 50%,
-			get-light-dark('medium', 'medium') 75%,
-			get-light-dark('lightest', 'lightest') 100%
-			);
-			background-size: 300%;
-			background-clip: text;
-			color: transparent;
-			animation: shimmer 15s infinite;
+			get-light-dark('darker', 'lightest') 0%,
+			get-light-dark('light', 'medium') 25%,
+			get-light-dark('darker', 'lightest') 50%,
+			get-light-dark('light', 'medium') 75%,
+			get-light-dark('darker', 'lightest') 100%
+		);
+		background-size: 300%;
+		background-clip: text;
+		color: transparent;
+		animation: shimmer 15s infinite;
+	}
+	@keyframes shimmer {
+		0% {
+			background-position: -100% 0;
 		}
-		@keyframes shimmer {
-			0% {
-				background-position: -100% 0;
-			}
-			100% {
-				background-position: 100% 0;
-			}
+		100% {
+			background-position: 100% 0;
 		}
-		
-		.hero {
+	}
+
+	.hero {
 		/*----title variables----*/
 		--title-max-inline-size: 15ch;
 		--title-margin-bottom: #{get-static-sp('s16')};
-		
+
 		/*----icon variables----*/
 		--icon-size: 1em;
-		--icon-color: #{get-light-dark('darkest', 'lightest')};
+		--icon-color: #{get-light-dark('dark', 'light')};
 	}
+
 	.hero {
 		@extend %page-grid-item;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		align-content: center;
 		width: 100%;
 		height: 100vh; /* One full viewport height */
 		overflow: hidden; /* No scroll bars inside hero itself */
 		overscroll-behavior: contain;
-		
-		&__panel {
-			@include flex-center;
-			position: relative;
-			transform: translateY(0%); /* default position */
-		
-			width: 100%;
-			height: 50%;
-			background: get-light-dark('lighter', 'darker');
+		& > * {
+			flex: 1;
 		}
-		
-		&__title {
-			@extend %global__display--h1;
-			animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+		&__panel {
+			display: flex;
+			flex-direction: column;
+			// outline: 1px solid yellow;
+			box-sizing: border-box;
+			display: flex;
+			transform: translateY(0%); /* default position */
+			width: 100%;
+			height: 100%;
+			background: get-light-dark('lightest', 'darker');
 
 			&--top {
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				margin: auto;
+				justify-content: flex-end;
+			}
+			&--bottom {
+				justify-content: flex-start;
+			}
+		}
+
+		&__title {
+			@extend %global__display--h1;
+			// outline: 1px solid red;
+			font-weight: 700;
+			letter-spacing: -0.06em;
+			font-size: 15rem;
+
+			&--top {
+			}
+			&--bottom {
 			}
 
-			&--bottom {
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				margin: auto;
-			}
+			animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 		}
 
 		&__subtitle {
 			@include label-overview;
 			@include shimmer;
-
+			font-family: get-ff('display');
 			text-transform: uppercase;
 			font-size: get-fsz-range('body--lg');
 			text-align: center;
@@ -251,17 +258,20 @@
 		}
 
 		&__benefits {
+			display: none;
 			position: absolute;
 			bottom: 0;
 			left: 0;
 			right: 0;
 			margin: auto;
-			display: flex;
 			justify-content: space-between;
 			align-items: center;
 			list-style: none;
 			& > * {
 				flex-basis: 23%;
+			}
+			@include respond-to('mobile') {
+				display: flex;
 			}
 		}
 
@@ -277,17 +287,16 @@
 				fill: var(--icon-color);
 			}
 		}
-	
+
 		&__benefits-text {
-				@extend %global__label;
+			@extend %global__label;
+			font-family: get-ff('display');
 
 			text-wrap: nowrap;
 			line-height: get-lh('tight');
 
 			&--first-half {
-				letter-spacing: get-ls('normal');
-				color: get-light-dark('darker', 'lighter');
-				font-weight: 600;
+				color: get-light-dark('dark', 'light');
 			}
 			&--seperator {
 				color: get-light-dark('dark', 'light');
@@ -295,8 +304,6 @@
 			&--second-half {
 				color: get-light-dark('dark', 'light');
 			}
-
 		}
-
 	}
 </style>
