@@ -6,7 +6,7 @@
 @use 'typography-variables' as tv;
 
 $responsive-font-size: (
-	'display--h1': fsz.get-fsz('x11', 'x13'),
+	'display--h1': fsz.get-fsz('x7', 'x13'),
 	'display--h2': fsz.get-fsz('x10', 'x12'),
 	'heading--h2': fsz.get-fsz('x8', 'x9'),
 	'heading--h3': fsz.get-fsz('x6', 'x7'),
@@ -24,7 +24,7 @@ $responsive-font-size: (
 	}
 }
 
-@mixin bebas-neue {
+@mixin new-order {
 	font-family: tf.get-ff('display');
 	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
@@ -37,15 +37,29 @@ $responsive-font-size: (
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+@mixin max-ch-inline-size($type) {
+	@if $type == 'display' {
+		max-inline-size: 35ch;
+	} @else if $type == 'heading' {
+		max-inline-size: 45ch;
+	} @else if $type == 'body' {
+		max-inline-size: 65ch;
+	} @else {
+		@error "Invalid type '#{$type}'. Must be 'display', 'heading', or 'body'";
+	}
+}
 
 @mixin display-overview {
-	@include bebas-neue;
-
+	@include new-order;
 	font-family: tf.get-ff('display');
 	font-weight: tf.get-fw('display');
 	line-height: tf.get-lh('tight');
 	letter-spacing: tf.get-ls('tight');
 	color: cf.get-light-dark('darkest', 'lightest');
+
+	text-box-trim: trim-both;
+	text-box-edge: cap alphabetic;
+	text-wrap: balance;
 }
 
 @mixin heading-overview {
@@ -55,7 +69,9 @@ $responsive-font-size: (
 	line-height: tf.get-lh('snug');
 	letter-spacing: tf.get-ls('snug');
 	color: cf.get-light-dark('darker', 'lighter');
-	max-inline-size: 35ch;
+	text-box-trim: trim-both;
+	text-box-edge: cap alphabetic;
+	text-wrap: balance;
 }
 
 @mixin body-overview {
@@ -64,8 +80,11 @@ $responsive-font-size: (
 	font-weight: tf.get-fw('body');
 	line-height: tf.get-lh('normal');
 	letter-spacing: tf.get-ls('normal');
-	text-wrap: pretty;
 	color: cf.get-light-dark('dark', 'light');
+
+	text-box-trim: trim-both;
+	text-box-edge: cap alphabetic;
+	text-wrap: pretty;
 	max-inline-size: 65ch;
 }
 
@@ -73,11 +92,14 @@ $responsive-font-size: (
 	@include roboto;
 	font-family: tf.get-ff('secondary');
 	font-weight: tf.get-fw('label');
+	font-size: map-get($responsive-font-size, 'label');
 	line-height: tf.get-lh('loose');
 	letter-spacing: tf.get-ls('loose');
+	color: cf.get-light-dark('medium', 'medium');
+	text-box-trim: trim-both;
+	text-box-edge: cap alphabetic;
 	text-transform: uppercase;
-	color: hsl(206, 18%, 60%);
-	font-size: map-get($responsive-font-size, 'label');
+	text-wrap: balance;
 }
 
 /*=============================================

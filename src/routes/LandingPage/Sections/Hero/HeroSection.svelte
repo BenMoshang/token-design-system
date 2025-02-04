@@ -79,7 +79,11 @@
 </script>
 
 <section class="hero" bind:this={heroSection}>
+	<!-- !todo: change light mode color scheme to its on so its less straining on the eyes -->
+	<!-- !todo: for header logo animate keyframes of letter spacing to 0 back to expanded  after hover -->
+	<!-- !todo: change navigation back ground -->
 	<!-- Top panel (door) -->
+	<!--  -->
 	<div class="hero__panel hero__panel--top" bind:this={topPanel}>
 		<h1 class="hero__title hero__title--top">{heroInjectable.titleFirstHalf}</h1>
 	</div>
@@ -94,7 +98,26 @@
 			<!-- Remote / Work -->
 			<li class="hero__benefits-item">
 				<svg
-					class="hero__benefits-icon"
+					xmlns="http://www.w3.org/2000/svg"
+					height="10"
+					width="10"
+					viewBox="0 0 512 512"
+					aria-hidden="true"
+				>
+					<path
+						fill="currentColor"
+						d="M352 256c0 22.2-1.2 43.6-3.3 64l-185.3 0c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64l185.3 0c2.2 20.4 3.3 41.8 3.3 64zm28.8-64l123.1 0c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64l-123.1 0c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32l-116.7 0c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-149.1 0l-176.6 0c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 20.9 58.2 27 94.7zm-209 0L18.6 160C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM8.1 192l123.1 0c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64L8.1 320C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM194.7 446.6c-11.6-26-20.9-58.2-27-94.6l176.6 0c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.3 512 256 512s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6C112.2 482.9 48.6 426.1 18.6 352l116.7 0zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6l116.7 0z"
+					/>
+				</svg>
+				<strong class="hero__benefits-text">
+					<span class="hero__benefits-text--first-half">{benefitsInjectable[0].firstHalf}</span>
+					<span class="hero__benefits-text--seperator">{benefitsInjectable[0].seperator}</span>
+					<span class="hero__benefits-text--second-half">{benefitsInjectable[0].secondHalf} </span>
+				</strong>
+			</li>
+
+			<li class="hero__benefits-item">
+				<svg
 					fill="currentColor"
 					height="200px"
 					width="200px"
@@ -135,28 +158,6 @@
 					/>
 				</svg>
 				<strong class="hero__benefits-text">
-					<span class="hero__benefits-text--first-half">{benefitsInjectable[0].firstHalf}</span>
-					<span class="hero__benefits-text--seperator">{benefitsInjectable[0].seperator}</span>
-					<span class="hero__benefits-text--second-half">{benefitsInjectable[0].secondHalf} </span>
-				</strong>
-			</li>
-
-			<!-- Availability -->
-			<li class="hero__benefits-item">
-				<svg
-					class="hero__benefits-icon"
-					xmlns="http://www.w3.org/2000/svg"
-					height="10"
-					width="10"
-					viewBox="0 0 512 512"
-					aria-hidden="true"
-				>
-					<path
-						fill="currentColor"
-						d="M352 256c0 22.2-1.2 43.6-3.3 64l-185.3 0c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64l185.3 0c2.2 20.4 3.3 41.8 3.3 64zm28.8-64l123.1 0c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64l-123.1 0c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32l-116.7 0c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-149.1 0l-176.6 0c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 20.9 58.2 27 94.7zm-209 0L18.6 160C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM8.1 192l123.1 0c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64L8.1 320C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM194.7 446.6c-11.6-26-20.9-58.2-27-94.6l176.6 0c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.3 512 256 512s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6C112.2 482.9 48.6 426.1 18.6 352l116.7 0zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6l116.7 0z"
-					/>
-				</svg>
-				<strong class="hero__benefits-text">
 					<span class="hero__benefits-text--first-half">{benefitsInjectable[1].firstHalf}</span>
 					<span class="hero__benefits-text--seperator">{benefitsInjectable[1].seperator}</span>
 					<span class="hero__benefits-text--second-half">{benefitsInjectable[1].secondHalf} </span>
@@ -179,7 +180,7 @@
 		background-size: 300%;
 		background-clip: text;
 		color: transparent;
-		animation: shimmer 15s infinite;
+		animation: shimmer 12s infinite;
 	}
 	@keyframes shimmer {
 		0% {
@@ -196,7 +197,7 @@
 		--title-margin-bottom: #{get-static-sp('s16')};
 
 		/*----icon variables----*/
-		--icon-size: 1em;
+		--icon-size: #{get-fsz-range('label')};
 		--icon-color: #{get-light-dark('dark', 'light')};
 	}
 
@@ -233,37 +234,32 @@
 
 		&__title {
 			@extend %global__display--h1;
+			@include text-pop-up-top;
 			// outline: 1px solid red;
-			font-weight: 700;
-			letter-spacing: -0.06em;
-			font-size: 15rem;
+			text-box-trim: unset;
 
+			letter-spacing: -0.05em;
 			&--top {
 			}
 			&--bottom {
 			}
-
-			animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 		}
 
 		&__subtitle {
-			@include label-overview;
 			@include shimmer;
-			font-family: get-ff('display');
-			text-transform: uppercase;
-			font-size: get-fsz-range('body--lg');
+			@extend %global__heading--h4;
+			margin-top: $semi-related;
+			margin-inline: auto;
 			text-align: center;
+			font-weight: get-fw('emphasis');
 			word-spacing: get-sp-range('xs');
-			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			text-wrap: pretty;
 		}
 
 		&__benefits {
 			display: none;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			margin: auto;
+			margin-top: auto;
 			justify-content: space-between;
 			align-items: center;
 			list-style: none;
@@ -273,19 +269,21 @@
 			@include respond-to('mobile') {
 				display: flex;
 			}
+			& svg {
+				display: block;
+				line-height: none;
+				width: var(--icon-size);
+				height: var(--icon-size);
+				margin-right: $closely-related;
+
+				& path {
+					fill: var(--icon-color);
+				}
+			}
 		}
 
 		&__benefits-item {
 			@include flex-center;
-		}
-
-		&__benefits-icon {
-			width: var(--icon-size);
-			height: var(--icon-size);
-			margin-right: $closely-related;
-			& path {
-				fill: var(--icon-color);
-			}
 		}
 
 		&__benefits-text {
@@ -293,7 +291,7 @@
 			font-family: get-ff('display');
 
 			text-wrap: nowrap;
-			line-height: get-lh('tight');
+			line-height: none;
 
 			&--first-half {
 				color: get-light-dark('dark', 'light');

@@ -27,8 +27,7 @@
 	font-smooth: always;
 	-webkit-font-smoothing: subpixel-antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	-webkit-hyphens: auto;
-	hyphens: auto;
+
 	-webkit-text-size-adjust: 100% !important; /* Prevents iOS from auto-resizing text */
 
 	@media (min-width: gv.$mobile-breakpoint) {

@@ -59,10 +59,8 @@
 <style lang="scss">
 	.email-button {
 		--icon-size: 1em;
-
 		@include flex-center;
 		@include button-effect;
-
 		@include small-inset-shadow;
 
 		gap: get-static-sp('s4');
@@ -90,12 +88,12 @@
 	}
 
 	.text {
-		@include heading-overview;
+		@include display-overview;
 		display: none;
 		color: inherit;
-		font-weight: 600;
 		line-height: 1;
-		font-size: get-static-fsz('x3');
+
+		font-size: get-static-fsz('x2');
 
 		@include respond-to('mobile') {
 			display: inline;

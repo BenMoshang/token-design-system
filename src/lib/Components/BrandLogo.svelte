@@ -1,22 +1,15 @@
-<script>
-</script>
-
-<div class="brand-logo">
-	<span class="logo-text">MYMODERN</span>
-</div>
+<a class="logo-text">MYMODERN</a>
 
 <style lang="scss">
-	.brand-logo {
-		display: flex;
-		align-items: center;
+	.logo-text {
+		@include elastic-text-hover;
+		@include label-overview;
 		font-family: get-ff('display');
-		font-weight: 300;
-
-		.logo-text {
-			@extend %global__label;
-			font-family: get-ff('display');
-			color: white;
-			font-size: 1.5rem;
-		}
+		font-size: get-static-fsz('x3');
+		font-weight: 500;
+		color: white;
+		line-height: none;
+		text-wrap: balance;
+		cursor: pointer;
 	}
 </style>

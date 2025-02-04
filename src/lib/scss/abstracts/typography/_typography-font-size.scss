@@ -7,9 +7,9 @@
    typically corresponds to 16px, but we're NOT using px at all, so everything
    remains consistent in rem.
 --------------------------------------------------------------------------- */
-$typography-base-size: 1.25rem; // e.g., ~20px
+$typography-base-size: 1.25rem; // Base size of 16px for better scaling
 
-$typography-scale-ratio: 1.414; // Classic typographic ratio (sqrt(2))
+$typography-scale-ratio: 1.25; // Perfect fourth ratio - common in award-winning designs
 
 /* ---------------------------------------------------------------------------
    2) Typographic Scales (REM Values)
@@ -17,23 +17,23 @@ $typography-scale-ratio: 1.414; // Classic typographic ratio (sqrt(2))
 
 --------------------------------------------------------------------------- */
 $typography-scales: (
-	//label small
-	'x1': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.75)),
+	//label small - subtle text
+	'x1': math.div($typography-base-size, math.pow($typography-scale-ratio, 1)),
 	'x2': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.5)),
-	//body
-	//default
+	//body text
 	'x3': $typography-base-size,
-	'x4': $typography-base-size * math.pow($typography-scale-ratio, 0.5),
-	'x5': $typography-base-size * math.pow($typography-scale-ratio, 1),
-	'x6': $typography-base-size * math.pow($typography-scale-ratio, 1.5),
-	'x7': $typography-base-size * math.pow($typography-scale-ratio, 2),
-	'x8': $typography-base-size * math.pow($typography-scale-ratio, 2.5),
-	'x9': $typography-base-size * math.pow($typography-scale-ratio, 3),
-	//min for display
-	'x10': $typography-base-size * math.pow($typography-scale-ratio, 3.5),
-	'x11': $typography-base-size * math.pow($typography-scale-ratio, 4),
-	'x12': $typography-base-size * math.pow($typography-scale-ratio, 7),
-	'x13': $typography-base-size * math.pow($typography-scale-ratio, 8)
+	'x4': $typography-base-size * math.pow($typography-scale-ratio, 1),
+	'x5': $typography-base-size * math.pow($typography-scale-ratio, 2),
+	//subheadings
+	'x6': $typography-base-size * math.pow($typography-scale-ratio, 3),
+	'x7': $typography-base-size * math.pow($typography-scale-ratio, 4),
+	'x8': $typography-base-size * math.pow($typography-scale-ratio, 5),
+	'x9': $typography-base-size * math.pow($typography-scale-ratio, 6),
+	//display & headlines
+	'x10': $typography-base-size * math.pow($typography-scale-ratio, 7),
+	'x11': $typography-base-size * math.pow($typography-scale-ratio, 8),
+	'x12': $typography-base-size * math.pow($typography-scale-ratio, 9),
+	'x13': $typography-base-size * math.pow($typography-scale-ratio, 10)
 );
 
 /* ---------------------------------------------------------------------------

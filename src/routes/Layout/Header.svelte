@@ -101,26 +101,32 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		margin-top: get-static-sp('s4');
+		margin-top: get-static-sp('s8');
 		margin-inline: auto;
+
 		z-index: 1000;
-		backdrop-filter: blur(1rem) saturate(100%);
-		-webkit-backdrop-filter: blur(1rem) saturate(200%);
-		inline-size: 80%;
+		backdrop-filter: blur(1rem);
+		inline-size: 100%;
 		border-radius: $br-rounded;
 		block-size: var(--header-height);
-		padding-inline: get-static-sp('s24');
-		padding-block: get-static-sp('s16');
+		padding-inline: get-static-sp('s16');
+		padding-block: get-static-sp('s4');
 		// background: light-dark(hsla(191, 15%, 85%, 0.2), hsla(200, 64%, 6%, 0.2));
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
 		animation: slide-down $hero-initial-entrance-delay ease-in-out;
 		@include shadow-low;
+
+		@include respond-to('desktop') {
+			inline-size: 80%;
+			margin-inline: auto;
+		}
 	}
 	/* Hides header by sliding it up */
 	.hide {
-		transform: translateY(-100%);
+		transform: translateY(-120%);
 	}
+
 	/*==========================
 	logo and logo text
 ==========================*/
@@ -210,10 +216,9 @@ Content Nav
 	.nav__link {
 		@include body-overview;
 		position: relative;
-
+		font-size: get-static-fsz('x2');
 		line-height: 1;
-
-		color: get-light-dark('darkest', 'lightest');
+		color: get-light-dark('dark', 'light');
 
 		text-decoration: none;
 		transition: color 0.3s ease;

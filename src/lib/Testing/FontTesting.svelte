@@ -1,20 +1,15 @@
 <section>
-	<div class="logo-testing">
-		<h1 class="logo-testing__version-1">MYMODERN</h1>
-		<h1 class="logo-testing__version-2">MYMODERN</h1>
-	</div>
+	<h1 class="display--h1">LARGEST DISPLAY</h1>
+	<h2 class="display--h2">MEDIUM DISPLAY</h2>
 
-	<h1 class="display--h1">largest display</h1>
-	<h2 class="display--h2">Medium Display</h2>
+	<h2 class="heading--h2">LARGE HEADING</h2>
+	<h3 class="heading--h3">MEDIUM HEADING</h3>
+	<h4 class="heading--h4">SMALL HEADING</h4>
 
-	<h2 class="heading--h2">Large Heading</h2>
-	<h3 class="heading--h3">Medium Heading</h3>
-	<h4 class="heading--h4">Small Heading</h4>
+	<p class="body--lg">LARGE BODY</p>
+	<p class="body--md">MEDIUM BODY</p>
 
-	<p class="body--lg">Large Body</p>
-	<p class="body--md">Medium Body</p>
-
-	<p class="label">Label</p>
+	<p class="label">LABEL</p>
 </section>
 
 <style lang="scss">
@@ -23,7 +18,9 @@
 	}
 	section {
 		padding-inline: 1rem;
+		padding-top: 10rem;
 		@include flex-column-center;
+		justify-content: flex-end;
 		@extend %page-grid-item;
 		& > * {
 			text-align: left !important;
@@ -41,7 +38,6 @@
 	.display {
 		&--h1 {
 			@extend %global__display--h1;
-			text-align: left !important;
 		}
 		&--h2 {
 			@extend %global__display--h2;
