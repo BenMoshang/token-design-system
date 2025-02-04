@@ -206,7 +206,7 @@
 		flex-direction: column;
 		justify-content: center;
 		width: 100%;
-		height: 100svh; /* One full viewport height */
+		min-height: 100svh; /* One full viewport height */
 		overflow: hidden; /* No scroll bars inside hero itself */
 		overscroll-behavior: contain;
 		& > * {
