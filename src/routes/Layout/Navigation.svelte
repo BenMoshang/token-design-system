@@ -1,6 +1,4 @@
 <script lang="ts">
-	import EmailButton from '$lib/Components/EmailButton.svelte';
-
 	let { isOpen } = $props();
 
 	// Track whether animations have completed and if element should be shown
@@ -57,7 +55,6 @@
 				</li>
 			{/each}
 		</ul>
-		<EmailButton />
 	</nav>
 {/if}
 
@@ -77,7 +74,6 @@
 		block-size: 100svh;
 		background: light-dark(hsl(240, 4%, 92%, 0), hsla(240, 8%, 18%, 0));
 		backdrop-filter: blur(0);
-		-webkit-backdrop-filter: blur(0);
 		opacity: 0;
 		transition:
 			transform $nav-timing cubic-bezier(0.77, 0, 0.175, 1),
@@ -111,11 +107,15 @@
 		padding-top: $page-header-height;
 		@include flex-column;
 		align-content: center;
+		justify-content: center;
 		list-style: none;
 		gap: $not-related;
 		inline-size: 100%;
 		block-size: 100%;
 		position: absolute;
+		padding-inline: get-static-sp('s16');
+		padding-block: get-static-sp('s32');
+
 		inset: 0;
 		margin: auto;
 	}
