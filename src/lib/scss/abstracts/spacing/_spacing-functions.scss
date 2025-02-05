@@ -1,55 +1,6 @@
 @use 'spacing-variables' as sv;
 @use '../../base/global-variables' as gv;
-@use 'sass:math';
-/* ---------------------------------------------------------------------------
-   1. Static Spacing (get-static-sp) TLDR USE THIS FOR FIXED UI ELEMENTS
-   ---------------------------------------------------------------------------
-   Use for elements that require fixed, predictable spacing:
-
-   Fixed UI Elements:
-   - Icon sizes and spacing
-   - Navigation bar heights 
-   - Form input padding
-   - Button padding
-   - Grid gaps in card layouts
-   - Borders and outlines
-   - Small decorative elements
-
-   Consistent Components:
-   - Internal padding within components
-   - Spacing between related elements
-   - Minimum spacing for accessibility
-   - Touch target sizes
-
-   Technical Requirements:
-   - Precise pixel alignment needs
-   - Pixel-perfect designs at breakpoints
-   - Third-party component integration
---------------------------------------------------------------------------- */
-
-/* ---------------------------------------------------------------------------
-   2. Fluid Spacing (get-sp) TLDR USE THIS FOR COMPONENTS
-   ---------------------------------------------------------------------------
-   Use for elements that should scale with viewport:
-
-   Layout-Level Spacing:
-   - Section padding
-   - Margins between major sections
-   - Hero section spacing
-   - Content area padding
-   - Grid container gaps
-
-   Responsive Design:
-   - Viewport-adaptive spacing
-   - Margins between unrelated components
-   - Container padding
-   - Section vertical spacing
-
-   Visual Hierarchy:
-   - Proportional spacing relationships
-   - Scalable visual rhythm
-   - Balanced cross-viewport layouts
---------------------------------------------------------------------------- */
+@use '../math/responsive-functions' as math-fn;
 
 /* ---------------------------------------------------------------------------
    1) Static Spacing Getter
@@ -57,39 +8,17 @@
    Retrieves a static spacing value from the $spacing map, with error checking.
 --------------------------------------------------------------------------- */
 @function get-static-sp($size) {
-	$spacing-value: map-get(sv.$spacing, $size);
-
-	@return $spacing-value;
+	@return math-fn.get-map-value(sv.$spacing, $size);
 }
 
 /* ---------------------------------------------------------------------------
-   2) Pure Clamp Function (REM-Only)
+   2) Responsive Spacing (From Scale + Clamp)
    ---------------------------------------------------------------------------
-   This is a direct clamp-based function for fluid spacing values.
-   Pass in:
-     - $min-size      (rem) e.g. 0.25rem
-     - $max-size      (rem) e.g. 1rem
-     - $min-viewport  (rem) e.g. 20rem  ( ~320px if 1rem=16px )
-     - $max-viewport  (rem) e.g. 75rem  ( ~1200px if 1rem=16px )
-
-   Returns:
-     clamp($min-size, calc($intercept + $slope * 100vw), $max-size)
---------------------------------------------------------------------------- */
-@function clamp-spacing($min-size, $max-size, $min-viewport: 20rem, $max-viewport: 90rem) {
-	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
-	$intercept: $min-size - ($slope * $min-viewport);
-
-	@return clamp($min-size, calc(#{$intercept} + #{$slope} * 100vw), $max-size);
-}
-
-/* ---------------------------------------------------------------------------
-   3) Responsive Spacing (From Scale + Clamp)
-   ---------------------------------------------------------------------------
-
+   Retrieves a fluid spacing value by clamping between a minimum and maximum
+   static spacing value.
 --------------------------------------------------------------------------- */
 @function get-sp($min-size, $max-size, $min-vw: 20rem, $max-vw: 90rem) {
 	$min-value: get-static-sp($min-size);
 	$max-value: get-static-sp($max-size);
-
-	@return clamp-spacing($min-value, $max-value, $min-vw, $max-vw);
+	@return math-fn.create-clamp($min-value, $max-value, $min-vw, $max-vw);
 }

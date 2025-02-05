@@ -206,7 +206,7 @@
 		flex-direction: column;
 		justify-content: center;
 		width: 100%;
-		min-height: 100svh; /* One full viewport height */
+		min-height: 100dvh; /* One full viewport height */
 		overflow: hidden; /* No scroll bars inside hero itself */
 		overscroll-behavior: contain;
 		& > * {
@@ -216,8 +216,9 @@
 			display: flex;
 			flex-direction: column;
 			// outline: 1px solid yellow;
-			box-sizing: border-box;
+
 			display: flex;
+			padding-block: get-static-sp('s4');
 			transform: translateY(0%); /* default position */
 			width: 100%;
 			height: 100%;
@@ -235,8 +236,6 @@
 			@extend %global__display--h1;
 			@include text-pop-up-top;
 			// outline: 1px solid red;
-			text-box-trim: unset;
-
 			letter-spacing: -0.05em;
 			&--top {
 			}

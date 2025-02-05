@@ -3,8 +3,10 @@
 @use '../../base/global-variables' as gv;
 
 //-----------------------------------------------------------------
-// Spacing Maps
+// Spacing System
 //-----------------------------------------------------------------
+
+// Static spacing: fixed values (e.g., 'md' = 16px)
 $static-spacing: (
 	'xs': sf.get-static-sp('s4'),
 	// 4px
@@ -25,27 +27,28 @@ $static-spacing: (
 	'5xl': sf.get-static-sp('s80') // 80px
 );
 
+// Responsive spacing: scales with viewport (e.g., 'md' = 20px to 24px)
 $responsive-spacing: (
 	'xs': sf.get-sp('s4', 's8'),
 	// 4px to 8px
 	'sm': sf.get-sp('s8', 's16'),
 	// 8px to 16px
-	'md': sf.get-sp('s20', 's24'),
+	'md': sf.get-sp('s16', 's20'),
+	// 16px to 20px
+	'lg': sf.get-sp('s20', 's24'),
 	// 20px to 24px
-	'lg': sf.get-sp('s24', 's32'),
+	'xl': sf.get-sp('s24', 's32'),
 	// 24px to 32px
-	'xl': sf.get-sp('s32', 's48'),
+	'2xl': sf.get-sp('s32', 's48'),
 	// 32px to 48px
-	'2xl': sf.get-sp('s48', 's64'),
+	'3xl': sf.get-sp('s48', 's64'),
 	// 48px to 64px
-	'3xl': sf.get-sp('s64', 's80'),
+	'4xl': sf.get-sp('s64', 's80'),
 	// 64px to 80px
-	'4xl': sf.get-sp('s80', 's144') // 80px to 144px
+	'5xl': sf.get-sp('s80', 's144') // 80px to 144px
 );
 
-//-----------------------------------------------------------------
-// Helper Functions
-//-----------------------------------------------------------------
+// Helper function to get spacing value
 @function spacing($size, $static: false) {
 	$map: if($static, $static-spacing, $responsive-spacing);
 	@if map-has-key($map, $size) {
@@ -54,80 +57,73 @@ $responsive-spacing: (
 	@error "Spacing key `#{$size}` not found in #{if($static, '$static-spacing', '$responsive-spacing')}";
 }
 
-@function get-sp-range($key) {
-	@if map-has-key($responsive-spacing, $key) {
-		@return map-get($responsive-spacing, $key);
+//-----------------------------------------------------------------
+// MARGINS
+//-----------------------------------------------------------------
+$most-related: spacing('xs', true); // Icons next to text (4px)
+$closely-related: spacing('sm', true); // Nav links (8px)
+$semi-related: spacing('md', true); // Heading to subheading (16px)
+$less-related: spacing('xl', true); // Subheading to paragraph (24px)
+$not-related: spacing('2xl', true); // Between paragraphs (32px)
+
+//-----------------------------------------------------------------
+// Spacing Mixins - Quick Reference
+//-----------------------------------------------------------------
+// Available sizes: 2xs, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl
+// Usage: @include [mixin-name](size, type?, static?);
+//
+// Examples:
+// @include page-padding('xl');                    // All sides, responsive
+// @include section-padding('lg', 'inline', true); // Left/right, static
+// @include component-gap('md', true);             // Static gap
+
+// Page-level spacing
+@mixin page-padding($size: 'xl', $type: 'all', $static: false) {
+	@if $type == 'all' {
+		padding: spacing($size, $static);
+	} @else if $type == 'inline' {
+		padding-inline: spacing($size, $static);
+	} @else if $type == 'block' {
+		padding-block: spacing($size, $static);
+	} @else {
+		@error "Invalid type. Use: 'all', 'inline', or 'block'";
 	}
-	@error "Key '#{$key}' not found in $responsive-spacing map";
-	@return null;
 }
 
-//-----------------------------------------------------------------
-// Margin Spacing Variables (static spacing values)
-//-----------------------------------------------------------------
-$most-related: spacing('xs', true); // e.g. icons next to text (4px)
-$closely-related: spacing('sm', true); // e.g. space between nav links (8px)
-$semi-related: spacing('md', true); // e.g. heading to subheading (16px)
-$less-related: spacing('xl', true); // e.g. subheading to paragraph (24px)
-$not-related: spacing('2xl', true); // e.g. space between paragraphs (32px)
-
-//-----------------------------------------------------------------
-// Mixins for Layout Spacing
-//-----------------------------------------------------------------
-
-// Section-level padding for major layout sections.
-@mixin section-padding($size: 'xl') {
-	padding: spacing($size);
+@mixin page-gap($size: 'xl', $static: false) {
+	gap: spacing($size, $static);
 }
 
-@mixin section-padding-inline($size: 'lg') {
-	padding-inline: spacing($size);
+// Section-level spacing
+@mixin section-padding($size: 'xl', $type: 'all', $static: false) {
+	@if $type == 'all' {
+		padding: spacing($size, $static);
+	} @else if $type == 'inline' {
+		padding-inline: spacing($size, $static);
+	} @else if $type == 'block' {
+		padding-block: spacing($size, $static);
+	} @else {
+		@error "Invalid type. Use: 'all', 'inline', or 'block'";
+	}
 }
 
-@mixin section-padding-block($size: '2xl') {
-	padding-block: spacing($size);
-}
-
-@mixin section-gap($size: '4xl') {
-	gap: spacing($size);
-}
-
-// Inner section spacing (nested sections/containers)
-@mixin inner-section-padding($size: 'xl') {
-	padding: spacing($size);
-}
-
-@mixin inner-section-gap($size: 'xl') {
-	gap: spacing($size);
+@mixin section-gap($size: '4xl', $static: false) {
+	gap: spacing($size, $static);
 }
 
 // Component-level spacing
-@mixin component-padding($size: 'lg') {
-	padding: spacing($size);
+@mixin component-padding($size: 'md', $type: 'all', $static: false) {
+	@if $type == 'all' {
+		padding: spacing($size, $static);
+	} @else if $type == 'inline' {
+		padding-inline: spacing($size, $static);
+	} @else if $type == 'block' {
+		padding-block: spacing($size, $static);
+	} @else {
+		@error "Invalid type. Use: 'all', 'inline', or 'block'";
+	}
 }
 
-@mixin component-gap($size: 'md') {
-	gap: spacing($size);
-}
-
-// For components that require fixed (static) spacing,
-// restrict to either 'lg' or 'md' (defaults to 'lg').
-@mixin component-static-padding($size: 'lg') {
-	$key: if($size == 'lg', 'lg', 'md');
-	padding: spacing($key, true);
-}
-
-@mixin component-static-gap($size: 'lg') {
-	$key: if($size == 'lg', 'lg', 'md');
-	gap: spacing($key, true);
-}
-
-// Directional padding mixins allow granular control.
-// Pass $static: true for fixed spacing.
-@mixin padding-inline($size: 'md', $static: false) {
-	padding-inline: spacing($size, $static);
-}
-
-@mixin padding-block($size: 'md', $static: false) {
-	padding-block: spacing($size, $static);
+@mixin component-gap($size: 'md', $static: false) {
+	gap: spacing($size, $static);
 }

@@ -86,7 +86,6 @@
 	.header {
 		// Variables and base styles
 		--header-height: #{$page-header-height};
-		outline: 1px solid red;
 		@include flex-between;
 		align-items: center;
 		position: fixed;
@@ -97,7 +96,7 @@
 		margin-inline: auto;
 		inline-size: 100%;
 		border-radius: $br-rounded;
-		block-size: var(--header-height);
+		min-block-size: var(--header-height);
 		padding-inline: get-static-sp('s24');
 		padding-block: 1.25rem;
 		transition: transform 0.3s ease-in-out;

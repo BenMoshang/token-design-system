@@ -1,5 +1,6 @@
 @use '../../spacing/spacing-functions' as sf;
 @use '../../../base/global-variables' as gv;
+@use '../../spacing/spacing-styles' as ss;
 //-------------------------------------
 // 2. Breakpoints Map & Mixin
 //-------------------------------------
@@ -40,7 +41,6 @@ $breakpoints: (
 	block-size: 100%;
 	inline-size: 100%;
 	// max-inline-size: 1440px;	// Optionally limit overall width and center it was 1200px
-	padding-inline: get-static-sp('s16');
 }
 
 //-------------------------------------

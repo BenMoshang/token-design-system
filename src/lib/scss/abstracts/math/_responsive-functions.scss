@@ -1,0 +1,67 @@
+@use 'sass:math';
+
+/* ---------------------------------------------------------------------------
+   1) Global Viewport Breakpoints for Clamping
+   ---------------------------------------------------------------------------
+   These values are used if not overridden when generating fluid sizes.
+--------------------------------------------------------------------------- */
+$min-viewport: 20rem; // ~320px if 1rem = 16px
+$max-viewport: 87.5rem; // ~1400px if 1rem = 16px
+
+/* ---------------------------------------------------------------------------
+   2) Rounding Function
+   ---------------------------------------------------------------------------
+   Rounds a given number to the specified number of decimal places.
+   - $number: The number to round.
+   - $precision: The number of decimal places (defaults to 2).
+   
+   Example:
+     round-number(3.14159);     // returns 3.14
+     round-number(3.14159, 3);  // returns 3.142
+--------------------------------------------------------------------------- */
+@function round-number($value, $precision: 2) {
+	$multiplier: math.pow(10, $precision);
+	@return math.round($value * $multiplier) / $multiplier;
+}
+
+/* ---------------------------------------------------------------------------
+   3) Pure Clamp Function (REM-Only)
+   ---------------------------------------------------------------------------
+   This is a direct clamp-based function for fluid values.
+   Pass in:
+     - $min-size      (rem) e.g. 0.25rem
+     - $max-size      (rem) e.g. 1rem
+     - $min-viewport  (rem) e.g. 20rem  ( ~320px if 1rem=16px )
+     - $max-viewport  (rem) e.g. 75rem  ( ~1200px if 1rem=16px )
+   
+   Returns:
+     clamp($min-size, calc($intercept + $slope * 100vw), $max-size)
+--------------------------------------------------------------------------- */
+@function create-clamp(
+	$min-size,
+	$max-size,
+	$min-viewport: $min-viewport,
+	$max-viewport: $max-viewport
+) {
+	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
+	$intercept: $min-size - ($slope * $min-viewport);
+
+	// Round the computed slope and intercept for cleaner output
+	$slope: round-number($slope, 2);
+	$intercept: round-number($intercept, 2);
+
+	@return clamp($min-size, calc(#{$intercept} + #{$slope} * 100vw), $max-size);
+}
+
+/* ---------------------------------------------------------------------------
+   4) Map Value Getter
+   ---------------------------------------------------------------------------
+   Generic function to safely retrieve a value from a map.
+   Returns null if the key doesn't exist.
+--------------------------------------------------------------------------- */
+@function get-map-value($map, $key) {
+	@if map-has-key($map, $key) {
+		@return map-get($map, $key);
+	}
+	@return null;
+}

@@ -1,35 +1,30 @@
 @use 'sass:math';
 @use '../../base/global-variables' as gv;
+@use '../math/responsive-functions' as math-fn;
+
 /* ---------------------------------------------------------------------------
    1) Global / Default Variables (REM Only)
    ---------------------------------------------------------------------------
-   Adjust these to match your project's design system. We assume that 1rem
-   typically corresponds to 16px, but we're NOT using px at all, so everything
-   remains consistent in rem.
+   Adjust these to match your project's design system.
 --------------------------------------------------------------------------- */
-$typography-base-size: 1.25rem; // Base size of 16px for better scaling
-
-$typography-scale-ratio: 1.25; // Perfect fourth ratio - common in award-winning designs
+$typography-base-size: 1.25rem; // Base size (e.g., 16px equivalent)
+$typography-scale-ratio: 1.25; // Scale ratio (e.g., Perfect Fourth)
 
 /* ---------------------------------------------------------------------------
    2) Typographic Scales (REM Values)
    ---------------------------------------------------------------------------
-
+   Define your typographic scale using the base size and scale ratio.
 --------------------------------------------------------------------------- */
 $typography-scales: (
-	//label small - subtle text
 	'x1': math.div($typography-base-size, math.pow($typography-scale-ratio, 1)),
 	'x2': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.5)),
-	//body text
 	'x3': $typography-base-size,
 	'x4': $typography-base-size * math.pow($typography-scale-ratio, 1),
 	'x5': $typography-base-size * math.pow($typography-scale-ratio, 2),
-	//subheadings
 	'x6': $typography-base-size * math.pow($typography-scale-ratio, 3),
 	'x7': $typography-base-size * math.pow($typography-scale-ratio, 4),
 	'x8': $typography-base-size * math.pow($typography-scale-ratio, 5),
 	'x9': $typography-base-size * math.pow($typography-scale-ratio, 6),
-	//display & headlines
 	'x10': $typography-base-size * math.pow($typography-scale-ratio, 7),
 	'x11': $typography-base-size * math.pow($typography-scale-ratio, 8),
 	'x12': $typography-base-size * math.pow($typography-scale-ratio, 9),
@@ -39,59 +34,22 @@ $typography-scales: (
 /* ---------------------------------------------------------------------------
    3) Static Font-Size Getter
    ---------------------------------------------------------------------------
-   Retrieves a static size from $typography-scales, returning a REM value.
+   Retrieves a static font size from the typographic scale and rounds it.
 --------------------------------------------------------------------------- */
 @function get-static-fsz($size) {
-	$font-size: map-get($typography-scales, $size);
-
-	@return $font-size;
+	$font-size: math-fn.get-map-value($typography-scales, $size);
+	@return math-fn.round-number($font-size, 0); // Round to whole numbers for static sizes
 }
 
 /* ---------------------------------------------------------------------------
-   4) Pure Clamp Function (REM-Only)
-   ---------------------------------------------------------------------------
-   This is a direct Marc Bacon-style function, but restricted to REM units.
-   Pass in:
-     - $min-size      (rem) e.g. 1rem
-     - $max-size      (rem) e.g. 2rem
-     - $min-viewport  (rem) e.g. 20rem  ( ~320px if 1rem=16px )
-     - $max-viewport  (rem) e.g. 75rem  ( ~1200px if 1rem=16px )
-
-   Returns:
-     clamp($min-size, calc($intercept + $slope * 100vw), $max-size)
-
-   Where:
-     $slope     = (maxSize - minSize) / (maxVW - minVW)
-     $intercept = minSize - slope * minVW
---------------------------------------------------------------------------- */
-/*=============================================
-=            for clamp             =
-=============================================*/
-$min-viewport: 20rem;
-$max-viewport: 90rem;
-@function clamp-size(
-	$min-size,
-	$max-size,
-	$min-viewport: $min-viewport,
-	$max-viewport: $max-viewport
-) {
-	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
-	$intercept: $min-size - ($slope * $min-viewport);
-
-	@return clamp($min-size, calc(#{$intercept} + #{$slope} * 100vw), $max-size);
-}
-
-/* ---------------------------------------------------------------------------
-   5) Responsive Font-Size (From Scale + Clamp)
+   4) Responsive Font-Size (From Scale + Clamp)
    ---------------------------------------------------------------------------
    Blends the typographic scale with the clamp approach:
-   1) Fetch the smaller (min) and larger (max) font-sizes from the scale.
-   2) Use clamp-size() to create the fluid clamp expression.
-   3) Uses default $min-viewport / $max-viewport if not overridden.
+     1) Retrieves the min and max sizes from the scale.
+     2) Generates a fluid clamp expression using those values.
 --------------------------------------------------------------------------- */
-@function get-fsz($min-key, $max-key, $min-vw: $min-viewport, $max-vw: $max-viewport) {
+@function get-fsz($min-key, $max-key) {
 	$min-size: get-static-fsz($min-key);
 	$max-size: get-static-fsz($max-key);
-
-	@return clamp-size($min-size, $max-size, $min-vw, $max-vw);
+	@return math-fn.create-clamp($min-size, $max-size);
 }
