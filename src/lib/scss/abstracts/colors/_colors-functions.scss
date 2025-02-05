@@ -1,11 +1,12 @@
 @use 'colors-variables' as cv;
+@use 'sass:map';
 
 @function get-color($color, $scale: 'dark') {
 	// Select the appropriate color scale based on the $scale parameter
 	$selected-scale: if($scale == 'light', cv.$light-scale, cv.$dark-scale);
 
 	// Return the color value from the selected scale
-	@return map-get($selected-scale, $color);
+	@return map.get($selected-scale, $color);
 }
 
 @function get-light-dark($color1, $color2) {

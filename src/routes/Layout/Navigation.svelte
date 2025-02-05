@@ -106,10 +106,10 @@
 	.nav__list {
 		padding-top: $page-header-height;
 		@include flex-column;
+		gap: get-static-sp('2xl');
 		align-content: center;
 		justify-content: center;
 		list-style: none;
-		gap: $not-related;
 		inline-size: 100%;
 		block-size: 100%;
 		position: absolute;

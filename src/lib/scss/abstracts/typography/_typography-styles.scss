@@ -4,6 +4,7 @@
 @use '../colors/colors-variables' as cv;
 @use '../../base/animations/text/typography-animations' as ta;
 @use 'typography-variables' as tv;
+@use 'sass:map';
 
 $responsive-font-size: (
 	'display--h1': fsz.get-fsz('x7', 'x13'),
@@ -17,7 +18,7 @@ $responsive-font-size: (
 );
 @function get-fsz-range($key) {
 	@if map-has-key($responsive-font-size, $key) {
-		@return map-get($responsive-font-size, $key);
+		@return map.get($responsive-font-size, $key);
 	} @else {
 		@error "Key '#{$key}' not found in $responsive-font-size map";
 		@return null;
@@ -87,7 +88,7 @@ $responsive-font-size: (
 	@include roboto;
 	font-family: tf.get-ff('secondary');
 	font-weight: tf.get-fw('label');
-	font-size: map-get($responsive-font-size, 'label');
+	font-size: map.get($responsive-font-size, 'label');
 	line-height: tf.get-lh('loose');
 	letter-spacing: tf.get-ls('loose');
 	color: cf.get-light-dark('medium', 'medium');
@@ -102,14 +103,14 @@ $responsive-font-size: (
 
 %global__display--h1 {
 	@include display-overview;
-	font-size: map-get($responsive-font-size, 'display--h1');
+	font-size: map.get($responsive-font-size, 'display--h1');
 	text-align: center;
 	text-wrap: balance;
 }
 
 %global__display--h2 {
 	@include display-overview;
-	font-size: map-get($responsive-font-size, 'display--h2');
+	font-size: map.get($responsive-font-size, 'display--h2');
 	text-align: center;
 }
 
@@ -120,19 +121,19 @@ $responsive-font-size: (
 %global__heading--h2 {
 	@include heading-overview;
 
-	font-size: map-get($responsive-font-size, 'heading--h2');
+	font-size: map.get($responsive-font-size, 'heading--h2');
 }
 
 %global__heading--h3 {
 	@include heading-overview;
 
-	font-size: map-get($responsive-font-size, 'heading--h3');
+	font-size: map.get($responsive-font-size, 'heading--h3');
 }
 
 %global__heading--h4 {
 	@include heading-overview;
 	font-weight: tf.get-fw('heading');
-	font-size: map-get($responsive-font-size, 'heading--h4');
+	font-size: map.get($responsive-font-size, 'heading--h4');
 }
 
 /*=============================================
@@ -142,13 +143,13 @@ $responsive-font-size: (
 %global__body--lg {
 	@include body-overview;
 
-	font-size: map-get($responsive-font-size, 'body--lg');
+	font-size: map.get($responsive-font-size, 'body--lg');
 }
 
 %global__body--md {
 	@include body-overview;
 
-	font-size: map-get($responsive-font-size, 'body--md');
+	font-size: map.get($responsive-font-size, 'body--md');
 }
 
 /*=============================================

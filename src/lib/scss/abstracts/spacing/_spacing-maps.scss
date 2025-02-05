@@ -1,0 +1,83 @@
+@use 'sass:math';
+@use 'sass:map';
+/*
+ * Base unit (0.25rem) corresponds to 4px when 1rem = 16px.
+
+ */
+$base-unit: 0.25rem;
+
+/**
+ * @function spacing-scale
+ * Returns spacing by multiplying the base unit by a factor.
+ */
+@function spacing-scale($factor) {
+	@return $base-unit * $factor;
+}
+
+/**
+ * Spacing scale map, using the base unit.
+ */
+$spacing-scale: (
+	's4': spacing-scale(1),
+	// 0.25rem (4px)
+	's8': spacing-scale(2),
+	// 0.5rem (8px)
+	's12': spacing-scale(3),
+	// 0.75rem (12px)
+	's16': spacing-scale(4),
+	// 1rem (16px)
+	's20': spacing-scale(5),
+	// 1.25rem (20px)
+	's24': spacing-scale(6),
+	// 1.5rem (24px)
+	's32': spacing-scale(8),
+	// 2rem (32px)
+	's40': spacing-scale(10),
+	// 2.5rem (40px)
+	's48': spacing-scale(12),
+	// 3rem (48px)
+	's56': spacing-scale(14),
+	// 3.5rem (56px)
+	's64': spacing-scale(16),
+	// 4rem (64px)
+	's72': spacing-scale(18),
+	// 4.5rem (72px)
+	's80': spacing-scale(20),
+	// 5rem (80px)
+	's88': spacing-scale(22),
+	// 5.5rem (88px)
+	's96': spacing-scale(24),
+	// 6rem (96px)
+	's144': spacing-scale(36) // 9rem (144px)
+);
+
+/**
+ * A semantic static spacing map.
+ */
+$static-spacing: (
+	'xs': map.get($spacing-scale, 's4'),
+	'sm': map.get($spacing-scale, 's8'),
+	'md': map.get($spacing-scale, 's16'),
+	'lg': map.get($spacing-scale, 's20'),
+	'xl': map.get($spacing-scale, 's24'),
+	'2xl': map.get($spacing-scale, 's32'),
+	'3xl': map.get($spacing-scale, 's48'),
+	'4xl': map.get($spacing-scale, 's64'),
+	'5xl': map.get($spacing-scale, 's80')
+);
+
+/**
+ * Responsive spacing map, which uses a clamp function (defined later)
+ * to fluidly scale spacing between two static values.
+ */
+$responsive-spacing: (
+	'xs': create-responsive-sp('s4', 's8'),
+	'sm': create-responsive-sp('s8', 's16'),
+	'md': create-responsive-sp('s16', 's20'),
+	'lg': create-responsive-sp('s20', 's24'),
+	'xl': create-responsive-sp('s24', 's32'),
+	'2xl': create-responsive-sp('s32', 's48'),
+	'3xl': create-responsive-sp('s48', 's64'),
+	'4xl': create-responsive-sp('s64', 's80'),
+	'5xl': create-responsive-sp('s80', 's144')
+);

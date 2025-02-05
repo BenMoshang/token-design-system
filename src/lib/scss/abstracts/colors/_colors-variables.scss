@@ -1,33 +1,51 @@
 $dark-scale: (
-	'darkest': hsl(240, 10%, 8%),
 	// Primary background
-	'darker': hsl(240, 9%, 14%),
+	'darkest': hsl(240, 15%, 6%),
 	// Layered background / cards
-	'dark': hsl(240, 8%, 20%),
+	'darker': hsl(240, 12%, 9%),
 	// Surfaces (e.g., modals, raised elements)
-	'medium': hsl(240, 7%, 30%),
-	// Subtle borders, less prominent text
-	'light': hsl(240, 6%, 50%),
-	// Body text color
-	'lighter': hsl(240, 4%, 75%),
+	'dark': hsl(240, 10%, 12%),
+	// Subtle surfaces or additional layers
+	'medium': hsl(240, 8%, 16%),
+	// Body text color (on darkest/darker/dark/medium)
+	'light': hsl(240, 6%, 60%),
 	// Secondary text, icons
-	'lightest': hsl(240, 4%, 95%) // High-contrast text / highlights on dark backgrounds
+	'lighter': hsl(240, 6%, 75%),
+	// High-contrast text / highlights on dark backgrounds
+	'lightest': hsl(240, 4%, 95%)
 );
 $light-scale: (
-	'darkest': hsl(75, 10%, 8%),
-	// ~ #2B2B2B (near-black text)
-	'darker': hsl(75, 9%, 14%),
-	// ~ #3F3F3F
-	'dark': hsl(75, 8%, 20%),
-	// ~ #595959
-	'medium': hsl(75, 7%, 30%),
-	// ~ #8C8C8C
-	'light': hsl(75, 6%, 50%),
-	// ~ #C2C2C2
-	'lighter': hsl(75, 4%, 75%),
-	// ~ #E1E1E1
-	'lightest': hsl(75, 10%, 89%) // ~ #FFF8F2 (warm off-white background)
+	// Primary background
+	'darkest': hsl(240, 15%, 6%),
+	// Layered backgrounds / cards
+	'darker': hsl(240, 12%, 10%),
+	// Surfaces (e.g., modals, raised elements)
+	'dark': hsl(240, 10%, 14%),
+	// Subtle backgrounds, well above darkest
+	'medium': hsl(240, 8%, 20%),
+	// Subtle borders, less prominent text
+	'light': hsl(240, 7%, 26%),
+	// Further elevated surfaces or secondary panels
+	'lighter': hsl(240, 6%, 32%),
+	// Kept exactly the same as requested
+	'lightest': hsl(75, 10%, 89%)
 );
+
+// $light-scale: (
+// 	'darkest': hsl(75, 6%, 14%),
+// 	// ~ #2B2B2B (near-black text)
+// 	'darker': hsl(84, 4%, 27%),
+// 	// ~ #3F3F3F
+// 	'dark': hsl(80, 2%, 47%),
+// 	// ~ #595959
+// 	'medium': hsl(84, 3%, 64%),
+// 	// ~ #8C8C8C
+// 	'light': hsl(80, 5%, 76%),
+// 	// ~ #C2C2C2
+// 	'lighter': #f0f2ec,
+// 	// ~ #E1E1E1
+// 	'lightest': #f5f7f1 // ~#e4e6e0 (warm off-white background)
+// );
 $raw-dark-scale: (
 	'darkest': (
 		240 10% 8%

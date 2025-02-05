@@ -37,32 +37,38 @@
 		// Create a pinned scroll effect on the hero container
 		doorTimeline = gsap.timeline({
 			scrollTrigger: {
-				trigger: heroSection, // Use the hero section directly
-				start: 'top top', // Start when top of hero hits top of viewport
-				end: '+=100%', // End after scrolling 100% of viewport height
+				trigger: heroSection,
+				start: 'top top',
+				end: '+=100%',
 				pin: true,
-				pinSpacing: true, // Ensures proper spacing
-				scrub: 2, // Smoother scrubbing
-				markers: false, // Helpful for debugging - remove in production
-				anticipatePin: 1
+				pinSpacing: true,
+				scrub: 1, // Reduced scrub time for snappier response
+				markers: false,
+				anticipatePin: 1,
+				fastScrollEnd: true, // Ensures animation completion on fast scroll
+				preventOverlaps: true, // Prevents overlapping animations
+				onEnter: () => {
+					// Ensure panels are in correct starting position
+					gsap.set([topPanel, bottomPanel], { clearProps: 'all' });
+				}
 			}
 		});
 
-		// Animate panels with percentage-based transforms
+		// Animate panels with optimized settings
 		doorTimeline
 			.to(topPanel, {
 				yPercent: -120,
-				ease: 'power4.inOut', // Smoother easing
-				duration: 4, // Shorter duration for snappier animation
-				force3D: true, // Force GPU acceleration
-				willChange: 'transform' // Browser optimization hint
+				ease: 'power4.inOut', // Changed to power2 for better fast scroll handling
+				duration: 3, // Reduced duration for snappier animation
+				force3D: true,
+				willChange: 'transform'
 			})
 			.to(
 				bottomPanel,
 				{
 					yPercent: 120,
 					ease: 'power4.inOut',
-					duration: 4,
+					duration: 3,
 					force3D: true,
 					willChange: 'transform'
 				},
@@ -85,12 +91,16 @@
 	<!-- Top panel (door) -->
 	<!--  -->
 	<div class="hero__panel hero__panel--top" bind:this={topPanel}>
-		<h1 class="hero__title hero__title--top">{heroInjectable.titleFirstHalf}</h1>
+		<h1 data-text={heroInjectable.titleFirstHalf} class="hero__title hero__title--top">
+			{heroInjectable.titleFirstHalf}
+		</h1>
 	</div>
 
 	<!-- Bottom panel (door) -->
 	<div class="hero__panel hero__panel--bottom" bind:this={bottomPanel}>
-		<h1 class="hero__title hero__title--bottom">{heroInjectable.titleSecondHalf}</h1>
+		<h1 data-text={heroInjectable.titleSecondHalf} class="hero__title hero__title--bottom">
+			{heroInjectable.titleSecondHalf}
+		</h1>
 
 		<h2 class="hero__subtitle">{heroInjectable.subtitle}</h2>
 
@@ -168,33 +178,7 @@
 </section>
 
 <style lang="scss">
-	@mixin shimmer {
-		background: linear-gradient(
-			90deg,
-			get-light-dark('darker', 'lightest') 0%,
-			get-light-dark('light', 'medium') 25%,
-			get-light-dark('darker', 'lightest') 50%,
-			get-light-dark('light', 'medium') 75%,
-			get-light-dark('darker', 'lightest') 100%
-		);
-		background-size: 300%;
-		background-clip: text;
-		color: transparent;
-		animation: shimmer 12s infinite;
-	}
-	@keyframes shimmer {
-		0% {
-			background-position: -100% 0;
-		}
-		100% {
-			background-position: 100% 0;
-		}
-	}
-
 	.hero {
-		/*----title variables----*/
-		--title-margin-bottom: #{get-static-sp('s16')};
-
 		/*----icon variables----*/
 		--icon-size: #{get-fsz-range('label')};
 		--icon-color: #{get-light-dark('dark', 'light')};
@@ -213,12 +197,12 @@
 			flex: 1;
 		}
 		&__panel {
+			@include component-padding('xs', 'block');
+
 			display: flex;
 			flex-direction: column;
 			// outline: 1px solid yellow;
-
 			display: flex;
-			padding-block: get-static-sp('s4');
 			transform: translateY(0%); /* default position */
 			width: 100%;
 			height: 100%;
@@ -234,26 +218,42 @@
 
 		&__title {
 			@extend %global__display--h1;
-			@include text-pop-up-top;
-			// outline: 1px solid red;
 			letter-spacing: -0.05em;
+			@include gradient-text('lighter', 'darkest', 'lightest', 'lighter', 145deg);
+
+			position: relative;
+			// Keep the text itself visible so the shadow works
+
+			&::after {
+				@include text-pop-up-top;
+
+				content: attr(data-text);
+				position: absolute;
+				inset: 0;
+				margin: auto;
+				z-index: -1;
+
+				// Make sure font-size, font-family, etc match the parent
+			}
+
 			&--top {
 			}
+
 			&--bottom {
 			}
 		}
 
 		&__subtitle {
-			@include shimmer;
 			@extend %global__heading--h3;
-			margin-top: $not-related;
+			@include margin-not-related('top');
 			margin-inline: auto;
 			text-align: center;
 			font-weight: get-fw('emphasis');
 			text-transform: uppercase;
 			text-wrap: pretty;
+
 			@include respond-to('mobile') {
-				word-spacing: get-sp-range('xs');
+				word-spacing: create-responsive-sp-range('');
 			}
 		}
 
@@ -270,10 +270,10 @@
 				display: flex;
 			}
 			& svg {
+				@include margin-closely-related('right');
 				display: block;
 				width: var(--icon-size);
 				height: var(--icon-size);
-				margin-right: $closely-related;
 
 				& path {
 					fill: var(--icon-color);

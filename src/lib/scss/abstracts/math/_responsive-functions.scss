@@ -1,13 +1,7 @@
 @use 'sass:math';
+@use 'sass:map';
 
-/* ---------------------------------------------------------------------------
-   1) Global Viewport Breakpoints for Clamping
-   ---------------------------------------------------------------------------
-   These values are used if not overridden when generating fluid sizes.
---------------------------------------------------------------------------- */
-$min-viewport: 20rem; // ~320px if 1rem = 16px
-$max-viewport: 87.5rem; // ~1400px if 1rem = 16px
-
+@use '../spacing/spacing-maps' as sm;
 /* ---------------------------------------------------------------------------
    2) Rounding Function
    ---------------------------------------------------------------------------
@@ -37,12 +31,7 @@ $max-viewport: 87.5rem; // ~1400px if 1rem = 16px
    Returns:
      clamp($min-size, calc($intercept + $slope * 100vw), $max-size)
 --------------------------------------------------------------------------- */
-@function create-clamp(
-	$min-size,
-	$max-size,
-	$min-viewport: $min-viewport,
-	$max-viewport: $max-viewport
-) {
+@function create-clamp($min-size, $max-size, $min-viewport: 20rem, $max-viewport: 87.5rem) {
 	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
 	$intercept: $min-size - ($slope * $min-viewport);
 
@@ -57,11 +46,11 @@ $max-viewport: 87.5rem; // ~1400px if 1rem = 16px
    4) Map Value Getter
    ---------------------------------------------------------------------------
    Generic function to safely retrieve a value from a map.
-   Returns null if the key doesn't exist.
+   Throws an error if the key doesn't exist to prevent silent failures.
 --------------------------------------------------------------------------- */
 @function get-map-value($map, $key) {
-	@if map-has-key($map, $key) {
-		@return map-get($map, $key);
+	@if not map-has-key($map, $key) {
+		@error "Key '#{$key}' not found in map. Available keys are: #{map-keys($map)}";
 	}
-	@return null;
+	@return map.get($map, $key);
 }

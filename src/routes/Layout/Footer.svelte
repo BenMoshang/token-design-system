@@ -167,7 +167,7 @@
 	</section>
 </footer>
 
-<style lang="scss">
+<!-- <style lang="scss">
 	/*=============================================
 	TODO: make footer parallax
 	=============================================*/
@@ -176,12 +176,12 @@
 	=============================================*/
 	.footer__shape-top {
 		line-height: 0;
-		inline-size: calc(100% + get-static-sp('s16'));
+		inline-size: calc(100% + get-static-sp('md'));
 		block-size: 5.25rem;
 	}
 
 	.footer__shape-top .shape-fill {
-		inline-size: calc(100% + get-static-sp('s16'));
+		inline-size: calc(100% + get-static-sp('md'));
 
 		fill: get-light-dark('lightest', 'darkest');
 	}
@@ -194,10 +194,10 @@
 		block-size: 100%;
 		inline-size: 100%;
 		background: get-light-dark('medium', 'darker');
-		padding-bottom: get-static-sp('s32');
+		padding-bottom: get-static-sp('md');
 
 		&__content {
-			padding: get-static-sp('s16');
+			padding: get-static-sp('md');
 			max-inline-size: $desktop-breakpoint;
 			margin-block: 0;
 			margin-inline: auto;
@@ -220,7 +220,7 @@
 		&__logo {
 			text-decoration: none;
 			font-size: get-static-fsz('x4');
-			margin-bottom: get-static-sp('s16');
+			margin-bottom: get-static-sp('md');
 		}
 
 		&__nav {
@@ -235,7 +235,7 @@
 			font-size: get-static-fsz('x1');
 			letter-spacing: get-ls('normal');
 			color: get-light-dark('darkest', 'lightest');
-			margin-block-end: get-static-sp('s16');
+			margin-block-end: get-static-sp('md');
 		}
 
 		&__nav-list {
@@ -289,8 +289,8 @@
 
 		&__bottom {
 			max-width: $desktop-breakpoint;
-			margin: get-static-sp('s32') auto 0;
-			padding-block-start: get-static-sp('s16');
+			margin: get-static-sp('md') auto 0;
+			padding-block-start: get-static-sp('md');
 			border-block-start: 0.0313rem solid get-light-dark('dark', 'light');
 			text-align: center;
 		}
@@ -298,7 +298,7 @@
 		&__copyright {
 			@extend %global__body--md;
 			color: get-light-dark('dark', 'light');
-			font-size: get-static-fsz('x1');
+			font-size: get-static-fsz('');
 		}
 	}
 
@@ -314,4 +314,4 @@
 		white-space: nowrap;
 		border: 0;
 	}
-</style>
+</style> -->

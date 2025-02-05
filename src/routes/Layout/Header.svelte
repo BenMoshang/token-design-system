@@ -1,34 +1,34 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import ThemeToggle from '$lib/User/Preferences/ThemeToggle.svelte';
 	import EmailButton from '$lib/Components/EmailButton.svelte';
 	import Navigation from './Navigation.svelte';
 	import BrandLogo from '$lib/Components/BrandLogo.svelte';
-	let hideHeader = $state(false);
-	let lastScrollY = $state(0);
 
-	let isNavOpen = $state(false);
-	export function toggleNav() {
+	let hideHeader = false;
+	let lastScrollY = 0;
+	let isNavOpen = false;
+
+	function toggleNav() {
 		isNavOpen = !isNavOpen;
 		document.body.style.overflow = isNavOpen ? 'hidden' : '';
 	}
+
 	const navItems = [
-		{ href: '/', text: 'Home'.toUpperCase() },
-		{ href: '/about', text: 'About'.toUpperCase() },
-		{ href: '/about', text: 'Services'.toUpperCase() },
-		{ href: '/work', text: 'Portfolio'.toUpperCase() },
-		{ href: '/contact', text: 'Contact'.toUpperCase() }
+		{ href: '/', text: 'HOME' },
+		{ href: '/about', text: 'ABOUT' },
+		{ href: '/services', text: 'SERVICES' },
+		{ href: '/work', text: 'PORTFOLIO' },
+		{ href: '/contact', text: 'CONTACT' }
 	];
-	// Add scroll event listener when the component is mounted
-	$effect(() => {
+
+	onMount(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
 			hideHeader = currentScrollY > lastScrollY && currentScrollY > 100;
 			lastScrollY = currentScrollY;
 		};
-
 		window.addEventListener('scroll', handleScroll, { passive: true });
-
-		// Cleanup listener on component destroy
 		return () => window.removeEventListener('scroll', handleScroll);
 	});
 </script>
@@ -40,7 +40,7 @@
 	<nav class="header__nav--desktop">
 		<ul class="nav__list" role="menubar" aria-label="Main menu">
 			{#each navItems as { href, text }}
-				<li class="nav__list-item" role="none">
+				<li class="nav__list-item">
 					<a
 						{href}
 						class="nav__link"
@@ -55,7 +55,6 @@
 	</nav>
 	<div class="header__content-wrapper">
 		<ThemeToggle />
-
 		<EmailButton />
 		<!-- MOBILE: Menu Toggle -->
 		<label for="menu-toggle" class="header__burger">
@@ -84,21 +83,18 @@
     HEADER & CHILD COMPONENTS
   ==========================*/
 	.header {
-		// Variables and base styles
+		// Use design tokens and mixins from the design system.
 		--header-height: #{$page-header-height};
 		@include flex-between;
-		align-items: center;
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		margin-top: get-static-sp('s8');
-		margin-inline: auto;
 		inline-size: 100%;
 		border-radius: $br-rounded;
 		min-block-size: var(--header-height);
-		padding-inline: get-static-sp('s24');
-		padding-block: 1.25rem;
+		padding: 1.25rem get-static-sp('s24');
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
 		z-index: 1000;
@@ -125,8 +121,7 @@
 		&__nav--desktop {
 			display: none;
 			@include respond-to('desktop') {
-				display: unset;
-				margin-inline: auto;
+				display: block;
 			}
 		}
 
@@ -135,7 +130,7 @@
 		//==========================
 		&__content-wrapper {
 			display: flex;
-			gap: get-static-sp('s16');
+			gap: get-responsive-sp('xs');
 		}
 
 		//==========================
@@ -157,12 +152,10 @@
 			}
 
 			svg {
-				--svg-size: 2rem;
-				--burger-centering: #{get-static-sp('s4')};
-				width: var(--svg-size);
-				height: var(--svg-size);
-				padding-block: var(--burger-centering);
-				padding-right: var(--burger-centering);
+				width: 2rem;
+				height: 2rem;
+				padding: get-static-sp('xs');
+				object-fit: cover;
 				background: get-light-dark('darkest', 'lightest');
 				border-radius: $br-rounded;
 				transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -173,7 +166,7 @@
 				stroke: get-light-dark('lighter', 'dark');
 				stroke-linecap: round;
 				stroke-linejoin: round;
-				stroke-width: 2.5;
+				stroke-width: 2;
 				transition:
 					stroke-dasharray 500ms cubic-bezier(0.4, 0, 0.2, 1),
 					stroke-dashoffset 500ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -188,7 +181,7 @@
 	//==========================
 	// Hide burger menu on larger screens
 	//==========================
-	@media (min-width: $mobile-breakpoint) {
+	@include respond-to('tablet') {
 		.header__burger {
 			display: none;
 		}
@@ -198,10 +191,8 @@
     NAVIGATION LINKS & LIST
   ==========================*/
 	.nav__list {
-		$spacing-gap: get-static-sp('s32');
 		@include flex-center;
-		align-self: flex-start;
-		gap: $spacing-gap;
+		gap: get-static-sp('2xl');
 		list-style: none;
 
 		&:last-child .nav__link {

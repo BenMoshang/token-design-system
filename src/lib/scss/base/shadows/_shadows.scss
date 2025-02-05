@@ -9,8 +9,9 @@
 @use '../../abstracts/colors/colors-functions' as cf;
 @use '../../abstracts/colors/colors-variables' as cv;
 @use '../../abstracts/themes/themes' as themes;
+@use 'sass:map';
 
-$text-pop-up-top-color: cf.get-light-dark('light', 'medium');
+$text-pop-up-top-color: cf.get-light-dark('light', 'light');
 
 @mixin text-pop-up-top {
 	text-shadow:
@@ -31,11 +32,11 @@ $text-pop-up-top-color: cf.get-light-dark('light', 'medium');
  * @throws Error if color is not found in map
  */
 @function get-raw-light-color($color) {
-	$raw-color-values: map-get(cv.$raw-light-scale, $color);
+	$raw-color-values: map.get(cv.$raw-light-scale, $color);
 	@return nth($raw-color-values, 1) nth($raw-color-values, 2) nth($raw-color-values, 3);
 }
 @function get-raw-dark-color($color) {
-	$raw-color-values: map-get(cv.$raw-dark-scale, $color);
+	$raw-color-values: map.get(cv.$raw-dark-scale, $color);
 	@return nth($raw-color-values, 1) nth($raw-color-values, 2) nth($raw-color-values, 3);
 }
 //-------------------------------------
@@ -146,8 +147,8 @@ $shadow-high: (
 	@include apply-shadow(
 		$light-value,
 		$dark-value,
-		map-get($shadow-low, shadows),
-		map-get($shadow-low, opacities)
+		map.get($shadow-low, shadows),
+		map.get($shadow-low, opacities)
 	);
 }
 
@@ -162,8 +163,8 @@ $shadow-high: (
 	@include apply-shadow(
 		$light-value,
 		$dark-value,
-		map-get($shadow-medium, shadows),
-		map-get($shadow-medium, opacities)
+		map.get($shadow-medium, shadows),
+		map.get($shadow-medium, opacities)
 	);
 }
 
@@ -178,8 +179,8 @@ $shadow-high: (
 	@include apply-shadow(
 		$light-value,
 		$dark-value,
-		map-get($shadow-high, shadows),
-		map-get($shadow-high, opacities)
+		map.get($shadow-high, shadows),
+		map.get($shadow-high, opacities)
 	);
 }
 
@@ -194,7 +195,7 @@ $shadow-high: (
 	@include apply-shadow(
 		$light-value,
 		$dark-value,
-		map-get($shadow-inset, shadows),
-		map-get($shadow-inset, opacities)
+		map.get($shadow-inset, shadows),
+		map.get($shadow-inset, opacities)
 	);
 }

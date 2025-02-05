@@ -55,13 +55,14 @@
 		cursor: pointer;
 	}
 	svg {
-		$color: light-dark(hsl(75, 9%, 14%), hsl(240, 4%, 75%));
+		$color: get-light-dark('medium', 'light');
 		inline-size: 1.5rem;
 		block-size: 1.5rem;
 		fill: $color;
 		object-fit: cover;
-
-		& path {
+		margin-right:
+		// @include margin('right', 'sm', false);
+			& path {
 			fill: $color;
 		}
 	}

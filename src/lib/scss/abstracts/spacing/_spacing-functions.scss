@@ -1,24 +1,35 @@
-@use 'spacing-variables' as sv;
-@use '../../base/global-variables' as gv;
-@use '../math/responsive-functions' as math-fn;
+@use 'spacing-maps' as sm;
+@use '../../abstracts/math/responsive-functions' as math-fn;
+@use 'sass:map';
 
-/* ---------------------------------------------------------------------------
-   1) Static Spacing Getter
-   ---------------------------------------------------------------------------
-   Retrieves a static spacing value from the $spacing map, with error checking.
---------------------------------------------------------------------------- */
-@function get-static-sp($size) {
-	@return math-fn.get-map-value(sv.$spacing, $size);
+@function get-static-sp($key) {
+	@return map.get(sm.$static-spacing, $key);
 }
 
-/* ---------------------------------------------------------------------------
-   2) Responsive Spacing (From Scale + Clamp)
-   ---------------------------------------------------------------------------
-   Retrieves a fluid spacing value by clamping between a minimum and maximum
-   static spacing value.
---------------------------------------------------------------------------- */
-@function get-sp($min-size, $max-size, $min-vw: 20rem, $max-vw: 90rem) {
-	$min-value: get-static-sp($min-size);
-	$max-value: get-static-sp($max-size);
-	@return math-fn.create-clamp($min-value, $max-value, $min-vw, $max-vw);
+@function get-base-sp($key) {
+	@return map.get(sm.$spacing-scale, $key);
+}
+
+@function create-responsive-sp($min-size, $max-size) {
+	$min: math-fn.get-map-value(sm.$spacing-scale, $min-size);
+	$max: math-fn.get-map-value(sm.$spacing-scale, $max-size);
+	@return math-fn.create-clamp($min, $max);
+}
+
+@function get-responsive-sp($key) {
+	@return map.get(sm.$responsive-spacing, $key);
+}
+
+/**
+ * Main spacing function.
+ * If $static is true, returns a static spacing value; otherwise returns a responsive value.
+ */
+@function spacing($size, $static: false) {
+	@if type-of($size) != 'string' {
+		@error "Spacing size must be a string. Got: #{$size}";
+	}
+	@if $static == true {
+		@return get-static-sp($size);
+	}
+	@return get-responsive-sp($size);
 }

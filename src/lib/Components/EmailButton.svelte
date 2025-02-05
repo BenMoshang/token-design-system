@@ -63,7 +63,7 @@
 		@include button-effect;
 		// @include shadow-high('darkest', 'lightest');
 		height: 2rem;
-		gap: get-static-sp('s4');
+		gap: get-static-sp('xs');
 		text-decoration: none;
 		position: relative;
 		overflow: hidden;
@@ -71,12 +71,12 @@
 		border-radius: $br-default;
 		border: 0.0625rem solid get-light-dark('darkest', 'lightest');
 		color: get-light-dark('lightest', 'darkest');
-		padding: get-static-sp('s8');
+		padding: get-static-sp('sm');
 		background: get-light-dark('darkest', 'lightest');
 
 		@include respond-to('mobile') {
-			padding-inline: get-static-sp('s12');
-			padding-block: get-static-sp('s6');
+			padding-inline: get-static-sp('md');
+			padding-block: get-static-sp('xs');
 		}
 
 		&__icon {

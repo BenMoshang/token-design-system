@@ -8,18 +8,46 @@
 */
 
 @mixin gradient-text(
-	$dark-start: 'darkest',
-	$dark-end: 'dark',
 	$light-start: 'lightest',
-	$light-end: 'light',
-	$direction: 360deg
+	$light-end: 'medium',
+	$dark-start: 'lightest',
+	$dark-end: 'light',
+	$direction: 145deg
 ) {
 	background-image: linear-gradient(
 		$direction,
-		cf.get-light-dark($light-start, $dark-start) 0%,
-
-		cf.get-light-dark($light-end, $dark-end) 100%
+		light-dark(cf.get-color($light-start, 'light'), cf.get-color($dark-start, 'dark')),
+		light-dark(cf.get-color($light-end, 'light'), cf.get-color($dark-end, 'dark'))
 	);
 	background-clip: text;
+	-webkit-background-clip: text;
 	color: transparent;
+}
+@mixin shimmer(
+	$light-base: 'dark',
+	$light-highlight: 'light',
+	$dark-base: 'medium',
+	$dark-highlight: 'light'
+) {
+	background: linear-gradient(
+		90deg,
+		cf.get-light-dark($light-base, $dark-base) 0%,
+		cf.get-light-dark($light-highlight, $dark-highlight) 25%,
+		cf.get-light-dark($light-base, $dark-base) 50%,
+		cf.get-light-dark($light-highlight, $dark-highlight) 75%,
+		cf.get-light-dark($light-base, $dark-base) 100%
+	);
+
+	background-size: 300%;
+	background-clip: text;
+	color: transparent;
+	animation: shimmer 12s infinite;
+}
+@keyframes shimmer {
+	0% {
+		background-position: -100% 0;
+	}
+	100% {
+		background-position: 100% 0;
+	}
 }
