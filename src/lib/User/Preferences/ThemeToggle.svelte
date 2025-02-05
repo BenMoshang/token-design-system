@@ -1,40 +1,13 @@
 <script lang="ts">
 	import { theme } from '$lib/Stores/theme';
 
-	let isDark = $state(false);
+	let isDark = $state(true);
 
 	// Update theme and save preference
 	function toggleTheme() {
 		isDark = !isDark;
 		theme.set(isDark ? 'dark' : 'light');
 	}
-
-	// Use $effect for side effects
-	$effect(() => {
-		if (typeof window === 'undefined') return;
-
-		// Check localStorage first
-		const savedTheme = localStorage.getItem('theme');
-		isDark = savedTheme === 'dark';
-
-		// If no saved preference, check system preference
-		if (!savedTheme) {
-			isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-			theme.set(isDark ? 'dark' : 'light');
-		}
-
-		// Listen for system theme changes
-		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-		const handler = (e: MediaQueryListEvent) => {
-			if (!localStorage.getItem('theme')) {
-				isDark = e.matches;
-				theme.set(isDark ? 'dark' : 'light');
-			}
-		};
-
-		mediaQuery.addEventListener('change', handler);
-		return () => mediaQuery.removeEventListener('change', handler);
-	});
 
 	// Subscribe to theme store changes
 	$effect(() => {

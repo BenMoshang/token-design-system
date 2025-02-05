@@ -25,7 +25,7 @@ $desktop-breakpoint: 90rem; // 1440px
 /*=============================================
 =            Page            =
 =============================================*/
-$page-header-height: 4.5rem;
+$page-header-height: 3rem;
 
 @mixin small-inset-shadow {
 	@media (prefers-color-scheme: dark) {

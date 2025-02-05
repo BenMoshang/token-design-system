@@ -61,7 +61,7 @@
 		--icon-size: 1em;
 		@include flex-center;
 		@include button-effect;
-		@include shadow-low('lightest', 'darkest');
+		// @include shadow-high('darkest', 'lightest');
 		height: 2rem;
 		gap: get-static-sp('s4');
 		text-decoration: none;

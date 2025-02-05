@@ -8,6 +8,7 @@
 
 @use '../../abstracts/colors/colors-functions' as cf;
 @use '../../abstracts/colors/colors-variables' as cv;
+@use '../../abstracts/themes/themes' as themes;
 
 $text-pop-up-top-color: cf.get-light-dark('light', 'medium');
 
@@ -29,10 +30,17 @@ $text-pop-up-top-color: cf.get-light-dark('light', 'medium');
  * @returns {String} Space-separated HSL values (hue saturation lightness)
  * @throws Error if color is not found in map
  */
-@function get-raw-color($color) {
+@function get-raw-light-color($color) {
 	$raw-color-values: map-get(cv.$raw-light-scale, $color);
 	@return nth($raw-color-values, 1) nth($raw-color-values, 2) nth($raw-color-values, 3);
 }
+@function get-raw-dark-color($color) {
+	$raw-color-values: map-get(cv.$raw-dark-scale, $color);
+	@return nth($raw-color-values, 1) nth($raw-color-values, 2) nth($raw-color-values, 3);
+}
+//-------------------------------------
+// Color Scheme Preference Mixin
+//-------------------------------------
 
 /**
  * Core mixin that handles shadow application with color scheme support
@@ -41,11 +49,21 @@ $text-pop-up-top-color: cf.get-light-dark('light', 'medium');
  * @param {List} $shadows - List of shadow offset/blur values
  * @param {Number|List} $opacities - Single opacity or list of opacities
  */
+
 @mixin apply-shadow($light-value, $dark-value, $shadows, $opacities) {
+	// Set initial shadow color based on system preference
+	--shadow-color: #{$dark-value};
+
 	@media (prefers-color-scheme: light) {
 		--shadow-color: #{$light-value};
 	}
-	@media (prefers-color-scheme: dark) {
+
+	// Override based on explicit theme selection
+	html[data-theme='light'] & {
+		--shadow-color: #{$light-value};
+	}
+
+	html[data-theme='dark'] & {
 		--shadow-color: #{$dark-value};
 	}
 
@@ -123,8 +141,8 @@ $shadow-high: (
  * @param {String} $dark-color ['dark'] - Color name for dark mode
  */
 @mixin shadow-low($light-color: 'lightest', $dark-color: 'darkest') {
-	$light-value: get-raw-color($light-color);
-	$dark-value: get-raw-color($dark-color);
+	$light-value: get-raw-light-color($light-color);
+	$dark-value: get-raw-dark-color($dark-color);
 	@include apply-shadow(
 		$light-value,
 		$dark-value,
@@ -138,9 +156,9 @@ $shadow-high: (
  * @param {String} $light-color ['light'] - Color name for light mode
  * @param {String} $dark-color ['dark'] - Color name for dark mode
  */
-@mixin shadow-medium($light-color: 'light', $dark-color: 'dark') {
-	$light-value: get-raw-color($light-color);
-	$dark-value: get-raw-color($dark-color);
+@mixin shadow-medium($light-color: 'lightest', $dark-color: 'lightest') {
+	$light-value: get-raw-light-color($light-color);
+	$dark-value: get-raw-dark-color($dark-color);
 	@include apply-shadow(
 		$light-value,
 		$dark-value,
@@ -155,8 +173,8 @@ $shadow-high: (
  * @param {String} $dark-color ['darkest'] - Color name for dark mode
  */
 @mixin shadow-high($light-color: 'light', $dark-color: 'dark') {
-	$light-value: get-raw-color($light-color);
-	$dark-value: get-raw-color($dark-color);
+	$light-value: get-raw-light-color($light-color);
+	$dark-value: get-raw-dark-color($dark-color);
 	@include apply-shadow(
 		$light-value,
 		$dark-value,
@@ -171,8 +189,8 @@ $shadow-high: (
  * @param {String} $dark-color ['dark'] - Color name for dark mode
  */
 @mixin shadow-inset($light-color: 'light', $dark-color: 'dark') {
-	$light-value: get-raw-color($light-color);
-	$dark-value: get-raw-color($dark-color);
+	$light-value: get-raw-light-color($light-color);
+	$dark-value: get-raw-dark-color($dark-color);
 	@include apply-shadow(
 		$light-value,
 		$dark-value,

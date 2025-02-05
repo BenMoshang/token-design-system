@@ -79,136 +79,134 @@
 </header>
 <Navigation isOpen={isNavOpen} />
 
-<!-- <Navigation isOpen={isNavOpen} /> -->
-
 <style lang="scss">
 	/*==========================
-	OVERIVIEW: Styles Quick Reference
-	==========================*/
-
+    HEADER & CHILD COMPONENTS
+  ==========================*/
 	.header {
+		// Variables and base styles
 		--header-height: #{$page-header-height};
-		& a {
-			text-decoration: none;
-		}
-	}
-	/*==========================
-	header
-==========================*/
-	.header {
+		outline: 1px solid red;
 		@include flex-between;
+		align-items: center;
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		margin-top: get-static-sp('s8');
 		margin-inline: auto;
-
-		z-index: 1000;
-		// backdrop-filter: blur(1rem);
 		inline-size: 100%;
 		border-radius: $br-rounded;
 		block-size: var(--header-height);
-		padding-inline: get-static-sp('s16');
-		padding-block: get-static-sp('s4');
-		// background: light-dark(hsla(191, 15%, 85%, 0.2), hsla(200, 64%, 6%, 0.2));
+		padding-inline: get-static-sp('s24');
+		padding-block: 1.25rem;
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
-		// @include shadow-low;
+		z-index: 1000;
 
+		// Remove text decoration from all links in header
+		a {
+			text-decoration: none;
+		}
+
+		// Desktop: limit header width
 		@include respond-to('desktop') {
 			inline-size: 80%;
 			margin-inline: auto;
 		}
-	}
-	/* Hides header by sliding it up */
-	.hide {
-		transform: translateY(-120%);
-	}
 
-	/*==========================
-	logo and logo text
-==========================*/
+		// Modifier: hide header by sliding it up
+		&.hide {
+			transform: translateY(-120%);
+		}
 
-	/*==========================
-burger
-==========================*/
-
-	.header__burger {
-		// @include hover-effect;
-		cursor: pointer;
-
-		/*---- Hide the checkbox ----*/
-		& input {
+		//==========================
+		// Navigation (Desktop)
+		//==========================
+		&__nav--desktop {
 			display: none;
+			@include respond-to('desktop') {
+				display: unset;
+				margin-inline: auto;
+			}
+		}
 
-			/*---- Animatesburger----*/
+		//==========================
+		// Header Content Wrapper
+		//==========================
+		&__content-wrapper {
+			display: flex;
+			gap: get-static-sp('s16');
+		}
 
-			&:checked + svg {
-				transform: rotate(-45deg);
+		//==========================
+		// Burger Menu (Mobile)
+		//==========================
+		&__burger {
+			cursor: pointer;
 
-				& .line-top-bottom {
-					stroke-dasharray: 20 300;
-					stroke-dashoffset: -32.42;
+			input {
+				display: none;
+				// When the checkbox is checked, animate the SVG burger
+				&:checked + svg {
+					transform: rotate(-45deg);
+					.line-top-bottom {
+						stroke-dasharray: 20 300;
+						stroke-dashoffset: -32.42;
+					}
+				}
+			}
+
+			svg {
+				--svg-size: 2rem;
+				--burger-centering: #{get-static-sp('s4')};
+				width: var(--svg-size);
+				height: var(--svg-size);
+				padding-block: var(--burger-centering);
+				padding-right: var(--burger-centering);
+				background: get-light-dark('darkest', 'lightest');
+				border-radius: $br-rounded;
+				transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.line {
+				fill: none;
+				stroke: get-light-dark('lighter', 'dark');
+				stroke-linecap: round;
+				stroke-linejoin: round;
+				stroke-width: 2.5;
+				transition:
+					stroke-dasharray 500ms cubic-bezier(0.4, 0, 0.2, 1),
+					stroke-dashoffset 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+				&-top-bottom {
+					stroke-dasharray: 12 63;
 				}
 			}
 		}
+	}
 
-		& svg {
-			--svg-size: 2rem;
-			--burger-centering: #{get-static-sp('s4')};
-			width: var(--svg-size);
-			height: var(--svg-size);
-			padding-block: var(--burger-centering);
-			padding-right: var(--burger-centering);
-
-			/*---- Speed of the animation----*/
-
-			transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
-			background: get-light-dark('darkest', 'lightest');
-			border-radius: $br-rounded;
-		}
-		/*---- Line styling----*/
-
-		& .line {
-			fill: none;
-
-			stroke: get-light-dark('lighter', 'dark');
-			stroke-linecap: round;
-			stroke-linejoin: round;
-			stroke-width: 2.5;
-
-			/* Define the transition for transforming the Stroke */
-			transition:
-				stroke-dasharray 500ms cubic-bezier(0.4, 0, 0.2, 1),
-				stroke-dashoffset 500ms cubic-bezier(0.4, 0, 0.2, 1);
-
-			&-top-bottom {
-				stroke-dasharray: 12 63;
-			}
+	//==========================
+	// Hide burger menu on larger screens
+	//==========================
+	@media (min-width: $mobile-breakpoint) {
+		.header__burger {
+			display: none;
 		}
 	}
 
 	/*==========================
-Content Nav
-==========================*/
-	.header__content-wrapper {
-		display: flex;
-		gap: get-static-sp('s16');
-	}
+    NAVIGATION LINKS & LIST
+  ==========================*/
+	.nav__list {
+		$spacing-gap: get-static-sp('s32');
+		@include flex-center;
+		align-self: flex-start;
+		gap: $spacing-gap;
+		list-style: none;
 
-	.header__nav--desktop {
-		display: none;
-	}
-
-	@media (min-width: $mobile-breakpoint) {
-		.header__nav--desktop {
-			display: unset;
-			margin-inline: auto;
-		}
-
-		.header__burger {
-			display: none;
+		&:last-child .nav__link {
+			color: hrgb(0, 83, 146);
 		}
 	}
 
@@ -216,15 +214,13 @@ Content Nav
 		@include body-overview;
 		font-family: get-ff('display');
 		position: relative;
-
 		font-size: get-static-fsz('x2');
 		line-height: 1;
 		color: get-light-dark('dark', 'light');
-
 		text-decoration: none;
 		transition: color 0.3s ease;
-		// Underline effect
 
+		// Underline effect on hover/focus
 		&::after {
 			content: '';
 			position: absolute;
@@ -248,18 +244,6 @@ Content Nav
 
 		&:active {
 			transform: translateY(0);
-		}
-	}
-
-	.nav__list {
-		$spacing-gap: get-static-sp('s24');
-		@include flex-center;
-		align-self: flex-start;
-		gap: $spacing-gap;
-		list-style: none;
-
-		&:last-child .nav__link {
-			color: hrgb(0, 83, 146);
 		}
 	}
 </style>

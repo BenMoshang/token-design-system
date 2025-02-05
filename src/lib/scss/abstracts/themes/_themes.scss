@@ -1,0 +1,43 @@
+// Theme system mixin with system preference support
+@mixin theme($name) {
+	@if $name == 'light' {
+		// Apply light theme styles for system preference
+		@media (prefers-color-scheme: light) {
+			@content;
+		}
+		// Apply light theme styles for explicit selection
+		html[data-theme='light'] & {
+			@content;
+		}
+	} @else if $name == 'dark' {
+		// Apply dark theme styles for system preference
+		@media (prefers-color-scheme: dark) {
+			@content;
+		}
+		// Apply dark theme styles for explicit selection
+		html[data-theme='dark'] & {
+			@content;
+		}
+	}
+}
+/**
+ * Example usage of the theme mixin
+ * @example
+ * .my-element {
+ *    // Default styling
+ *    background: black;
+ *    color: white;
+ *
+ *    // Light theme styles (both system preference and explicit selection)
+ *    @include theme('light') {
+ *      background: white;
+ *      color: black;
+ *    }
+ *
+ *    // Dark theme styles (both system preference and explicit selection)
+ *    @include theme('dark') {
+ *      background: black;
+ *      color: white;
+ *    }
+ * }
+ */
