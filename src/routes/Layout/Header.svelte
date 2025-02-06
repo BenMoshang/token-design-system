@@ -194,7 +194,7 @@
   ==========================*/
 	.nav__list {
 		@include flex-center;
-		gap: get-static-sp('lg');
+		gap: get-static-sp('2xl');
 		list-style: none;
 
 		&:last-child .nav__link {
