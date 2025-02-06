@@ -29,6 +29,7 @@
 	let topPanel: HTMLElement;
 	let bottomPanel: HTMLElement;
 	let heroSection: HTMLElement;
+	let heroBackground: HTMLElement;
 
 	/* We'll store the timeline so we can kill it onDestroy. */
 	let doorTimeline: gsap.core.Timeline;
@@ -73,6 +74,15 @@
 					willChange: 'transform'
 				},
 				'<'
+			)
+			.to(
+				heroBackground,
+				{
+					opacity: 0,
+					ease: 'power4.inOut',
+					duration: 4
+				},
+				'<'
 			);
 	});
 
@@ -92,6 +102,7 @@
 	<!--  -->
 	<svg
 		class="hero__background"
+		bind:this={heroBackground}
 		xmlns="http://www.w3.org/2000/svg"
 		version="1.1"
 		xmlns:xlink="http://www.w3.org/1999/xlink"
