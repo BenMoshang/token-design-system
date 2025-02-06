@@ -28,7 +28,7 @@ $typography-scales: (
 	'x10': $typography-base-size * math.pow($typography-scale-ratio, 7),
 	'x11': $typography-base-size * math.pow($typography-scale-ratio, 8),
 	'x12': $typography-base-size * math.pow($typography-scale-ratio, 9),
-	'x13': $typography-base-size * math.pow($typography-scale-ratio, 10)
+	'x13': $typography-base-size * math.pow($typography-scale-ratio, 9.875)
 );
 $typography-scales: () !default;
 /* ---------------------------------------------------------------------------
@@ -38,7 +38,7 @@ $typography-scales: () !default;
 --------------------------------------------------------------------------- */
 @function get-static-fsz($size) {
 	$font-size: math-fn.get-map-value($typography-scales, $size);
-	@return math-fn.round-number($font-size, 0); // Round to whole numbers for static sizes
+	@return math-fn.round-number($font-size, 1); // Round to whole numbers for static sizes
 }
 
 /* ---------------------------------------------------------------------------

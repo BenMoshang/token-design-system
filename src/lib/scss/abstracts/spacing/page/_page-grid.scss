@@ -20,7 +20,7 @@ $breakpoints: (
 //-------------------------------------
 // 3. Grid Container Mixin
 //-------------------------------------
-@mixin grid-container($columns: 12, $gutter-key: 's16') {
+@mixin grid-container($columns: 12, $gutter-key: 'md') {
 	$gutter: get-static-sp($gutter-key);
 	display: grid;
 	grid-template-columns: repeat($columns, minmax(0, 1fr));
@@ -44,16 +44,16 @@ $breakpoints: (
 //-------------------------------------
 %page-grid-container {
 	// Base layout for mobile
-	@include grid-container(4, 's16');
+	@include grid-container(4, 'md');
 
 	// Tablet: increase gutter & columns
 	@include respond-to('tablet') {
-		@include grid-container(8, 's20');
+		@include grid-container(8, 'lg');
 	}
 
 	// Desktop: further adjustments
 	@include respond-to('desktop') {
-		@include grid-container(12, 's24');
+		@include grid-container(12, 'xl');
 	}
 }
 

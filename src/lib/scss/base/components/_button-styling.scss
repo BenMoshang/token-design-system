@@ -1,0 +1,68 @@
+@use '../../abstracts/spacing/page/page-grid' as pg;
+@use '../../abstracts/spacing/spacing-functions' as sf;
+@use '../../base/animations/hover/hover-animations' as ha;
+@use '../../abstracts/colors/colors-functions' as cf;
+@use '../../abstracts/typography' as typo;
+@use '../../base/global-variables' as gv;
+@use '../../base/shadows/shadows' as sh;
+
+@mixin button-overview {
+	@include ha.button-effect;
+	// Optional: @include shadow-high('darkest', 'lightest');
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: sf.get-static-sp('xs');
+	block-size: 2rem;
+	inline-size: auto;
+	padding-block: sf.get-static-sp('xs');
+	padding-inline: sf.get-static-sp('sm');
+	border-radius: gv.$br-default;
+	background: cf.get-light-dark('darker', 'lighter');
+	@include sh.realism-shadow;
+	color: cf.get-light-dark(
+		'lightest',
+		'darkest'
+	); //because svg is on current color!important keep here
+
+	& span {
+		font-family: typo.get-ff('body');
+		font-weight: typo.get-fw('heading');
+		font-size: typo.get-static-fsz('x2');
+		line-height: 1;
+		color: inherit;
+	}
+
+	& svg {
+		--icon-size: 1em;
+		display: block;
+
+		object-fit: cover;
+		block-size: var(--icon-size);
+		inline-size: var(--icon-size);
+	}
+}
+
+@mixin button-primary($small: false) {
+	@include button-overview;
+	padding: sf.get-static-sp('sm');
+	border: 0.0625rem solid cf.get-light-dark('darkest', 'lightest');
+	background: cf.get-light-dark('darkest', 'lightest');
+	& span {
+		display: none;
+		font-family: typo.get-ff('body');
+		font-weight: typo.get-fw('display');
+	}
+	@if $small {
+		@include pg.respond-to('mobile') {
+			padding-inline: sf.get-static-sp('sm');
+			padding-block: sf.get-static-sp('md');
+
+			& span {
+				display: block;
+			}
+		}
+	}
+}

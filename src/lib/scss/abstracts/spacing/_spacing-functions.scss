@@ -1,4 +1,4 @@
-@use 'spacing-maps' as sm;
+@use 'spacing-base' as sb;
 @use '../../abstracts/math/responsive-functions' as math-fn;
 @use 'sass:map';
 @use 'sass:math';
@@ -18,7 +18,7 @@
 }
 
 @function get-base-sp($key) {
-	@return map.get(sm.$spacing-scale, $key);
+	@return map.get(sb.$spacing-scale, $key);
 }
 
 $static-spacing: (
@@ -28,29 +28,40 @@ $static-spacing: (
 	'lg': get-base-sp('s20'),
 	'xl': get-base-sp('s24'),
 	'2xl': get-base-sp('s32'),
-	'3xl': get-base-sp('s48'),
-	'4xl': get-base-sp('s64'),
-	'5xl': get-base-sp('s80')
+	'3xl': get-base-sp('s40'),
+	'4xl': get-base-sp('s48'),
+	'5xl': get-base-sp('s64'),
+	'6xl': get-base-sp('s80'),
+	'7xl': get-base-sp('s96'),
+	'8xl': get-base-sp('s112'),
+	'9xl': get-base-sp('s128')
 );
 @function get-static-sp($key) {
 	@return map.get($static-spacing, $key);
 }
 
 @function create-responsive-sp($min-size, $max-size) {
-	$min: math-fn.get-map-value(sm.$spacing-scale, $min-size);
-	$max: math-fn.get-map-value(sm.$spacing-scale, $max-size);
+	$min: math-fn.get-map-value(sb.$spacing-scale, $min-size);
+	$max: math-fn.get-map-value(sb.$spacing-scale, $max-size);
 	@return math-fn.create-clamp($min, $max);
 }
+
 $responsive-spacing: (
+	//skips by 4
 	'xs': create-responsive-sp('s4', 's8'),
 	'sm': create-responsive-sp('s8', 's16'),
 	'md': create-responsive-sp('s16', 's20'),
 	'lg': create-responsive-sp('s20', 's24'),
+	//skips by 8
 	'xl': create-responsive-sp('s24', 's32'),
-	'2xl': create-responsive-sp('s32', 's48'),
-	'3xl': create-responsive-sp('s48', 's64'),
-	'4xl': create-responsive-sp('s64', 's80'),
-	'5xl': create-responsive-sp('s80', 's144')
+	'2xl': create-responsive-sp('s32', 's40'),
+	'3xl': create-responsive-sp('s40', 's48'),
+	'4xl': create-responsive-sp('s48', 's56'),
+	//skips by 16
+	'5xl': create-responsive-sp('s64', 's80'),
+	'6xl': create-responsive-sp('s80', 's96'),
+	'7xl': create-responsive-sp('s96', 's112'),
+	'8xl': create-responsive-sp('s112', 's128')
 );
 
 @function get-responsive-sp($key) {

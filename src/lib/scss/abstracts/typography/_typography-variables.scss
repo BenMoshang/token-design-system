@@ -9,7 +9,7 @@
 $font-family: (
 	'display': 'New Order',
 	'heading': 'New Order',
-	'body': 'Manrope'
+	'body': 'New Order'
 );
 
 /**
@@ -26,7 +26,7 @@ $font-weights: (
 );
 
 $line-heights: (
-	'tight': 1.1em,
+	'tight': 1em,
 	// Best for headings and large display text
 	'snug': 1.3em,
 	// Suitable for sub-headings or denser UI elements
@@ -36,7 +36,7 @@ $line-heights: (
 );
 
 $letter-spacing: (
-	'tight': -0.02em,
+	'tight': -0.03em,
 	// ideal for headings or all‑caps where you want the letters to appear more compact
 	'snug': -0.01em,
 	// a gentle negative spacing for subheadings or display text with a high x‑height

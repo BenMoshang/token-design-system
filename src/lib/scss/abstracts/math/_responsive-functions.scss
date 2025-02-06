@@ -2,7 +2,7 @@
 @use 'sass:map';
 @use 'sass:meta';
 
-@use '../spacing/spacing-maps' as sm;
+@use '../spacing/spacing-base' as sb;
 /* ---------------------------------------------------------------------------
    2) Rounding Function
    ---------------------------------------------------------------------------
@@ -32,7 +32,7 @@
    Returns:
      clamp($min-size, calc($intercept + $slope * 100vw), $max-size)
 --------------------------------------------------------------------------- */
-@function create-clamp($min-size, $max-size, $min-viewport: 20rem, $max-viewport: 87.5rem) {
+@function create-clamp($min-size, $max-size, $min-viewport: 20rem, $max-viewport: 90rem) {
 	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
 	$intercept: $min-size - ($slope * $min-viewport);
 
@@ -40,11 +40,11 @@
 	@if meta.variable-exists(typography-scales) and
 		(map-has-key($typography-scales, $min-size) or map-has-key($typography-scales, $max-size))
 	{
-		$slope: round-number($slope, 2);
-		$intercept: round-number($intercept, 2);
+		$slope: round-number($slope, 1);
+		$intercept: round-number($intercept, 1);
 	} @else {
-		$slope: round-number($slope, 5);
-		$intercept: round-number($intercept, 5);
+		$slope: round-number($slope, 3);
+		$intercept: round-number($intercept, 3);
 	}
 
 	@return clamp($min-size, calc(#{$intercept} + #{$slope} * 100vw), $max-size);

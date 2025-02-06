@@ -11,7 +11,7 @@ export default defineConfig({
 		//ben desktop
 		// host: '192.168.0.167',
 		//ben laptop
-		host: '192.168.0.85',
+		// host: '192.168.0.85',
 		port: 3000
 	},
 	ssr: {

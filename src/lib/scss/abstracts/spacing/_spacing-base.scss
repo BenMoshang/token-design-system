@@ -48,5 +48,7 @@ $spacing-scale: (
 	// 5.5rem (88px)
 	's96': spacing-scale(24),
 	// 6rem (96px)
-	's144': spacing-scale(36) // 9rem (144px)
+	's112': spacing-scale(28),
+	// 7rem (112px)
+	's128': spacing-scale(32) // 9rem (144px)
 );

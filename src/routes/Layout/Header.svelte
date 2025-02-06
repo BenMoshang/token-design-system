@@ -106,7 +106,7 @@
 
 		// Desktop: limit header width
 		@include respond-to('desktop') {
-			inline-size: 80%;
+			inline-size: 85.5%; //to fit along the grid
 			margin-inline: auto;
 		}
 
@@ -132,7 +132,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			gap: get-responsive-sp('md');
+			gap: get-responsive-sp('sm');
 		}
 
 		//==========================
@@ -154,6 +154,8 @@
 			}
 
 			svg {
+				@include realism-shadow;
+
 				width: 2rem;
 				height: 2rem;
 				padding: get-static-sp('xs');
@@ -193,9 +195,15 @@
     NAVIGATION LINKS & LIST
   ==========================*/
 	.nav__list {
-		@include flex-center;
-		gap: get-static-sp('4xl');
+		display: flex;
+		width: 100%;
+		justify-content: space-evenly;
+		align-items: center;
+		gap: get-responsive-sp('3xl');
 		list-style: none;
+		& > * {
+			flex-basis: 1;
+		}
 	}
 
 	.nav__link {

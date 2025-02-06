@@ -90,6 +90,48 @@
 	<!-- !todo: change navigation back ground -->
 	<!-- Top panel (door) -->
 	<!--  -->
+	<svg
+		class="hero__background"
+		xmlns="http://www.w3.org/2000/svg"
+		version="1.1"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		xmlns:svgjs="http://svgjs.dev/svgjs"
+		viewBox="0 0 800 800"
+		><defs
+			><radialGradient id="cccircular-grad" r="50%" cx="50%" cy="50%">
+				<stop offset="15%" stop-color="currentColor" stop-opacity="0.5"></stop>
+				<stop offset="75%" stop-color="currentColor" stop-opacity="1"></stop>
+				<stop offset="100%" stop-color="currentColor" stop-opacity="1"></stop>
+			</radialGradient></defs
+		><g fill="currentColor"
+			><circle r="352" cx="400" cy="400" opacity="0.05"></circle><circle
+				r="320"
+				cx="400"
+				cy="400"
+				opacity="0.15"
+			></circle><circle r="288" cx="400" cy="400" opacity="0.24"></circle><circle
+				r="256"
+				cx="400"
+				cy="400"
+				opacity="0.33"
+			></circle><circle r="224" cx="400" cy="400" opacity="0.43"></circle><circle
+				r="192"
+				cx="400"
+				cy="400"
+				opacity="0.53"
+			></circle><circle r="160" cx="400" cy="400" opacity="0.62"></circle><circle
+				r="128"
+				cx="400"
+				cy="400"
+				opacity="0.71"
+			></circle><circle r="96" cx="400" cy="400" opacity="0.81"></circle><circle
+				r="64"
+				cx="400"
+				cy="400"
+				opacity="0.91"
+			></circle></g
+		></svg
+	>
 	<div class="hero__panel hero__panel--top" bind:this={topPanel}>
 		<h1 data-text={heroInjectable.titleFirstHalf} class="hero__title hero__title--top">
 			{heroInjectable.titleFirstHalf}
@@ -177,9 +219,10 @@
 	</div>
 </section>
 
-<style lang="scss">
+<style scoped lang="scss">
 	.hero {
 		@extend %page-grid-item;
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -190,9 +233,18 @@
 		& > * {
 			flex: 1;
 		}
-		&__panel {
-			@include component-padding('xs', 'block');
 
+		&__background {
+			position: absolute;
+			inset: 0;
+			color: get-light-dark('medium', 'light');
+			object-fit: cover;
+			width: 100vw;
+			height: 100vh;
+			z-index: -1;
+			opacity: 0.38;
+		}
+		&__panel {
 			display: flex;
 			flex-direction: column;
 			// outline: 1px solid yellow;
@@ -205,18 +257,16 @@
 				justify-content: flex-end;
 			}
 			&--bottom {
-				justify-content: flex-start;
 			}
 		}
 
 		&__title {
 			@extend %global__display--h1;
-			letter-spacing: -0.05em;
-			@include gradient-text('lighter', 'darkest', 'lightest', 'light', 145deg);
 
+			letter-spacing: -0.05em;
+			@include gradient-text('dark', 'darkest', 'lightest', 'light', 145deg);
 			position: relative;
 			// Keep the text itself visible so the shadow works
-
 			&::after {
 				@include text-pop-up-top;
 
@@ -230,6 +280,18 @@
 			}
 
 			&--top {
+				// &::before {
+				// 	content: '';
+				// 	position: absolute;
+				// 	top: 0;
+				// 	left: 0;
+				// 	right: 0;
+				// 	margin-inline: auto;
+				// 	border: none;
+				// 	height: 0;
+				// 	border-top: 0.0625rem solid get-light-dark('dark', 'light');
+				// 	width: 50%;
+				// }
 			}
 
 			&--bottom {
@@ -246,21 +308,25 @@
 			text-wrap: pretty;
 
 			@include respond-to('mobile') {
-				word-spacing: create-responsive-sp-range('');
+				word-spacing: get-responsive-sp('2xl');
 			}
 		}
 
 		&__benefits {
 			display: none;
-			margin-top: auto;
-			justify-content: space-between;
-			align-items: center;
-			list-style: none;
-			& > * {
-				flex-basis: 23%;
-			}
+
 			@include respond-to('mobile') {
 				display: flex;
+				margin-top: auto;
+				margin-inline: auto;
+				justify-content: space-between;
+				align-items: center;
+				list-style: none;
+				padding-bottom: get-static-sp('sm');
+				inline-size: 84%; //to stay in line with the grid
+				& > * {
+					flex-basis: 23%;
+				}
 			}
 			& svg {
 				--icon-size: #{get-fsz-range('label')};
