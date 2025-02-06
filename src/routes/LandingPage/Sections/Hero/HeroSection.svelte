@@ -95,11 +95,8 @@
 </script>
 
 <section class="hero" bind:this={heroSection}>
-	<!-- !todo: change light mode color scheme to its on so its less straining on the eyes -->
-	<!-- !todo: for header logo animate keyframes of letter spacing to 0 back to expanded  after hover -->
-	<!-- !todo: change navigation back ground -->
+	<!-- TODO: animate text how the website better off has it!!! -->
 	<!-- Top panel (door) -->
-	<!--  -->
 	<svg
 		class="hero__background"
 		bind:this={heroBackground}
