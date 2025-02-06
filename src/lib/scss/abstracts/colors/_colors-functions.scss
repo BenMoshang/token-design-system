@@ -9,9 +9,15 @@
 	@return map.get($selected-scale, $color);
 }
 
-@function get-light-dark($color1, $color2) {
+@function get-light-dark($color1, $color2, $opacity: 1) {
+	// Retrieve the colors from the respective scales.
 	$light: get-color($color1, cv.$light-scale);
 	$dark: get-color($color2, cv.$dark-scale);
 
-	@return light-dark($light, $dark);
+	// Convert the fetched colors to HSLA with the given opacity.
+	$lightWithOpacity: hsla(hue($light), saturation($light), lightness($light), $opacity);
+	$darkWithOpacity: hsla(hue($dark), saturation($dark), lightness($dark), $opacity);
+
+	// Return the result from your helper function (assumed to blend or otherwise process the two colors).
+	@return light-dark($lightWithOpacity, $darkWithOpacity);
 }

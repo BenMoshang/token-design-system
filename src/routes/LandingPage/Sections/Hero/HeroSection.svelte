@@ -178,11 +178,7 @@
 </section>
 
 <style lang="scss">
-	.hero {
-		/*----icon variables----*/
-		--icon-size: #{get-fsz-range('label')};
-		--icon-color: #{get-light-dark('dark', 'light')};
-	}
+	$hero-label-color: get-light-dark('dark', 'light', 0.6);
 
 	.hero {
 		@extend %page-grid-item;
@@ -219,7 +215,7 @@
 		&__title {
 			@extend %global__display--h1;
 			letter-spacing: -0.05em;
-			@include gradient-text('lighter', 'darkest', 'lightest', 'lighter', 145deg);
+			@include gradient-text('lighter', 'darkest', 'lightest', 'light', 145deg);
 
 			position: relative;
 			// Keep the text itself visible so the shadow works
@@ -251,6 +247,7 @@
 			font-weight: get-fw('emphasis');
 			text-transform: uppercase;
 			text-wrap: pretty;
+			color: get-light-dark('dark', 'light', 0.8);
 
 			@include respond-to('mobile') {
 				word-spacing: create-responsive-sp-range('');
@@ -270,13 +267,14 @@
 				display: flex;
 			}
 			& svg {
+				--icon-size: #{get-fsz-range('label')};
 				@include margin-closely-related('right');
 				display: block;
 				width: var(--icon-size);
 				height: var(--icon-size);
 
 				& path {
-					fill: var(--icon-color);
+					fill: $hero-label-color;
 				}
 			}
 		}
@@ -287,19 +285,17 @@
 
 		&__benefits-text {
 			@extend %global__label;
+			color: $hero-label-color;
 			font-family: get-ff('display');
 
 			text-wrap: nowrap;
 			line-height: none;
 
 			&--first-half {
-				color: get-light-dark('dark', 'light');
 			}
 			&--seperator {
-				color: get-light-dark('dark', 'light');
 			}
 			&--second-half {
-				color: get-light-dark('dark', 'light');
 			}
 		}
 	}

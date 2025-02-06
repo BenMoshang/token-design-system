@@ -208,6 +208,7 @@
 		position: relative;
 		font-size: get-static-fsz('x2');
 		line-height: 1;
+		font-weight: 500;
 		color: get-light-dark('dark', 'light');
 		text-decoration: none;
 		transition: color 0.3s ease;

@@ -11,7 +11,7 @@
 @use '../../abstracts/themes/themes' as themes;
 @use 'sass:map';
 
-$text-pop-up-top-color: cf.get-light-dark('light', 'light');
+$text-pop-up-top-color: cf.get-light-dark('light', 'medium');
 
 @mixin text-pop-up-top {
 	text-shadow:

@@ -87,11 +87,11 @@ $responsive-font-size: (
 @mixin label-overview {
 	@include roboto;
 	font-family: tf.get-ff('secondary');
-	font-weight: tf.get-fw('label');
+	font-weight: 400;
 	font-size: map.get($responsive-font-size, 'label');
 	line-height: tf.get-lh('loose');
 	letter-spacing: tf.get-ls('loose');
-	color: cf.get-light-dark('medium', 'medium');
+	color: cf.get-light-dark('light', 'light');
 
 	text-transform: uppercase;
 	text-wrap: balance;
@@ -120,20 +120,20 @@ $responsive-font-size: (
 
 %global__heading--h2 {
 	@include heading-overview;
-
+	color: cf.get-light-dark('darker', 'lighter');
 	font-size: map.get($responsive-font-size, 'heading--h2');
 }
 
 %global__heading--h3 {
 	@include heading-overview;
-	color: cf.get-light-dark('dark', 'light');
+	color: cf.get-light-dark('darker', 'lighter');
+
 	font-size: map.get($responsive-font-size, 'heading--h3');
 }
 
 %global__heading--h4 {
 	@include heading-overview;
-	font-weight: tf.get-fw('heading');
-	color: cf.get-light-dark('dark', 'light');
+	color: cf.get-light-dark('darker', 'lighter');
 
 	font-size: map.get($responsive-font-size, 'heading--h4');
 }

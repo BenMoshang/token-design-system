@@ -6,7 +6,7 @@
 		@include label-overview;
 		font-family: get-ff('display');
 		font-size: get-static-fsz('x2');
-		font-weight: 500;
+		font-weight: 600;
 		color: get-light-dark('darkest', 'lightest');
 		line-height: 1;
 		text-wrap: balance;
