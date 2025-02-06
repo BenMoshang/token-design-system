@@ -126,13 +126,15 @@ $responsive-font-size: (
 
 %global__heading--h3 {
 	@include heading-overview;
-
+	color: cf.get-light-dark('dark', 'light');
 	font-size: map.get($responsive-font-size, 'heading--h3');
 }
 
 %global__heading--h4 {
 	@include heading-overview;
 	font-weight: tf.get-fw('heading');
+	color: cf.get-light-dark('dark', 'light');
+
 	font-size: map.get($responsive-font-size, 'heading--h4');
 }
 
