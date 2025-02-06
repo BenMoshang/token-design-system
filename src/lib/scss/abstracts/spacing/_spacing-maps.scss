@@ -50,34 +50,3 @@ $spacing-scale: (
 	// 6rem (96px)
 	's144': spacing-scale(36) // 9rem (144px)
 );
-
-/**
- * A semantic static spacing map.
- */
-$static-spacing: (
-	'xs': map.get($spacing-scale, 's4'),
-	'sm': map.get($spacing-scale, 's8'),
-	'md': map.get($spacing-scale, 's16'),
-	'lg': map.get($spacing-scale, 's20'),
-	'xl': map.get($spacing-scale, 's24'),
-	'2xl': map.get($spacing-scale, 's32'),
-	'3xl': map.get($spacing-scale, 's48'),
-	'4xl': map.get($spacing-scale, 's64'),
-	'5xl': map.get($spacing-scale, 's80')
-);
-
-/**
- * Responsive spacing map, which uses a clamp function (defined later)
- * to fluidly scale spacing between two static values.
- */
-$responsive-spacing: (
-	'xs': create-responsive-sp('s4', 's8'),
-	'sm': create-responsive-sp('s8', 's16'),
-	'md': create-responsive-sp('s16', 's20'),
-	'lg': create-responsive-sp('s20', 's24'),
-	'xl': create-responsive-sp('s24', 's32'),
-	'2xl': create-responsive-sp('s32', 's48'),
-	'3xl': create-responsive-sp('s48', 's64'),
-	'4xl': create-responsive-sp('s64', 's80'),
-	'5xl': create-responsive-sp('s80', 's144')
-);

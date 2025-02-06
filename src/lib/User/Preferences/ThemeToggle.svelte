@@ -60,9 +60,8 @@
 		block-size: 1.5rem;
 		fill: $color;
 		object-fit: cover;
-		margin-right:
 		// @include margin('right', 'sm', false);
-			& path {
+		& path {
 			fill: $color;
 		}
 	}

@@ -30,7 +30,7 @@ $typography-scales: (
 	'x12': $typography-base-size * math.pow($typography-scale-ratio, 9),
 	'x13': $typography-base-size * math.pow($typography-scale-ratio, 10)
 );
-
+$typography-scales: () !default;
 /* ---------------------------------------------------------------------------
    3) Static Font-Size Getter
    ---------------------------------------------------------------------------

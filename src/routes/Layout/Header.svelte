@@ -90,11 +90,11 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		margin-top: get-static-sp('s8');
+		margin-top: get-static-sp('sm');
 		inline-size: 100%;
 		border-radius: $br-rounded;
 		min-block-size: var(--header-height);
-		padding: 1.25rem get-static-sp('s24');
+		padding: 1.25rem get-static-sp('md');
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
 		z-index: 1000;
@@ -130,7 +130,9 @@
 		//==========================
 		&__content-wrapper {
 			display: flex;
-			gap: get-responsive-sp('xs');
+			align-items: center;
+			justify-content: center;
+			gap: get-responsive-sp('md');
 		}
 
 		//==========================
@@ -192,7 +194,7 @@
   ==========================*/
 	.nav__list {
 		@include flex-center;
-		gap: get-static-sp('2xl');
+		gap: get-static-sp('lg');
 		list-style: none;
 
 		&:last-child .nav__link {

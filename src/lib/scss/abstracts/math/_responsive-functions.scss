@@ -1,5 +1,6 @@
 @use 'sass:math';
 @use 'sass:map';
+@use 'sass:meta';
 
 @use '../spacing/spacing-maps' as sm;
 /* ---------------------------------------------------------------------------
@@ -35,9 +36,16 @@
 	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
 	$intercept: $min-size - ($slope * $min-viewport);
 
-	// Round the computed slope and intercept for cleaner output
-	$slope: round-number($slope, 2);
-	$intercept: round-number($intercept, 2);
+	// Only round for typography scales if $typography-scales exists and contains either of the keys.
+	@if meta.variable-exists(typography-scales) and
+		(map-has-key($typography-scales, $min-size) or map-has-key($typography-scales, $max-size))
+	{
+		$slope: round-number($slope, 2);
+		$intercept: round-number($intercept, 2);
+	} @else {
+		$slope: round-number($slope, 5);
+		$intercept: round-number($intercept, 5);
+	}
 
 	@return clamp($min-size, calc(#{$intercept} + #{$slope} * 100vw), $max-size);
 }
