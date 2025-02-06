@@ -26,15 +26,21 @@ $font-weights: (
 );
 
 $line-heights: (
-	'tight': 0.9em,
-	'snug': 1.25em,
-	'normal': 1.6em,
-	'loose': 1.75em
+	'tight': 1.1em,
+	// Best for headings and large display text
+	'snug': 1.3em,
+	// Suitable for sub-headings or denser UI elements
+	'normal': 1.5em,
+	// Ideal for body text; many award-winning UIs target ~1.5 for readability
+	'loose': 1.75em // For cases where extra breathing room is needed (e.g. mobile or highly legible settings)
 );
 
 $letter-spacing: (
-	'tight': -0.03em,
-	'snug': -0.02em,
+	'tight': -0.02em,
+	// ideal for headings or all‑caps where you want the letters to appear more compact
+	'snug': -0.01em,
+	// a gentle negative spacing for subheadings or display text with a high x‑height
 	'normal': 0,
-	'loose': 0.2em
+	// standard for body copy—most text is best at its default tracking
+	'loose': 0.05em // for special cases that benefit from a bit of extra space, such as decorative tags or emphasized all‑caps text
 );

@@ -194,12 +194,8 @@
   ==========================*/
 	.nav__list {
 		@include flex-center;
-		gap: get-static-sp('2xl');
+		gap: get-static-sp('4xl');
 		list-style: none;
-
-		&:last-child .nav__link {
-			color: hrgb(0, 83, 146);
-		}
 	}
 
 	.nav__link {
@@ -208,8 +204,7 @@
 		position: relative;
 		font-size: get-static-fsz('x2');
 		line-height: 1;
-		font-weight: 500;
-		color: get-light-dark('dark', 'light');
+		font-weight: get-fw('emphasis');
 		text-decoration: none;
 		transition: color 0.3s ease;
 

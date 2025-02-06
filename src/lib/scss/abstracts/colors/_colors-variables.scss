@@ -1,95 +1,32 @@
 $dark-scale: (
 	// Primary background
-	'darkest': hsl(240, 15%, 6%),
+	'darkest': hsla(240, 15%, 6%, 1),
 	// Layered background / cards
-	'darker': hsl(240, 12%, 9%),
+	'darker': hsla(240, 12%, 9%, 1),
 	// Surfaces (e.g., modals, raised elements)
-	'dark': hsl(240, 10%, 12%),
+	'dark': hsla(240, 10%, 12%, 1),
 	// Subtle surfaces or additional layers
-	'medium': hsl(240, 8%, 16%),
+	'medium': hsla(240, 8%, 16%, 1),
 	// Body text color (on darkest/darker/dark/medium)
-	'light': hsl(240, 6%, 60%),
+	'light': hsla(240, 6%, 60%, 1),
 	// Secondary text, icons
-	'lighter': hsl(240, 6%, 75%),
+	'lighter': hsla(240, 6%, 75%, 1),
 	// High-contrast text / highlights on dark backgrounds
-	'lightest': hsl(240, 4%, 95%)
+	'lightest': hsla(240, 4%, 95%, 1)
 );
 $light-scale: (
 	// Primary background
-	'darkest': hsl(240, 15%, 6%),
+	'darkest': hsla(240, 15%, 6%, 1),
 	// Layered backgrounds / cards
-	'darker': hsl(240, 12%, 10%),
+	'darker': hsla(240, 12%, 10%, 1),
 	// Surfaces (e.g., modals, raised elements)
-	'dark': hsl(240, 10%, 14%),
+	'dark': hsla(240, 10%, 14%, 1),
 	// Subtle backgrounds, well above darkest
-	'medium': hsl(240, 8%, 20%),
+	'medium': hsla(240, 8%, 20%, 1),
 	// Subtle borders, less prominent text
-	'light': hsl(240, 7%, 26%),
+	'light': hsla(240, 7%, 26%, 1),
 	// Further elevated surfaces or secondary panels
-	'lighter': hsl(240, 6%, 32%),
+	'lighter': hsla(240, 6%, 32%, 1),
 	// Kept exactly the same as requested
-	'lightest': hsl(75, 10%, 89%)
-);
-
-// $light-scale: (
-// 	'darkest': hsl(75, 6%, 14%),
-// 	// ~ #2B2B2B (near-black text)
-// 	'darker': hsl(84, 4%, 27%),
-// 	// ~ #3F3F3F
-// 	'dark': hsl(80, 2%, 47%),
-// 	// ~ #595959
-// 	'medium': hsl(84, 3%, 64%),
-// 	// ~ #8C8C8C
-// 	'light': hsl(80, 5%, 76%),
-// 	// ~ #C2C2C2
-// 	'lighter': #f0f2ec,
-// 	// ~ #E1E1E1
-// 	'lightest': #f5f7f1 // ~#e4e6e0 (warm off-white background)
-// );
-$raw-dark-scale: (
-	'darkest': (
-		240 10% 8%
-	),
-	'darker': (
-		240 9% 14%
-	),
-	'dark': (
-		240 8% 20%
-	),
-	'medium': (
-		240 7% 30%
-	),
-	'light': (
-		240 6% 50%
-	),
-	'lighter': (
-		240 4% 75%
-	),
-	'lightest': (
-		240 4% 95%
-	)
-);
-
-$raw-light-scale: (
-	'darkest': (
-		75 10% 8%
-	),
-	'darker': (
-		75 9% 14%
-	),
-	'dark': (
-		75 8% 20%
-	),
-	'medium': (
-		75 7% 30%
-	),
-	'light': (
-		75 6% 50%
-	),
-	'lighter': (
-		75 4% 75%
-	),
-	'lightest': (
-		75 10% 89%
-	)
+	'lightest': hsla(75, 10%, 89%, 1)
 );

@@ -16,6 +16,7 @@ $responsive-font-size: (
 	'body--md': fsz.get-fsz('x3', 'x4'),
 	'label': fsz.get-fsz('x1', 'x2')
 );
+
 @function get-fsz-range($key) {
 	@if map-has-key($responsive-font-size, $key) {
 		@return map.get($responsive-font-size, $key);
@@ -25,6 +26,20 @@ $responsive-font-size: (
 	}
 }
 
+$typography-color: (
+	'primary': cf.get-light-dark('darkest', 'lightest', 0.87, 0.8),
+	'secondary': cf.get-light-dark('darker', 'lighter', 0.6, 0.7),
+	'tertiary': cf.get-light-dark('dark', 'light', 0.38, 0.5)
+);
+
+@function get-typography-color($key) {
+	@if map-has-key($typography-color, $key) {
+		@return map.get($typography-color, $key);
+	} @else {
+		@error "Key '#{$key}' not found in $typography-color map";
+		@return null;
+	}
+}
 @mixin new-order {
 	font-family: tf.get-ff('display');
 	text-rendering: geometricPrecision;
@@ -56,8 +71,7 @@ $responsive-font-size: (
 	font-weight: tf.get-fw('display');
 	line-height: tf.get-lh('tight');
 	letter-spacing: tf.get-ls('tight');
-	color: cf.get-light-dark('darkest', 'lightest');
-
+	color: get-typography-color('primary');
 	text-wrap: balance;
 }
 
@@ -67,7 +81,7 @@ $responsive-font-size: (
 	font-weight: tf.get-fw('heading');
 	line-height: tf.get-lh('snug');
 	letter-spacing: tf.get-ls('snug');
-	color: cf.get-light-dark('darker', 'lighter');
+	color: get-typography-color('secondary');
 
 	text-wrap: balance;
 }
@@ -78,8 +92,7 @@ $responsive-font-size: (
 	font-weight: tf.get-fw('body');
 	line-height: tf.get-lh('normal');
 	letter-spacing: tf.get-ls('normal');
-	color: cf.get-light-dark('dark', 'light');
-
+	color: get-typography-color('secondary');
 	text-wrap: pretty;
 	max-inline-size: 65ch;
 }
@@ -91,8 +104,7 @@ $responsive-font-size: (
 	font-size: map.get($responsive-font-size, 'label');
 	line-height: tf.get-lh('loose');
 	letter-spacing: tf.get-ls('loose');
-	color: cf.get-light-dark('light', 'light');
-
+	color: get-typography-color('tertiary');
 	text-transform: uppercase;
 	text-wrap: balance;
 }
@@ -106,12 +118,14 @@ $responsive-font-size: (
 	font-size: map.get($responsive-font-size, 'display--h1');
 	text-align: center;
 	text-wrap: balance;
+	color: get-typography-color('primary');
 }
 
 %global__display--h2 {
 	@include display-overview;
 	font-size: map.get($responsive-font-size, 'display--h2');
 	text-align: center;
+	color: get-typography-color('primary');
 }
 
 /*=============================================
@@ -120,20 +134,20 @@ $responsive-font-size: (
 
 %global__heading--h2 {
 	@include heading-overview;
-	color: cf.get-light-dark('darker', 'lighter');
 	font-size: map.get($responsive-font-size, 'heading--h2');
+	color: get-typography-color('secondary');
 }
 
 %global__heading--h3 {
 	@include heading-overview;
-	color: cf.get-light-dark('darker', 'lighter');
 
 	font-size: map.get($responsive-font-size, 'heading--h3');
+	color: get-typography-color('secondary');
 }
 
 %global__heading--h4 {
 	@include heading-overview;
-	color: cf.get-light-dark('darker', 'lighter');
+	color: get-typography-color('secondary');
 
 	font-size: map.get($responsive-font-size, 'heading--h4');
 }
@@ -146,12 +160,14 @@ $responsive-font-size: (
 	@include body-overview;
 
 	font-size: map.get($responsive-font-size, 'body--lg');
+	color: get-typography-color('secondary');
 }
 
 %global__body--md {
 	@include body-overview;
 
 	font-size: map.get($responsive-font-size, 'body--md');
+	color: get-typography-color('secondary');
 }
 
 /*=============================================

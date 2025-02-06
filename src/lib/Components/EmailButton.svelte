@@ -61,7 +61,7 @@
 		--icon-size: 1em;
 		@include flex-center;
 		@include button-effect;
-		// @include shadow-high('darkest', 'lightest');
+		@include shadow-high('darkest', 'lightest');
 		height: 2rem;
 		gap: get-static-sp('xs');
 		text-decoration: none;
@@ -92,7 +92,7 @@
 		display: none;
 		color: inherit;
 		line-height: 1;
-
+		font-weight: get-fw('heading');
 		font-size: get-static-fsz('x2');
 
 		@include respond-to('mobile') {

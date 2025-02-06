@@ -178,8 +178,6 @@
 </section>
 
 <style lang="scss">
-	$hero-label-color: get-light-dark('dark', 'light', 0.6);
-
 	.hero {
 		@extend %page-grid-item;
 		display: flex;
@@ -202,7 +200,6 @@
 			transform: translateY(0%); /* default position */
 			width: 100%;
 			height: 100%;
-			background: get-light-dark('lightest', 'darker');
 
 			&--top {
 				justify-content: flex-end;
@@ -247,7 +244,6 @@
 			font-weight: get-fw('emphasis');
 			text-transform: uppercase;
 			text-wrap: pretty;
-			color: get-light-dark('dark', 'light', 0.8);
 
 			@include respond-to('mobile') {
 				word-spacing: create-responsive-sp-range('');
@@ -274,7 +270,7 @@
 				height: var(--icon-size);
 
 				& path {
-					fill: $hero-label-color;
+					fill: get-typography-color('tertiary');
 				}
 			}
 		}
@@ -285,7 +281,6 @@
 
 		&__benefits-text {
 			@extend %global__label;
-			color: $hero-label-color;
 			font-family: get-ff('display');
 
 			text-wrap: nowrap;

@@ -62,24 +62,25 @@
 	/*=============================================
 =          Navigation Background         =
 =============================================*/
-
+	$cubic: cubic-bezier(0.95, 0.05, 0.795, 0.035);
 	$nav-timing: 0.4s;
 	.nav {
 		$background-opacity: 0.9;
+
 		position: fixed;
 		inset: 0;
 		margin: auto;
 		z-index: 999;
-		inline-size: 100vw;
-		block-size: 100svh;
+		min-inline-size: 100vw;
+		min-block-size: 100svh;
 		background: light-dark(hsl(240, 4%, 92%, 0), hsla(240, 8%, 18%, 0));
 		backdrop-filter: blur(0);
 		opacity: 0;
 		transition:
-			transform $nav-timing cubic-bezier(0.77, 0, 0.175, 1),
-			opacity $nav-timing cubic-bezier(0.77, 0, 0.175, 1),
-			backdrop-filter $nav-timing cubic-bezier(0.77, 0, 0.175, 1),
-			background $nav-timing cubic-bezier(0.77, 0, 0.175, 1);
+			transform $nav-timing $cubic,
+			opacity $nav-timing $cubic,
+			backdrop-filter $nav-timing $cubic,
+			background $nav-timing $cubic;
 
 		&--active {
 			background: light-dark(hsl(240, 4%, 92%, 0.6), hsla(240, 8%, 18%, 0.6));
@@ -106,15 +107,15 @@
 	.nav__list {
 		padding-top: $page-header-height;
 		@include flex-column;
-		gap: get-static-sp('2xl');
+		gap: get-static-sp('xl');
 		align-content: center;
 		justify-content: center;
 		list-style: none;
 		inline-size: 100%;
 		block-size: 100%;
 		position: absolute;
-		padding-inline: get-static-sp('s16');
-		padding-block: get-static-sp('s32');
+		padding-inline: get-static-sp('md');
+		padding-block: get-static-sp('xl');
 
 		inset: 0;
 		margin: auto;
@@ -144,7 +145,6 @@
 		@include display-overview;
 		position: relative;
 		font-size: get-static-fsz('x8');
-		color: get-light-dark('darkest', 'lightest');
 		text-decoration: none;
 		transition: color 0.3s ease;
 
