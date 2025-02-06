@@ -39,13 +39,13 @@
 			scrollTrigger: {
 				trigger: heroSection,
 				start: 'top top',
-				end: '+=100%',
+				end: '+=120%',
 				pin: true,
 				pinSpacing: true,
-				scrub: 1, // Reduced scrub time for snappier response
+				scrub: 2, // Reduced scrub time for snappier response
 				markers: false,
 				anticipatePin: 1,
-				fastScrollEnd: true, // Ensures animation completion on fast scroll
+
 				preventOverlaps: true, // Prevents overlapping animations
 				onEnter: () => {
 					// Ensure panels are in correct starting position
@@ -59,7 +59,7 @@
 			.to(topPanel, {
 				yPercent: -120,
 				ease: 'power4.inOut', // Changed to power2 for better fast scroll handling
-				duration: 3, // Reduced duration for snappier animation
+				duration: 4, // Reduced duration for snappier animation
 				force3D: true,
 				willChange: 'transform'
 			})
@@ -68,7 +68,7 @@
 				{
 					yPercent: 120,
 					ease: 'power4.inOut',
-					duration: 3,
+					duration: 4,
 					force3D: true,
 					willChange: 'transform'
 				},
