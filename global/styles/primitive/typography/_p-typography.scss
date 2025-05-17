@@ -1,0 +1,122 @@
+// _typography.scss
+//
+// This file defines the typographic system for the project,
+// including type scales, font families, weights, letter spacing.
+
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:meta'; // For @warn
+@use './_p-typography-font-size' as type-size; // Imports font-size and line-height maps/functions, namespaced
+@use './_p-typography-type-scale' as type-scale; // Imports type scale ratios and function
+
+/* ==========================================================================
+   PRIMITIVE TYPOGRAPHY TOKENS
+   ========================================================================== */
+
+// Type Scale Ratios are now in _p-typography-type-scale.scss
+
+/**
+ * Paragraph Widths
+ * Defines ideal character counts per line for readability.
+ */
+$PARAGRAPH_WIDTHS: (
+  tighter: 50ch,
+  normal: 65ch,
+  wider: 75ch,
+) !default;
+
+/**
+ * Font Families
+ */
+$FONT_FAMILIES: (
+  display: 'Helvetica Neue',
+  Arial,
+  sans-serif,
+  // Example
+  heading: 'Georgia',
+  Times,
+  serif,
+  // Example
+  body: 'Arial',
+  Helvetica,
+  sans-serif,
+  // Example
+  mono: 'Courier New',
+  monospace,
+  // Example
+) !default;
+
+/**
+ * Font Weights
+ */
+$FONT_WEIGHTS: (
+  thin: 100,
+  extra-light: 200,
+  light: 300,
+  regular: 400,
+  medium: 500,
+  semi-bold: 600,
+  bold: 700,
+  extra-bold: 800,
+  black: 900,
+  VARIABLE: (
+    // For variable fonts
+    regular: 450,
+    semi-bold: 650,
+    bold: 750,
+  ),
+) !default;
+
+/**
+ * Letter Spacing
+ */
+$LETTER_SPACINGS: (
+  tightest: -0.05em,
+  tighter: -0.025em,
+  normal: 0em,
+  wider: 0.025em,
+  widest: 0.05em,
+) !default;
+
+/* ==========================================================================
+   PUBLIC TYPOGRAPHY HELPER FUNCTIONS
+   ========================================================================== */
+
+/**
+ * Retrieves a font family.
+ * @param {String} $key - 'display', 'heading', 'body', 'mono'.
+ * @return {String | Null}
+ */
+@function get-font-family($key: body) {
+  @if not map.has-key($FONT_FAMILIES, $key) {
+    @warn "Font family key '#{$key}' not found.";
+    @return null;
+  }
+  @return map.get($FONT_FAMILIES, $key);
+}
+
+/**
+ * Retrieves a font weight.
+ * @param {String} $key - 'regular', 'bold', etc.
+ * @return {Number | Null}
+ */
+@function get-font-weight($key: regular) {
+  @if not map.has-key($FONT_WEIGHTS, $key) {
+    @warn "Font weight key '#{$key}' not found.";
+    @return null;
+  }
+  @return map.get($FONT_WEIGHTS, $key);
+}
+
+/**
+ * Retrieves a letter spacing value.
+ * @param {String} $key - 'normal', 'wider', etc.
+ * @return {Length | Null}
+ */
+@function get-letter-spacing($key: normal) {
+  @if not map.has-key($LETTER_SPACINGS, $key) {
+    @warn "Letter spacing key '#{$key}' not found.";
+    @return null;
+  }
+  @return map.get($LETTER_SPACINGS, $key);
+}

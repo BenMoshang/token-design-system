@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../../../Downloads/token-design-system/token-design-system"
+		},
+		{
+			"path": "global"
+		},
+		{
+			"path": "structure"
+		},
+		{
+			"path": "styles"
+		}
+	],
+	"settings": {}
+}

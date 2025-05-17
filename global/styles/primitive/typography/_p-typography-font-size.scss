@@ -1,0 +1,221 @@
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:meta';
+@use '../../../global/g-variables' as glob_vars; // Assuming this contains global variables like breakpoints
+@use '../utils/responsive-functions' as u_clamp; // For potential fluid typography implementation
+
+/* ==========================================================================
+   1. CONFIGURATION
+   ==========================================================================
+   Define your project's typographic foundations here.
+   All font sizes are generated in REM units.
+--------------------------------------------------------------------------- */
+
+// ---------------------------------------------------------------------------
+//   1.1) Type Scale Ratios
+//   ---------------------------------------------------------------------------
+//   Standard typographic scales. Add or modify as needed.
+//   MOVED TO _g-variables.scss
+// ---------------------------------------------------------------------------
+// $_TYPE_SCALE_RATIOS: (
+//   minor-second: 1.067,
+//   major-second: 1.125,
+//   minor-third: 1.2,
+//   major-third: 1.25,
+//   perfect-fourth: 1.333,
+//   augmented-fourth: 1.414,
+//   perfect-fifth: 1.5,
+//   golden-ratio: 1.618,
+// ) !default;
+
+// ---------------------------------------------------------------------------
+//   1.2) Core Typography Configurations
+//   ---------------------------------------------------------------------------
+//   Adjust these to match your project's design system.
+//   `font-steps`: Map keys (e.g., '100') to numeric scale steps.
+//                 0 is base, positive numbers are larger, negative are smaller.
+// ---------------------------------------------------------------------------
+$_TYPOGRAPHY_CONFIG_MOBILE: (
+  base-font-size: 0.875rem,
+  // Typically 14px
+  base-line-height-ratio: 1.45,
+  // Slightly tighter for mobile
+  scale-ratio-key: golden-ratio,
+  // Key from $_TYPE_SCALE_RATIOS
+  font-steps:
+    (
+      25: -0.75,
+      50: -0.5,
+      100: 0,
+      // Base text
+      200: 1,
+      300: 2,
+      400: 3,
+      500: 4,
+      600: 5,
+      700: 6,
+      800: 7,
+      900: 8,
+      1000: 9,
+      1100: 10,
+    ),
+) !default;
+
+$_TYPOGRAPHY_CONFIG_DESKTOP: (
+  base-font-size: 1rem,
+  // Typically 16px. Original was 1.125rem (18px), adjust as needed.
+  base-line-height-ratio: 1.5,
+  // Base line height for body text
+  scale-ratio-key: golden-ratio,
+  // Key from $_TYPE_SCALE_RATIOS
+  font-steps:
+    (
+      25: -0.75,
+      50: -0.5,
+      100: 0,
+      // Base text
+      200: 1,
+      300: 2,
+      400: 3,
+      500: 4,
+      600: 5,
+      700: 6,
+      800: 7,
+      900: 8,
+      1000: 9,
+      1100: 10,
+    ),
+) !default;
+
+/* ==========================================================================
+   2. PRIVATE HELPER FUNCTIONS
+   ==========================================================================
+   Internal functions used to calculate and generate typographic values.
+--------------------------------------------------------------------------- */
+
+/**
+ * Retrieves a numeric scale ratio from the globally defined $_TYPE_SCALE_RATIOS map.
+ * @access private
+ * @param {String} $key - The key of the scale ratio.
+ * @return {Number} The numeric scale ratio, or 1 if key not found.
+ */
+@function _get-scale-ratio($key: golden-ratio) {
+  @if not map.has-key(glob_vars.$_TYPE_SCALE_RATIOS, $key) {
+    @warn "Type scale ratio key '#{$key}' not found in glob_vars.$_TYPE_SCALE_RATIOS. Returning 1 (no scaling).";
+    @return 1;
+  }
+  @return map.get(glob_vars.$_TYPE_SCALE_RATIOS, $key);
+}
+
+/**
+ * Calculates font size based on a scale step, base font size, and ratio.
+ * @access private
+ * @param {Number} $step - The step in the typographic scale (0 for base, positive for larger, negative for smaller).
+ * @param {Number} $base-size - The base font size (e.g., 1rem).
+ * @param {Number} $ratio - The typographic scale ratio.
+ * @return {Number} The calculated font size in rem.
+ */
+@function _calculate-type-size($step, $base-size, $ratio) {
+  @if $ratio == 1 {
+    // If ratio is 1, no scaling occurs.
+    @return $base-size;
+  }
+  @if $step == 0 {
+    @return $base-size;
+  } @else if $step < 0 {
+    @return math.div($base-size, math.pow($ratio, abs($step)));
+  } @else {
+    @return math.pow($ratio, $step) * $base-size;
+  }
+}
+
+/**
+ * Calculates an optimal line height based on current font size and base configuration.
+ * Aims for tighter leading on larger text and looser on smaller text, relative to base.
+ * @access private
+ * @param {Number} $current-font-size - The font size for which to calculate line height.
+ * @param {Map} $config - The typography configuration map (e.g., $_TYPOGRAPHY_CONFIG_MOBILE).
+ * @return {Number} The calculated line height in rem.
+ */
+@function _calculate-optimal-line-height($current-font-size, $config) {
+  $base-font-size: map.get($config, base-font-size);
+  $base-line-height-ratio: map.get($config, base-line-height-ratio);
+
+  // Avoid division by zero or non-numeric current-font-size if something went wrong.
+  @if meta.type-of($current-font-size) != 'number' or $current-font-size == 0 {
+    @warn "Invalid current-font-size (#{$current-font-size}) for line-height calculation. Returning base line-height.";
+    @return $base-font-size * $base-line-height-ratio;
+  }
+
+  // Formula attempts to maintain similar perceived spacing as base.
+  // It adjusts the 'added space' (line-height-ratio - 1) proportionally.
+  $ratio-adjustment: math.div(($base-line-height-ratio - 1) * $base-font-size, $current-font-size);
+  $calculated-line-height-ratio: 1 + $ratio-adjustment;
+
+  // Ensure a minimum line height (e.g., 1.2) to avoid overly tight lines for large text.
+  $final-line-height-ratio: max(1.2, $calculated-line-height-ratio);
+
+  // Return line height in rem, rounded to a reasonable precision (e.g., 3 decimal places).
+  @return round(($current-font-size * $final-line-height-ratio) / 0.001rem) * 0.001rem;
+}
+
+/* ==========================================================================
+   3. PRIVATE TYPOGRAPHY SYSTEM GENERATOR
+   ========================================================================== */
+
+/**
+ * Generates font size and line height maps based on a given configuration.
+ * @access private
+ * @param {Map} $config - The typography configuration map (e.g., $_TYPOGRAPHY_CONFIG_MOBILE or $_TYPOGRAPHY_CONFIG_DESKTOP).
+ * @return {Map} A map containing 'font-sizes' and 'line-heights' maps.
+ */
+@function _generate-typography-system($config) {
+  $font-sizes-map: ();
+  $line-heights-map: ();
+
+  $base-font-size: map.get($config, base-font-size);
+  $scale-ratio-key: map.get($config, scale-ratio-key);
+  $scale-ratio-value: _get-scale-ratio($scale-ratio-key);
+  $font-steps: map.get($config, font-steps);
+
+  @if meta.type-of($font-steps) != 'map' {
+    @warn "Font steps are not defined correctly in the configuration. Typography scale will be empty.";
+    @return (font-sizes: $font-sizes-map, line-heights: $line-heights-map);
+  }
+
+  @each $key, $step in $font-steps {
+    $font-size: _calculate-type-size($step, $base-font-size, $scale-ratio-value);
+    $font-sizes-map: map.merge(
+      $font-sizes-map,
+      (
+        $key: $font-size,
+      )
+    );
+
+    $line-height: _calculate-optimal-line-height($font-size, $config);
+    $line-heights-map: map.merge(
+      $line-heights-map,
+      (
+        $key: $line-height,
+      )
+    );
+  }
+
+  @return (font-sizes: $font-sizes-map, line-heights: $line-heights-map);
+}
+
+/* ==========================================================================
+   4. PUBLIC TYPOGRAPHY MAPS (STATIC PER BREAKPOINT)
+   ========================================================================== */
+$_desktop-typography-system: _generate-typography-system($_TYPOGRAPHY_CONFIG_DESKTOP);
+$FONT_SIZES_DESKTOP: map.get($_desktop-typography-system, font-sizes) !default;
+$LINE_HEIGHTS_DESKTOP: map.get($_desktop-typography-system, line-heights) !default;
+
+$_mobile-typography-system: _generate-typography-system($_TYPOGRAPHY_CONFIG_MOBILE);
+$FONT_SIZES_MOBILE: map.get($_mobile-typography-system, font-sizes) !default;
+$LINE_HEIGHTS_MOBILE: map.get($_mobile-typography-system, line-heights) !default;
+
+/* ==========================================================================
+   END OF BASE TYPOGRAPHY SETUP
+   Semantic and responsive font sizes are handled in a separate file.
+   ========================================================================== */

@@ -1,0 +1,295 @@
+/* ==========================================================================
+   SEMANTIC TYPOGRAPHY SYSTEM
+   ==========================================================================
+   This file defines typography presets that map to semantic roles in the UI.
+   It connects primitive tokens to their semantic application in the interface.
+*/
+
+// SASS Module Imports
+// --------------------------------------------------------------------------
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:string';
+
+// Global Utilities and Variables
+// --------------------------------------------------------------------------
+@use '../../../global/g-variables' as glob_vars;
+@use '../../../global/utils/u-mixtend' as u_mixtend;  // Provides create-mixtend utility
+@use '../../../global/utils/u-clamp' as u_clamp;      // Provides fluid typography support
+
+// Primitive Typography Definitions
+// --------------------------------------------------------------------------
+@use '../../primitive/typography/p-typography-font-size' as p_type-size;  // Font sizes, line heights
+@use '../../primitive/typography/p-typography' as p_type-props;           // Font families, weights, etc.
+
+/* ==========================================================================
+   1. SEMANTIC TYPOGRAPHY PRESET CONFIGURATION
+   ==========================================================================
+   Each preset below defines a semantic text style that maps to primitive tokens.
+   
+   Structure of each preset:
+   - font-size-key-mobile/desktop: Maps to size tokens in primitive typography
+   - font-family-key: References font family ('display', 'heading', 'body', etc.)
+   - font-weight-key: References weight token ('bold', 'regular', etc.)
+   - letter-spacing-key: References tracking token ('normal', 'wide', etc.)
+   - clamp-font-size: When true, enables fluid typography between breakpoints
+   - text-transform: CSS text-transform property (uppercase, lowercase, etc.)
+--------------------------------------------------------------------------- */
+
+$_SEMANTIC_TYPOGRAPHY_PRESETS: (
+  // Large, impactful display text for heroes and major features
+  display-a: (
+    font-size-key-mobile:   '700',
+    font-size-key-desktop: '700',
+    font-family-key:       'display',
+    font-weight-key:       'bold',
+    letter-spacing-key:    'tighter',
+    clamp-font-size:       true,
+    text-transform:        null
+  ),
+  // Secondary display text for important sections
+  display-b: (
+    font-size-key-mobile:   '600',
+    font-size-key-desktop: '600',
+    font-family-key:       'display',
+    font-weight-key:       'bold',
+    letter-spacing-key:    'tighter',
+    clamp-font-size:       true,
+    text-transform:        null
+  ),
+  // Primary section titles and important headings
+    title-a: (
+    font-size-key-mobile:   '500',
+    font-size-key-desktop: '500',
+    font-family-key:       'heading',
+    font-weight-key:       'bold',
+    letter-spacing-key:    'normal',
+    clamp-font-size:       true,
+    text-transform:        null
+  ),
+  // Secondary section headings
+  title-b: (
+    font-size-key-mobile:   '400',
+    font-size-key-desktop: '400',
+    font-family-key:       'heading',
+    font-weight-key:       'semi-bold',
+    letter-spacing-key:    'normal',
+    clamp-font-size:       true,
+    text-transform:        null
+  ),
+  // Tertiary headings for subsections
+  title-c: (
+    font-size-key-mobile:   '300',
+    font-size-key-desktop: '300',
+    font-family-key:       'heading',
+    font-weight-key:       'semi-bold',
+    letter-spacing-key:    'normal',
+    clamp-font-size:       true,
+    text-transform:        null
+  ),
+  // Standard heading for content areas
+  heading: (
+    font-size-key-mobile:   '400',
+    font-size-key-desktop: '400',
+    font-family-key:       'heading',
+    font-weight-key:       'bold',
+    letter-spacing-key:    'normal',
+    clamp-font-size:       true,
+    text-transform:        null
+  ),
+  // Small heading or emphasized content label
+  subheading: (
+    font-size-key-mobile:   '200',
+    font-size-key-desktop: '200',
+    font-family-key:       'body',
+    font-weight-key:       'semi-bold',
+    letter-spacing-key:    'normal',
+    clamp-font-size:       true,
+    text-transform:        null
+  ),
+  // Standard body text for paragraphs and general content
+  body: (
+    font-size-key-mobile:   '100',
+    font-size-key-desktop: '100',
+    font-family-key:       'body',
+    font-weight-key:       'regular',
+    letter-spacing-key:    'normal',
+    clamp-font-size:       true,
+    text-transform:        null
+  ),
+  // Emphasized body text for quotes or highlighted content
+  callout: (
+    font-size-key-mobile:   '200',
+    font-size-key-desktop: '200',
+    font-family-key:       'body',
+    font-weight-key:       'regular',
+    letter-spacing-key:    'normal',
+    clamp-font-size:       true,
+    text-transform:        null
+  ),
+  // Text for form labels, buttons, and interactive elements
+  label: (
+    font-size-key-mobile:   '50',
+    font-size-key-desktop: '50',
+    font-family-key:       'body',
+    font-weight-key:       'medium',
+    letter-spacing-key:    'wider',
+    clamp-font-size:       true,
+    text-transform:        null
+  ),
+  // Small text for image captions and secondary information
+  caption: (
+    font-size-key-mobile:   '50',
+    font-size-key-desktop: '50',
+    font-family-key:       'body',
+    font-weight-key:       'regular',
+    letter-spacing-key:    'normal',
+    clamp-font-size:       true,
+    text-transform:        null
+  ),
+  // Very small text for auxiliary labels, typically uppercase
+  overline: (
+    font-size-key-mobile:   '25',
+    font-size-key-desktop: '25',
+    font-family-key:       'body',
+    font-weight-key:       'medium',
+    letter-spacing-key:    'widest',
+    clamp-font-size:       true,
+    text-transform:        'uppercase'
+  )
+) !default;
+
+/* ==========================================================================
+   2. GENERATE SEMANTIC TYPOGRAPHY UTILITIES (MIXINS & PLACEHOLDERS)
+   ==========================================================================
+   This section generates utility mixins and placeholders for each typography preset.
+   These utilities can be used via @include or @extend throughout the project.
+   -------------------------------------------------------------------------- */
+
+// Process each typography preset and generate corresponding utility classes
+@each $preset-name, $preset-config in $_SEMANTIC_TYPOGRAPHY_PRESETS {
+  $slug: string.to-lower-case(string.replace($preset-name, ' ', '-'));
+  $mixtend-name: 'u-text-#{$slug}';
+
+  // Extract configuration values from preset map with fallbacks
+  $fs-key-mobile: map.get($preset-config, 'font-size-key-mobile');
+  $fs-key-desktop: map.get($preset-config, 'font-size-key-desktop');
+  // Line height keys default to font size keys
+  $lh-key-mobile: map.get($preset-config, 'line-height-key-mobile') or $fs-key-mobile;
+  $lh-key-desktop: map.get($preset-config, 'line-height-key-desktop') or $fs-key-desktop;
+
+  $ff-key: map.get($preset-config, 'font-family-key');
+  $fw-key: map.get($preset-config, 'font-weight-key');
+  $ls-key: map.get($preset-config, 'letter-spacing-key'); // Optional
+
+  $should-clamp-font-size: map.get($preset-config, 'clamp-font-size') or true;
+  // $should-clamp-line-height: map.get($preset-config, 'clamp-line-height') or false; // Future use
+  $extend-behavior: map.get($preset-config, 'extend-default') or true;
+  $text-transform-val: map.get($preset-config, 'text-transform');
+
+  // Get actual values from primitive maps/functions
+  // Retrieve mobile typography values from primitives
+  $font-size-mobile-val: null;
+  $line-height-mobile-val: null;
+  
+  @if $fs-key-mobile and map.has-key(p_type-size.$FONT_SIZES_MOBILE, $fs-key-mobile) {
+    $font-size-mobile-val: map.get(p_type-size.$FONT_SIZES_MOBILE, $fs-key-mobile);
+  } @else {
+    @warn "#{$mixtend-name}: Mobile font size key '#{$fs-key-mobile}' not found in p_type-size.$FONT_SIZES_MOBILE.";
+  }
+  
+  @if $lh-key-mobile and map.has-key(p_type-size.$LINE_HEIGHTS_MOBILE, $lh-key-mobile) {
+    $line-height-mobile-val: map.get(p_type-size.$LINE_HEIGHTS_MOBILE, $lh-key-mobile);
+  } @else {
+    @warn "#{$mixtend-name}: Mobile line height key '#{$lh-key-mobile}' not found in p_type-size.$LINE_HEIGHTS_MOBILE.";
+  }
+
+  // Retrieve desktop typography values from primitives
+  $font-size-desktop-val: null;
+  $line-height-desktop-val: null;
+  
+  @if $fs-key-desktop and map.has-key(p_type-size.$FONT_SIZES_DESKTOP, $fs-key-desktop) {
+    $font-size-desktop-val: map.get(p_type-size.$FONT_SIZES_DESKTOP, $fs-key-desktop);
+  } @else {
+    @warn "#{$mixtend-name}: Desktop font size key '#{$fs-key-desktop}' not found in p_type-size.$FONT_SIZES_DESKTOP.";
+  }
+  
+  @if $lh-key-desktop and map.has-key(p_type-size.$LINE_HEIGHTS_DESKTOP, $lh-key-desktop) {
+    $line-height-desktop-val: map.get(p_type-size.$LINE_HEIGHTS_DESKTOP, $lh-key-desktop);
+  } @else {
+    @warn "#{$mixtend-name}: Desktop line height key '#{$lh-key-desktop}' not found in p_type-size.$LINE_HEIGHTS_DESKTOP.";
+  }
+
+  $font-family-val: p_type-props.get-font-family($ff-key);
+  $font-weight-val: p_type-props.get-font-weight($fw-key);
+  $letter-spacing-val: null;
+  @if $ls-key {
+    $letter-spacing-val: p_type-props.get-letter-spacing($ls-key);
+  }
+
+  // Create the utility class (both as a mixin and optional placeholder)
+  @include u_mixtend.create-mixtend($mixtend-name, $extend-default: $extend-behavior) {
+    // 1. Base typographic properties
+    @if $font-family-val {
+      font-family: $font-family-val;
+    }
+    
+    @if $font-weight-val {
+      font-weight: $font-weight-val;
+    }
+    
+    @if $letter-spacing-val {
+      letter-spacing: $letter-spacing-val;
+    }
+    
+    @if $text-transform-val {
+      text-transform: $text-transform-val;
+    }
+
+    // 2. Mobile-first base styles
+    @if $font-size-mobile-val {
+      font-size: $font-size-mobile-val;
+    }
+    
+    @if $line-height-mobile-val {
+      line-height: $line-height-mobile-val;
+    }
+
+    // 3. Desktop and fluid typography styles
+    @media (min-width: glob_vars.$MQ__MIN-WIDTH--M) {
+      // Use fluid typography if all requirements are met
+      @if $should-clamp-font-size and 
+          $font-size-mobile-val and 
+          $font-size-desktop-val and 
+          glob_vars.$PAGE_MIN_INLINE and 
+          glob_vars.$PAGE_MAX_INLINE {
+        
+        font-size: u_clamp.create-clamp(
+          $min-size: $font-size-mobile-val,
+          $max-size: $font-size-desktop-val,
+          $min-content: glob_vars.$PAGE_MIN_INLINE,
+          $max-content: glob_vars.$PAGE_MAX_INLINE
+        );
+      } 
+      // Otherwise use static desktop size as fallback
+      @else if $font-size-desktop-val {
+        font-size: $font-size-desktop-val;
+      }
+
+      // Apply desktop line-height (fluid line-height is a future enhancement)
+      @if $line-height-desktop-val {
+        line-height: $line-height-desktop-val;
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   3. EXPORTS
+   ==========================================================================
+   The following variables are exposed for use in the public API.
+   Important: All public APIs should be in the base layer instead of here.
+   -------------------------------------------------------------------------- */
+
+// Export the presets map for use in the public API
+// $_SEMANTIC_TYPOGRAPHY_PRESETS is already defined with !default above

@@ -1,0 +1,132 @@
+// _spacing.scss
+//
+// This file defines the spacing system for the project,
+// providing consistent values for margins, paddings, and gaps
+// for desktop and mobile configurations.
+
+@use 'sass:map';
+@use 'sass:meta'; // For @warn
+
+/* ==========================================================================
+   SPACING CONFIGURATIONS
+   ========================================================================== */
+
+$_SPACING_CONFIG_DESKTOP: (
+  base-unit: 0.5rem,
+  // e.g., 8px if 1rem = 16px
+  scale:
+    (
+      // Define spacing keys and their multipliers
+      'zero': 0,
+      'px': 0.0625rem,
+      // 1px, for fine-tuning if absolutely necessary
+      'xxxs': 0.25,
+      // e.g., 2px
+      'xxs': 0.5,
+      // e.g., 4px
+      'xs': 0.75,
+      // e.g., 6px
+      'sm': 1,
+      // e.g., 8px (base-unit * 1)
+      'md': 1.5,
+      // e.g., 12px
+      'lg': 2,
+      // e.g., 16px
+      'xl': 2.5,
+      // e.g., 20px
+      '2xl': 3,
+      // e.g., 24px
+      '3xl': 4,
+      // e.g., 32px
+      '4xl': 5,
+      // e.g., 40px
+      '5xl': 6,
+      // e.g., 48px
+      '6xl': 8,
+      // e.g., 64px
+      '7xl': 10,
+      // e.g., 80px
+      '8xl': 12 // e.g., 96px,,,
+    ),
+) !default;
+
+$_SPACING_CONFIG_MOBILE: (
+  base-unit: 0.375rem,
+  // e.g., 6px if 1rem = 16px (a slightly smaller base for mobile)
+  scale:
+    (
+      'zero': 0,
+      'px': 0.0625rem,
+      'xxxs': 0.333,
+      // approx 2px
+      'xxs': 0.666,
+      // approx 4px
+      'xs': 1,
+      // e.g., 6px (base-unit * 1)
+      'sm': 1.333,
+      // e.g., 8px
+      'md': 2,
+      // e.g., 12px
+      'lg': 2.666,
+      // e.g., 16px
+      'xl': 3.333,
+      // e.g., 20px
+      '2xl': 4,
+      // e.g., 24px
+      '3xl': 5.333,
+      // e.g., 32px
+      // Mobile might use fewer very large spacing values,,,
+    ),
+) !default;
+
+/* ==========================================================================
+   GENERATED SPACING MAPS (INTERNAL)
+   ========================================================================== */
+
+@function _generate-spacing-map($config) {
+  $generated-map: ();
+  $base: map.get($config, base-unit);
+  $scale: map.get($config, scale);
+
+  @each $key, $multiplier in $scale {
+    @if $key == 'px' {
+      // Special case for 1px
+      $generated-map: map.merge(
+        $generated-map,
+        (
+          $key: $multiplier,
+        )
+      );
+    } @else {
+      $generated-map: map.merge(
+        $generated-map,
+        (
+          $key: $base * $multiplier,
+        )
+      );
+    }
+  }
+  @return $generated-map;
+}
+
+$SPACING_VALUES_DESKTOP: _generate-spacing-map($_SPACING_CONFIG_DESKTOP) !default;
+$SPACING_VALUES_MOBILE: _generate-spacing-map($_SPACING_CONFIG_MOBILE) !default;
+
+/* ==========================================================================
+   PUBLIC SPACING HELPER FUNCTION
+   ========================================================================== */
+
+/**
+ * Retrieves a spacing value.
+ * @param {String} $key - The key from the spacing scale (e.g., 'sm', 'lg').
+ * @param {String} $variant - 'desktop' or 'mobile'.
+ * @return {Length | Null}
+ */
+@function space($key: 'md', $variant: 'desktop') {
+  $values-map: if($variant == 'mobile', $SPACING_VALUES_MOBILE, $SPACING_VALUES_DESKTOP);
+  @if not map.has-key($values-map, $key) {
+    @warn "Spacing key '#{$key}' not found for '#{$variant}'.";
+    @return null; // Or 0, depending on desired fallback
+  }
+  @return map.get($values-map, $key);
+}
