@@ -1,6 +1,100 @@
 // File: _u-mixtend.scss
-// This file was recreated as a placeholder after accidental deletion.
-// Its original content is not available in the current session memory.
-// Please restore from a backup or rewrite its intended functionality.
+// Purpose: Provides a utility mixin to define a set of styles that can be
+//          applied as a utility class, included as a dedicated mixin,
+//          or extended via a corresponding placeholder selector.
 
-// Purpose: (From documentation - likely a utility for extending placeholders or mixins)
+// @mixin create-mixtend
+//
+// @param {String} $class-name
+//   The base name for the generated utility class (e.g., 'u-text-highlight').
+//   This name is also used for the generated standalone mixin and, if created,
+//   the placeholder selector.
+//
+// @param {Boolean} $create-placeholder (default: true)
+//   - If true:
+//     A placeholder selector (e.g., %u-text-highlight) is created with the styles.
+//     The utility class (e.g., .u-text-highlight) then @extends this placeholder.
+//     This is useful if the same style block needs to be extended by multiple selectors
+//     without duplicating the CSS in the output until necessary.
+//   - If false:
+//     The utility class (e.g., .u-text-highlight) gets the styles directly.
+//     No placeholder selector is created for this specific style block.
+//
+// @content
+//   The block of CSS rules to be applied. These rules will form the body of
+//   the generated utility class, the standalone mixin, and the placeholder (if created).
+//
+// How it works:
+// 1. A standalone mixin (e.g., @mixin u-text-highlight) is always defined,
+//    allowing the styles to be included anywhere using @include.
+// 2. If $create-placeholder is true, a placeholder selector (e.g., %u-text-highlight)
+//    is defined with the styles. The generated utility class (e.g., .u-text-highlight)
+//    then uses @extend to inherit these styles. This is the default and often preferred
+//    method for managing shared styles that utility classes might use.
+// 3. If $create-placeholder is false, the utility class (e.g., .u-text-highlight)
+//    is defined directly with the styles. No placeholder is generated for this call.
+//
+// Example Usage:
+//
+//   @use 'u-mixtend';
+//
+//   @include u-mixtend.create-mixtend('my-custom-style', $create-placeholder: true) {
+//     color: blue;
+//     font-weight: bold;
+//   }
+//
+//   // This will make the following available:
+//   //
+//   // .my-custom-style {
+//   //   @extend %my-custom-style;
+//   // }
+//   //
+//   // %my-custom-style {
+//   //   color: blue;
+//   //   font-weight: bold;
+//   // }
+//   //
+//   // @mixin my-custom-style() {
+//   //   color: blue;
+//   //   font-weight: bold;
+//   // }
+//   //
+//   // You can then use:
+//   // <div class="my-custom-style"></div>
+//   //
+//   // .another-element {
+//   //   @include my-custom-style;
+//   // }
+//   //
+//   // .yet-another-element {
+//   //   @extend %my-custom-style;
+//   // }
+
+@mixin create-mixtend($class-name, $create-placeholder: true) {
+  // 1. Define the standalone mixin.
+  // This allows the style block to be included anywhere using @include #{$class-name};
+  @mixin #{$class-name} {
+    @content;
+  }
+
+  // 2. Define the utility class and, if requested, the placeholder selector.
+  @if $create-placeholder {
+    // Define the placeholder selector with the passed content.
+    // Placeholder names do not use #{} for the % sign itself.
+    %#{class-name} {
+      @content;
+    }
+
+    // Define the utility class and have it @extend the placeholder.
+    // This ensures the styles are defined once in the placeholder.
+    .#{$class-name} {
+      @extend %#{$class-name};
+    }
+  } @else {
+    // Define the utility class directly with the styles.
+    // No placeholder is created for this specific call.
+    .#{$class-name} {
+      @content;
+    }
+  }
+}

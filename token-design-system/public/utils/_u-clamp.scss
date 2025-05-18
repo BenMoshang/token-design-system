@@ -1,6 +1,69 @@
 // File: _u-clamp.scss
-// This file was recreated as a placeholder after accidental deletion.
-// Its original content is not available in the current session memory.
-// Please restore from a backup or rewrite its intended functionality.
+// Purpose: Provides a utility function for generating CSS clamp() values.
 
-// Purpose: (From documentation - likely a utility mixin or function for CSS clamp())
+@use 'sass:math';
+@use 'sass:meta'; // For type-checking and warnings
+
+// Function to create a CSS clamp() value for fluid typography or spacing.
+//
+// @param {Number} $min-size - The minimum size (e.g., 1rem).
+// @param {Number} $max-size - The maximum size (e.g., 2rem).
+// @param {Number} $min-viewport - The viewport width at which the minimum size is desired (e.g., 20rem or 320px).
+// @param {Number} $max-viewport - The viewport width at which the maximum size is desired (e.g., 80rem or 1280px).
+// @return {String} A CSS clamp() function string.
+//
+// Formula for preferred value based on linear interpolation:
+// preferred = yAxisIntersection + (slope * 100)vw
+// slope = ($max-size - $min-size) / ($max-viewport - $min-viewport)
+// yAxisIntersection = $min-size - $slope * $min-viewport
+// (or yAxisIntersection = $max-size - $slope * $max-viewport)
+
+@function create-clamp($min-size, $max-size, $min-viewport, $max-viewport) {
+  // --- Input Validation ---
+  @if meta.type-of($min-size) != 'number' or meta.type-of($max-size) != 'number' or meta.type-of($min-viewport) != 'number' or meta.type-of($max-viewport) != 'number' {
+    @warn "u-clamp.create-clamp: All arguments must be numbers. Min/Max sizes usually in rem, Viewports in rem or px.";
+    @return null;
+  }
+
+  // Ensure units are compatible for calculation or strip them carefully.
+  // For simplicity, this example assumes $min-size and $max-size are in the same unit (e.g., rem),
+  // and $min-viewport and $max-viewport are in the same unit (e.g., rem or px).
+  // SASS math operations generally handle compatible units well.
+
+  @if $min-viewport >= $max-viewport {
+    @warn "u-clamp.create-clamp: $min-viewport (#{$min-viewport}) must be less than $max-viewport (#{$max-viewport}). Using $max-size as a fallback.";
+    @return $max-size;
+  }
+
+  @if $min-size > $max-size {
+    // It's valid for min-size to be greater than max-size if the font size should decrease with viewport width.
+    // However, if this is unintentional for typical fluid scaling (increasing size with viewport), it might indicate an issue.
+    // For now, we won't warn here as it can be a valid use case, but it's worth noting.
+  }
+
+  // --- Calculation ---
+  // Calculate the slope of the line.
+  // math.div handles unit division correctly. If units are different (e.g., rem/px), SASS will attempt conversion or error.
+  // It's best if $min-size & $max-size share a unit, and $min-viewport & $max-viewport share a unit.
+  $slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
+
+  // Calculate the y-axis intersection (value at viewport width 0).
+  // This should result in a unit compatible with $min-size/$max-size (e.g., rem).
+  $y-axis-intersection: $min-size - $slope * $min-viewport;
+  // Alternative calculation for y-axis-intersection for verification (should yield the same result if math is correct):
+  // $y-axis-intersection-alt: $max-size - $slope * $max-viewport;
+
+  // Convert slope to a vw value (slope * 100vw).
+  // The `100` makes the slope relative to 100vw.
+  // $slope itself is unitless if (rem/rem) or (px/px), or has a unit like (rem/px).
+  // The multiplication by 100 should result in a unitless number for the vw coefficient.
+  $preferred-value-slope-vw: $slope * 100;
+
+  // --- Output ---
+  // Construct the preferred value part of the clamp function.
+  // Example: "0.5rem + 2.5vw"
+  // Ensure y-axis-intersection has a unit, and preferred-value-slope-vw is unitless for correct vw concatenation.
+  $preferred-value: #{$y-axis-intersection} + #{$preferred-value-slope-vw}vw;
+
+  @return "clamp(#{$min-size}, #{$preferred-value}, #{$max-size})";
+}
