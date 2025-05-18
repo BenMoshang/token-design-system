@@ -1,0 +1,85 @@
+@use '../../structure/semantic/s-spacing' as s-spacing;
+@use 'sass:meta';
+@use 'sass:map';
+
+// ==========================================================================
+// PUBLIC SPACING API MIXINS
+// ==========================================================================
+
+/**
+ * Applies padding to an element using a semantic size key.
+ *
+ * @param {Keyword} $size-key - The semantic key for the spacing value.
+ * @param {Keyword | null} $side - Optional. Specify a side or axis.
+ */
+@mixin apply-padding($size-key, $side: null) {
+  $_variable_name: 'space-#{$size-key}';
+  @if not meta.variable-exists($_variable_name, $module: 's-spacing') {
+    @warn "apply-padding: Semantic spacing key '#{$size-key}' (expected variable s-spacing.'#{$_variable_name}') not found. No padding applied.";
+  } @else {
+    $value: meta.module-variable('s-spacing', $_variable_name);
+    @if $value == null {
+      @warn "apply-padding: Resolved value for semantic key '#{$size-key}' (s-spacing.'#{$_variable_name}') is null. No padding applied.";
+      @return;
+    }
+    @if $side == null {
+      padding: $value;
+    } @else if $side == top {
+      padding-block-start: $value;
+    } @else if $side == right {
+      padding-inline-end: $value;
+    } @else if $side == bottom {
+      padding-block-end: $value;
+    } @else if $side == left {
+      padding-inline-start: $value;
+    } @else if $side == block {
+      padding-block-start: $value;
+      padding-block-end: $value;
+    } @else if $side == inline {
+      padding-inline-start: $value;
+      padding-inline-end: $value;
+    } @else {
+      @warn "apply-padding: Invalid side '#{$side}'. Use top, right, bottom, left, block, inline, or null. No padding applied.";
+    }
+  }
+}
+
+/**
+ * Applies margin to an element using a semantic size key.
+ *
+ * @param {Keyword} $size-key - The semantic key for the spacing value.
+ * @param {Keyword | null} $side - Optional. Specify a side or axis.
+ */
+@mixin apply-margin($size-key, $side: null) {
+  $_variable_name: 'space-#{$size-key}';
+  @if not meta.variable-exists($_variable_name, $module: 's-spacing') {
+    @warn "apply-margin: Semantic spacing key '#{$size-key}' (expected variable s-spacing.'#{$_variable_name}') not found. No margin applied.";
+  } @else {
+    $value: meta.module-variable('s-spacing', $_variable_name);
+    @if $value == null {
+       @warn "apply-margin: Resolved value for semantic key '#{$size-key}' (s-spacing.'#{$_variable_name}') is null. No margin applied.";
+       @return;
+    }
+    @if $side == null {
+      margin: $value;
+    } @else if $side == top {
+      margin-block-start: $value;
+    } @else if $side == right {
+      margin-inline-end: $value;
+    } @else if $side == bottom {
+      margin-block-end: $value;
+    } @else if $side == left {
+      margin-inline-start: $value;
+    } @else if $side == block {
+      margin-block: $value;
+    } @else if $side == inline {
+      margin-inline: $value;
+    } @else {
+      @warn "apply-margin: Invalid side '#{$side}'. Use top, right, bottom, left, block, inline, or null. No margin applied.";
+    }
+  }
+}
+
+// ==========================================================================
+//   END OF PUBLIC SPACING API
+// ==========================================================================

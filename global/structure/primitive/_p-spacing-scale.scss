@@ -1,0 +1,78 @@
+@use '../../_g-variables' as glob_vars; // Adjusted path: from global/structure/primitive/ to global/
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
+
+// PRIVATE: Configuration for the default spacing system
+$_SPACING_CONFIG_DEFAULT: (
+  base-spacing: 1rem, // Base unit for spacing (e.g., 1rem, 16px)
+  scale-ratio-key: 'perfect-fourth', // Key from glob_vars.$_TYPE_SCALE_RATIOS
+  steps: (
+    0: -4,
+    12: -3,
+    25: -2,
+    50: -1,
+    75: -0.5,
+    100: 0,
+    150: 0.5,
+    200: 1,
+    300: 2,
+    400: 3,
+    500: 4,
+    600: 5
+  )
+) !default;
+
+// PRIVATE: Configuration for a compact spacing system (example)
+$_SPACING_CONFIG_COMPACT: (
+  base-spacing: 0.875rem, // Base unit for compact spacing (e.g., 14px)
+  scale-ratio-key: 'major-third', // Key from glob_vars.$_TYPE_SCALE_RATIOS
+  steps: (
+    0: -4,
+    12: -3,
+    25: -2,
+    50: -1,
+    75: -0.5,
+    100: 0,
+    150: 0.5,
+    200: 1,
+    300: 2,
+    400: 3,
+    500: 4,
+    600: 5
+  )
+) !default;
+
+// PRIVATE: Helper function to get scale ratio from global variables
+@function _get-spacing-scale-ratio($scale-name) {
+  @if not map.has-key(glob_vars.$_TYPE_SCALE_RATIOS, $scale-name) {
+    @error "Scale ratio '#{$scale-name}' not found in glob_vars.$_TYPE_SCALE_RATIOS. Available: #{map.keys(glob_vars.$_TYPE_SCALE_RATIOS)}";
+  }
+  @return map.get(glob_vars.$_TYPE_SCALE_RATIOS, $scale-name);
+}
+
+// PRIVATE: Core function to generate spacing values based on a configuration
+@function _generate-spacing-system($config) {
+  $base-spacing: map.get($config, 'base-spacing');
+  $scale-ratio-key: map.get($config, 'scale-ratio-key');
+  $steps-map: map.get($config, 'steps');
+  $scale-ratio: _get-spacing-scale-ratio($scale-ratio-key);
+  $spacing-values-map: ();
+
+  @if unitless($base-spacing) {
+    @warn "Base spacing '#{$base-spacing}' is unitless. Assuming 'rem'.";
+    $base-spacing: $base-spacing * 1rem;
+  }
+
+  @each $step-key, $step-multiplier in $steps-map {
+    $value: $base-spacing * math.pow($scale-ratio, $step-multiplier);
+    // Round to 3 decimal places to avoid overly long floating point numbers
+    $value: math.div(round($value * 1000), 1000);
+    $spacing-values-map: map.merge($spacing-values-map, ($step-key: $value));
+  }
+  @return $spacing-values-map;
+}
+
+// PUBLIC SPACING MAPS
+$SPACING_VALUES_DEFAULT: _generate-spacing-system($_SPACING_CONFIG_DEFAULT) !default;
+$SPACING_VALUES_COMPACT: _generate-spacing-system($_SPACING_CONFIG_COMPACT) !default;
