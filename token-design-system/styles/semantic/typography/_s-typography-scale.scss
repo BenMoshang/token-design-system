@@ -3,20 +3,21 @@
 @use 'sass:map';
 @use 'sass:meta';
 
-// Import the base typography scales which define $FONT_SIZES_MOBILE, $FONT_SIZES_DESKTOP.
-// Adjust the path if these files are in different directories.
-@use './typography-base' as base;
+// Import the primitive typography scale which defines $FONT_SIZES_MOBILE, $FONT_SIZES_DESKTOP.
+@use '../../primitive/typography/_p-typography-scale' as p_typo;
 
 // Import the clamp utility.
-// Ensure this path correctly leads to your utility file containing the create-clamp function.
-@use '../utils/responsive-functions' as u_clamp; // Provides u_clamp.create-clamp()
+@use '../../../utils/_u-clamp' as u-clamp; // Provides u-clamp.create-clamp()
+
+// Import global variables directly for viewport configuration
+@use '../../../global/_g-variables' as g-vars;
 
 /* ==========================================================================
    SEMANTIC RESPONSIVE (CLAMPED) FONT SIZE MAP
    ==========================================================================
    Generates a map of responsive font sizes using CSS clamp().
    These sizes fluidly transition between mobile and desktop scales based on
-   values from _typography-base.scss.
+   values from _p-typography-scale.scss.
 --------------------------------------------------------------------------- */
 
 // 1) Semantic Font Size Definitions
@@ -101,8 +102,8 @@ $_SEMANTIC_FONT_MAPPINGS: (
 // 2) Viewport Configuration for Clamp Function
 // ---------------------------------------------------------------------------
 // Define the viewport range (in rem) for fluid scaling.
-$_CLAMP_MIN_VIEWPORT: glob_vars.$PAGE_MIN_INLINE !default; // Approx 320px
-$_CLAMP_MAX_VIEWPORT: glob_vars.$PAGE_MAX_INLINE !default;
+$_CLAMP_MIN_VIEWPORT: g-vars.$PAGE_MIN_INLINE !default; // Approx 320px
+$_CLAMP_MAX_VIEWPORT: g-vars.$PAGE_MAX_INLINE !default;
 
 // 3) Generated Responsive Font Sizes Map
 // ---------------------------------------------------------------------------
@@ -113,18 +114,18 @@ $RESPONSIVE_FONT_SIZES: () !default;
   $mobile-scale-key: map.get($keys, mobile);
   $desktop-scale-key: map.get($keys, desktop);
 
-  // Retrieve the actual rem values from the static font size maps from _typography-base.scss
-  $min-font-size-val: map.get(base.$FONT_SIZES_MOBILE, $mobile-scale-key);
-  $max-font-size-val: map.get(base.$FONT_SIZES_DESKTOP, $desktop-scale-key);
+  // Retrieve the actual rem values from the static font size maps from _p-typography-scale.scss
+  $min-font-size-val: map.get(p_typo.$FONT_SIZES_MOBILE, $mobile-scale-key);
+  $max-font-size-val: map.get(p_typo.$FONT_SIZES_DESKTOP, $desktop-scale-key);
 
   @if $min-font-size-val == null {
-    @warn "SemanticResponsiveFonts: Mobile font size for key '#{$mobile-scale-key}' (semantic: '#{$semantic-name}') not found in base.$FONT_SIZES_MOBILE. Skipping responsive style for '#{$semantic-name}'.";
+    @warn "SemanticResponsiveFonts: Mobile font size for key '#{$mobile-scale-key}' (semantic: '#{$semantic-name}') not found in p_typo.$FONT_SIZES_MOBILE. Skipping responsive style for '#{$semantic-name}'.";
   } @else if $max-font-size-val == null {
-    @warn "SemanticResponsiveFonts: Desktop font size for key '#{$desktop-scale-key}' (semantic: '#{$semantic-name}') not found in base.$FONT_SIZES_DESKTOP. Skipping responsive style for '#{$semantic-name}'.";
+    @warn "SemanticResponsiveFonts: Desktop font size for key '#{$desktop-scale-key}' (semantic: '#{$semantic-name}') not found in p_typo.$FONT_SIZES_DESKTOP. Skipping responsive style for '#{$semantic-name}'.";
   } @else {
     // Generate the clamp() string using the helper function
-    // The u_clamp.create-clamp function will validate if min > max and other parameters.
-    $clamped-font-size-string: u_clamp.create-clamp(
+    // The u-clamp.create-clamp function will validate if min > max and other parameters.
+    $clamped-font-size-string: u-clamp.create-clamp(
       $min-size: $min-font-size-val,
       $max-size: $max-font-size-val,
       $min-content: $_CLAMP_MIN_VIEWPORT,
@@ -141,12 +142,5 @@ $RESPONSIVE_FONT_SIZES: () !default;
   }
 }
 
-@mixin apply-text-preset($semantic-style-name) {
-  @if map.has-key($RESPONSIVE_FONT_SIZES, $semantic-style-name) {
-    font-size: map.get($RESPONSIVE_FONT_SIZES, $semantic-style-name);
-    // Note: To apply responsive line-heights, you would need a similar
-    // $RESPONSIVE_LINE_HEIGHTS map and include it here.
-  } @else {
-    @warn "Semantic typography style '#{$semantic-style-name}' not found in $RESPONSIVE_FONT_SIZES.";
-  }
-}
+// The apply-text-preset mixin has been moved to _public-typography.scss
+// and renamed to apply-text-style for consistency.

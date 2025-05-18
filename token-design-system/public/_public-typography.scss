@@ -1,0 +1,101 @@
+// _public-typography.scss
+// Purpose: Provides public-facing mixins to apply semantic typography styles.
+
+@use '../styles/semantic/typography/_s-typography-scale' as s_typo;
+@use 'sass:map';
+@use 'sass:meta';
+@use '../utils/u-mixtend' as mixtend;
+
+// ==========================================================================
+// PUBLIC TYPOGRAPHY API MIXINS
+// ==========================================================================
+
+/**
+ * Applies a semantic text style (responsive font size) to an element.
+ *
+ * @param {String} $semantic-style-name - The semantic name of the text style
+ *   (e.g., 'Display 1', 'Body', 'Caption') as defined in 
+ *   s_typo.$_SEMANTIC_FONT_MAPPINGS and generated in s_typo.$RESPONSIVE_FONT_SIZES.
+ */
+@mixin apply-text($semantic-style-name) {
+  @if not map.has-key(s_typo.$RESPONSIVE_FONT_SIZES, $semantic-style-name) {
+    @warn "apply-text: Semantic typography style '#{$semantic-style-name}' not found in s_typo.$RESPONSIVE_FONT_SIZES. No font size applied.";
+  } @else {
+    // Retrieve the font-size value to ensure it's a valid key and for the warning message if needed.
+    $font-size-value: map.get(s_typo.$RESPONSIVE_FONT_SIZES, $semantic-style-name);
+    
+    @if $font-size-value == null {
+      @warn "apply-text: Resolved font size for semantic style '#{$semantic-style-name}' is null or invalid. No font size applied.";
+    } @else {
+      // Construct the mixin name based on the sanitized class suffix and include it.
+      // The included mixins are defined by the create-mixtend loop further down.
+      $class-suffix: _sanitize-for-class($semantic-style-name); 
+      @if $class-suffix != '' {
+        @include u-text-#{$class-suffix};
+      } @else {
+         @warn "apply-text: Could not generate a valid class suffix for style '#{$semantic-style-name}' to include the mixtend. No font size applied.";
+      }
+    }
+  }
+}
+
+// Example Usage (in other SCSS files after importing this file):
+// .title-large {
+//   @include apply-text('Display 1');
+// }
+//
+// .paragraph {
+//   @include apply-text('Body');
+// }
+
+// ==========================================================================
+//   UTILITY CLASSES (via Mixtend)
+// ==========================================================================
+// These utility classes are generated using the create-mixtend utility.
+// They provide direct classes for applying specific semantic typography styles.
+// ==========================================================================
+
+// Helper function to sanitize semantic style names for use in CSS class names
+// e.g., "Display 1" -> "display-1"
+@function _sanitize-for-class($name) {
+  $name: meta.inspect($name); // Ensures it's a string, removes quotes if present
+  $name: to-lower-case($name);
+  $result: '';
+  $chars: 'abcdefghijklmnopqrstuvwxyz0123456789-';
+  @for $i from 1 through str-length($name) {
+    $char: str-slice($name, $i, $i);
+    @if $char == ' ' {
+      $result: $result + '-';
+    } @else if str-index($chars, $char) {
+      $result: $result + $char;
+    }
+    // Other characters are ignored/stripped
+  }
+  @return $result;
+}
+
+// Loop through each semantic typography style and generate utility classes
+@each $semantic-style-name, $font-size-value in s_typo.$RESPONSIVE_FONT_SIZES {
+  @if $font-size-value != null {
+    $class-suffix: _sanitize-for-class($semantic-style-name);
+    @if $class-suffix != '' {
+      @include mixtend.create-mixtend('u-text-#{$class-suffix}') {
+        font-size: $font-size-value;
+        // Potential future enhancement: Apply corresponding line-height here if available
+        // For example:
+        // $line-height-value: map.get(s_typo.$RESPONSIVE_LINE_HEIGHTS, $semantic-style-name);
+        // @if $line-height-value {
+        //   line-height: $line-height-value;
+        // }
+      }
+    } @else {
+      @warn "Mixtend (public-typography): Could not generate a valid class suffix for style '#{$semantic-style-name}'. Skipping utility class.";
+    }
+  } @else {
+    @warn "Mixtend (public-typography): Skipping utility class generation for style '#{$semantic-style-name}' due to null font-size value.";
+  }
+}
+
+// ==========================================================================
+//   END OF PUBLIC TYPOGRAPHY API
+// ==========================================================================

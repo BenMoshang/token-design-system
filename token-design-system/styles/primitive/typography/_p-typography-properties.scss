@@ -6,8 +6,8 @@
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:meta'; // For @warn
-@use './_p-typography-font-size' as type-size; // Imports font-size and line-height maps/functions, namespaced
-@use './_p-typography-type-scale' as type-scale; // Imports type scale ratios and function
+@use './_p-typography-scale' as type-size; // Imports font-size and line-height maps/functions, namespaced
+@use './_p-typography-scale' as type-scale; // Imports type scale ratios and function
 
 /* ==========================================================================
    PRIMITIVE TYPOGRAPHY TOKENS

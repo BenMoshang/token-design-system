@@ -1,8 +1,8 @@
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:meta';
-@use '../../../global/g-variables' as glob_vars; // Assuming this contains global variables like breakpoints
-@use '../utils/responsive-functions' as u_clamp; // For potential fluid typography implementation
+@use '../../../global/_g-variables' as g-vars; // Corrected path and alias
+@use '../../../utils/_u-clamp' as u-clamp; // Standardized clamp import
 
 /* ==========================================================================
    1. CONFIGURATION
@@ -17,16 +17,6 @@
 //   Standard typographic scales. Add or modify as needed.
 //   MOVED TO _g-variables.scss
 // ---------------------------------------------------------------------------
-// $_TYPE_SCALE_RATIOS: (
-//   minor-second: 1.067,
-//   major-second: 1.125,
-//   minor-third: 1.2,
-//   major-third: 1.25,
-//   perfect-fourth: 1.333,
-//   augmented-fourth: 1.414,
-//   perfect-fifth: 1.5,
-//   golden-ratio: 1.618,
-// ) !default;
 
 // ---------------------------------------------------------------------------
 //   1.2) Core Typography Configurations
@@ -100,11 +90,11 @@ $_TYPOGRAPHY_CONFIG_DESKTOP: (
  * @return {Number} The numeric scale ratio, or 1 if key not found.
  */
 @function _get-scale-ratio($key: golden-ratio) {
-  @if not map.has-key(glob_vars.$_TYPE_SCALE_RATIOS, $key) {
-    @warn "Type scale ratio key '#{$key}' not found in glob_vars.$_TYPE_SCALE_RATIOS. Returning 1 (no scaling).";
+  @if not map.has-key(g-vars.$TYPE_SCALE_RATIOS, $key) {
+    @warn "Type scale ratio key '#{$key}' not found in g-vars.$TYPE_SCALE_RATIOS. Returning 1 (no scaling).";
     @return 1;
   }
-  @return map.get(glob_vars.$_TYPE_SCALE_RATIOS, $key);
+  @return map.get(g-vars.$TYPE_SCALE_RATIOS, $key);
 }
 
 /**

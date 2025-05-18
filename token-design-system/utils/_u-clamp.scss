@@ -1,6 +1,6 @@
 // File: _u-clamp.scss
 // Purpose: Provides a utility function for generating CSS clamp() values.
-
+@use '../global/_g-variables' as glob_vars;
 @use 'sass:math';
 @use 'sass:meta'; // For type-checking and warnings
 
@@ -18,7 +18,7 @@
 // yAxisIntersection = $min-size - $slope * $min-viewport
 // (or yAxisIntersection = $max-size - $slope * $max-viewport)
 
-@function create-clamp($min-size, $max-size, $min-viewport, $max-viewport) {
+@function create-clamp($min-size, $max-size, $min-viewport:glob_vars.$PAGE_MIN_INLINE, $max-viewport:glob_vars.$PAGE_MAX_INLINE) {
   // --- Input Validation ---
   @if meta.type-of($min-size) != 'number' or meta.type-of($max-size) != 'number' or meta.type-of($min-viewport) != 'number' or meta.type-of($max-viewport) != 'number' {
     @warn "u-clamp.create-clamp: All arguments must be numbers. Min/Max sizes usually in rem, Viewports in rem or px.";

@@ -1,0 +1,143 @@
+// _s-spacing-scale.scss
+// Purpose: Defines a semantic layer for responsive spacing values.
+
+@use 'sass:map';
+@use 'sass:meta';
+
+// 1. DEPENDENCIES
+// ---------------------------------------------------------------------------
+// Primitive spacing values (e.g., $SPACING_VALUES_MOBILE, $SPACING_VALUES_DESKTOP)
+@use '../primitive/_p-spacing-scale' as p-spacing;
+
+// get-clamp() SASS function for fluid values
+@use '../../utils/_u-clamp' as u-clamp; // From memory: public/utils/_u-clamp.scss
+
+// Global variables (e.g., viewport widths)
+@use '../../global/_g-variables' as g-vars;
+
+/* ==========================================================================
+   SEMANTIC RESPONSIVE (CLAMPED) SPACING SCALE
+   ==========================================================================
+   Generates a map of responsive spacing values using CSS clamp().
+   These sizes fluidly transition between mobile and desktop scales based on
+   values from _p-spacing-scale.scss and viewport settings from _g-variables.scss.
+--------------------------------------------------------------------------- */
+
+// 2. SEMANTIC SPACING MAPPINGS
+// ---------------------------------------------------------------------------
+// Map semantic names to the scale keys (e.g., '50', '100', '200') from the
+// p-spacing.$SPACING_VALUES_MOBILE and p-spacing.$SPACING_VALUES_DESKTOP maps.
+// Customize these keys and semantic names to match your design system's needs.
+$_SEMANTIC_SPACING_MAPPINGS: (
+  // General Purpose Spacing
+  spacing-xxs:    (mobile: 50,  desktop: 50),   // Approx 0.382rem / 0.438rem
+  spacing-xs:     (mobile: 75,  desktop: 75),   // Approx 0.618rem / 0.708rem
+  spacing-s:      (mobile: 100, desktop: 100),  // Approx 1rem (mobile base) / 0.875rem (desktop base from primitive)
+  spacing-m:      (mobile: 150, desktop: 150),  // Approx 1.236rem / 1.417rem
+  spacing-base:   (mobile: 200, desktop: 200),  // Approx 1.618rem / 1.85rem (maps to primitive '200')
+  spacing-l:      (mobile: 300, desktop: 300),  // Approx 2.618rem / 2.992rem
+  spacing-xl:     (mobile: 400, desktop: 400),  // Approx 4.236rem / 4.84rem
+  spacing-xxl:    (mobile: 500, desktop: 500),  // Approx 6.854rem / 7.83rem
+  spacing-xxxl:   (mobile: 600, desktop: 600),  // Approx 11.09rem / 12.669rem
+
+  // Gutters / Gaps
+  gutter-xs:      (mobile: 75,  desktop: 100),
+  gutter-s:       (mobile: 100, desktop: 150),
+  gutter-m:       (mobile: 150, desktop: 200),
+  gutter-l:       (mobile: 200, desktop: 300),
+
+  // Insets / Padding within components
+  inset-xs:       (mobile: 50,  desktop: 75),
+  inset-s:        (mobile: 100, desktop: 100),
+  inset-m:        (mobile: 150, desktop: 150),
+  inset-l:        (mobile: 200, desktop: 200),
+
+  // Stack (vertical rhythm / spacing between stacked elements)
+  stack-xs:       (mobile: 75,  desktop: 75),
+  stack-s:        (mobile: 100, desktop: 100),
+  stack-m:        (mobile: 150, desktop: 200),
+  stack-l:        (mobile: 200, desktop: 300),
+
+  // Specific UI Elements (examples)
+  button-padding-y: (mobile: 75,  desktop: 100),
+  button-padding-x: (mobile: 150, desktop: 150),
+  input-padding-y:  (mobile: 75,  desktop: 100),
+  input-padding-x:  (mobile: 100, desktop: 150),
+
+  // Section / Page Level Spacing
+  section-padding-y-s: (mobile: 300, desktop: 400),
+  section-padding-y-m: (mobile: 400, desktop: 500),
+  section-padding-y-l: (mobile: 500, desktop: 600),
+  container-padding-x: (mobile: 150, desktop: 200) // e.g., for main content areas
+) !default;
+
+// 3. VIEWPORT CONFIGURATION FOR CLAMP FUNCTION
+// ---------------------------------------------------------------------------
+// Define the viewport range for fluid scaling. These should come from your global variables.
+// Ensure these variables exist in your _g-variables.scss file.
+$_CLAMP_MIN_VIEWPORT: g-vars.$PAGE_MIN_INLINE !default; // Example: 20rem (320px)
+$_CLAMP_MAX_VIEWPORT: g-vars.$PAGE_MAX_INLINE !default; // Example: 75rem (1200px)
+
+// 4. GENERATED RESPONSIVE SPACING MAP
+// ---------------------------------------------------------------------------
+// This map will store semantic names as keys and clamp() strings as values.
+$RESPONSIVE_SPACING_VALUES: () !default;
+
+@each $semantic-name, $keys in $_SEMANTIC_SPACING_MAPPINGS {
+  $mobile-scale-key: map.get($keys, mobile);
+  $desktop-scale-key: map.get($keys, desktop);
+
+  // Retrieve the actual rem values from the primitive spacing maps
+  $min-spacing-val: map.get(p-spacing.$SPACING_VALUES_MOBILE, $mobile-scale-key);
+  $max-spacing-val: map.get(p-spacing.$SPACING_VALUES_DESKTOP, $desktop-scale-key);
+
+  @if $min-spacing-val == null {
+    @warn "SemanticSpacingScale: Mobile spacing value for key '#{$mobile-scale-key}' (semantic: '#{$semantic-name}') not found in p-spacing.$SPACING_VALUES_MOBILE. Skipping responsive style for '#{$semantic-name}'.";
+  } @else if $max-spacing-val == null {
+    @warn "SemanticSpacingScale: Desktop spacing value for key '#{$desktop-scale-key}' (semantic: '#{$semantic-name}') not found in p-spacing.$SPACING_VALUES_DESKTOP. Skipping responsive style for '#{$semantic-name}'.";
+  } @else {
+    // Generate the clamp() string using the utility function from _u-clamp.scss
+    // Using parameter names from memory: $min-value, $max-value, $min-viewport, $max-viewport
+    $clamped-spacing-string: u-clamp.create-clamp(
+      $min-value: $min-spacing-val,
+      $max-value: $max-spacing-val,
+      $min-viewport: $_CLAMP_MIN_VIEWPORT,
+      $max-viewport: $_CLAMP_MAX_VIEWPORT
+    );
+
+    // Add to the responsive spacing values map
+    $RESPONSIVE_SPACING_VALUES: map.merge(
+      $RESPONSIVE_SPACING_VALUES,
+      (
+        $semantic-name: $clamped-spacing-string,
+      )
+    );
+  }
+}
+
+// 5. HELPER FUNCTION TO GET RESPONSIVE SPACING
+// ---------------------------------------------------------------------------
+/**
+ * Retrieves a responsive (clamped) spacing value by its semantic name.
+ *
+ * @param {String} $semantic-name - The semantic name of the spacing value (e.g., 'spacing-m', 'gutter-s').
+ * @return {String | Null} - The CSS clamp() string if found, otherwise null and a warning is issued.
+ */
+@function get-responsive-spacing($semantic-name) {
+  @if not map.has-key($RESPONSIVE_SPACING_VALUES, $semantic-name) {
+    @warn "Responsive spacing for '#{$semantic-name}' not found in $RESPONSIVE_SPACING_VALUES.";
+    @return null;
+  }
+  @return map.get($RESPONSIVE_SPACING_VALUES, $semantic-name);
+}
+
+// Example Usage (in other SCSS files after importing this file):
+// .my-element {
+//   padding: get-responsive-spacing('inset-m');
+//   margin-bottom: get-responsive-spacing('stack-s');
+// }
+//
+// Or, if you prefer to use the map directly:
+// .another-element {
+//   gap: map.get($RESPONSIVE_SPACING_VALUES, 'gutter-l');
+// }

@@ -1,43 +1,103 @@
-@use '../../structure/semantic/s-spacing' as s-spacing;
+@use '../structure/semantic/s-spacing-scale' as semantic_spacing_api;
 @use 'sass:meta';
 @use 'sass:map';
+@use '../utils/u-mixtend' as mixtend;
 
 // ==========================================================================
 // PUBLIC SPACING API MIXINS
 // ==========================================================================
 
+// ==========================================================================
+//   UTILITY CLASSES (via Mixtend)
+// ==========================================================================
+// These utility classes are generated using the create-mixtend utility.
+// They provide direct classes for applying specific semantic spacing values
+// for padding, margin, and gap properties, leveraging @extend for efficiency.
+// ==========================================================================
+
+// Loop through each semantic spacing key and generate utility classes
+@each $semantic-key, $value in semantic_spacing_api.$RESPONSIVE_SPACING_VALUES {
+  @if $value != null { // Ensure value is valid before creating classes
+
+    // --- Padding Utilities ---
+    // All sides
+    @include mixtend.create-mixtend('u-p-#{$semantic-key}') { padding: $value; }
+    // Top (block-start)
+    @include mixtend.create-mixtend('u-pt-#{$semantic-key}') { padding-block-start: $value; }
+    // Right (inline-end)
+    @include mixtend.create-mixtend('u-pr-#{$semantic-key}') { padding-inline-end: $value; }
+    // Bottom (block-end)
+    @include mixtend.create-mixtend('u-pb-#{$semantic-key}') { padding-block-end: $value; }
+    // Left (inline-start)
+    @include mixtend.create-mixtend('u-pl-#{$semantic-key}') { padding-inline-start: $value; }
+    // Vertical (block)
+    @include mixtend.create-mixtend('u-py-#{$semantic-key}') { padding-block: $value; } // y-axis / block
+    // Horizontal (inline)
+    @include mixtend.create-mixtend('u-px-#{$semantic-key}') { padding-inline: $value; } // x-axis / inline
+
+    // --- Margin Utilities ---
+    // All sides
+    @include mixtend.create-mixtend('u-m-#{$semantic-key}') { margin: $value; }
+    // Top (block-start)
+    @include mixtend.create-mixtend('u-mt-#{$semantic-key}') { margin-block-start: $value; }
+    // Right (inline-end)
+    @include mixtend.create-mixtend('u-mr-#{$semantic-key}') { margin-inline-end: $value; }
+    // Bottom (block-end)
+    @include mixtend.create-mixtend('u-mb-#{$semantic-key}') { margin-block-end: $value; }
+    // Left (inline-start)
+    @include mixtend.create-mixtend('u-ml-#{$semantic-key}') { margin-inline-start: $value; }
+    // Vertical (block)
+    @include mixtend.create-mixtend('u-my-#{$semantic-key}') { margin-block: $value; } // y-axis / block
+    // Horizontal (inline)
+    @include mixtend.create-mixtend('u-mx-#{$semantic-key}') { margin-inline: $value; } // x-axis / inline
+
+    // --- Gap Utilities ---
+    // All (gap shorthand)
+    @include mixtend.create-mixtend('u-gap-#{$semantic-key}') { gap: $value; }
+    // Row gap
+    @include mixtend.create-mixtend('u-row-gap-#{$semantic-key}') { row-gap: $value; }
+    // Column gap
+    @include mixtend.create-mixtend('u-col-gap-#{$semantic-key}') { column-gap: $value; }
+  } @else {
+    @warn "Mixtend (public-spacing): Skipping utility class generation for key '#{$semantic-key}' due to null value.";
+  }
+}
+
 /**
  * Applies padding to an element using a semantic size key.
  *
- * @param {Keyword} $size-key - The semantic key for the spacing value.
+ * @param {Keyword} $semantic-spacing-key - The semantic key for the spacing value.
  * @param {Keyword | null} $side - Optional. Specify a side or axis.
  */
-@mixin apply-padding($size-key, $side: null) {
-  $_variable_name: 'space-#{$size-key}';
-  @if not meta.variable-exists($_variable_name, $module: 's-spacing') {
-    @warn "apply-padding: Semantic spacing key '#{$size-key}' (expected variable s-spacing.'#{$_variable_name}') not found. No padding applied.";
+@mixin apply-padding($semantic-spacing-key, $side: null) {
+  // Check if the key exists in the $RESPONSIVE_SPACING_VALUES map from the imported module
+  @if not map.has-key(semantic_spacing_api.$RESPONSIVE_SPACING_VALUES, $semantic-spacing-key) {
+    @warn "apply-padding: Semantic spacing key '#{$semantic-spacing-key}' not found in semantic_spacing_api.$RESPONSIVE_SPACING_VALUES. No padding applied.";
   } @else {
-    $value: meta.module-variable('s-spacing', $_variable_name);
+    // Retrieve the clamp() string to ensure it's a valid key, though the value itself isn't directly used here anymore.
+    $value: semantic_spacing_api.get-responsive-spacing($semantic-spacing-key);
+
     @if $value == null {
-      @warn "apply-padding: Resolved value for semantic key '#{$size-key}' (s-spacing.'#{$_variable_name}') is null. No padding applied.";
+      @warn "apply-padding: Resolved value for semantic key '#{$semantic-spacing-key}' is null or invalid. No padding applied.";
       @return;
     }
+
+    // Construct the mixin name and include it.
+    // The included mixins are defined by the create-mixtend loop further down.
     @if $side == null {
-      padding: $value;
+      @include u-p-#{$semantic-spacing-key};
     } @else if $side == top {
-      padding-block-start: $value;
+      @include u-pt-#{$semantic-spacing-key};
     } @else if $side == right {
-      padding-inline-end: $value;
+      @include u-pr-#{$semantic-spacing-key};
     } @else if $side == bottom {
-      padding-block-end: $value;
+      @include u-pb-#{$semantic-spacing-key};
     } @else if $side == left {
-      padding-inline-start: $value;
+      @include u-pl-#{$semantic-spacing-key};
     } @else if $side == block {
-      padding-block-start: $value;
-      padding-block-end: $value;
+      @include u-py-#{$semantic-spacing-key}; // 'py' for padding y-axis (block)
     } @else if $side == inline {
-      padding-inline-start: $value;
-      padding-inline-end: $value;
+      @include u-px-#{$semantic-spacing-key}; // 'px' for padding x-axis (inline)
     } @else {
       @warn "apply-padding: Invalid side '#{$side}'. Use top, right, bottom, left, block, inline, or null. No padding applied.";
     }
@@ -47,39 +107,76 @@
 /**
  * Applies margin to an element using a semantic size key.
  *
- * @param {Keyword} $size-key - The semantic key for the spacing value.
+ * @param {Keyword} $semantic-spacing-key - The semantic key for the spacing value.
  * @param {Keyword | null} $side - Optional. Specify a side or axis.
  */
-@mixin apply-margin($size-key, $side: null) {
-  $_variable_name: 'space-#{$size-key}';
-  @if not meta.variable-exists($_variable_name, $module: 's-spacing') {
-    @warn "apply-margin: Semantic spacing key '#{$size-key}' (expected variable s-spacing.'#{$_variable_name}') not found. No margin applied.";
+@mixin apply-margin($semantic-spacing-key, $side: null) {
+  @if not map.has-key(semantic_spacing_api.$RESPONSIVE_SPACING_VALUES, $semantic-spacing-key) {
+    @warn "apply-margin: Semantic spacing key '#{$semantic-spacing-key}' not found in semantic_spacing_api.$RESPONSIVE_SPACING_VALUES. No margin applied.";
   } @else {
-    $value: meta.module-variable('s-spacing', $_variable_name);
+    $value: semantic_spacing_api.get-responsive-spacing($semantic-spacing-key);
+
     @if $value == null {
-       @warn "apply-margin: Resolved value for semantic key '#{$size-key}' (s-spacing.'#{$_variable_name}') is null. No margin applied.";
+       @warn "apply-margin: Resolved value for semantic key '#{$semantic-spacing-key}' is null or invalid. No margin applied.";
        @return;
     }
+
     @if $side == null {
-      margin: $value;
+      @include u-m-#{$semantic-spacing-key};
     } @else if $side == top {
-      margin-block-start: $value;
+      @include u-mt-#{$semantic-spacing-key};
     } @else if $side == right {
-      margin-inline-end: $value;
+      @include u-mr-#{$semantic-spacing-key};
     } @else if $side == bottom {
-      margin-block-end: $value;
+      @include u-mb-#{$semantic-spacing-key};
     } @else if $side == left {
-      margin-inline-start: $value;
+      @include u-ml-#{$semantic-spacing-key};
     } @else if $side == block {
-      margin-block: $value;
+      @include u-my-#{$semantic-spacing-key}; // 'my' for margin y-axis (block)
     } @else if $side == inline {
-      margin-inline: $value;
+      @include u-mx-#{$semantic-spacing-key}; // 'mx' for margin x-axis (inline)
     } @else {
       @warn "apply-margin: Invalid side '#{$side}'. Use top, right, bottom, left, block, inline, or null. No margin applied.";
     }
   }
 }
 
-// ==========================================================================
-//   END OF PUBLIC SPACING API
-// ==========================================================================
+/* ==========================================================================
+   NEW MIXIN: apply-gap
+   ========================================================================== */
+
+/**
+ * Applies responsive gap spacing to a flexbox or grid container.
+ *
+ * @param {String} $semantic-spacing-key - The semantic key for the spacing value (e.g., 'gutter-s', 'spacing-m').
+ * @param {Keyword | Null} $direction - Optional. Specify 'row', 'column', or null for overall gap.
+ *                                      'row' applies to row-gap.
+ *                                      'column' applies to column-gap.
+ *                                      null (default) applies to the 'gap' shorthand property.
+ */
+@mixin apply-gap($semantic-spacing-key, $direction: null) {
+  @if not map.has-key(semantic_spacing_api.$RESPONSIVE_SPACING_VALUES, $semantic-spacing-key) {
+    @warn "apply-gap: Semantic spacing key '#{$semantic-spacing-key}' not found in semantic_spacing_api.$RESPONSIVE_SPACING_VALUES. No gap applied.";
+  } @else {
+    $value: semantic_spacing_api.get-responsive-spacing($semantic-spacing-key);
+
+    @if $value == null {
+      @warn "apply-gap: Resolved value for semantic key '#{$semantic-spacing-key}' is null or invalid. No gap applied.";
+      @return;
+    }
+
+    @if $direction == null {
+      @include u-gap-#{$semantic-spacing-key};
+    } @else if $direction == row {
+      @include u-row-gap-#{$semantic-spacing-key};
+    } @else if $direction == column {
+      @include u-col-gap-#{$semantic-spacing-key};
+    } @else {
+      @warn "apply-gap: Invalid direction '#{$direction}'. Use 'row', 'column', or null. Applying gap via u-gap-#{$semantic-spacing-key} as a fallback.";
+      @include u-gap-#{$semantic-spacing-key}; // Fallback to 'gap' if direction is invalid but value is good
+    }
+  }
+}
+/* ==========================================================================
+   END OF PUBLIC SPACING API
+   ========================================================================== */

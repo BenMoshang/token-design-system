@@ -19,8 +19,8 @@
 
 // Primitive Typography Definitions
 // --------------------------------------------------------------------------
-@use '../../primitive/typography/p-typography-font-size' as p_type-size;  // Font sizes, line heights
-@use '../../primitive/typography/p-typography' as p_type-props;           // Font families, weights, etc.
+@use '../../primitive/typography/_p-typography-scale' as p_type-size;  // Font sizes, line heights
+@use '../../primitive/typography/_p-typography-properties' as p_type-props;           // Font families, weights, etc.
 
 /* ==========================================================================
    1. SEMANTIC TYPOGRAPHY PRESET CONFIGURATION

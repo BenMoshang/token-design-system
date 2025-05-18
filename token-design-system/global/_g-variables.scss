@@ -1,0 +1,31 @@
+$TYPE_SCALE_RATIOS: (
+  minor-second: 1.067,
+  major-second: 1.125,
+  minor-third: 1.2,
+  major-third: 1.25,
+  perfect-fourth: 1.333,
+  augmented-fourth: 1.414,
+  perfect-fifth: 1.5,
+  golden-ratio: 1.618,
+) !default;
+
+@function get-type-ratio($key: major-second) {
+  @if not map.has-key($TYPE_SCALE_RATIOS, $key) {
+    @warn "Type scale ratio key '#{$key}' not found in $TYPE_SCALE_RATIOS. Using default ratio.";
+    @return map.get($TYPE_SCALE_RATIOS, major-second);
+  }
+  @return map.get($TYPE_SCALE_RATIOS, $key);
+}
+
+
+
+$MAX_INLINE_SIZES:(
+xl:90rem,
+lg:80rem,
+md:75rem,
+sm:73rem,
+);
+
+
+$PAGE_MIN_INLINE: 20rem;
+$PAGE_MAX_INLINE: map.get($MAX_INLINE_SIZES,lg);
