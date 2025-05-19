@@ -1,0 +1,126 @@
+// _u-breakpoints.scss
+// Purpose: Centralized breakpoint definitions and a mixin for responsive styling.
+// Best Practice: Define breakpoints in a map for easy management and iteration.
+//                Using pixel values for breakpoints is common for simplicity, but ensure
+//                your overall typography and layout scale appropriately (e.g., using rems for fonts/spacing).
+//                These breakpoints define mutually exclusive ranges for 'mobile', 'tablet', and 'desktop'.
+
+@use 'sass:map';
+@use 'sass:meta'; // For @warn
+
+// 1. Breakpoint Definitions
+// ==========================================================================
+// These values define the *starting points* for tablet and desktop.
+// - Mobile styles apply from 0 up to (tablet-start - 1px).
+// - Tablet styles apply from tablet-start up to (desktop-start - 1px).
+// - Desktop styles apply from desktop-start and onwards.
+//
+// Common breakpoint values (customize to your project's needs):
+// - 768px: Common start for tablet layouts.
+// - 1024px: Common start for desktop layouts.
+// You can add more granular breakpoints here if needed (e.g., 'large-desktop-start').
+$breakpoints: (
+  mobile: 30rem,
+  tablet: 48rem,  // Min-width for tablet range
+  desktop: 64rem // Min-width for desktop range and up
+) !default;
+
+// 2. Respond-To Mixin
+// ==========================================================================
+/**
+ * Applies styles for specific, mutually exclusive viewport ranges: mobile, tablet, or desktop.
+ *
+ * Assumes a mobile-first approach where base styles are for mobile.
+ * This mixin then layers styles for tablet and desktop.
+ *
+ * @param {String} $device - The target device/viewport range.
+ * Options:
+ * - 'mobile': Applies styles specifically for mobile screens
+ * (screens narrower than 'tablet-start').
+ * - 'tablet': Applies styles specifically for tablet screens
+ * (screens from 'tablet-start' up to 'desktop-start' - 1px).
+ * - 'desktop': Applies styles for desktop screens and larger
+ * (screens from 'desktop-start' upwards).
+ *
+ * @content The block of CSS rules to apply within the media query.
+ *
+ * @example
+ * .my-element {
+ * // Base mobile styles
+ * padding: 10px;
+ * font-size: 14px;
+ *
+ * @include respond-to('tablet') {
+ * // Tablet-specific styles
+ * padding: 20px;
+ * font-size: 16px;
+ * }
+ *
+ * @include respond-to('desktop') {
+ * // Desktop-specific styles
+ * padding: 30px;
+ * font-size: 18px;
+ * max-width: 1200px;
+ * margin-left: auto;
+ * margin-right: auto;
+ * }
+ * }
+ *
+ * // Example for mobile-only specific overrides (if base styles are not enough)
+ * .mobile-only-feature {
+ * display: none; // Hidden by default (mobile-first)
+ *
+ * @include respond-to('mobile') {
+ * display: block; // Shown only on mobile
+ * }
+ * }
+ * // A more common mobile-first approach for the above would be:
+ * .feature {
+ * display: block; // Visible on mobile by default
+ *
+ * @include respond-to('tablet') {
+ * display: none; // Hidden on tablet and up
+ * }
+ * }
+ *
+ */
+@mixin respond-to($device) {
+  // Retrieve breakpoint values from the map
+  $mobile-min-width: map.get($breakpoints, mobile);
+
+  $tablet-min-width: map.get($breakpoints, tablet);
+  $desktop-min-width: map.get($breakpoints, desktop);
+
+  // Validate that breakpoints are found
+  @if not $tablet-min-width {
+    @warn "Respond-to: Breakpoint 'tablet-start' not found in $breakpoints map.";
+    @return;
+  }
+  @if not $desktop-min-width {
+    @warn "Respond-to: Breakpoint 'desktop-start' not found in $breakpoints map.";
+    @return;
+  }
+
+  // Apply media queries based on the device key
+  @if $device == mobile {
+    // Targets screens *smaller than* the tablet starting point.
+    @media (min-width: ($mobile-min-width)) {
+      @content;
+    }
+  } @else if $device == tablet {
+    // Targets screens *from* the tablet starting point *up to* (but not including) the desktop starting point.
+    @media (min-width: $tablet-min-width)  {
+      @content;
+    }
+  } @else if $device == desktop {
+    // Targets screens *from* the desktop starting point and larger.
+    @media (min-width: $desktop-min-width) {
+      @content;
+    }
+  } @else {
+    // Warn if an invalid device key is used.
+    @warn "Respond-to: Unknown device key '#{$device}'. Available keys: 'mobile', 'tablet', 'desktop'.";
+  }
+}
+
+// --- END OF BREAKPOINTS UTILITY ---

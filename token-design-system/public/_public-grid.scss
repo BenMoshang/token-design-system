@@ -1,0 +1,324 @@
+// ==========================================================================
+// PUBLIC GRID SYSTEM
+// Provides a public-facing API for a 12-column responsive grid system.
+// ==========================================================================
+
+@use '../utils/u-breakpoints' as u_breakpoints;
+@use '../structure/semantic/s-spacing-scale' as s_spacing;
+@use '../utils/u-mixtend' as u_mixtend;
+@use 'sass:map';
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:math';
+
+// --- Grid Configuration ---
+$grid-columns: 12 !default;
+/**
+ * Default semantic spacing key (from _s-spacing-scale.scss) for column gaps.
+ * Example: gutter-m
+ */
+$grid-default-gutter-key: gutter-m !default;
+/**
+ * Default semantic spacing key for row gaps.
+ * This is used by the make-grid-container mixin if its $row-gutter-key parameter is not explicitly set.
+ * Example: gutter-m
+ */
+$grid-default-row-gutter-key: $grid-default-gutter-key !default;
+
+// --- Feature Generation Flags ---
+// Set to false to disable generation of corresponding utility classes and reduce CSS output.
+$generate-offset-classes: true !default;
+$generate-order-classes: true !default;
+$generate-alignment-classes: true !default;
+
+// --- Breakpoint Configuration ---
+// Uses 'tablet' and 'desktop' breakpoints defined in `../utils/_u-breakpoints.scss`.
+// Grid utility classes are generated for these breakpoints (e.g., .col-tablet-6, .col-desktop-4).
+// These breakpoints define the *min-width* at which grid modifiers apply.
+$_grid-breakpoints: (
+  tablet: map.get(u_breakpoints.$breakpoints, tablet),
+  desktop: map.get(u_breakpoints.$breakpoints, desktop)
+) !default;
+
+// ==========================================================================
+// PRIVATE HELPER MIXINS FOR UTILITY GENERATION
+// ==========================================================================
+
+/**
+ * Wraps content in a media query for a given breakpoint key.
+ * Applies styles from the specified breakpoint width and up.
+ *
+ * @param {String} $bp-key - The breakpoint key (e.g., tablet, desktop) defined in `$_grid-breakpoints`.
+ * @param {Map} $breakpoints-map [$_grid-breakpoints] - The map of breakpoint keys to min-width values.
+ * @content The block of CSS rules to apply within the media query.
+ * @output CSS rules wrapped in a min-width media query.
+ */
+@mixin _responsive-wrapper($bp-key, $breakpoints-map: $_grid-breakpoints) {
+  $bp-value: map.get($breakpoints-map, $bp-key);
+  @if $bp-value {
+    @media (min-width: $bp-value) {
+      @content;
+    }
+  } @else {
+    @warn "Grid Private: Breakpoint value for '#{$bp-key}' not found or is null in map '#{$breakpoints-map}'. Skipping responsive block.";
+  }
+}
+
+/**
+ * Generates column span or numeric offset utility classes using u_mixtend.
+ *
+ * @param {String} $type - The type of utility to generate ('span' or 'offset').
+ * @param {String} $class-prefix - The prefix for the class name (e.g., 'col', 'offset').
+ * @param {Number} $start-index - The starting number for the utility class suffix.
+ * @param {Number} $end-index - The ending number for the utility class suffix.
+ * @param {String | Null} $bp-key [null] - Optional breakpoint key for responsive classes (e.g., tablet, desktop).
+ * @output Generated utility classes and corresponding mixins (e.g., .col-6 / @mixin col-6, .offset-tablet-2 / @mixin offset-tablet-2).
+ */
+@mixin _generate-col-type-classes($type, $class-prefix, $start-index, $end-index, $bp-key: null) {
+  @for $i from $start-index through $end-index {
+    $class-name: if($bp-key, '#{$class-prefix}-#{$bp-key}-#{$i}', '#{$class-prefix}-#{$i}');
+
+    @if $type == 'span' {
+      @include u_mixtend.create-mixtend($class-name) {
+        @include make-col($span: $i);
+      }
+    } @else if $type == 'offset' {
+      @include u_mixtend.create-mixtend($class-name) {
+        @include make-col($offset: $i);
+      }
+    }
+  }
+}
+
+/**
+ * Generates utility classes for CSS properties with specific values (e.g., order, justify-content) using u_mixtend.
+ *
+ * @param {String} $property - The CSS property name (e.g., 'order', 'justify-content').
+ * @param {String} $class-prefix - The prefix for the class name (e.g., 'order', 'justify-content').
+ * @param {Map} $values-map - A map where keys are class suffixes and values are CSS property values.
+ * @param {String | Null} $bp-key [null] - Optional breakpoint key for responsive classes (e.g., tablet, desktop).
+ * @output Generated utility classes and corresponding mixins (e.g., .order-1 / @mixin order-1).
+ */
+@mixin _generate-property-value-classes($property, $class-prefix, $values-map, $bp-key: null) {
+  @each $value-key, $css-value in $values-map {
+    $class-name: if($bp-key, '#{$class-prefix}-#{$bp-key}-#{$value-key}', '#{$class-prefix}-#{$value-key}');
+    @include u_mixtend.create-mixtend($class-name) {
+      #{$property}: $css-value;
+    }
+  }
+}
+
+// ==========================================================================
+// CORE GRID LOGIC MIXINS
+// ==========================================================================
+
+/**
+ * Applies CSS Grid container properties. This is an internal mixin used by the public `grid-container`.
+ *
+ * @param {String} $gutter-key - Semantic spacing key for column gaps.
+ * @param {String | Null} $row-gutter-key - Semantic spacing key for row gaps. If null, $gutter-key is used.
+ * @output CSS rules for a grid container.
+ */
+@mixin make-grid-container($gutter-key, $row-gutter-key) {
+  display: grid;
+  grid-template-columns: repeat($grid-columns, 1fr);
+
+  $column-gap-value: s_spacing.get-responsive-spacing($gutter-key);
+
+  // Determine the final key to use for row-gap.
+  // If $row-gutter-key is explicitly provided (not null), use it. Otherwise, use $gutter-key.
+  $final_row_key_to_use: $gutter-key;
+  @if $row-gutter-key != null {
+    $final_row_key_to_use: $row-gutter-key;
+  }
+  $row-gap-value: s_spacing.get-responsive-spacing($final_row_key_to_use);
+
+  @if $column-gap-value {
+    column-gap: $column-gap-value;
+  } @else {
+    @warn "Grid Core: Column gutter key '#{$gutter-key}' not found or has null value in s_spacing. No column-gap applied.";
+  }
+
+  @if $row-gap-value {
+    row-gap: $row-gap-value;
+  } @else if $final_row_key_to_use != null { // Only warn if a key was determined but its value was null
+    @warn "Grid Core: Row gutter key '#{$final_row_key_to_use}' not found or has null value in s_spacing. No row-gap applied.";
+  }
+}
+
+/**
+ * Applies CSS Grid item properties for column span, offset, and order.
+ * Internal mixin used by the public `col` mixin and utility generators.
+ *
+ * @param {Number | Keyword | Null} $span [null] - Number of columns to span (1 to $grid-columns),
+ * `auto` for automatic sizing, or `0` to hide (`display: none`).
+ * @param {Number | Null} $offset [null] - Number of columns to offset from the start (0 to $grid-columns - 1).
+ * @param {Number | String | Null} $order [null] - CSS `order` property value.
+ * @output CSS rules for a grid item.
+ */
+@mixin make-col($span: null, $offset: null, $order: null) {
+  @if $span != null {
+    @if $span == auto {
+      grid-column: auto;
+    } @else if type-of($span) == 'number' and $span > 0 and $span <= $grid-columns {
+      grid-column: span $span;
+    } @else if type-of($span) == 'number' and $span == 0 { // Defines col-hide behavior
+      display: none;
+    } @else {
+      @warn "Grid Core: Invalid column span value '#{$span}'. Must be 'auto', 0, or a number between 1 and #{$grid-columns}.";
+    }
+  }
+
+  @if $offset != null {
+    @if type-of($offset) == 'number' and $offset >= 0 and $offset < $grid-columns {
+      grid-column-start: $offset + 1; // CSS grid-column-start is 1-based
+    } @else {
+      @warn "Grid Core: Invalid column offset value '#{$offset}'. Must be a number between 0 and #{$grid-columns - 1}.";
+    }
+  }
+
+  @if $order != null {
+    order: $order;
+  }
+}
+
+// ==========================================================================
+// UTILITY CLASS GENERATION (AND CORRESPONDING MIXINS VIA U_MIXTEND)
+// ==========================================================================
+
+// --- Grid Container & Modifiers ---
+@include u_mixtend.create-mixtend('grid-container') {
+  @include make-grid-container($grid-default-gutter-key, $grid-default-row-gutter-key);
+}
+@include u_mixtend.create-mixtend('no-gutters') { // Modifier for .grid-container
+  column-gap: 0;
+  row-gap: 0;
+}
+
+// --- Base (Mobile-First) Column Utilities ---
+@include _generate-col-type-classes('span', 'col', 1, $grid-columns);
+@include u_mixtend.create-mixtend('col-auto') { @include make-col($span: auto); }
+@include u_mixtend.create-mixtend('col-hide') { @include make-col($span: 0); }
+
+// --- Responsive Column & Feature Utilities ---
+// $bp-key will now be 'tablet' or 'desktop'
+@each $bp-key, $bp-value in $_grid-breakpoints {
+  @include _responsive-wrapper($bp-key) {
+    // Column spans: e.g., .col-tablet-1 / @mixin col-tablet-1
+    @include _generate-col-type-classes('span', 'col', 1, $grid-columns, $bp-key: $bp-key);
+    // Auto column: e.g., .col-tablet-auto / @mixin col-tablet-auto
+    @include u_mixtend.create-mixtend('col-#{$bp-key}-auto') { @include make-col($span: auto); }
+    // Hide column at breakpoint: e.g., .col-tablet-hide / @mixin col-tablet-hide
+    @include u_mixtend.create-mixtend('col-#{$bp-key}-hide') { @include make-col($span: 0); }
+    // Show column at breakpoint: e.g., .col-tablet-show / @mixin col-tablet-show
+    @include u_mixtend.create-mixtend('col-#{$bp-key}-show') { display: block; }
+
+    // Offsets (conditional generation): e.g., .offset-tablet-0 / @mixin offset-tablet-0
+    @if $generate-offset-classes {
+      @include _generate-col-type-classes('offset', 'offset', 0, $grid-columns - 1, $bp-key: $bp-key);
+    }
+
+    // Order (conditional generation): e.g., .order-tablet-first / @mixin order-tablet-first
+    @if $generate-order-classes {
+      $order-values: (
+        first: -1,
+        last: $grid-columns + 1,
+        none: 0
+      );
+      @for $i from 0 through $grid-columns {
+        $order-values: map.merge($order-values, ($i: $i));
+      }
+      @include _generate-property-value-classes('order', 'order', $order-values, $bp-key: $bp-key);
+    }
+  }
+}
+
+// --- Base (Non-Responsive) Offset Utilities ---
+@if $generate-offset-classes {
+  @include _generate-col-type-classes('offset', 'offset', 0, $grid-columns - 1);
+}
+
+// --- Base (Non-Responsive) Order Utilities ---
+@if $generate-order-classes {
+  $base-order-values: (
+    first: -1,
+    last: $grid-columns + 1,
+    none: 0
+  );
+  @for $i from 0 through $grid-columns {
+    $base-order-values: map.merge($base-order-values, ($i: $i));
+  }
+  @include _generate-property-value-classes('order', 'order', $base-order-values);
+}
+
+// --- Container Alignment Utilities (for grid container) ---
+@if $generate-alignment-classes {
+  $_justify-content-values: (
+    start: flex-start, end: flex-end, center: center,
+    between: space-between, around: space-around, evenly: space-evenly
+  );
+  $_align-items-values: (
+    start: flex-start, end: flex-end, center: center,
+    stretch: stretch, baseline: baseline
+  );
+
+  // Base alignment: e.g., .justify-content-start / @mixin justify-content-start
+  @include _generate-property-value-classes('justify-content', 'justify-content', $_justify-content-values);
+  @include _generate-property-value-classes('align-items', 'align-items', $_align-items-values);
+
+  // Responsive alignment: e.g., .justify-content-tablet-start / @mixin justify-content-tablet-start
+  @each $bp-key, $bp-value in $_grid-breakpoints {
+    @include _responsive-wrapper($bp-key) {
+      @include _generate-property-value-classes('justify-content', 'justify-content', $_justify-content-values, $bp-key: $bp-key);
+      @include _generate-property-value-classes('align-items', 'align-items', $_align-items-values, $bp-key: $bp-key);
+    }
+  }
+}
+
+// ==========================================================================
+// PUBLIC API MIXINS
+// ==========================================================================
+
+/**
+ * Applies CSS Grid container styles to an element. This is the primary public mixin for grid containers.
+ * Example: `@include grid.grid-container($gutter-key: gutter-s, $row-gutter-key: gutter-xs);`
+ *
+ * @param {String} $gutter-key [$grid-default-gutter-key] - Semantic spacing key for column gaps.
+ * @param {String | Null} $row-gutter-key [null] - Semantic spacing key for row gaps.
+ * If null, the row gap will effectively use the $gutter-key's value.
+ * @output CSS rules for a grid container.
+ */
+@mixin grid-container($gutter-key: $grid-default-gutter-key, $row-gutter-key: null) {
+  @include make-grid-container($gutter-key, $row-gutter-key);
+}
+
+/**
+ * Styles an element as a grid column. This is the primary public mixin for grid items.
+ * Example: `@include grid.col($span: 6, $offset: 3, $breakpoint-key: tablet);`
+ *
+ * @param {Number | Keyword | Null} $span [null] - Number of columns (1-$grid-columns), 'auto', 0 (hide).
+ * @param {Number | Null} $offset [null] - Number of columns to offset (0 to $grid-columns - 1).
+ * @param {Number | String | Null} $order [null] - CSS `order` value.
+ * @param {String | Null} $breakpoint-key [null] - Optional breakpoint key ('tablet', 'desktop')
+ * to apply these styles at and above that breakpoint.
+ * @output CSS rules for a grid item, potentially within a media query.
+ */
+@mixin col($span: null, $offset: null, $order: null, $breakpoint-key: null) {
+  @if $breakpoint-key == null {
+    // Apply to base (mobile-first)
+    @include make-col($span, $offset, $order);
+  } @else {
+    // Apply at a specific breakpoint and up
+    @if not map.has-key($_grid-breakpoints, $breakpoint-key) {
+      @warn "Grid Public API: Invalid breakpoint key '#{$breakpoint-key}' for col() mixin. Available keys: #{map.keys($_grid-breakpoints)}. Styles not applied for this breakpoint.";
+    } @else {
+      @include _responsive-wrapper($breakpoint-key) {
+        @include make-col($span, $offset, $order);
+      }
+    }
+  }
+}
+
+// ==========================================================================
+// END OF PUBLIC GRID API
+// ==========================================================================

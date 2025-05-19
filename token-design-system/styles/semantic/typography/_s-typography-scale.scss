@@ -25,73 +25,74 @@
 // Map semantic names to the scale keys (e.g., '100', '700') from the
 // base.$FONT_SIZES_MOBILE and base.$FONT_SIZES_DESKTOP maps.
 $_SEMANTIC_FONT_MAPPINGS: (
-  Display 1:
+  display-a:
     (
       mobile: 700,
       desktop: 700,
     ),
   // Step 6
-  Display 2:
+  display-a:
     (
       mobile: 600,
       desktop: 600,
     ),
   // Step 5
-  Title A:
+  title-a:
     (
       mobile: 500,
       desktop: 500,
     ),
   // Step 4
-  Title B:
+  title-b:
     (
       mobile: 400,
       desktop: 400,
     ),
   // Step 3
-  Title C:
+title-c:
     (
       mobile: 300,
       desktop: 300,
     ),
   // Step 2
-  Heading:
+  heading:
     (
       mobile: 400,
       desktop: 400,
     ),
   // Step 3 (same as Title B by default)
-  Subheading:
+  subheading:
     (
       mobile: 200,
       desktop: 200,
     ),
   // Step 1
-  Body:
+  body:
     (
       mobile: 100,
       desktop: 100,
     ),
   // Step 0 (base)
-  Callout:
+  callout:
     (
       mobile: 200,
       desktop: 200,
     ),
   // Step 1 (can differentiate by weight/style)
-  Label:
+  label:
     (
       mobile: 50,
       desktop: 50,
     ),
   // Step -0.5
-  Caption:
+  caption:
     (
       mobile: 50,
       desktop: 50,
     ),
   // Step -0.5
-  Overline:
+  /*--an overline is aa secondary label--*/
+  overline: 
     (
       mobile: 25,
       desktop: 25,
